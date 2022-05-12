@@ -8,3 +8,9 @@ www.briandanin.com - this site is built with Hugo, see https://gohugo.io/
 To get started, begin the server:
 
 - `cd web && hugo server -D`
+
+### Ananke Sub-Theme Updates
+
+To update the sub-theme:
+
+`cd web/themes/ananke && git submodule update`
