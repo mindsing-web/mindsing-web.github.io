@@ -7,4 +7,4 @@ www.briandanin.com - this site is built with Hugo, see https://gohugo.io/
 
 To get started, begin the server:
 
-- `hugo server -D`
+- `cd web && hugo server -D`
