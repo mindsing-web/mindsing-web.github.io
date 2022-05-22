@@ -3,5 +3,16 @@
   "languageCode": "en-us",
   "title": "Brian Danin",
   "theme": "ananke",
-  "contentDir": "content"
+  "contentDir": "content",
+  "DefaultContentLanguage": "en",
+  "SectionPagesMenu": "main",
+  "Paginate": 5,
+  "enableRobotsTXT": true,
+  "languages": {
+    "en": {
+      "title": "Brian Danin",
+      "weight": 1,
+      "contentDir": "content/en"
+    }
+  }
 }
