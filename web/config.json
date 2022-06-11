@@ -8,6 +8,9 @@
   "SectionPagesMenu": "main",
   "Paginate": 5,
   "enableRobotsTXT": true,
+  "params": {
+    "site_logo": "images/mindsing-logo.svg"
+  },
   "languages": {
     "en": {
       "title": "MindSing",
