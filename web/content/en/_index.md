@@ -1,6 +1,6 @@
 ---
 title: "Web Systems"
-featured_image: '/images/spanish-sky--brian-danin.jpg'
+featured_image: '/images/pacific-northwest-mountains.jpg'
 description: "Drupal, WordPress, Node, Laravel, PHP, SCSS, HMTL, Content Management"
 ---
 Contact us at:
