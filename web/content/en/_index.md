@@ -1,8 +1,8 @@
 ---
-title: "Artist and Consultant"
+title: "Web Systems"
 featured_image: '/images/spanish-sky--brian-danin.jpg'
-description: "Embrace the future."
+description: "Drupal, WordPress, Node, Laravel, PHP, SCSS, HMTL, Content Management"
 ---
-To collaborate, please contact me:
+Contact us at:
 
-email `@` briandanin.com
+<a href="mailto:inquiries@mindsing.com">inquiries@mindsing.com</a>

@@ -1,7 +1,7 @@
 {
-  "baseURL": "https://www.briandanin.com/",
+  "baseURL": "https://www.mindsing.com/",
   "languageCode": "en-us",
-  "title": "Brian Danin",
+  "title": "MindSing",
   "theme": "ananke",
   "contentDir": "content",
   "DefaultContentLanguage": "en",
@@ -10,7 +10,7 @@
   "enableRobotsTXT": true,
   "languages": {
     "en": {
-      "title": "Brian Danin",
+      "title": "MindSing",
       "weight": 1,
       "contentDir": "content/en"
     }

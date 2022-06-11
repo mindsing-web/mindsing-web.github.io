@@ -1,6 +1,6 @@
-# Brian Danin Main Website
+# MindSing Hugo Website
 
-www.briandanin.com - this site is built with Hugo, see https://gohugo.io/
+www.mindsing.com - this site is built with Hugo, see https://gohugo.io/
 ## Getting Started
 To get started, first initialize the sub-theme.
 ### Ananke Sub-Theme Initialization
