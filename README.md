@@ -12,7 +12,7 @@ To update the sub-theme:
 ### Hugo Dev Server
 To start the server:
 
-- `cd web && hugo server -D`
+`cd web && hugo server -D`
 ## Publishing
 
 The website is hosted at GitHub pages,
