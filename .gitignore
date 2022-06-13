@@ -14,3 +14,7 @@ hugo.linux
 
 # Node
 node_modules/
+
+# Webpack
+mix-manifest.json
+web/static/css
