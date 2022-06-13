@@ -4,5 +4,10 @@
   "description": "Frontend Compiler for MindSing Website",
   "main": "app.js",
   "author": "Brian Danin",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.2"
+  }
 }
