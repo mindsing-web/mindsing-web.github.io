@@ -9,7 +9,8 @@
   "Paginate": 5,
   "enableRobotsTXT": true,
   "params": {
-    "site_logo": "images/mindsing-logo.svg"
+    "site_logo": "images/mindsing-logo.svg",
+    "custom_css": ["css/app.css"]
   },
   "languages": {
     "en": {
