@@ -1,0 +1,8 @@
+{
+  "name": "mindsing-frontend",
+  "version": "1.0.0",
+  "description": "Frontend Compiler for MindSing Website",
+  "main": "app.js",
+  "author": "Brian Danin",
+  "license": "ISC"
+}
