@@ -1,3 +1,16 @@
 .site-logo {
   min-height: 100px;
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.navigation-main {
+  a {
+    &:hover {
+      border-bottom: #ffffff88 1px solid;
+    }
+  }
 }
