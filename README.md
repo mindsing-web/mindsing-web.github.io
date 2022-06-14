@@ -13,6 +13,13 @@ To update the sub-theme:
 To start the server:
 
 `cd web && hugo server -D`
+
+### Front-end Development
+To compile the front-end assets:
+`cd frontend && npm run watch`
+
+See `frontend/README.md` for more info.
+
 ## Publishing
 
 The website is hosted at GitHub pages,
