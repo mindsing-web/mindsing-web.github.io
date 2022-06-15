@@ -17,3 +17,13 @@
 .article-left-align .tc-l {
   text-align: left;
 }
+
+.text-style {
+  &.--smaller {
+    font-size: smaller;
+  }
+
+  &.--italic {
+    font-style: italic;
+  }
+}

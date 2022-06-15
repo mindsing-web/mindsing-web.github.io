@@ -13,3 +13,5 @@ We believe that every voice matters, and that everyone has something valuable to
 Thank you for considering us as your partner in this exciting endeavor.
 
 MindSing is committed to helping you achieve your goals, and we look forward to working with you.
+
+<span class="text-style --smaller --italic">All photos original Brian Danin &copy;2022</span>
