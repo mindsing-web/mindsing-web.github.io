@@ -2,6 +2,7 @@
 title: "About"
 description: "Web Systems and Creative Works"
 featured_image: "../images/colombia-hill.jpg"
+article_class: "article-left-align"
 ---
 MindSing is a team of web developers, content writers, and artists who are passionate about creating engaging content that helps people learn and grow.
 
