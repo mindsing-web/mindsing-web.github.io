@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web Systems on MindSing</title>
+    <link>https://www.mindsing.com/</link>
+    <description>Recent content in Web Systems on MindSing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://www.mindsing.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Content Production</title>
+      <link>https://www.mindsing.com/services/content-writing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.mindsing.com/services/content-writing/</guid>
+      <description>Original content is the bread and butter of the internet. Whether it&amp;rsquo;s a blog post, a video, or an infographic, web users are always looking for something new to consume. That&amp;rsquo;s where original content production comes in. Original content can take many forms, but it always has one thing in common: it&amp;rsquo;s created specifically for the web. That means that it&amp;rsquo;s designed to be engaging and shareable, two essential qualities for any piece of online content.</description>
+    </item>
+    
+    <item>
+      <title>Original Photography and Video</title>
+      <link>https://www.mindsing.com/services/multi-media/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.mindsing.com/services/multi-media/</guid>
+      <description>Video production for the web has come a long way in recent years. High-quality cameras and editing software are now affordable and easy to use, making it possible for even novice users to produce professional-grade video content.
+The same is true of photography; although DSLRs are still the preferred choice of many professional photographers, point-and-shoot cameras are now capable of taking high-quality photos that can be easily edited and shared online.</description>
+    </item>
+    
+    <item>
+      <title>Web Development</title>
+      <link>https://www.mindsing.com/services/web-development/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.mindsing.com/services/web-development/</guid>
+      <description>We offer front-end and back-end web implementation services and focus on content management systems (CMS).
+Drupal and WordPress are two of the most popular content management systems (CMS) on the market today.
+Drupal is a free and open source CMS that powers millions of websites and applications. WordPress is a self-hosted CMS that is used by millions of people around the world.
+Both Drupal and WordPress are great for creating websites, but they have different strengths and weaknesses.</description>
+    </item>
+    
+  </channel>
+</rss>
