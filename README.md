@@ -23,7 +23,7 @@ See `frontend/README.md` for more info.
 ## Publishing
 
 The website is hosted at GitHub pages,
-at https://github.com/bdanin/bdanin.github.io/settings/pages
+at https://github.com/mindsing-web/mindsing-web.github.io/settings/pages
 
 To update the static page HTML, run `hugo` from the web directory
 and the site will be regenerated.
@@ -33,17 +33,17 @@ from the public directory.
 
 If this is the first time, create the public repo.
 
-Note that `github-bdanin` is an alias
+Note that `github-mindsing` is an alias
 setup in `~/.ssh/config` for `git@github.com`.
 
 This connection uses a specific SSH key used for
-bdanin's GitHub account to connect to GitHub.
+mindsing-web's GitHub account to connect to GitHub.
 
 ### Connect to the Public Publishing Repo
 ```
 mkdir public && cd public;
 git init;
-git remote add origin github-bdanin:bdanin/bdanin.github.io.git;
+git remote add origin github-mindsing:mindsing-web/mindsing-web.github.io.git;
 git pull origin main;
 git branch --set-upstream-to=origin/main main;
 ```
