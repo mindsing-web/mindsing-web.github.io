@@ -1,5 +1,5 @@
 ---
-title: "MindSing Services"
+title: "Experience and Services"
 description: "We're passionate about developing beautiful and performant website experiences."
 featured_image: '../images/leavenworth-mindsing.jpg'
 ---
