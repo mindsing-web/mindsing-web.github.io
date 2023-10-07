@@ -1,8 +1,8 @@
 ---
-title: "Web Systems"
+title: "Enterprise Web Systems"
 featured_image: '/images/pacific-northwest-mountains.jpg'
-description: "Drupal, WordPress, Node, Laravel, PHP, SCSS, HMTL, Content Management"
+description: "Drupal, GTM, SEO, WordPress, Node, Laravel, PHP, SCSS, HMTL, Content"
 ---
 Contact us at:
 
-<a href="mailto:inquiries@mindsing.com">inquiries@mindsing.com</a>
+inquiries@mindsing.com
