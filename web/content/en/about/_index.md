@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "About and Background"
 description: "Web Systems and Creative Works"
 featured_image: "../images/colombia-hill.jpg"
 article_class: "article-left-align"
@@ -14,4 +14,4 @@ Thank you for considering us as your partner in this exciting endeavor.
 
 MindSing is committed to helping you achieve your goals, and we look forward to working with you.
 
-<span class="text-style --smaller --italic">All photos original Brian Danin &copy;2022</span>
+<span class="text-style --smaller --italic">All photos original &copy; Brian Danin</span>
