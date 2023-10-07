@@ -8,6 +8,8 @@
   </url><url>
     <loc>/services/content-writing/</loc>
   </url><url>
+    <loc>/</loc>
+  </url><url>
     <loc>/services/</loc>
   </url><url>
     <loc>/services/multi-media/</loc>
@@ -15,7 +17,5 @@
     <loc>/tags/</loc>
   </url><url>
     <loc>/services/web-development/</loc>
-  </url><url>
-    <loc>/</loc>
   </url>
 </urlset>
