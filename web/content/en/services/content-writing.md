@@ -1,6 +1,6 @@
 ---
 description: Original content.
-title: "Content Production"
+title: "Content Production and Authoring"
 featured_image: "/images/mazatlan-sunrise.jpg"
 ---
 
