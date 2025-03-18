@@ -37,6 +37,7 @@ Note that `github-mindsing` is an alias
 setup in `~/.ssh/config` for `git@github.com`.
 
 The `config` file should have this:
+
 ```
 # mindsing github
 Host github-mindsing
@@ -44,13 +45,14 @@ Host github-mindsing
   User git
   IdentityFile ~/.ssh/mindsing-ssh-git
   IdentitiesOnly yes
-  ```
+```
 
 This connection uses a specific SSH key used for
 mindsing-web's GitHub account to connect to GitHub.
 
 ### Connect to the Public Publishing Repo
 Note, this `public` directory is a sub-directory inside the `web` directory.
+
 ```
 mkdir public && cd public;
 git init;
