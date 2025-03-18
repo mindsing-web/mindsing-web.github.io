@@ -28,6 +28,12 @@ at https://github.com/mindsing-web/mindsing-web.github.io/settings/pages
 To update the static page HTML, run `hugo` from the web directory
 and the site will be regenerated.
 
+Make sure to run the build in production mode with:
+
+```
+HUGO_ENV="production" hugo --minify
+```
+
 To setup the public repo for publishing, first connect to the GitHub repo
 from the public directory.
 
