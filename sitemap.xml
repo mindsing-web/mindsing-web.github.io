@@ -2,20 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/about/</loc>
+    <loc>//localhost:1313/about/</loc>
   </url><url>
-    <loc>/categories/</loc>
+    <loc>//localhost:1313/categories/</loc>
   </url><url>
-    <loc>/services/content-writing/</loc>
+    <loc>//localhost:1313/services/content-writing/</loc>
   </url><url>
-    <loc>/</loc>
+    <loc>//localhost:1313/</loc>
   </url><url>
-    <loc>/services/</loc>
+    <loc>//localhost:1313/services/</loc>
   </url><url>
-    <loc>/services/multi-media/</loc>
+    <loc>//localhost:1313/services/multi-media/</loc>
   </url><url>
-    <loc>/tags/</loc>
+    <loc>//localhost:1313/tags/</loc>
   </url><url>
-    <loc>/services/web-development/</loc>
+    <loc>//localhost:1313/services/web-development/</loc>
   </url>
 </urlset>
