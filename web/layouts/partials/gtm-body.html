@@ -1,0 +1,12 @@
+<!-- Google Tag Manager (noscript), {{ .environment }} -->
+{{/* Set environment-specific GTM parameters */}}
+{{ $gtm_params := "" }}
+{{ if eq .environment "production" }}
+  {{ $gtm_params = "&gtm_auth=mRHZuF06IswzXy0_qX2HkQ&gtm_preview=env-1&gtm_cookies_win=x" }}
+{{ else }}
+  {{ $gtm_params = "&gtm_auth=7ZCZg6pNCuY1qliE-6MFqA&gtm_preview=env-3&gtm_cookies_win=x" }}
+{{ end }}
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KPDPWFQ4{{ $gtm_params }}"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->

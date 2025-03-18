@@ -1,0 +1,29 @@
+<!-- Google Tag Manager, {{ .environment }} -->
+{{/* Set environment-specific GTM parameters */}}
+{{ $gtm_params := "" }}
+{{ if eq .environment "production" }}
+  {{ $gtm_params = "&gtm_auth=mRHZuF06IswzXy0_qX2HkQ&gtm_preview=env-1&gtm_cookies_win=x" }}
+{{ else }}
+  {{ $gtm_params = "&gtm_auth=7ZCZg6pNCuY1qliE-6MFqA&gtm_preview=env-3&gtm_cookies_win=x" }}
+{{ end }}
+
+<script>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({
+      "gtm.start": new Date().getTime(),
+      event: "gtm.js",
+    });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src =
+      "https://www.googletagmanager.com/gtm.js?id=" +
+      i +
+      dl +
+      "{{ $gtm_params | safeJS }}";
+    f.parentNode.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", "GTM-KPDPWFQ4");
+</script>
+<!-- End Google Tag Manager -->
