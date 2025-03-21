@@ -1,5 +1,4 @@
 .site-logo {
-  min-height: 100px;
   transition: all 0.2s ease-in-out;
 }
 .site-logo:hover {
@@ -8,4 +7,15 @@
 
 .navigation-main a:hover {
   border-bottom: rgba(255, 255, 255, 0.5333333333) 1px solid;
+}
+
+.article-left-align .tc-l {
+  text-align: left;
+}
+
+.text-style.--smaller {
+  font-size: smaller;
+}
+.text-style.--italic {
+  font-style: italic;
 }
