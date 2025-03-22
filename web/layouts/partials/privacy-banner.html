@@ -7,11 +7,17 @@
       </p>
     </div>
     <div class="w-100 w-third-ns mt2 mt0-ns tr-ns">
-      <button id="reject-privacy" class="mr2 ba b--white-40 bg-transparent white pv2 ph3 pointer hover-bg-white-20 br2">
+      <!-- Reject link (shown in both modes) -->
+      <a id="reject-privacy" class="link white underline mr3 pointer">
         Reject All
-      </button>
+      </a>
+      <!-- Accept button (only shown in explicit mode) -->
       <button id="accept-privacy" class="ba b--white-40 bg-transparent white pv2 ph3 pointer hover-bg-white-20 br2">
         Accept
+      </button>
+      <!-- Acknowledge button (only shown in auto mode) -->
+      <button id="acknowledge-privacy" class="ba b--white-40 bg-transparent white pv2 ph3 pointer hover-bg-white-20 br2">
+        Acknowledge
       </button>
     </div>
   </div>

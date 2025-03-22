@@ -27,3 +27,49 @@
     font-style: italic;
   }
 }
+
+// Privacy banner styling
+#privacy-banner {
+  // Explicit consent mode styling
+  &.privacy-mode-explicit {
+    #reject-privacy {
+      // Remove link styling
+      text-decoration: none;
+
+      // Add button styling
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background-color: transparent;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      display: inline-block;
+
+      // Hover effect
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    // Ensure the accept button is visible in explicit mode
+    #accept-privacy {
+      display: inline-block;
+    }
+
+    // Hide acknowledge button in explicit mode
+    #acknowledge-privacy {
+      display: none;
+    }
+  }
+
+  // Auto-accept mode styling
+  &.privacy-mode-auto {
+    // Ensure the acknowledge button is visible in auto mode
+    #acknowledge-privacy {
+      display: inline-block;
+    }
+
+    // Hide accept button in auto mode
+    #accept-privacy {
+      display: none;
+    }
+  }
+}
