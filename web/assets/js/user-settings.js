@@ -32,7 +32,7 @@ document.addEventListener ('DOMContentLoaded', function () {
       event: 'privacyUpdate',
       privacyConsent: hasConsent,
     });
-    console.log ('Privacy consent updated in dataLayer:', hasConsent);
+    // console.log ('Privacy consent updated in dataLayer:', hasConsent);
   }
 
   // Get the stored consent data
@@ -67,7 +67,6 @@ document.addEventListener ('DOMContentLoaded', function () {
    */
   function showBannerIfNeeded () {
     if (!hasValidDecision) {
-      console.log ('Showing privacy banner');
       banner.style.display = 'block';
     }
   }
@@ -77,7 +76,6 @@ document.addEventListener ('DOMContentLoaded', function () {
 
   // Option 1: Listen for custom DOM event (works without GTM)
   document.addEventListener ('afterPageLoad', function () {
-    console.log ('afterPageLoad DOM event received');
     showBannerIfNeeded ();
   });
 
@@ -88,7 +86,6 @@ document.addEventListener ('DOMContentLoaded', function () {
   });
 
   if (alreadyLoaded) {
-    console.log ('afterLoad event already occurred');
     showBannerIfNeeded ();
   }
 
