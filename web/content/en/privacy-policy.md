@@ -19,15 +19,19 @@ Welcome to MindSing. We respect your privacy and are committed to protecting you
 
 ### Information You Provide
 
-- **Contact information**: When you subscribe to our newsletter or contact us, we collect your name and email address.
-- **Account information**: If you create an account, we collect login credentials and profile information.
-- **User content**: Any content you submit, including comments, reviews, or forum posts.
+- **Contact information**: When you contact us through our contact form, we collect your name and email address.
+- **Calendar booking information**: When you schedule appointments through our calendar system, we collect your name, email address, and any additional information you provide related to the booking.
+- **User content**: Any content you submit, including comments or feedback.
 
 ### Information Collected Automatically
 
 - **Usage data**: Information about how you interact with our website, including pages visited and time spent.
 - **Device information**: Browser type, operating system, and device identifiers.
 - **IP address**: Used to approximate your location and for security purposes.
+
+## How We Store Your Data
+
+We use Zoho CRM to store and manage data collected through our website. Your personal information is processed and stored according to Zoho's security and data protection policies. For more information about Zoho's data practices, please visit [Zoho's privacy policy](https://www.zoho.com/privacy.html).
 
 ## How We Use Cookies
 
