@@ -57,7 +57,7 @@ document.addEventListener ('DOMContentLoaded', function () {
       event: 'privacyUpdate',
       privacyConsent: hasConsent,
     });
-    console.log ('Privacy consent updated in dataLayer:', hasConsent);
+    // console.log ('Privacy consent updated in dataLayer:', hasConsent);
   }
 
   // Handle acknowledge button click - just hide the banner (consent already given in auto mode)
