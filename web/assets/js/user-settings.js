@@ -22,7 +22,11 @@ document.addEventListener ('DOMContentLoaded', function () {
   // Initialize dataLayer if it doesn't exist
   window.dataLayer = window.dataLayer || [];
 
-  // Function to push consent to dataLayer
+  /**
+   * Updates the dataLayer with the user's consent choice
+   * @param {boolean} hasConsent - Whether the user has given consent
+   * @returns {void}
+   */
   function updateDataLayerConsent (hasConsent) {
     window.dataLayer.push ({
       event: 'privacyUpdate',
@@ -57,9 +61,35 @@ document.addEventListener ('DOMContentLoaded', function () {
   // Push current consent state to dataLayer
   updateDataLayerConsent (hasConsent);
 
-  // Show banner if no valid decision yet
-  if (!hasValidDecision) {
-    banner.style.display = 'block';
+  /**
+   * Shows the privacy banner if needed
+   * @returns {void}
+   */
+  function showBannerIfNeeded () {
+    if (!hasValidDecision) {
+      console.log ('Showing privacy banner');
+      banner.style.display = 'block';
+    }
+  }
+
+  // Wait for afterLoad event before showing banner
+  // Listen for both dataLayer event and DOM event for robustness
+
+  // Option 1: Listen for custom DOM event (works without GTM)
+  document.addEventListener ('afterPageLoad', function () {
+    console.log ('afterPageLoad DOM event received');
+    showBannerIfNeeded ();
+  });
+
+  // Option 2: Check if event already happened (if this script loads after event)
+  let dataLayerArray = window.dataLayer || [];
+  let alreadyLoaded = dataLayerArray.some (function (item) {
+    return item.event === 'afterLoad';
+  });
+
+  if (alreadyLoaded) {
+    console.log ('afterLoad event already occurred');
+    showBannerIfNeeded ();
   }
 
   // Handle accept button click
