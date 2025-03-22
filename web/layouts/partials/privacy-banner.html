@@ -17,8 +17,19 @@
   </div>
 </div>
 
-{{/* Load the privacy banner JavaScript */}}
-{{/* Use minified and fingerprinted version in production for better performance */}}
+{{/* Load afterLoad.js first since it creates events that user-settings.js listens for */}}
+{{ with resources.Get "js/afterLoad.js" }}
+  {{ $afterLoadJs := . }}
+  {{ if hugo.IsProduction }}
+    {{ $afterLoadJs = $afterLoadJs | minify | fingerprint }}
+  {{ end }}
+  <script src="{{ $afterLoadJs.RelPermalink }}"></script>
+{{ else }}
+  <!-- Fallback if resource isn't found -->
+  <script src="/js/afterLoad.js"></script>
+{{ end }}
+
+{{/* Then load the privacy banner JavaScript */}}
 {{ with resources.Get "js/user-settings.js" }}
   {{ $js := . }}
   {{ if hugo.IsProduction }}
