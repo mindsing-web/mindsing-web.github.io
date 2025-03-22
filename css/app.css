@@ -19,3 +19,27 @@
 .text-style.--italic {
   font-style: italic;
 }
+
+#privacy-banner.privacy-mode-explicit #reject-privacy {
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+}
+#privacy-banner.privacy-mode-explicit #reject-privacy:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+#privacy-banner.privacy-mode-explicit #accept-privacy {
+  display: inline-block;
+}
+#privacy-banner.privacy-mode-explicit #acknowledge-privacy {
+  display: none;
+}
+#privacy-banner.privacy-mode-auto #acknowledge-privacy {
+  display: inline-block;
+}
+#privacy-banner.privacy-mode-auto #accept-privacy {
+  display: none;
+}
