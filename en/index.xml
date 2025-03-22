@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Enterprise Web Systems on MindSing</title>
+    <link>//localhost:1313/en/</link>
+    <description>Recent content in Enterprise Web Systems on MindSing</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="//localhost:1313/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Book an Appointment</title>
+      <link>//localhost:1313/en/booking/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/en/booking/</guid>
+      <description>&lt;h2 id=&#34;schedule-your-appointment&#34;&gt;Schedule Your Appointment&lt;/h2&gt;&#xA;&lt;p&gt;Use our online calendar below to book an appointment at a time that works for you.&lt;/p&gt;&#xA;&lt;div class=&#34;calendar-container&#34; style=&#34;position: relative; overflow: hidden; width: 100%;&#34;&gt;&#xA;  &lt;iframe width=&#39;100%&#39; src=&#39;https://meet.mindsing.com/portal-embed#/4685100000000041054&#39; frameborder=&#39;0&#39; allowfullscreen=&#39;&#39; style=&#34;min-height: 1200px;&#34; &gt; &lt;/iframe&gt;&#xA;&lt;/div&gt;&#xA;&lt;p class=&#34;f6 mt4&#34;&gt;If you have any issues with the calendar, please &lt;a href=&#34;mailto:contact@mindsing.com&#34;&gt;contact us directly&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
