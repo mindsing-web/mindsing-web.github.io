@@ -15,6 +15,14 @@
       }
     }
   },
+  "module": {
+    "mounts": [
+      {
+        "source": "assets",
+        "target": "assets"
+      }
+    ]
+  },
   "params": {
     "site_logo": "/images/mindsing-logo.svg",
     "custom_css": ["css/app.css"]
