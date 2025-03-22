@@ -1,0 +1,31 @@
+<div id="privacy-banner" class="fixed bottom-0 left-0 w-100 pa3 bg-black-80 white z-999" style="display: none;">
+  <div class="center mw8 flex flex-wrap items-center justify-between">
+    <div class="w-100 w-two-thirds-ns pr3-ns">
+      <p class="ma0">
+        This website uses cookies to ensure you get the best experience.
+        <a href="/privacy-policy/" class="link white underline">Learn more</a> about our privacy practices.
+      </p>
+    </div>
+    <div class="w-100 w-third-ns mt2 mt0-ns tr-ns">
+      <button id="reject-privacy" class="mr2 ba b--white-40 bg-transparent white pv2 ph3 pointer hover-bg-white-20 br2">
+        Reject All
+      </button>
+      <button id="accept-privacy" class="ba b--white-40 bg-transparent white pv2 ph3 pointer hover-bg-white-20 br2">
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
+
+{{/* Load the privacy banner JavaScript */}}
+{{/* Use minified and fingerprinted version in production for better performance */}}
+{{ with resources.Get "js/user-settings.js" }}
+  {{ $js := . }}
+  {{ if hugo.IsProduction }}
+    {{ $js = $js | minify | fingerprint }}
+  {{ end }}
+  <script src="{{ $js.RelPermalink }}"></script>
+{{ else }}
+  <!-- Fallback if resource isn't found -->
+  <script src="/js/user-settings.js"></script>
+{{ end }}

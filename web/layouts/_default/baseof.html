@@ -53,5 +53,6 @@
       {{ block "main" . }}{{ end }}
     </main>
     {{ block "footer" . }}{{ partialCached "site-footer.html" . }}{{ end }}
+    {{ partial "privacy-banner.html" . }}
   </body>
 </html>
