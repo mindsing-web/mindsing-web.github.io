@@ -4,8 +4,6 @@ title: "Technical Content & Documentation"
 featured_image: "/images/mazatlan-sunrise.jpg"
 ---
 
-# Technical Content & Documentation
-
 **Enterprise organizations need clear, professional content** that communicates complex technical concepts to diverse audiences. We specialize in creating **technical documentation**, **user guides**, and **enterprise content** that supports your web systems and organizational goals.
 
 ## Enterprise Content Services
