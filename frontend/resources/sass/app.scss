@@ -1,3 +1,6 @@
+// Color variables
+$primary-color: #ee5240;
+
 .site-logo {
   transition: all .2s ease-in-out;
 
@@ -76,11 +79,11 @@
 
 // Global link styling
 a {
-  color: #ee5240;
+  color: $primary-color;
   text-decoration: none;
 
   &:hover {
-    color: #c94435; // 15% darker
+    color: darken($primary-color, 15%);
     text-decoration: underline;
   }
 }
