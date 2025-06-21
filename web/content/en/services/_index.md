@@ -4,7 +4,7 @@ description: "Specialized development services for enterprise organizations, hig
 featured_image: '../images/leavenworth-mindsing.jpg'
 ---
 
-# Enterprise Web Development Services
+## Enterprise Web Development Services
 
 We deliver **enterprise-grade web solutions** that scale with your organization. Our expertise spans from **Fortune 500 companies** to **major universities**, focusing on **Drupal**, **WordPress**, and **custom development** for complex organizational needs.
 

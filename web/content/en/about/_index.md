@@ -5,7 +5,7 @@ featured_image: "../images/colombia-hill.jpg"
 article_class: "article-left-align"
 ---
 
-# About MindSing
+## About MindSing
 
 **MindSing specializes in enterprise web development** for organizations that require robust, scalable, and secure web systems. We focus on **enterprise organizations**, **higher education institutions**, and **global-scale systems** that demand the highest levels of performance and reliability.
 
