@@ -11,8 +11,11 @@ $primary-color: #ee5240;
 
 .navigation-main {
   a {
+    text-decoration: none;
+
     &:hover {
       border-bottom: #ffffff88 1px solid;
+      text-decoration: none;
     }
   }
 }
@@ -86,4 +89,11 @@ a {
     color: darken($primary-color, 15%);
     text-decoration: underline;
   }
+}
+
+// Page teaser links (homepage summary cards)
+article a.no-underline:hover,
+.summary-with-image a:hover,
+.summary a:hover {
+  text-decoration: none;
 }
