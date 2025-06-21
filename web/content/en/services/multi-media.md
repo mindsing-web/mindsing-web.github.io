@@ -8,19 +8,19 @@ featured_image: "/images/glenwood-springs-co.jpg"
 
 ## Enterprise Media Solutions
 
-**Digital Asset Management**
+### Digital Asset Management
 - Large-scale media library organization
 - Automated metadata tagging and categorization
 - Advanced search and filtering capabilities
 - Version control and approval workflows
 
-**Video Platform Integration**
+### Video Platform Integration
 - Enterprise video hosting and streaming
 - Live event broadcasting and webinar platforms
 - Video content management systems
 - Accessibility compliance (captions, transcripts)
 
-**Media Optimization & Delivery**
+### Media Optimization & Delivery
 - CDN integration for global content delivery
 - Responsive image and video optimization
 - Progressive web app media handling
@@ -28,13 +28,13 @@ featured_image: "/images/glenwood-springs-co.jpg"
 
 ## Higher Education Media Systems
 
-**Academic Video Platforms**
+### Academic Video Platforms
 - Lecture capture and streaming systems
 - Student presentation and portfolio platforms
 - Research documentation and archival systems
 - Campus event broadcasting solutions
 
-**Digital Collections**
+### Digital Collections
 - Library digital archive management
 - Research publication platforms
 - Historical media preservation
@@ -42,13 +42,13 @@ featured_image: "/images/glenwood-springs-co.jpg"
 
 ## Technical Implementation
 
-**Drupal Media Management**
+### Drupal Media Management
 - Media entity configuration and workflows
 - Custom media types and field structures
 - Bulk media processing and migration
 - Integration with external media services
 
-**WordPress Media Architecture**
+### WordPress Media Architecture
 - Advanced media library customization
 - Custom media post types and taxonomies
 - Media workflow automation

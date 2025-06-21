@@ -8,19 +8,19 @@ featured_image: "/images/mazatlan-sunrise.jpg"
 
 ## Enterprise Content Services
 
-**Technical Documentation**
+### Technical Documentation
 - API documentation and developer guides
 - System administration manuals
 - User training materials and workflows
 - Integration guides and troubleshooting resources
 
-**Institutional Content**
+### Institutional Content
 - Academic program descriptions and course catalogs
 - Faculty profiles and research publications
 - Policy documentation and compliance guides
 - Student resources and help documentation
 
-**Web Content Strategy**
+### Web Content Strategy
 - Content architecture planning
 - Editorial workflow development
 - Content governance and style guides
@@ -28,13 +28,13 @@ featured_image: "/images/mazatlan-sunrise.jpg"
 
 ## Content Management Integration
 
-**Drupal Content Strategy**
+### Drupal Content Strategy
 - Custom content types and taxonomies
 - Editorial workflow configuration
 - Content migration and restructuring
 - Multi-site content distribution
 
-**WordPress Editorial Systems**
+### WordPress Editorial Systems
 - Advanced custom fields setup
 - Editorial calendar management
 - Content approval workflows
