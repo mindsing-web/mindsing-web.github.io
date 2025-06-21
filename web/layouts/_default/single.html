@@ -15,9 +15,9 @@
         {{with .CurrentSection.Title }}{{. | upper }}{{end}}
       </aside>
       {{ partial "social-share.html" . }}
-      <h1 class="f1 athelas mt3 mb1">
+      <h2 class="f1 athelas mt3 mb1">
         {{- .Title -}}
-      </h1>
+      </h2>
       {{ with .Params.author | default .Site.Params.author }}
       <p class="tracked">
           By <strong>
