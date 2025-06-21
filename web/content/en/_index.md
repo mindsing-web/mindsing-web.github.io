@@ -2,6 +2,7 @@
 title: "Enterprise Web Systems that Scale"
 featured_image: '/images/pacific-northwest-mountains.jpg'
 description: "Specialized Drupal & WordPress development for enterprise, higher education, and global-scale web systems."
+article_class: "w-two-thirds-l tl-l"
 ---
 
 # Enterprise Web Systems Built for Scale
