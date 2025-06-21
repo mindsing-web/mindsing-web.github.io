@@ -1,0 +1,88 @@
+/**
+ * Hamburger Menu Styles
+ * Responsive navigation hamburger menu at 1140px breakpoint
+ */
+
+// Hamburger button styles
+.hamburger-button {
+  @media (max-width: 1139px) {
+    display: block !important;
+  }
+
+  .hamburger-icon {
+    width: 24px;
+    height: 18px;
+    position: relative;
+
+    .hamburger-line {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background-color: currentColor;
+      margin-bottom: 4px;
+      transition: all 0.3s ease;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // Animated hamburger to X transformation
+  &.is-active {
+    .hamburger-line {
+      &:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: rotate(-45deg) translate(4px, -4px);
+      }
+    }
+  }
+}
+
+// Navigation menu responsive behavior
+.navigation-main {
+  @media (max-width: 1139px) {
+    display: none !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: inherit;
+    padding: 1rem;
+    z-index: 1000;
+
+    &.is-open {
+      display: block !important;
+    }
+
+    ul {
+      flex-direction: column;
+
+      li {
+        display: block !important;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 1140px) {
+    display: flex !important;
+  }
+}
+
+// Make sure the nav container has relative positioning for absolute mobile menu
+.site-navigation {
+  position: relative;
+}

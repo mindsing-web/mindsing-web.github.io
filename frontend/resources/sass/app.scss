@@ -1,6 +1,9 @@
 // Color variables
 $primary-color: #ee5240;
 
+// Import modular SCSS files
+@import 'hamburger-menu';
+
 .site-logo {
   transition: all .2s ease-in-out;
 
