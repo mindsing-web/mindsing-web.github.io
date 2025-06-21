@@ -54,9 +54,11 @@
     top: 100%;
     left: 0;
     right: 0;
-    background-color: inherit;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.9) 75%);
+    backdrop-filter: blur(10px);
     padding: 1rem;
     z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 
     &.is-open {
       display: block !important;
