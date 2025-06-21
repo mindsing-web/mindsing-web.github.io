@@ -1,26 +1,54 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Enterprise Web Systems on MindSing</title><link>/</link><description>Recent content in Enterprise Web Systems on MindSing</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 22 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Privacy Policy</title><link>/privacy-policy/</link><pubDate>Sat, 22 Mar 2025 00:00:00 +0000</pubDate><guid>/privacy-policy/</guid><description>&lt;p>&lt;em>Last updated: March 22, 2025&lt;/em>&lt;/p>
-&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>Welcome to MindSing. We respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website.&lt;/p>
-&lt;h2 id="information-we-collect">Information We Collect&lt;/h2>
-&lt;h3 id="information-you-provide">Information You Provide&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Contact information&lt;/strong>: When you contact us through our contact form, we collect your name and email address.&lt;/li>
-&lt;li>&lt;strong>Calendar booking information&lt;/strong>: When you schedule appointments through our calendar system, we collect your name, email address, and any additional information you provide related to the booking.&lt;/li>
-&lt;li>&lt;strong>User content&lt;/strong>: Any content you submit, including comments or feedback.&lt;/li>
-&lt;/ul>
-&lt;h3 id="information-collected-automatically">Information Collected Automatically&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Usage data&lt;/strong>: Information about how you interact with our website, including pages visited and time spent.&lt;/li>
-&lt;li>&lt;strong>Device information&lt;/strong>: Browser type, operating system, and device identifiers.&lt;/li>
-&lt;li>&lt;strong>IP address&lt;/strong>: Used to approximate your location and for security purposes.&lt;/li>
-&lt;/ul>
-&lt;h2 id="how-we-store-your-data">How We Store Your Data&lt;/h2>
-&lt;p>We use Zoho CRM to store and manage data collected through our website. Your personal information is processed and stored according to Zoho&amp;rsquo;s security and data protection policies. For more information about Zoho&amp;rsquo;s data practices, please visit &lt;a href="https://www.zoho.com/privacy.html">Zoho&amp;rsquo;s privacy policy&lt;/a>.&lt;/p></description></item><item><title>Content Production and Authoring</title><link>/services/content-writing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/content-writing/</guid><description>&lt;p>Original content is the bread and butter of the internet. Whether it&amp;rsquo;s a blog post, a video, or an infographic, web users are always looking for something new to consume. That&amp;rsquo;s where original content production comes in. Original content can take many forms, but it always has one thing in common: it&amp;rsquo;s created specifically for the web. That means that it&amp;rsquo;s designed to be engaging and shareable, two essential qualities for any piece of online content.&lt;/p></description></item><item><title>Original Photography and Video</title><link>/services/multi-media/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/multi-media/</guid><description>&lt;p>Video production for the web has come a long way in recent years. High-quality cameras and editing software are now affordable and easy to use, making it possible for even novice users to produce professional-grade video content.&lt;/p>
-&lt;p>The same is true of photography; although DSLRs are still the preferred choice of many professional photographers, point-and-shoot cameras are now capable of taking high-quality photos that can be easily edited and shared online.&lt;/p></description></item><item><title>Schedule an Appointment</title><link>/booking/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/booking/</guid><description>&lt;p>Use our online calendar below to book an appointment at a time that works for you.&lt;/p>
-&lt;div class="calendar-container" style="position: relative; padding-bottom: 110%; height: 0; overflow: hidden; width: 100%; max-height: 990px;">
- &lt;iframe width='100%' src='https://meet.mindsing.com/portal-embed#/4685100000000041054' frameborder='0' allowfullscreen='' style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"> &lt;/iframe>
-&lt;/div>
-&lt;p class="f6 mt4">If you have any issues with the calendar, please &lt;a href="mailto:contact@mindsing.com">contact us directly&lt;/a>.&lt;/p></description></item><item><title>Web Development</title><link>/services/web-development/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/web-development/</guid><description>&lt;p>We offer front-end and back-end web implementation services and focus on content management systems (CMS).&lt;/p>
-&lt;p>Drupal and WordPress are two of the most popular content management systems (CMS) on the market today.&lt;/p>
-&lt;p>Drupal is a free and open source CMS that powers millions of websites and applications. WordPress is a self-hosted CMS that is used by millions of people around the world.&lt;/p>
-&lt;p>Both Drupal and WordPress are great for creating websites, but they have different strengths and weaknesses.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Enterprise Web Systems that Scale on MindSing</title>
+    <link>//localhost:1313/</link>
+    <description>Recent content in Enterprise Web Systems that Scale on MindSing</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 22 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Privacy Policy</title>
+      <link>//localhost:1313/privacy-policy/</link>
+      <pubDate>Sat, 22 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/privacy-policy/</guid>
+      <description>&lt;p&gt;&lt;em&gt;Last updated: March 22, 2025&lt;/em&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Welcome to MindSing. We respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website.&lt;/p&gt;&#xA;&lt;h2 id=&#34;information-we-collect&#34;&gt;Information We Collect&lt;/h2&gt;&#xA;&lt;h3 id=&#34;information-you-provide&#34;&gt;Information You Provide&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Contact information&lt;/strong&gt;: When you contact us through our contact form, we collect your name and email address.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Calendar booking information&lt;/strong&gt;: When you schedule appointments through our calendar system, we collect your name, email address, and any additional information you provide related to the booking.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;User content&lt;/strong&gt;: Any content you submit, including comments or feedback.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;information-collected-automatically&#34;&gt;Information Collected Automatically&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Usage data&lt;/strong&gt;: Information about how you interact with our website, including pages visited and time spent.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Device information&lt;/strong&gt;: Browser type, operating system, and device identifiers.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;IP address&lt;/strong&gt;: Used to approximate your location and for security purposes.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;how-we-store-your-data&#34;&gt;How We Store Your Data&lt;/h2&gt;&#xA;&lt;p&gt;We use Zoho CRM to store and manage data collected through our website. Your personal information is processed and stored according to Zoho&amp;rsquo;s security and data protection policies. For more information about Zoho&amp;rsquo;s data practices, please visit &lt;a href=&#34;https://www.zoho.com/privacy.html&#34;&gt;Zoho&amp;rsquo;s privacy policy&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>API Development &amp; Integrations</title>
+      <link>//localhost:1313/services/api-development/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/services/api-development/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Modern enterprise web systems require seamless integration&lt;/strong&gt; with existing business systems, third-party services, and custom applications. We specialize in &lt;strong&gt;custom API development&lt;/strong&gt; and &lt;strong&gt;enterprise system integrations&lt;/strong&gt; that connect your web platform with the broader technology ecosystem.&lt;/p&gt;&#xA;&lt;h2 id=&#34;custom-api-development&#34;&gt;Custom API Development&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;RESTful API Design&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Scalable backend services architecture&lt;/li&gt;&#xA;&lt;li&gt;Resource-based API design and documentation&lt;/li&gt;&#xA;&lt;li&gt;Authentication and authorization systems&lt;/li&gt;&#xA;&lt;li&gt;Rate limiting and security implementations&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;GraphQL Solutions&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Efficient data fetching and query optimization&lt;/li&gt;&#xA;&lt;li&gt;Schema design for complex data relationships&lt;/li&gt;&#xA;&lt;li&gt;Real-time subscriptions and live updates&lt;/li&gt;&#xA;&lt;li&gt;Integration with existing REST services&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;Microservices Architecture&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Digital Media Integration</title>
+      <link>//localhost:1313/services/multi-media/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/services/multi-media/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Enterprise web systems require sophisticated media management&lt;/strong&gt; capabilities to handle large volumes of digital assets, streaming content, and multi-format media delivery. We specialize in &lt;strong&gt;enterprise media architecture&lt;/strong&gt; and &lt;strong&gt;scalable content delivery&lt;/strong&gt; solutions.&lt;/p&gt;&#xA;&lt;h2 id=&#34;enterprise-media-solutions&#34;&gt;Enterprise Media Solutions&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Digital Asset Management&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Large-scale media library organization&lt;/li&gt;&#xA;&lt;li&gt;Automated metadata tagging and categorization&lt;/li&gt;&#xA;&lt;li&gt;Advanced search and filtering capabilities&lt;/li&gt;&#xA;&lt;li&gt;Version control and approval workflows&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;Video Platform Integration&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Enterprise video hosting and streaming&lt;/li&gt;&#xA;&lt;li&gt;Live event broadcasting and webinar platforms&lt;/li&gt;&#xA;&lt;li&gt;Video content management systems&lt;/li&gt;&#xA;&lt;li&gt;Accessibility compliance (captions, transcripts)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;Media Optimization &amp;amp; Delivery&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Schedule an Appointment</title>
+      <link>//localhost:1313/booking/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/booking/</guid>
+      <description>&lt;p&gt;Use our online calendar below to book an appointment at a time that works for you.&lt;/p&gt;&#xA;&lt;div class=&#34;calendar-container&#34; style=&#34;position: relative; padding-bottom: 110%; height: 0; overflow: hidden; width: 100%; max-height: 990px;&#34;&gt;&#xA;  &lt;iframe width=&#39;100%&#39; src=&#39;https://meet.mindsing.com/portal-embed#/4685100000000041054&#39; frameborder=&#39;0&#39; allowfullscreen=&#39;&#39; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%;&#34;&gt; &lt;/iframe&gt;&#xA;&lt;/div&gt;&#xA;&lt;p class=&#34;f6 mt4&#34;&gt;If you have any issues with the calendar, please &lt;a href=&#34;mailto:contact@mindsing.com&#34;&gt;contact us directly&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Technical Content &amp; Documentation</title>
+      <link>//localhost:1313/services/content-writing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/services/content-writing/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Enterprise organizations need clear, professional content&lt;/strong&gt; that communicates complex technical concepts to diverse audiences. We specialize in creating &lt;strong&gt;technical documentation&lt;/strong&gt;, &lt;strong&gt;user guides&lt;/strong&gt;, and &lt;strong&gt;enterprise content&lt;/strong&gt; that supports your web systems and organizational goals.&lt;/p&gt;&#xA;&lt;h2 id=&#34;enterprise-content-services&#34;&gt;Enterprise Content Services&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Technical Documentation&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;API documentation and developer guides&lt;/li&gt;&#xA;&lt;li&gt;System administration manuals&lt;/li&gt;&#xA;&lt;li&gt;User training materials and workflows&lt;/li&gt;&#xA;&lt;li&gt;Integration guides and troubleshooting resources&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;Institutional Content&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Academic program descriptions and course catalogs&lt;/li&gt;&#xA;&lt;li&gt;Faculty profiles and research publications&lt;/li&gt;&#xA;&lt;li&gt;Policy documentation and compliance guides&lt;/li&gt;&#xA;&lt;li&gt;Student resources and help documentation&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;Web Content Strategy&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Web Development</title>
+      <link>//localhost:1313/services/web-development/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/services/web-development/</guid>
+      <description>&lt;p&gt;We specialize in building &lt;strong&gt;enterprise-grade web systems&lt;/strong&gt; that handle complex organizational requirements and scale to support thousands of users. Our expertise spans &lt;strong&gt;Drupal&lt;/strong&gt;, &lt;strong&gt;WordPress&lt;/strong&gt;, and &lt;strong&gt;custom API development&lt;/strong&gt; for organizations that demand reliability, security, and performance.&lt;/p&gt;&#xA;&lt;h2 id=&#34;enterprise-drupal-development&#34;&gt;Enterprise Drupal Development&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Why Drupal for Enterprise?&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Multi-site management&lt;/strong&gt; - Manage hundreds of sites from a single installation&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Advanced content workflows&lt;/strong&gt; - Editorial approval processes and content governance&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Enterprise integrations&lt;/strong&gt; - Seamless connection with CRM, ERP, and authentication systems&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Scalability&lt;/strong&gt; - Handle high traffic loads and complex data structures&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Security&lt;/strong&gt; - Enterprise-grade security features and regular security updates&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;Our Drupal Expertise:&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

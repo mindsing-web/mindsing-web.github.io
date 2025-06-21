@@ -5,8 +5,12 @@
   transform: scale(1.1);
 }
 
+.navigation-main a {
+  text-decoration: none;
+}
 .navigation-main a:hover {
   border-bottom: rgba(255, 255, 255, 0.5333333333) 1px solid;
+  text-decoration: none;
 }
 
 .article-left-align .tc-l {
@@ -42,4 +46,19 @@
 }
 #privacy-banner.privacy-mode-auto #accept-privacy {
   display: none;
+}
+
+a {
+  color: #ee5240;
+  text-decoration: none;
+}
+a:hover {
+  color: #cf2612;
+  text-decoration: underline;
+}
+
+article a.no-underline:hover,
+.summary-with-image a:hover,
+.summary a:hover {
+  text-decoration: none;
 }

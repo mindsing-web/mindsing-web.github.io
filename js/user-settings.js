@@ -20,7 +20,7 @@ const PRIVACY_MODE = {
 };
 
 // Set the current mode - change this to toggle behavior
-const currentPrivacyMode = PRIVACY_MODE.AUTO_ACCEPT;
+const currentPrivacyMode = PRIVACY_MODE.EXPLICIT_CONSENT;
 
 // This script manages the display and functionality of a privacy consent banner.
 
