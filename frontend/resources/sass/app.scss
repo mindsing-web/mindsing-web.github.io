@@ -73,3 +73,14 @@
     }
   }
 }
+
+// Global link styling
+a {
+  color: #ee5240;
+  text-decoration: none;
+
+  &:hover {
+    color: #c94435; // 15% darker
+    text-decoration: underline;
+  }
+}
