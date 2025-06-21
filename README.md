@@ -39,7 +39,18 @@ Host github-bdanin
   IdentitiesOnly yes
 ```
 
-This alias is used for both the main development repository and the GitHub Pages publishing repository.
+This alias is used for the main development repository.
+
+For publishing, it uses the `github-mindsing` alias:
+
+```
+# mindsing github
+Host github-mindsing
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/mindsing-ssh-git
+  IdentitiesOnly yes
+```
 
 ## Getting Started
 
@@ -130,7 +141,7 @@ The site is hosted at [GitHub Pages](https://github.com/mindsing-web/mindsing-we
 cd web
 mkdir public && cd public
 git init
-git remote add origin github-bdanin:bdanin/mindsing-hugo.github.io.git
+git remote add origin github-mindsing:mindsing-web/mindsing-web.github.io.git
 git pull origin main
 git branch --set-upstream-to=origin/main main
 ```
@@ -148,7 +159,7 @@ git push origin main        # Triggers GitHub Pages build
 ## Configuration Notes
 
 - **Main Repository**: `github-bdanin:bdanin/mindsing-hugo.git` - Primary development repo
-- **Publishing Repository**: `github-bdanin:bdanin/mindsing-hugo.github.io.git` - GitHub Pages deployment
+- **Publishing Repository**: `github-mindsing:mindsing-web/mindsing-web.github.io.git` - GitHub Pages deployment
 - **Theme**: Uses [Ananke](https://github.com/theNewDynamic/gohugo-theme-ananke) theme as Git submodule
 - **Custom Overrides**: Local template overrides in `web/layouts/`
 - **Frontend Assets**: Managed separately in `frontend/` directory
