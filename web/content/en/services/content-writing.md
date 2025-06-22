@@ -2,6 +2,7 @@
 description: Technical content and documentation for enterprise web systems.
 title: "Technical Content & Documentation"
 featured_image: "/images/mazatlan-sunrise.jpg"
+weight: 3
 ---
 
 **Enterprise organizations need clear, professional content** that communicates complex technical concepts to diverse audiences. We specialize in creating **technical documentation**, **user guides**, and **enterprise content** that supports your web systems and organizational goals.
@@ -39,9 +40,3 @@ featured_image: "/images/mazatlan-sunrise.jpg"
 - Editorial calendar management
 - Content approval workflows
 - Media library organization
-
----
-
-**Need technical content for your enterprise web system?**
-
-[Contact us](mailto:inquiries@mindsing.com) | [Schedule a Consultation](/booking/)

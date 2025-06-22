@@ -2,6 +2,7 @@
 description: Enterprise-grade web systems and custom development solutions.
 title: "Web Development"
 featured_image: "/images/colombia-parachute.jpg"
+weight: 2
 ---
 
 We specialize in building **enterprise-grade web systems** that handle complex organizational requirements and scale to support thousands of users. Our expertise spans **Drupal**, **WordPress**, and **custom API development** for organizations that demand reliability, security, and performance.

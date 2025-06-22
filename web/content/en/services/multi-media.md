@@ -2,6 +2,7 @@
 description: Digital media integration and enterprise video solutions.
 title: "Digital Media Integration"
 featured_image: "/images/glenwood-springs-co.jpg"
+weight: 4
 ---
 
 **Enterprise web systems require sophisticated media management** capabilities to handle large volumes of digital assets, streaming content, and multi-format media delivery. We specialize in **enterprise media architecture** and **scalable content delivery** solutions.
@@ -53,9 +54,3 @@ featured_image: "/images/glenwood-springs-co.jpg"
 - Custom media post types and taxonomies
 - Media workflow automation
 - Multi-site media sharing
-
----
-
-**Need enterprise media management for your web system?**
-
-[Contact us](mailto:inquiries@mindsing.com) | [Schedule a Consultation](/booking/)
