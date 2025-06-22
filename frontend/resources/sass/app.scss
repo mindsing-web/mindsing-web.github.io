@@ -4,6 +4,72 @@
 // Import modular SCSS files
 @import 'hamburger-menu';
 
+// Parallax section styles
+.parallax-section {
+  position: relative;
+  overflow: hidden;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  width: 100vw;
+
+  // Smooth parallax effect
+  will-change: transform;
+
+  .parallax-content {
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  // Grid layout for content sections
+  .grid-ns {
+    @media (min-width: 769px) {
+      display: grid;
+    }
+  }
+
+  .grid-2-ns {
+    @media (min-width: 769px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .gap4-ns {
+    @media (min-width: 769px) {
+      gap: 2rem;
+    }
+  }
+
+  // Mobile responsiveness
+  @media (max-width: 768px) {
+    background-attachment: scroll !important;
+    min-height: auto !important;
+    padding: 2rem 0 !important;
+
+    .parallax-content {
+      padding: 1rem;
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  // Button transitions
+  .transition-all {
+    transition: all 0.3s ease;
+  }
+}
+
+.full-width {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
 .site-logo {
   transition: all .2s ease-in-out;
 

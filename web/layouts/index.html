@@ -2,8 +2,68 @@
 
 <article
   class="cf ph3 ph5-l pv3 pv4-l f4 center lh-copy mid-gray {{ if .Params.article_class }}{{ .Params.article_class }}{{ else }}tc-l measure-wide{{ end }}">
-  {{ .Content }}
+  {{ .Summary }}
 </article>
+
+{{/* Full-width parallax section */}}
+<section class="parallax-section full-width" style="
+  min-height: 70vh;
+  background-image: url('/images/colombia-parachute.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 3rem 0;
+">  <div class="parallax-content white center mw7 ph4">
+    <div class="bg-black-30 pa4 br3 tl">
+      <div class="grid-ns grid-2-ns gap4-ns">
+        <div class="mb4 mb0-ns">
+          <h3 class="f3 fw6 mb3 white">Enterprise-Grade Solutions</h3>
+          <p class="f5 lh-copy white-90">
+            We build web systems designed to handle complex organizational needs, from multi-site management to advanced content workflows and enterprise integrations.
+          </p>
+        </div>
+
+        <div class="mb4 mb0-ns">
+          <h3 class="f3 fw6 mb3 white">Higher Education Expertise</h3>
+          <p class="f5 lh-copy white-90">
+            Extensive experience with university websites, student portals, learning management systems, and academic content management platforms.
+          </p>
+        </div>
+
+        <div class="mb4 mb0-ns">
+          <h3 class="f3 fw6 mb3 white">Open Source Leadership</h3>
+          <p class="f5 lh-copy white-90">
+            Deep expertise in Drupal and WordPress, with a focus on leveraging open source solutions to reduce costs while maximizing functionality and flexibility.
+          </p>
+        </div>
+
+        <div class="mb4 mb0-ns">
+          <h3 class="f3 fw6 mb3 white">Full-Stack Development</h3>
+          <p class="f5 lh-copy white-90">
+            From custom API development to frontend optimization, we handle every aspect of your web system architecture.
+          </p>
+        </div>
+      </div>
+
+      {{/* Services link */}}
+      <div class="tc mt4 pt3 pb4">
+        <a href="/services/" class="f4 fw6 white bg-transparent ba b--white br3 pa3 no-underline hover-bg-white hover-black transition-all">
+          View Our Services
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{/* Rest of the content after the parallax */}}
+{{ if .Truncated }}
+<article
+  class="cf ph3 ph5-l pv3 pv4-l f4 center lh-copy mid-gray {{ if .Params.article_class }}{{ .Params.article_class }}{{ else }}tc-l measure-wide{{ end }}">
+  {{ replace .Content .Summary "" | safeHTML }}
+</article>
+{{ end }}
+
 {{/* Define a section to pull recent posts from. For Hugo 0.20 this will default to the section with the most number of
 pages. */}}
 {{ $mainSections := .Site.Params.mainSections | default (slice "post") }}
