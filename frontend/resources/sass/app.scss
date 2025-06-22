@@ -1,5 +1,5 @@
-// Color variables
-$primary-color: #ee5240;
+// Import shared variables
+@import 'vars';
 
 // Import modular SCSS files
 @import 'hamburger-menu';

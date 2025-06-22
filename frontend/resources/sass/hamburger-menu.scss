@@ -3,8 +3,8 @@
  * Responsive navigation hamburger menu at 1140px breakpoint
  */
 
-// Variables
-$desktop-breakpoint: 1140px;
+// Import shared variables
+@import 'vars';
 
 // Hamburger button styles
 .hamburger-button {
