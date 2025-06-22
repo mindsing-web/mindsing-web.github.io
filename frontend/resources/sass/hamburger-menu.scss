@@ -72,11 +72,23 @@
 
       li {
         display: block !important;
-        padding: 0.5rem 0;
+        padding: 1.5rem 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
         &:last-child {
           border-bottom: none;
+        }
+
+        a {
+          display: inline-block;
+          transition: transform 0.2s ease;
+          transform-origin: center;
+
+          &:hover {
+            transform: scale(1.1);
+            text-decoration: none;
+            border-bottom: none;
+          }
         }
       }
     }
