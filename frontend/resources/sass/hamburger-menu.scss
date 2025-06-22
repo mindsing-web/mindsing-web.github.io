@@ -3,9 +3,12 @@
  * Responsive navigation hamburger menu at 1140px breakpoint
  */
 
+// Variables
+$desktop-breakpoint: 1140px;
+
 // Hamburger button styles
 .hamburger-button {
-  @media (max-width: 1139px) {
+  @media (max-width: #{$desktop-breakpoint - 1}) {
     display: block !important;
   }
 
@@ -48,7 +51,7 @@
 
 // Navigation menu responsive behavior
 .navigation-main {
-  @media (max-width: 1139px) {
+  @media (max-width: #{$desktop-breakpoint - 1}) {
     display: none !important;
     position: absolute;
     top: 100%;
@@ -79,7 +82,7 @@
     }
   }
 
-  @media (min-width: 1140px) {
+  @media (min-width: $desktop-breakpoint) {
     display: flex !important;
   }
 }
