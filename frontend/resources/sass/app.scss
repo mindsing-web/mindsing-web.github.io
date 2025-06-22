@@ -70,6 +70,43 @@
   margin-right: calc(-50vw + 50%);
 }
 
+// Brand color utilities
+.orange {
+  color: $primary-color;
+}
+
+.bg-orange {
+  background-color: $primary-color;
+}
+
+.b--orange {
+  border-color: $primary-color;
+}
+
+.hover-bg-orange:hover {
+  background-color: $primary-color;
+}
+
+.bg-orange,
+.orange.ba {
+  transition: transform 0.2s ease-in-out;
+}
+
+.bg-orange:hover,
+.orange.ba:hover {
+  transform: scale(1.1);
+}
+
+.bg-orange:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.orange.ba:hover {
+  color: $primary-color;
+  text-decoration: none;
+}
+
 .site-logo {
   transition: all .2s ease-in-out;
 

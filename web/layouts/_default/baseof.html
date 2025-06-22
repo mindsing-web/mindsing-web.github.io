@@ -52,6 +52,27 @@
     <main class="pb3" role="main">
       {{ block "main" . }}{{ end }}
     </main>
+
+    {{/* Global call-to-action section */}}
+    <section class="bg-near-white pa4 pa5-ns tc">
+      <div class="center mw8">
+        <h2 class="f2 fw6 mb3">Ready to Scale Your Web Presence?</h2>
+        <p class="f4 lh-copy mb4">Contact us to discuss your enterprise web development needs:</p>
+        <p class="f4 fw6 mb4">
+          <strong>Email:</strong>
+          <a href="mailto:inquiries@mindsing.com" class="link orange dim">inquiries@mindsing.com</a>
+        </p>
+        <div class="flex flex-column flex-row-ns justify-center items-center">
+          <a href="/booking/" class="f5 fw6 link white bg-orange br3 pa3 mr3-ns mb3 mb0-ns no-underline">
+            Schedule a Consultation
+          </a>
+          <a href="/services/" class="f5 fw6 link orange ba b--orange br3 pa3 no-underline">
+            View Our Services
+          </a>
+        </div>
+      </div>
+    </section>
+
     {{ block "footer" . }}{{ partialCached "site-footer.html" . }}{{ end }}
     {{ partial "privacy-banner.html" . }}
   </body>

@@ -10,13 +10,3 @@ We specialize in developing robust, scalable web solutions for **enterprise orga
 ## Why Choose MindSing?
 
 <!--more-->
-
----
-
-## Ready to Scale Your Web Presence?
-
-**Contact us to discuss your enterprise web development needs:**
-
-**Email:** [inquiries@mindsing.com](mailto:inquiries@mindsing.com)
-
-[Schedule a Consultation](/booking/) | [View Our Services](/services/)
