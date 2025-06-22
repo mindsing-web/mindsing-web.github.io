@@ -90,6 +90,95 @@
   position: relative;
 }
 
+.parallax-section {
+  position: relative;
+  overflow: hidden;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  width: 100vw;
+  will-change: transform;
+}
+.parallax-section .parallax-content {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+@media (min-width: 769px) {
+  .parallax-section .grid-ns {
+    display: grid;
+  }
+}
+@media (min-width: 769px) {
+  .parallax-section .grid-2-ns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 769px) {
+  .parallax-section .gap4-ns {
+    gap: 2rem;
+  }
+}
+@media (max-width: 768px) {
+  .parallax-section {
+    background-attachment: scroll !important;
+    min-height: auto !important;
+    padding: 2rem 0 !important;
+  }
+  .parallax-section .parallax-content {
+    padding: 1rem;
+  }
+  .parallax-section .parallax-content h2 {
+    font-size: 2rem;
+  }
+  .parallax-section .parallax-content h3 {
+    font-size: 1.5rem;
+  }
+}
+.parallax-section .transition-all {
+  transition: all 0.3s ease;
+}
+
+.full-width {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+.orange {
+  color: #ee5240;
+}
+
+.bg-orange {
+  background-color: #ee5240;
+}
+
+.b--orange {
+  border-color: #ee5240;
+}
+
+.hover-bg-orange:hover {
+  background-color: #ee5240;
+}
+
+.bg-orange,
+.orange.ba {
+  transition: transform 0.2s ease-in-out;
+}
+
+.bg-orange:hover,
+.orange.ba:hover {
+  transform: scale(1.1);
+}
+
+.bg-orange:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.orange.ba:hover {
+  color: #ee5240;
+  text-decoration: none;
+}
+
 .site-logo {
   transition: all 0.2s ease-in-out;
 }
