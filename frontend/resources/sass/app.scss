@@ -203,3 +203,15 @@ article a.no-underline:hover,
 .summary a:hover {
   text-decoration: none;
 }
+
+// Service heading links - make them orange for better visibility as clickable elements
+// Use higher specificity to override Tachyons classes
+.bg-white h2 a.link.black.dim {
+  color: $primary-color;
+
+  &:hover {
+    color: darken($primary-color, 15%);
+    text-decoration: underline;
+    opacity: 1; // Override Tachyons 'dim' class opacity
+  }
+}
