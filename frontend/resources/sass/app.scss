@@ -220,3 +220,55 @@ article a.no-underline:hover,
     opacity: 1;
   }
 }
+
+// Button system - modular classes
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  // Hover grow effect
+  &:hover,
+  &:focus {
+    transform: scale(1.10);
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Primary button variant
+.btn--primary {
+  background-color: $primary-color;
+  color: #fff;
+  border-color: $primary-color;
+
+  &:hover,
+  &:focus {
+    background-color: darken($primary-color, 10%);
+    border-color: darken($primary-color, 10%);
+    color: #fff;
+  }
+}
+
+// Secondary button variant
+.btn--secondary {
+  background-color: #fff;
+  color: $primary-color;
+  border-color: $primary-color;
+
+  &:hover,
+  &:focus {
+    background-color: #fff;
+    color: darken($primary-color, 10%);
+    border-color: darken($primary-color, 10%);
+  }
+}
