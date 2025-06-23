@@ -243,3 +243,12 @@ article a.no-underline:hover,
 .summary a:hover {
   text-decoration: none;
 }
+
+.bg-white h2 a.link.black.dim {
+  color: #ee5240;
+}
+.bg-white h2 a.link.black.dim:hover {
+  color: #cf2612;
+  text-decoration: underline;
+  opacity: 1;
+}
