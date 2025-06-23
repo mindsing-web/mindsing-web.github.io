@@ -1,12 +1,12 @@
 {{ define "main" }}
 
 <article
-  class="cf ph3 ph5-l pv3 pv4-l f4 center mw7 mw8-l lh-copy mid-gray {{ if .Params.article_class }}{{ .Params.article_class }}{{ else }}tc-l{{ end }}">
+  class="cf ph4 pv3 pv4-l f4 center mw7 mw8-l lh-copy mid-gray {{ if .Params.article_class }}{{ .Params.article_class }}{{ else }}tc-l{{ end }}">
   {{ .Summary }}
 </article>
 
 {{/* Full-width parallax section */}}
-<section class="parallax-section full-width" style="
+<section class="parallax-section" style="
   min-height: 70vh;
   background-image: url('/images/colombia-parachute.jpg');
   background-attachment: fixed;
@@ -59,7 +59,7 @@
 {{/* Rest of the content after the parallax */}}
 {{ if .Truncated }}
 <article
-  class="cf ph3 ph5-l pv3 pv4-l f4 center mw7 mw8-l lh-copy mid-gray {{ if .Params.article_class }}{{ .Params.article_class }}{{ else }}tc-l{{ end }}">
+  class="cf ph4 pv3 pv4-l f4 center mw7 mw8-l lh-copy mid-gray {{ if .Params.article_class }}{{ .Params.article_class }}{{ else }}tc-l{{ end }}">
   {{ replace .Content .Summary "" | safeHTML }}
 </article>
 {{ end }}
