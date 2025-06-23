@@ -118,8 +118,11 @@
 .navigation-main {
   a {
     text-decoration: none;
-    border-bottom: 1px solid transparent;
     transition: border-color 0.2s ease-in-out;
+
+    @media (min-width: $desktop-breakpoint) {
+      border-bottom: 1px solid transparent;
+    }
 
     &:hover {
       border-bottom-color: #ffffff88;
