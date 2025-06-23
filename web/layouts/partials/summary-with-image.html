@@ -1,22 +1,24 @@
-<article class="bb b--black-10">
-  <a class="db pv4 ph3 ph0-l no-underline dark-gray dim" href="{{ .RelPermalink }}">
-    <div class="flex flex-column flex-row-l">
-      {{ $featured_image := partial "func/GetFeaturedImage.html" . }}
-      {{ if $featured_image }}
-        <div class="mb4 mb0-l pr0 pr3-l w-100 w-40-l">
-          <img src="{{ $featured_image }}" class="db" alt="image from {{ .Title }}">
-        </div>
-      {{ end }}
-      <div class="w-100{{ if $featured_image }} w-60-l pl0 pl3-l{{ end }}">
-        <h2 class="f3 fw1 athelas mt0 lh-title">{{ .Title }}</h2>
-        <div class="f6 f5-l lh-copy nested-copy-line-height">
-          {{ $content := .Content }}
-          {{ $firstParagraph := index (split $content "</p>") 0 }}
-          {{ $firstParagraph | safeHTML }}</p>
-        </div>
-        {{/* TODO: add author
-        <p class="f6 lh-copy mv0">By {{ .Author }}</p> */}}
+<article class="bb b--black-10 pv4 ph3 ph0-l">
+  <div class="flex flex-column flex-row-l">
+    {{ $featured_image := partial "func/GetFeaturedImage.html" . }}
+    {{ if $featured_image }}
+      <div class="mb4 mb0-l pr0 pr3-l w-100 w-40-l">
+        <a href="{{ .RelPermalink }}" class="db no-underline">
+          <img src="{{ $featured_image }}" class="db dim" alt="image from {{ .Title }}">
+        </a>
       </div>
+    {{ end }}
+    <div class="w-100{{ if $featured_image }} w-60-l pl0 pl3-l{{ end }}">
+      <h2 class="f3 fw1 athelas mt0 lh-title">
+        <a href="{{ .RelPermalink }}" class="link orange">{{ .Title }}</a>
+      </h2>
+      <div class="f6 f5-l lh-copy nested-copy-line-height dark-gray">
+        {{ $content := .Content }}
+        {{ $firstParagraph := index (split $content "</p>") 0 }}
+        {{ $firstParagraph | safeHTML }}</p>
+      </div>
+      {{/* TODO: add author
+      <p class="f6 lh-copy mv0">By {{ .Author }}</p> */}}
     </div>
-  </a>
+  </div>
 </article>
