@@ -18,7 +18,7 @@ We specialize in building **enterprise-grade web systems** that handle complex o
 
 ### Our Drupal Expertise:
 - Custom module development and theme creation
-- Drupal 8/9/10 migrations and upgrades
+- Drupal 8/9/10/11+ migrations and upgrades
 - Headless/decoupled Drupal implementations
 - Performance optimization and caching strategies
 - Multi-language and internationalization setup

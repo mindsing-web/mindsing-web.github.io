@@ -50,13 +50,11 @@ weight: 1
 ## Higher Education Integrations
 
 ### Student Information Systems
-- Banner, PeopleSoft, and Workday integrations
 - Student data synchronization and management
 - Grade reporting and transcript systems
 - Registration and enrollment workflows
 
 ### Learning Management Systems
-- Canvas, Blackboard, and Moodle integrations
 - Course content synchronization
 - Single sign-on for educational platforms
 - Grade passback and roster management
@@ -82,7 +80,6 @@ weight: 1
 - Message queuing (Redis, RabbitMQ)
 
 ### Integration Platforms
-- Zapier and Microsoft Power Automate
 - Custom webhook implementations
 - ETL data processing pipelines
 - API gateway and proxy services
