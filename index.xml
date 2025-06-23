@@ -46,14 +46,12 @@
 &lt;h2 id="higher-education-integrations">Higher Education Integrations&lt;/h2>
 &lt;h3 id="student-information-systems">Student Information Systems&lt;/h3>
 &lt;ul>
-&lt;li>Banner, PeopleSoft, and Workday integrations&lt;/li>
 &lt;li>Student data synchronization and management&lt;/li>
 &lt;li>Grade reporting and transcript systems&lt;/li>
 &lt;li>Registration and enrollment workflows&lt;/li>
 &lt;/ul>
 &lt;h3 id="learning-management-systems">Learning Management Systems&lt;/h3>
 &lt;ul>
-&lt;li>Canvas, Blackboard, and Moodle integrations&lt;/li>
 &lt;li>Course content synchronization&lt;/li>
 &lt;li>Single sign-on for educational platforms&lt;/li>
 &lt;li>Grade passback and roster management&lt;/li>
@@ -82,7 +80,6 @@
 &lt;/ul>
 &lt;h3 id="integration-platforms">Integration Platforms&lt;/h3>
 &lt;ul>
-&lt;li>Zapier and Microsoft Power Automate&lt;/li>
 &lt;li>Custom webhook implementations&lt;/li>
 &lt;li>ETL data processing pipelines&lt;/li>
 &lt;li>API gateway and proxy services&lt;/li>
@@ -128,7 +125,7 @@
 &lt;h3 id="our-drupal-expertise">Our Drupal Expertise:&lt;/h3>
 &lt;ul>
 &lt;li>Custom module development and theme creation&lt;/li>
-&lt;li>Drupal 8/9/10 migrations and upgrades&lt;/li>
+&lt;li>Drupal 8/9/10/11+ migrations and upgrades&lt;/li>
 &lt;li>Headless/decoupled Drupal implementations&lt;/li>
 &lt;li>Performance optimization and caching strategies&lt;/li>
 &lt;li>Multi-language and internationalization setup&lt;/li>
