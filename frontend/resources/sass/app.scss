@@ -22,25 +22,25 @@
 
   // Grid layout for content sections
   .grid-ns {
-    @media (min-width: 769px) {
+    @media (min-width: $tablet-breakpoint) {
       display: grid;
     }
   }
 
   .grid-2-ns {
-    @media (min-width: 769px) {
+    @media (min-width: $tablet-breakpoint) {
       grid-template-columns: 1fr 1fr;
     }
   }
 
   .gap4-ns {
-    @media (min-width: 769px) {
+    @media (min-width: $tablet-breakpoint) {
       gap: 2rem;
     }
   }
 
   // Mobile responsiveness
-  @media (max-width: 768px) {
+  @media (max-width: #{$tablet-breakpoint - 1px}) {
     background-attachment: scroll !important;
     min-height: auto !important;
     padding: 2rem 0 !important;
@@ -206,14 +206,13 @@ article a.no-underline:hover,
   text-decoration: none;
 }
 
-// Service heading links - make them orange for better visibility as clickable elements
-// Use higher specificity to override Tachyons classes
+// Service heading links - make them orange.
 .bg-white h2 a.link.black.dim {
   color: $primary-color;
 
   &:hover {
     color: darken($primary-color, 15%);
     text-decoration: underline;
-    opacity: 1; // Override Tachyons 'dim' class opacity
+    opacity: 1;
   }
 }
