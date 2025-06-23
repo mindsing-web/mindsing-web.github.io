@@ -90,12 +90,49 @@
   position: relative;
 }
 
+main a:not(.bg-orange):not([class*=bg-]):not(.btn),
+main a:link:not(.bg-orange):not([class*=bg-]):not(.btn),
+main a:visited:not(.bg-orange):not([class*=bg-]):not(.btn),
+main .link:not(.bg-orange):not([class*=bg-]):not(.btn),
+main .link:link:not(.bg-orange):not([class*=bg-]):not(.btn),
+main .link:visited:not(.bg-orange):not([class*=bg-]):not(.btn),
+article a:not(.bg-orange):not([class*=bg-]):not(.btn),
+article a:link:not(.bg-orange):not([class*=bg-]):not(.btn),
+article a:visited:not(.bg-orange):not([class*=bg-]):not(.btn),
+article .link:not(.bg-orange):not([class*=bg-]):not(.btn),
+article .link:link:not(.bg-orange):not([class*=bg-]):not(.btn),
+article .link:visited:not(.bg-orange):not([class*=bg-]):not(.btn) {
+  color: #ee5240;
+  text-decoration: none;
+}
+main a:not(.bg-orange):not([class*=bg-]):not(.btn):hover, main a:not(.bg-orange):not([class*=bg-]):not(.btn):focus,
+main a:link:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
+main a:link:not(.bg-orange):not([class*=bg-]):not(.btn):focus,
+main a:visited:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
+main a:visited:not(.bg-orange):not([class*=bg-]):not(.btn):focus,
+main .link:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
+main .link:not(.bg-orange):not([class*=bg-]):not(.btn):focus,
+main .link:link:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
+main .link:link:not(.bg-orange):not([class*=bg-]):not(.btn):focus,
+main .link:visited:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
+main .link:visited:not(.bg-orange):not([class*=bg-]):not(.btn):focus,
+article a:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
+article a:not(.bg-orange):not([class*=bg-]):not(.btn):focus,
+article a:link:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
+article a:link:not(.bg-orange):not([class*=bg-]):not(.btn):focus,
+article a:visited:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
+article a:visited:not(.bg-orange):not([class*=bg-]):not(.btn):focus,
+article .link:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
+article .link:not(.bg-orange):not([class*=bg-]):not(.btn):focus,
+article .link:link:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
+article .link:link:not(.bg-orange):not([class*=bg-]):not(.btn):focus,
+article .link:visited:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
+article .link:visited:not(.bg-orange):not([class*=bg-]):not(.btn):focus {
+  color: #cf2612;
+  text-decoration: underline;
+}
+
 .parallax-section {
-  position: relative;
-  overflow: hidden;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-  width: 100vw;
   will-change: transform;
 }
 .parallax-section .parallax-content {
@@ -123,9 +160,6 @@
     min-height: auto !important;
     padding: 2rem 0 !important;
   }
-  .parallax-section .parallax-content {
-    padding: 1rem;
-  }
   .parallax-section .parallax-content h2 {
     font-size: 2rem;
   }
@@ -135,12 +169,6 @@
 }
 .parallax-section .transition-all {
   transition: all 0.3s ease;
-}
-
-.full-width {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
 }
 
 .orange {
@@ -188,9 +216,15 @@
 
 .navigation-main a {
   text-decoration: none;
+  transition: border-color 0.2s ease-in-out;
+}
+@media (min-width: 1140px) {
+  .navigation-main a {
+    border-bottom: 1px solid transparent;
+  }
 }
 .navigation-main a:hover {
-  border-bottom: rgba(255, 255, 255, 0.5333333333) 1px solid;
+  border-bottom-color: rgba(255, 255, 255, 0.5333333333);
   text-decoration: none;
 }
 
@@ -227,15 +261,6 @@
 }
 #privacy-banner.privacy-mode-auto #accept-privacy {
   display: none;
-}
-
-a {
-  color: #ee5240;
-  text-decoration: none;
-}
-a:hover {
-  color: #cf2612;
-  text-decoration: underline;
 }
 
 article a.no-underline:hover,
