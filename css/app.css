@@ -277,3 +277,44 @@ article a.no-underline:hover,
   text-decoration: underline;
   opacity: 1;
 }
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.btn:hover, .btn:focus {
+  transform: scale(1.1);
+  text-decoration: none;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn--primary {
+  background-color: #ee5240;
+  color: #fff;
+  border-color: #ee5240;
+}
+.btn--primary:hover, .btn--primary:focus {
+  background-color: #e62a15;
+  border-color: #e62a15;
+  color: #fff;
+}
+
+.btn--secondary {
+  background-color: #fff;
+  color: #ee5240;
+  border-color: #ee5240;
+}
+.btn--secondary:hover, .btn--secondary:focus {
+  background-color: #fff;
+  color: #e62a15;
+  border-color: #e62a15;
+}
