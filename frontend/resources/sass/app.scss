@@ -4,6 +4,30 @@
 // Import modular SCSS files
 @import 'hamburger-menu';
 
+// Global link styling - set default link color to brand orange
+// Scope to main content only, exclude navigation and footer
+main a:not(.bg-orange):not([class*="bg-"]):not(.btn),
+main a:link:not(.bg-orange):not([class*="bg-"]):not(.btn),
+main a:visited:not(.bg-orange):not([class*="bg-"]):not(.btn),
+main .link:not(.bg-orange):not([class*="bg-"]):not(.btn),
+main .link:link:not(.bg-orange):not([class*="bg-"]):not(.btn),
+main .link:visited:not(.bg-orange):not([class*="bg-"]):not(.btn),
+article a:not(.bg-orange):not([class*="bg-"]):not(.btn),
+article a:link:not(.bg-orange):not([class*="bg-"]):not(.btn),
+article a:visited:not(.bg-orange):not([class*="bg-"]):not(.btn),
+article .link:not(.bg-orange):not([class*="bg-"]):not(.btn),
+article .link:link:not(.bg-orange):not([class*="bg-"]):not(.btn),
+article .link:visited:not(.bg-orange):not([class*="bg-"]):not(.btn) {
+  color: $primary-color;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: darken($primary-color, 15%);
+    text-decoration: underline;
+  }
+}
+
 // Parallax section styles
 .parallax-section {
 
@@ -176,17 +200,6 @@
     #accept-privacy {
       display: none;
     }
-  }
-}
-
-// Global link styling
-a {
-  color: $primary-color;
-  text-decoration: none;
-
-  &:hover {
-    color: darken($primary-color, 15%);
-    text-decoration: underline;
   }
 }
 
