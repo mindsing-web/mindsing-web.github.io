@@ -13,7 +13,6 @@
   },
   "devDependencies": {
     "laravel-mix": "^6.0.49",
-    "mix-tailwindcss": "^1.3.0",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.52.3",
     "sass-loader": "^12.6.0"

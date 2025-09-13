@@ -2,7 +2,6 @@
 
 const path = require('path');
 const mix = require('laravel-mix');
-require('mix-tailwindcss');
 
 const cssPath = 'static/css';
 
