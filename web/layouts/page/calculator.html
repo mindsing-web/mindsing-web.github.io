@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ .Site.LanguageCode }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{ .Title }}</title>
-    <style>
-        body {
-            background-color: white;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-        }
-    </style>
+    {{ with .Site.Params.stylesheet }}
+    <link rel="stylesheet" href="{{ . }}">
+    {{ end }}
 </head>
-<body>
-    {{ .Content }}
+<body class="calculator-page">
+    <main class="calculator-page__content container">
+        {{ .Content }}
+    </main>
 </body>
 </html>
