@@ -5,7 +5,7 @@ layout: "calculator"
 
 <!-- This is the calculator page content -->
 
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-    <button style="margin: 0 10px;">DIME Calculator</button>
-    <button style="margin: 0 10px;">Cashflow</button>
+<div class="flex items-center justify-center">
+    <a role="button" class="btn btn--secondary pa3 mh3" href="/calculator/dime/">DIME Calculator</a>
+    <a role="button" class="btn btn--secondary pa3 mh3" href="/calculator/cashflow/">Cashflow</a>
 </div>

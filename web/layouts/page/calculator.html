@@ -4,12 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{ .Title }}</title>
-    {{ with .Site.Params.stylesheet }}
-    <link rel="stylesheet" href="{{ . }}">
-    {{ end }}
+    {{ partial "site-style.html" . }}
 </head>
 <body class="calculator-page">
-    <main class="calculator-page__content container">
+    <main class="calculator-page__content flex items-center justify-center min-vh-100">
         {{ .Content }}
     </main>
 </body>
