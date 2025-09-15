@@ -814,10 +814,10 @@
   }
 
   function populateFormFromToken (token, form) {
-    (async function () {
+    return (async function () {
       try {
         var data = await decodeTokenToObject (token || '');
-        if (!form || !data) return;
+        if (!form || !data) return {};
         var els = form.elements;
         for (var i = 0; i < els.length; i++) {
           var el = els[i];
@@ -847,8 +847,10 @@
         try {
           form.dispatchEvent (new Event ('change', {bubbles: true}));
         } catch (e) {}
+        return data;
       } catch (e) {
         console.error ('populateFormFromToken error:', e);
+        return {};
       }
     }) ();
   }
@@ -984,7 +986,30 @@
         }
         var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
         if (!form) return;
-        try { window.formHelpers.populateFormFromToken(fragment, form); } catch (e) {}
+        try {
+          // populateFormFromToken now returns a Promise that resolves when populated
+          var p = window.formHelpers.populateFormFromToken(fragment, form);
+          if (p && typeof p.then === 'function') {
+            p.then(function () {
+              // Trigger the render/update functions if available
+              try {
+                if (window.formDime) {
+                  window.formDime.renderDebtOutput && window.formDime.renderDebtOutput(form);
+                  window.formDime.renderIncomeOutput && window.formDime.renderIncomeOutput(form);
+                  window.formDime.renderMortgageOutput && window.formDime.renderMortgageOutput(form);
+                  window.formDime.renderEducationOutput && window.formDime.renderEducationOutput(form);
+                  window.formDime.renderDimeOutput && window.formDime.renderDimeOutput(form);
+                  window.formDime.renderCoverageNeed && window.formDime.renderCoverageNeed(form);
+                } else {
+                  // fallback: submit the form programmatically to fire submit handlers
+                  try { form.dispatchEvent(new Event('submit', {bubbles:true})); } catch (e) {}
+                }
+              } catch (err) {}
+            }).catch(function(){
+              // ignore
+            });
+          }
+        } catch (e) {}
       }
 
       // Register click on main button to open the dialog (or fallback to prompt)
