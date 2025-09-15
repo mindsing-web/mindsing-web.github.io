@@ -464,13 +464,26 @@
             // remove focus/active state from the submit button so visual "active" styles clear
             try {
               var active = document.activeElement;
-              if (active && (active.tagName === 'BUTTON' || active.tagName === 'INPUT') && form.contains(active)) {
-                active.blur();
-              } else {
+              if (active && (active.tagName === 'BUTTON' || active.tagName === 'INPUT')) {
+                try { active.blur(); } catch (e) {}
+              }
+              // Also ensure the form's submit button is blurred as a fallback
+              try {
                 var submitBtn = form.querySelector('button[type="submit"]');
                 if (submitBtn) submitBtn.blur();
-              }
+              } catch (e) {}
             } catch (err) {}
+            // delayed fallback: blur again after a short timeout to clear any lingering active styles
+            try {
+              setTimeout(function () {
+                try {
+                  var a = document.activeElement;
+                  if (a && (a.tagName === 'BUTTON' || a.tagName === 'INPUT')) try { a.blur(); } catch (e) {}
+                  var sb = form.querySelector('button[type="submit"]');
+                  if (sb) try { sb.blur(); } catch (e) {}
+                } catch (e) {}
+              }, 50);
+            } catch (e) {}
           } catch (err) {
             console.error ('form__dime submit handler error:', err);
           }
@@ -644,20 +657,28 @@
           if (window.formDime && typeof window.formDime.renderCoverageNeed === 'function') {
             window.formDime.renderCoverageNeed(form);
           }
-          // clear focus from submit if the button was outside the form or still focused
+          // remove focus/active state from the submit button so visual "active" styles clear
           try {
             var active = document.activeElement;
-            if (
-              active &&
-              (active.tagName === 'BUTTON' || active.tagName === 'INPUT') &&
-              form.contains(active)
-            ) {
-              active.blur();
-            } else {
+            if (active && (active.tagName === 'BUTTON' || active.tagName === 'INPUT')) {
+              try { active.blur(); } catch (e) {}
+            }
+            try {
               var submitBtn = form.querySelector('button[type="submit"]');
               if (submitBtn) submitBtn.blur();
-            }
+            } catch (e) {}
           } catch (err) {}
+          // delayed fallback: blur again after a short timeout to clear any lingering active styles
+          try {
+            setTimeout(function () {
+              try {
+                var a = document.activeElement;
+                if (a && (a.tagName === 'BUTTON' || a.tagName === 'INPUT')) try { a.blur(); } catch (e) {}
+                var sb = form.querySelector('button[type="submit"]');
+                if (sb) try { sb.blur(); } catch (e) {}
+              } catch (e) {}
+            }, 50);
+          } catch (e) {}
         } catch (err) {
           console.error('form__dime delegated submit handler error:', err);
         }
