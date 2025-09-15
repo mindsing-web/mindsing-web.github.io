@@ -124,6 +124,10 @@ hideFromSitemap: true
   <!-- Section: DIME Insurance Targets -->
   <h2 class="w-100 ph2 mt3 mb2">DIME Insurance Targets</h2>
 
+  <div class="w-100 ph2 mb4">
+    <div id="dime-output" class="section-output"></div>
+  </div>
+
   <div class="w-100 w-50-ns ph2 mb3">
     <label for="current_insurance" class="db mb1">Current in-force insurance</label>
     <input id="current_insurance" name="current_insurance" type="number"

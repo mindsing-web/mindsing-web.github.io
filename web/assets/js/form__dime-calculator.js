@@ -129,6 +129,32 @@
     }
   }
 
+  // --- DIME total calculation and output ---
+  function computeDimeValue(form) {
+    try {
+      var d = computeDebtValue(form);
+      var i = computeIncomeValue(form);
+      var m = computeMortgageValue(form);
+      var e = computeEducationValue(form).total || 0;
+      return d + i + m + e;
+    } catch (e) {
+      console.error('form__dime computeDimeValue error:', e);
+      return 0;
+    }
+  }
+
+  function renderDimeOutput(form) {
+    try {
+      var out = document.getElementById('dime-output');
+      if (!out) return;
+      var value = computeDimeValue(form);
+      out.innerHTML = '<h3 class="mb0 underline">DIME Coverage Target = <i>' + formatCurrency(value) + '</i></h3>' +
+        '<p class="mt1 mb0"><small>Combined total of debt, income replacement, mortgage, and education needs</small></p>';
+    } catch (e) {
+      console.error('form__dime renderDimeOutput error:', e);
+    }
+  }
+
   function initDebtOutput(root) {
     root = root || document;
     try {
@@ -137,7 +163,7 @@
       // Listen for form cleared event to reset outputs
       form.addEventListener('form:cleared', function () {
         try {
-          var ids = ['debt-output', 'income-output', 'mortgage-output', 'education-output'];
+          var ids = ['debt-output', 'income-output', 'mortgage-output', 'education-output', 'dime-output'];
           ids.forEach(function (id) {
             var el = document.getElementById(id);
             if (el) el.innerHTML = '';
@@ -196,6 +222,16 @@
         depEdu.addEventListener('blur', function () { renderEducationOutput(form); }, true);
         depEdu.addEventListener('change', function () { renderEducationOutput(form); }, true);
       }
+
+      // Init DIME combined output and wire updates when any section updates
+      renderDimeOutput(form);
+      var allIds = ['final_expenses','credit_card_debts','car_loans','other_debts','annual_salary','income_multiplier','monthly_rent','months_rent','mortgage_balance','student_loans','dependent_education'];
+      allIds.forEach(function (id) {
+        var el = form.querySelector('#' + id);
+        if (!el) return;
+        el.addEventListener('blur', function () { renderDimeOutput(form); }, true);
+        el.addEventListener('change', function () { renderDimeOutput(form); }, true);
+      });
     } catch (e) {
       console.error('form__dime initDebtOutput error:', e);
     }
