@@ -12,7 +12,7 @@ hideFromSitemap: true
 <div class="flex flex-wrap nl2 nr2">
 
   <!-- Section: Debt -->
-  <h3 class="w-100 ph2 mt0 mb2">Debt</h3>
+  <h2 class="w-100 ph2 mt0 mb2">Debt</h2>
 
   <div class="w-100 w-50-ns ph2 mb3">
     <label for="final_expenses" class="db mb1">
@@ -47,7 +47,7 @@ hideFromSitemap: true
   </div>
 
   <!-- Section: Income -->
-  <h3 class="w-100 ph2 mt3 mb2">Income</h3>
+  <h2 class="w-100 ph2 mt3 mb2">Income</h2>
 
   <div class="w-100 w-50-ns ph2 mb3">
     <label for="annual_salary" class="db mb1">Annual salary</label>
@@ -70,7 +70,7 @@ hideFromSitemap: true
   </div>
 
   <!-- Section: Mortgage -->
-  <h3 class="w-100 ph2 mt3 mb2">Mortgage</h3>
+  <h2 class="w-100 ph2 mt3 mb2">Mortgage</h2>
 
   <div class="w-100 w-50-ns ph2 mb3">
     <label for="monthly_rent" class="db mb1">Monthly rent</label>
@@ -99,7 +99,7 @@ hideFromSitemap: true
   </div>
 
   <!-- Section: Education -->
-  <h3 class="w-100 ph2 mt3 mb2">Education</h3>
+  <h2 class="w-100 ph2 mt3 mb2">Education</h2>
 
   <div class="w-100 w-50-ns ph2 mb3">
     <label for="student_loans" class="db mb1">Student loans outstanding</label>
@@ -122,7 +122,7 @@ hideFromSitemap: true
   </div>
 
   <!-- Section: DIME Insurance Targets -->
-  <h3 class="w-100 ph2 mt3 mb2">DIME Insurance Targets</h3>
+  <h2 class="w-100 ph2 mt3 mb2">DIME Insurance Targets</h2>
 
   <div class="w-100 w-50-ns ph2 mb3">
     <label for="current_insurance" class="db mb1">Current in-force insurance</label>
