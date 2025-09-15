@@ -1,3 +1,7 @@
+// Import variables and modules early so variables are available
+@import 'vars';
+@import 'hamburger-menu';
+
 #dime-summary h3.mt4 {
   margin-top: 1.25rem; /* extra padding above Life Insurance Target */
 }
@@ -10,11 +14,6 @@
 #dime-summary u em {
   font-style: italic;
 }
-// Import shared variables
-@import 'vars';
-
-// Import modular SCSS files
-@import 'hamburger-menu';
 
 // Global link styling - set default link color to brand orange
 // Scope to main content only, exclude navigation and footer
@@ -391,4 +390,18 @@ article a.no-underline:hover,
 /* Ensure the button row uses full width and buttons keep alignment */
 #dime-summary .btn {
   min-width: 120px;
+}
+
+/* Disabled button appearance for action-bar controls */
+.btn--disabled {
+  opacity: 0.5;
+  transform: none !important;
+  /* Keep the disabled cursor visible when hovering or focusing. */
+  cursor: not-allowed;
+}
+
+/* Ensure hover/focus state still shows not-allowed cursor for disabled buttons */
+.btn--disabled:hover,
+.btn--disabled:focus {
+  cursor: not-allowed;
 }

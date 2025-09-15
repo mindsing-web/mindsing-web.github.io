@@ -292,6 +292,8 @@
         setTimeout(function(){ s.style.opacity = '1'; }, 20);
 
         form.setAttribute('data-dime-collapsed','true');
+          // Disable action bar controls while showing the summary
+          try { disableActionBarControls(); } catch (e) {}
 
         // hook show details
         var showBtn = s.querySelector('#btn-show-details') || document.getElementById('btn-show-details');
@@ -376,9 +378,69 @@
         try { delete form.dataset.dimeOrigDisplay; } catch (e) {}
       } catch (e) {}
       form.removeAttribute('data-dime-collapsed');
+        // Enable action bar controls after showing the summary
+        try { enableActionBarControls(); } catch (e) {}
     } catch (e) {
       console.error('expandFromSummary error:', e);
     }
+  }
+  // Disable/enable action bar controls (calculator home, add key, notes)
+  function disableActionBarControls() {
+    try {
+      var home = document.querySelector('a[href="/calculator/"]');
+      if (home) {
+        home.dataset._display = home.style.display || '';
+        home.style.display = 'none';
+        home.setAttribute('aria-hidden','true');
+      }
+    } catch (e) {}
+    try {
+      var addKey = document.getElementById('btn-add-key');
+      if (addKey) {
+        addKey.dataset._disabled = addKey.disabled ? '1' : '0';
+        addKey.disabled = true;
+        addKey.classList.add('btn--disabled');
+        addKey.setAttribute('aria-disabled','true');
+      }
+    } catch (e) {}
+    try {
+      var notes = document.getElementById('btn-toggle-notes') || document.querySelector('.btn--notes-toggle');
+      if (notes) {
+        notes.dataset._disabled = notes.disabled ? '1' : '0';
+        try { notes.disabled = true; } catch (e) {}
+        notes.classList.add('btn--disabled');
+        notes.setAttribute('aria-disabled','true');
+      }
+    } catch (e) {}
+  }
+
+  function enableActionBarControls() {
+    try {
+      var home = document.querySelector('a[href="/calculator/"]');
+      if (home) {
+        home.style.display = home.dataset._display || '';
+        try { delete home.dataset._display; } catch (e) {}
+        home.removeAttribute('aria-hidden');
+      }
+    } catch (e) {}
+    try {
+      var addKey = document.getElementById('btn-add-key');
+      if (addKey) {
+        addKey.disabled = (addKey.dataset._disabled === '1');
+        addKey.classList.remove('btn--disabled');
+        addKey.removeAttribute('aria-disabled');
+        try { delete addKey.dataset._disabled; } catch (e) {}
+      }
+    } catch (e) {}
+    try {
+      var notes = document.getElementById('btn-toggle-notes') || document.querySelector('.btn--notes-toggle');
+      if (notes) {
+        try { notes.disabled = (notes.dataset._disabled === '1'); } catch (e) {}
+        notes.classList.remove('btn--disabled');
+        notes.removeAttribute('aria-disabled');
+        try { delete notes.dataset._disabled; } catch (e) {}
+      }
+    } catch (e) {}
   }
 
   // Simple HTML escape helper for injecting token text
