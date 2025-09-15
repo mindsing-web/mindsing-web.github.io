@@ -375,6 +375,9 @@
         overlay.appendChild (box);
         document.body.appendChild (overlay);
 
+        // focus the primary action so Enter will confirm
+        try { ok.focus && ok.focus(); } catch (e) {}
+
         function cleanup () {
           document.body.removeChild (overlay);
           document.removeEventListener ('keydown', onKey, true);
@@ -383,6 +386,13 @@
           if (e.key === 'Escape' || e.key === 'Esc') {
             cleanup ();
             resolve (false);
+            return;
+          }
+          // Enter should accept the confirmation when the dialog is open
+          if (e.key === 'Enter') {
+            cleanup();
+            resolve(true);
+            return;
           }
         }
         cancel.addEventListener ('click', function () {
@@ -425,6 +435,18 @@
           }
         } catch (err) {
           console.error('clear-values: could not clear URL token', err);
+        }
+        // also clear hash if present
+        try {
+          if (window.history && typeof window.history.replaceState === 'function') {
+            var url2 = new URL(location.href);
+            url2.hash = '';
+            window.history.replaceState({}, document.title, url2.toString());
+          } else {
+            location.hash = '';
+          }
+        } catch (err) {
+          // ignore
         }
         form.dispatchEvent (new CustomEvent('form:cleared'));
       }
