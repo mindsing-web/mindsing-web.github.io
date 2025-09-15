@@ -137,10 +137,9 @@ password: "creative"
             class="input-reset ba b--black-20 pa2 w-100">
   </div>
 
-  <div class="w-100 w-50-ns ph2 mb4">
-    <label for="notes_dime" class="db mb1">Notes-DIME</label>
-    <input id="notes_dime" name="notes_dime" type="text"
-            class="input-reset ba b--black-20 pa2 w-100">
+  <div class="w-100 ph2 mb4">
+    <label for="notes_dime" class="db mb1">Notes</label>
+    <textarea id="notes_dime" name="notes_dime" rows="4" class="input-reset ba b--black-20 pa2 w-100"></textarea>
   </div>
 
   <div class="w-100 ph2 mb3">
