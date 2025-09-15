@@ -1,20 +1,21 @@
 // Form helper utilities: required asterisks + click-to-toggle tooltips for .info
 (function () {
   'use strict';
-
   // --- Required asterisks ---
-  function addAsterisks(root) {
+  function addAsterisks (root) {
     root = root || document;
     try {
       var selectors = 'input[required], select[required], textarea[required]';
-      var els = root.querySelectorAll(selectors);
-      els.forEach(function (el) {
+      var els = root.querySelectorAll (selectors);
+      els.forEach (function (el) {
         var id = el.id;
-        var label = id ? document.querySelector('label[for="' + id + '"]') : null;
+        var label = id
+          ? document.querySelector ('label[for="' + id + '"]')
+          : null;
         if (!label) {
           var parent = el.parentElement;
           while (parent && parent !== document.body) {
-            if (parent.tagName && parent.tagName.toLowerCase() === 'label') {
+            if (parent.tagName && parent.tagName.toLowerCase () === 'label') {
               label = parent;
               break;
             }
@@ -22,43 +23,46 @@
           }
         }
         if (!label) return;
-        if (label.querySelector('.required-asterisk')) return;
-        var span = document.createElement('span');
+        if (label.querySelector ('.required-asterisk')) return;
+        var span = document.createElement ('span');
         span.className = 'required-asterisk';
         span.textContent = '*';
-        label.insertBefore(span, label.firstChild);
+        label.insertBefore (span, label.firstChild);
       });
     } catch (e) {
-      console.error('form__helpers addAsterisks error:', e);
+      console.error ('form__helpers addAsterisks error:', e);
     }
   }
 
   // --- Info tooltip behavior ---
   // Transforms <a class="info" title="..."> into a click-toggle tooltip.
-  function initInfoTooltips(root) {
+  function initInfoTooltips (root) {
     root = root || document;
     try {
       var DEFAULT_OFFSET = 20; // px distance from trigger to tooltip
-      var infos = Array.prototype.slice.call(root.querySelectorAll('a.info'));
-      infos.forEach(function (el, i) {
+      var infos = Array.prototype.slice.call (root.querySelectorAll ('a.info'));
+      infos.forEach (function (el, i) {
         // Ensure it's focusable and has role
-        el.setAttribute('role', 'button');
-        el.setAttribute('tabindex', el.getAttribute('tabindex') || '0');
+        el.setAttribute ('role', 'button');
+        el.setAttribute ('tabindex', el.getAttribute ('tabindex') || '0');
 
-        var content = el.getAttribute('title') || el.getAttribute('data-title') || '';
+        var content =
+          el.getAttribute ('title') || el.getAttribute ('data-title') || '';
         if (!content) return;
 
         // Remove default title to avoid native tooltip
-        el.removeAttribute('title');
+        el.removeAttribute ('title');
 
         // Per-element offset override (data-tooltip-offset="16")
-        var OFFSET = parseInt(el.getAttribute('data-tooltip-offset'), 10) || DEFAULT_OFFSET;
+        var OFFSET =
+          parseInt (el.getAttribute ('data-tooltip-offset'), 10) ||
+          DEFAULT_OFFSET;
 
         // Create tooltip element
-        var tip = document.createElement('div');
+        var tip = document.createElement ('div');
         tip.className = 'info-tooltip';
-        tip.setAttribute('role', 'tooltip');
-        var tipId = 'info-tooltip-' + (el.id || ('fh' + i));
+        tip.setAttribute ('role', 'tooltip');
+        var tipId = 'info-tooltip-' + (el.id || 'fh' + i);
         tip.id = tipId;
         tip.textContent = content;
         tip.style.position = 'absolute';
@@ -73,15 +77,15 @@
         tip.style.display = 'none';
 
         // Associate aria
-        el.setAttribute('aria-haspopup', 'true');
-        el.setAttribute('aria-expanded', 'false');
-        el.setAttribute('aria-controls', tipId);
+        el.setAttribute ('aria-haspopup', 'true');
+        el.setAttribute ('aria-expanded', 'false');
+        el.setAttribute ('aria-controls', tipId);
 
         // Insert into DOM
-        document.body.appendChild(tip);
+        document.body.appendChild (tip);
 
-        function positionTip() {
-          var rect = el.getBoundingClientRect();
+        function positionTip () {
+          var rect = el.getBoundingClientRect ();
           var scrollY = window.scrollY || window.pageYOffset;
           var scrollX = window.scrollX || window.pageXOffset;
           // Place above by default, otherwise below
@@ -89,95 +93,120 @@
           if (top < scrollY + OFFSET) {
             top = rect.bottom + scrollY + OFFSET;
           }
-          var left = rect.left + scrollX + (rect.width / 2) - (tip.offsetWidth / 2);
-          left = Math.max(scrollX + OFFSET, Math.min(left, scrollX + document.documentElement.clientWidth - tip.offsetWidth - OFFSET));
+          var left = rect.left + scrollX + rect.width / 2 - tip.offsetWidth / 2;
+          left = Math.max (
+            scrollX + OFFSET,
+            Math.min (
+              left,
+              scrollX +
+                document.documentElement.clientWidth -
+                tip.offsetWidth -
+                OFFSET
+            )
+          );
           tip.style.top = top + 'px';
           tip.style.left = left + 'px';
         }
 
-        function openTip() {
-          positionTip();
+        function openTip () {
+          positionTip ();
           tip.style.display = 'block';
-          el.setAttribute('aria-expanded', 'true');
+          el.setAttribute ('aria-expanded', 'true');
           // focus the tooltip for screen readers
-          tip.setAttribute('tabindex', '-1');
-          tip.focus && tip.focus();
+          tip.setAttribute ('tabindex', '-1');
+          tip.focus && tip.focus ();
           // register outside click handler
-          document.addEventListener('click', onDocClick, true);
-          document.addEventListener('keydown', onKeyDown, true);
+          document.addEventListener ('click', onDocClick, true);
+          document.addEventListener ('keydown', onKeyDown, true);
         }
 
-        function closeTip() {
+        function closeTip () {
           tip.style.display = 'none';
-          el.setAttribute('aria-expanded', 'false');
-          document.removeEventListener('click', onDocClick, true);
-          document.removeEventListener('keydown', onKeyDown, true);
+          el.setAttribute ('aria-expanded', 'false');
+          document.removeEventListener ('click', onDocClick, true);
+          document.removeEventListener ('keydown', onKeyDown, true);
         }
 
-        function toggleTip() {
-          if (tip.style.display === 'none' || tip.style.display === '') openTip(); else closeTip();
+        function toggleTip () {
+          if (tip.style.display === 'none' || tip.style.display === '')
+            openTip ();
+          else closeTip ();
         }
 
-        function onDocClick(e) {
-          if (e.target === el || el.contains(e.target) || e.target === tip || tip.contains(e.target)) return;
-          closeTip();
+        function onDocClick (e) {
+          if (
+            e.target === el ||
+            el.contains (e.target) ||
+            e.target === tip ||
+            tip.contains (e.target)
+          )
+            return;
+          closeTip ();
         }
 
-        function onKeyDown(e) {
+        function onKeyDown (e) {
           if (e.key === 'Escape' || e.key === 'Esc') {
-            closeTip();
-            el.focus && el.focus();
+            closeTip ();
+            el.focus && el.focus ();
           }
-          if (e.key === 'Enter' || e.key === ' ' ) {
-            e.preventDefault();
-            toggleTip();
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault ();
+            toggleTip ();
           }
         }
 
         // Remove fragment hrefs so clicks don't add #
         try {
-          var href = el.getAttribute('href');
-          if (href && (href === '#' || href.indexOf('#') === 0)) {
-            el.removeAttribute('href');
+          var href = el.getAttribute ('href');
+          if (href && (href === '#' || href.indexOf ('#') === 0)) {
+            el.removeAttribute ('href');
           }
         } catch (err) {}
 
-        el.addEventListener('click', function (ev) {
-          ev.preventDefault();
-          ev.stopPropagation();
-          toggleTip();
+        el.addEventListener ('click', function (ev) {
+          ev.preventDefault ();
+          ev.stopPropagation ();
+          toggleTip ();
         });
-        el.addEventListener('keydown', function (ev) {
+        el.addEventListener ('keydown', function (ev) {
           if (ev.key === 'Enter' || ev.key === ' ') {
-            ev.preventDefault();
-            toggleTip();
+            ev.preventDefault ();
+            toggleTip ();
           }
         });
 
         // Reposition on resize/scroll when open
-        window.addEventListener('resize', function () { if (tip.style.display !== 'none') positionTip(); });
-        window.addEventListener('scroll', function () { if (tip.style.display !== 'none') positionTip(); }, true);
+        window.addEventListener ('resize', function () {
+          if (tip.style.display !== 'none') positionTip ();
+        });
+        window.addEventListener (
+          'scroll',
+          function () {
+            if (tip.style.display !== 'none') positionTip ();
+          },
+          true
+        );
       });
     } catch (e) {
-      console.error('form__helpers initInfoTooltips error:', e);
+      console.error ('form__helpers initInfoTooltips error:', e);
     }
   }
 
   // --- Form persistence (sessionStorage) ---
-  function getFormKey(form) {
-    var id = form.id || form.getAttribute('name') || 'form';
+  function getFormKey (form) {
+    var id = form.id || form.getAttribute ('name') || 'form';
     return 'formstate:' + (location.pathname || '') + ':' + id;
   }
 
-  function serializeForm(form) {
+  function serializeForm (form) {
     var data = {};
     var els = form.elements;
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
       if (!el.name && !el.id) continue;
       var key = el.name || el.id;
-      var tag = (el.tagName || '').toLowerCase();
-      var type = (el.type || '').toLowerCase();
+      var tag = (el.tagName || '').toLowerCase ();
+      var type = (el.type || '').toLowerCase ();
       if (type === 'password' || type === 'file') continue;
       if (type === 'checkbox') {
         data[key] = el.checked;
@@ -187,7 +216,7 @@
         if (el.multiple) {
           var vals = [];
           for (var j = 0; j < el.options.length; j++) {
-            if (el.options[j].selected) vals.push(el.options[j].value);
+            if (el.options[j].selected) vals.push (el.options[j].value);
           }
           data[key] = vals;
         } else {
@@ -198,35 +227,35 @@
       }
     }
     try {
-      return JSON.stringify(data);
+      return JSON.stringify (data);
     } catch (e) {
       return '';
     }
   }
 
-  function restoreForm(form) {
+  function restoreForm (form) {
     try {
-      var key = getFormKey(form);
-      var raw = sessionStorage.getItem(key);
+      var key = getFormKey (form);
+      var raw = sessionStorage.getItem (key);
       if (!raw) return;
-      var data = JSON.parse(raw || '{}');
+      var data = JSON.parse (raw || '{}');
       var els = form.elements;
       for (var i = 0; i < els.length; i++) {
         var el = els[i];
         if (!el.name && !el.id) continue;
         var name = el.name || el.id;
-        var tag = (el.tagName || '').toLowerCase();
-        var type = (el.type || '').toLowerCase();
+        var tag = (el.tagName || '').toLowerCase ();
+        var type = (el.type || '').toLowerCase ();
         if (!(name in data)) continue;
         var val = data[name];
         if (type === 'checkbox') {
           el.checked = !!val;
         } else if (type === 'radio') {
-          el.checked = (el.value === val);
+          el.checked = el.value === val;
         } else if (tag === 'select') {
-          if (el.multiple && Array.isArray(val)) {
+          if (el.multiple && Array.isArray (val)) {
             for (var j = 0; j < el.options.length; j++) {
-              el.options[j].selected = val.indexOf(el.options[j].value) !== -1;
+              el.options[j].selected = val.indexOf (el.options[j].value) !== -1;
             }
           } else {
             el.value = val;
@@ -236,169 +265,191 @@
         }
       }
     } catch (e) {
-      console.error('form__helpers restoreForm error:', e);
+      console.error ('form__helpers restoreForm error:', e);
     }
   }
 
-  function saveFormState(form) {
+  function saveFormState (form) {
     try {
-      var key = getFormKey(form);
-      var raw = serializeForm(form);
-      sessionStorage.setItem(key, raw);
+      var key = getFormKey (form);
+      var raw = serializeForm (form);
+      sessionStorage.setItem (key, raw);
     } catch (e) {
-      console.error('form__helpers saveFormState error:', e);
+      console.error ('form__helpers saveFormState error:', e);
     }
   }
 
-  function clearFormState(form) {
+  function clearFormState (form) {
     try {
-      var key = getFormKey(form);
-      sessionStorage.removeItem(key);
+      var key = getFormKey (form);
+      sessionStorage.removeItem (key);
     } catch (e) {
-      console.error('form__helpers clearFormState error:', e);
+      console.error ('form__helpers clearFormState error:', e);
     }
   }
 
-  function initFormPersistence(root) {
+  function initFormPersistence (root) {
     root = root || document;
     try {
       var selector = 'form.calculator--form, form[data-save="session"]';
-      var forms = Array.prototype.slice.call(root.querySelectorAll(selector));
-      forms.forEach(function (form, idx) {
+      var forms = Array.prototype.slice.call (root.querySelectorAll (selector));
+      forms.forEach (function (form, idx) {
         // Restore existing state
-        restoreForm(form);
+        restoreForm (form);
 
         // Debounced save
         var saveTimer = null;
-        function scheduleSave() {
-          if (saveTimer) clearTimeout(saveTimer);
-          saveTimer = setTimeout(function () { saveFormState(form); }, 250);
+        function scheduleSave () {
+          if (saveTimer) clearTimeout (saveTimer);
+          saveTimer = setTimeout (function () {
+            saveFormState (form);
+          }, 250);
         }
 
         // Listen for input and change events
-        form.addEventListener('input', scheduleSave, true);
-        form.addEventListener('change', scheduleSave, true);
+        form.addEventListener ('input', scheduleSave, true);
+        form.addEventListener ('change', scheduleSave, true);
 
         // On submit clear if requested
-        form.addEventListener('submit', function (e) {
-          var clearOnSubmit = form.getAttribute('data-clear-on-submit');
-          if (clearOnSubmit === 'true' || clearOnSubmit === '' ) {
-            clearFormState(form);
-          } else {
-            // ensure final values saved
-            saveFormState(form);
-          }
-        }, true);
+        form.addEventListener (
+          'submit',
+          function (e) {
+            var clearOnSubmit = form.getAttribute ('data-clear-on-submit');
+            if (clearOnSubmit === 'true' || clearOnSubmit === '') {
+              clearFormState (form);
+            } else {
+              // ensure final values saved
+              saveFormState (form);
+            }
+          },
+          true
+        );
       });
     } catch (e) {
-      console.error('form__helpers initFormPersistence error:', e);
+      console.error ('form__helpers initFormPersistence error:', e);
     }
   }
 
   // --- Confirm dialog utility ---
-  function showConfirm(options) {
+  function showConfirm (options) {
     options = options || {};
     var title = options.title || 'Are you sure?';
     var body = options.body || '';
     var okText = options.okText || 'OK';
     var cancelText = options.cancelText || 'Cancel';
-    return new Promise(function (resolve) {
+    return new Promise (function (resolve) {
       try {
         // create modal elements
-        var overlay = document.createElement('div');
-        overlay.className = 'confirm-overlay fixed top-0 left-0 w-100 h-100 flex items-center justify-center';
+        var overlay = document.createElement ('div');
+        overlay.className =
+          'confirm-overlay fixed top-0 left-0 w-100 h-100 flex items-center justify-center';
         overlay.style.zIndex = 20000;
         overlay.style.background = 'rgba(0,0,0,0.4)';
 
-        var box = document.createElement('div');
+        var box = document.createElement ('div');
         box.className = 'confirm-box bg-white pa3 br2';
         box.style.minWidth = '320px';
         box.style.maxWidth = '90%';
 
-        var h = document.createElement('h3');
+        var h = document.createElement ('h3');
         h.textContent = title;
         h.style.marginTop = '0';
-        var p = document.createElement('p');
+        var p = document.createElement ('p');
         p.innerHTML = body;
 
-        var controls = document.createElement('div');
+        var controls = document.createElement ('div');
         controls.className = 'tr mt3';
 
-        var cancel = document.createElement('button');
+        var cancel = document.createElement ('button');
         cancel.className = 'btn mr2';
         cancel.textContent = cancelText;
-        var ok = document.createElement('button');
+        var ok = document.createElement ('button');
         ok.className = 'btn btn--primary';
         ok.textContent = okText;
 
-        controls.appendChild(cancel);
-        controls.appendChild(ok);
-        box.appendChild(h);
-        box.appendChild(p);
-        box.appendChild(controls);
-        overlay.appendChild(box);
-        document.body.appendChild(overlay);
+        controls.appendChild (cancel);
+        controls.appendChild (ok);
+        box.appendChild (h);
+        box.appendChild (p);
+        box.appendChild (controls);
+        overlay.appendChild (box);
+        document.body.appendChild (overlay);
 
-        function cleanup() {
-          document.body.removeChild(overlay);
-          document.removeEventListener('keydown', onKey, true);
+        function cleanup () {
+          document.body.removeChild (overlay);
+          document.removeEventListener ('keydown', onKey, true);
         }
-        function onKey(e) {
+        function onKey (e) {
           if (e.key === 'Escape' || e.key === 'Esc') {
-            cleanup();
-            resolve(false);
+            cleanup ();
+            resolve (false);
           }
         }
-        cancel.addEventListener('click', function () { cleanup(); resolve(false); });
-        ok.addEventListener('click', function () { cleanup(); resolve(true); });
-        document.addEventListener('keydown', onKey, true);
+        cancel.addEventListener ('click', function () {
+          cleanup ();
+          resolve (false);
+        });
+        ok.addEventListener ('click', function () {
+          cleanup ();
+          resolve (true);
+        });
+        document.addEventListener ('keydown', onKey, true);
       } catch (e) {
-        console.error('showConfirm error:', e);
-        resolve(false);
+        console.error ('showConfirm error:', e);
+        resolve (false);
       }
     });
   }
 
   // --- Initialize clear-values buttons on forms ---
-  function initClearValues(root) {
+  function initClearValues (root) {
     root = root || document;
     try {
-      var forms = Array.prototype.slice.call(root.querySelectorAll('form.calculator--form, form[data-save="session"]'));
-      forms.forEach(function (form) {
-        var clearBtn = form.querySelector('.btn--clear-values');
+      var forms = Array.prototype.slice.call (
+        root.querySelectorAll (
+          'form.calculator--form, form[data-save="session"]'
+        )
+      );
+      forms.forEach (function (form) {
+        var clearBtn = form.querySelector ('.btn--clear-values');
         if (!clearBtn) return;
-        clearBtn.addEventListener('click', function (e) {
-          e.preventDefault();
-          showConfirm({ title: 'Clear saved values?', body: 'This will clear saved form values for this calculator. Are you sure?', okText: 'Yes, clear', cancelText: 'Cancel' }).then(function (ok) {
+        clearBtn.addEventListener ('click', function (e) {
+          e.preventDefault ();
+          showConfirm ({
+            title: 'Clear saved values?',
+            body: 'This will clear saved form values for this calculator. Are you sure?',
+            okText: 'Yes, clear',
+            cancelText: 'Cancel',
+          }).then (function (ok) {
             if (!ok) return;
-            clearFormState(form);
+            clearFormState (form);
             // clear visible inputs
             try {
-              form.reset();
+              form.reset ();
             } catch (err) {}
             // trigger a custom event so pages can re-render outputs
-            form.dispatchEvent(new CustomEvent('form:cleared'));
+            form.dispatchEvent (new CustomEvent ('form:cleared'));
           });
         });
       });
     } catch (e) {
-      console.error('initClearValues error:', e);
+      console.error ('initClearValues error:', e);
     }
   }
 
   // Auto-init on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      addAsterisks(document);
-      initInfoTooltips(document);
-      initFormPersistence(document);
-      initClearValues(document);
+    document.addEventListener ('DOMContentLoaded', function () {
+      addAsterisks (document);
+      initInfoTooltips (document);
+      initFormPersistence (document);
+      initClearValues (document);
     });
   } else {
-    addAsterisks(document);
-    initInfoTooltips(document);
-    initFormPersistence(document);
-    initClearValues(document);
+    addAsterisks (document);
+    initInfoTooltips (document);
+    initFormPersistence (document);
+    initClearValues (document);
   }
 
   // Expose functions for dynamic content
@@ -412,70 +463,63 @@
 
   // --- Encode form values into URL (query string in fragment/hash)
   // Usage: formHelpers.encodeFormToURLHash(form, { includeEmpty: false, useFragment: true })
-  function encodeFormToURLHash(form, opts) {
+  function encodeFormToURLHash (form, opts) {
     opts = opts || {};
     var includeEmpty = !!opts.includeEmpty;
-    var useFragment = (typeof opts.useFragment === 'undefined') ? true : !!opts.useFragment;
+    var useFragment = typeof opts.useFragment === 'undefined'
+      ? true
+      : !!opts.useFragment;
     try {
       if (!form || !(form instanceof HTMLFormElement)) return '';
-      var data = {};
-      var els = form.elements;
-      for (var i = 0; i < els.length; i++) {
-        var el = els[i];
-        if (!el.name && !el.id) continue;
-        var key = el.name || el.id;
-        var tag = (el.tagName || '').toLowerCase();
-        var type = (el.type || '').toLowerCase();
-        var val = null;
-        if (type === 'checkbox') {
-          val = el.checked ? '1' : '0';
-        } else if (type === 'radio') {
-          if (!el.checked) continue; else val = el.value;
-        } else if (tag === 'select') {
-          if (el.multiple) {
-            var vals = [];
-            for (var j = 0; j < el.options.length; j++) {
-              if (el.options[j].selected) vals.push(el.options[j].value);
-            }
-            val = vals.join(',');
-          } else {
-            val = el.value;
-          }
-        } else {
-          val = el.value;
-        }
-        if (!includeEmpty && (val === null || val === '' || typeof val === 'undefined')) continue;
-        data[key] = val;
-      }
-      // Build query string
-      var parts = [];
-      Object.keys(data).forEach(function (k) {
-        try { parts.push(encodeURIComponent(k) + '=' + encodeURIComponent(String(data[k]))); } catch (e) {}
+      var rawJson = serializeForm (form) || '{}';
+      var parsed = JSON.parse (rawJson);
+      var params = new URLSearchParams ();
+      Object.keys (parsed).forEach (function (k) {
+        var v = parsed[k];
+        if (
+          !includeEmpty &&
+          (v === null || v === '' || typeof v === 'undefined')
+        )
+          return;
+        if (Array.isArray (v))
+          v.forEach (function (it) {
+            params.append (k, it);
+          });
+        else params.append (k, String (v));
       });
-      var qs = parts.join('&');
+      var qs = params.toString ();
       if (useFragment) {
         // Use location.hash without triggering navigation: preserve existing path/search
-        var hash = qs ? ('#' + qs) : '';
+        var hash = qs ? '#' + qs : '';
         try {
-          if (history && history.replaceState) {
-            history.replaceState(null, '', location.pathname + location.search + hash);
-          } else {
-            location.hash = qs;
-          }
+          if (history && history.replaceState)
+            history.replaceState (
+              null,
+              '',
+              location.pathname + location.search + hash
+            );
+          else location.hash = qs;
         } catch (e) {
-          try { location.hash = qs; } catch (er) {}
+          try {
+            location.hash = qs;
+          } catch (er) {}
         }
       } else {
         // Update search (will reload in some browsers if assigned directly)
-        var newUrl = location.pathname + (qs ? ('?' + qs) : '');
+        var newUrl = location.pathname + (qs ? '?' + qs : '');
         try {
-          if (history && history.replaceState) history.replaceState(null, '', newUrl);
+          if (history && history.replaceState)
+            history.replaceState (null, '', newUrl);
           else location.search = qs;
-        } catch (e) { try { location.search = qs; } catch (er) {} }
+        } catch (e) {
+          try {
+            location.search = qs;
+          } catch (er) {}
+        }
       }
       return qs;
     } catch (e) {
-      console.error('form__helpers encodeFormToURLHash error:', e);
+      console.error ('form__helpers encodeFormToURLHash error:', e);
       return '';
     }
   }
@@ -483,120 +527,227 @@
   window.formHelpers.encodeFormToURLHash = encodeFormToURLHash;
 
   // Auto-bind: if a form has `data-hash-on-submit`, encode on submit.
-  function initHashOnSubmit(root) {
+  function initHashOnSubmit (root) {
     root = root || document;
     try {
-      var forms = Array.prototype.slice.call(root.querySelectorAll('form[data-hash-on-submit]'));
-      forms.forEach(function (form) {
-        form.addEventListener('submit', function (e) {
-          try {
-            e.preventDefault();
-            encodeFormToURLHash(form, { includeEmpty: false, useFragment: true });
-            var submitAfter = form.getAttribute('data-submit-after-hash');
-            if (submitAfter === 'true') form.submit();
-          } catch (err) { console.error('initHashOnSubmit submit handler error:', err); }
-        }, true);
+      var forms = Array.prototype.slice.call (
+        root.querySelectorAll ('form[data-hash-on-submit]')
+      );
+      forms.forEach (function (form) {
+        form.addEventListener (
+          'submit',
+          function (e) {
+            try {
+              e.preventDefault ();
+              encodeFormToURLHash (form, {
+                includeEmpty: false,
+                useFragment: true,
+              });
+              var submitAfter = form.getAttribute ('data-submit-after-hash');
+              if (submitAfter === 'true') form.submit ();
+            } catch (err) {
+              console.error ('initHashOnSubmit submit handler error:', err);
+            }
+          },
+          true
+        );
       });
-    } catch (e) { console.error('initHashOnSubmit error:', e); }
+    } catch (e) {
+      console.error ('initHashOnSubmit error:', e);
+    }
   }
 
   window.formHelpers.initHashOnSubmit = initHashOnSubmit;
 
   // --- Tokenized form export/import (base64url of JSON)
-  function base64UrlEncode(str) {
+  function base64UrlEncode (str) {
     try {
-      // UTF-8 encode then base64
-      var b64 = btoa(unescape(encodeURIComponent(str)));
-      return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+      // Use TextEncoder -> arrayBuffer -> base64url
+      var buf = utf8ToUint8Array (str).buffer;
+      return arrayBufferToBase64Url (buf);
     } catch (e) {
-      console.error('base64UrlEncode error:', e);
+      console.error ('base64UrlEncode error:', e);
       return '';
     }
   }
 
-  function base64UrlDecode(b64url) {
+  function base64UrlDecode (b64url) {
     try {
-      var b64 = b64url.replace(/-/g, '+').replace(/_/g, '/');
-      // Pad length
-      while (b64.length % 4) b64 += '=';
-      return decodeURIComponent(escape(atob(b64)));
+      // convert base64url to Uint8Array then decode as UTF-8
+      var b64 = b64url.replace (/-/g, '+').replace (/_/g, '/');
+      while (b64.length % 4)
+        b64 += '=';
+      var binary = atob (b64);
+      var len = binary.length;
+      var bytes = new Uint8Array (len);
+      for (var i = 0; i < len; i++)
+        bytes[i] = binary.charCodeAt (i);
+      return new TextDecoder ().decode (bytes);
     } catch (e) {
-      console.error('base64UrlDecode error:', e);
+      console.error ('base64UrlDecode error:', e);
       return '';
     }
   }
+  // HMAC-SHA256 helpers using Web Crypto
+  function utf8ToUint8Array (str) {
+    return new TextEncoder ().encode (str);
+  }
 
-  function createTokenFromForm(form) {
+  function arrayBufferToBase64Url (buf) {
+    var binary = '';
+    var bytes = new Uint8Array (buf);
+    for (var i = 0; i < bytes.byteLength; i++)
+      binary += String.fromCharCode (bytes[i]);
+    var b64 = btoa (binary);
+    return b64.replace (/\+/g, '-').replace (/\//g, '_').replace (/=+$/g, '');
+  }
+
+  function importHmacKeyFromSalt (salt) {
     try {
-      var json = serializeForm(form) || '{}';
-      return base64UrlEncode(json);
+      // Cache imported keys by salt to avoid repeated imports
+      window._formHelpersHmacKeyCache = window._formHelpersHmacKeyCache || {};
+      if (window._formHelpersHmacKeyCache[salt])
+        return window._formHelpersHmacKeyCache[salt];
+      var keyData = utf8ToUint8Array (salt);
+      var p = crypto.subtle.importKey (
+        'raw',
+        keyData,
+        {name: 'HMAC', hash: {name: 'SHA-256'}},
+        false,
+        ['sign', 'verify']
+      );
+      window._formHelpersHmacKeyCache[salt] = p;
+      return p;
     } catch (e) {
-      console.error('createTokenFromForm error:', e);
-      return '';
+      return Promise.reject (e);
     }
   }
 
-  function decodeTokenToObject(token) {
+  function hmacSha256Base64Url (message, salt) {
+    return (async function () {
+      var data = utf8ToUint8Array (message);
+      var key = await importHmacKeyFromSalt (salt);
+      var sigBuf = await crypto.subtle.sign ('HMAC', key, data);
+      return arrayBufferToBase64Url (sigBuf);
+    }) ();
+  }
+
+  // Create token from form. If opts.salt is provided, returns a Promise that resolves
+  // to a signed token: "{payload}.{sig}" where payload is base64url(JSON) and sig is base64url(HMAC_SHA256(payload, salt)).
+  function createTokenFromForm (form, opts) {
+    opts = opts || {};
     try {
-      if (!token) return {};
-      var json = base64UrlDecode(token);
-      return JSON.parse(json || '{}');
+      var json = serializeForm (form) || '{}';
+      var payload = base64UrlEncode (json);
+      var salt = opts.salt || null;
+      if (!salt) return Promise.resolve (payload);
+      return hmacSha256Base64Url (payload, salt)
+        .then (function (sig) {
+          return payload + '.' + sig;
+        })
+        .catch (function (e) {
+          console.error ('createTokenFromForm (signed) error:', e);
+          return payload;
+        });
     } catch (e) {
-      console.error('decodeTokenToObject error:', e);
-      return {};
+      console.error ('createTokenFromForm error:', e);
+      return Promise.resolve ('');
     }
   }
 
-  function writeTokenToQuery(token, opts) {
+  // Decode token to object. If opts.salt is provided and token contains a signature,
+  // verification will be attempted and a Promise is returned which resolves to the object
+  // on success or an empty object on failure.
+  function decodeTokenToObject (token, opts) {
+    opts = opts || {};
+    try {
+      if (!token) return Promise.resolve ({});
+      var parts = ('' + token).split ('.');
+      var payload = parts[0] || '';
+      var sig = parts[1] || null;
+      var json = base64UrlDecode (payload);
+      var obj = JSON.parse (json || '{}');
+      var salt = opts.salt || null;
+      if (!sig || !salt) return Promise.resolve (obj);
+      return hmacSha256Base64Url (payload, salt)
+        .then (function (expectedSig) {
+          if (expectedSig === sig) return obj;
+          throw new Error ('signature-mismatch');
+        })
+        .catch (function (e) {
+          console.error ('decodeTokenToObject verification failed:', e);
+          return {};
+        });
+    } catch (e) {
+      console.error ('decodeTokenToObject error:', e);
+      return Promise.resolve ({});
+    }
+  }
+
+  function writeTokenToQuery (token, opts) {
     opts = opts || {};
     try {
       if (!token) {
-        if (history && history.replaceState) history.replaceState(null, '', location.pathname + location.hash);
+        if (history && history.replaceState)
+          history.replaceState (null, '', location.pathname + location.hash);
         else location.search = '';
         return;
       }
       var query = '?' + token;
-      if (history && history.replaceState) history.replaceState(null, '', location.pathname + query + location.hash);
+      if (history && history.replaceState)
+        history.replaceState (
+          null,
+          '',
+          location.pathname + query + location.hash
+        );
       else location.search = token;
     } catch (e) {
-      try { location.search = token; } catch (er) { console.error('writeTokenToQuery error:', er); }
+      try {
+        location.search = token;
+      } catch (er) {
+        console.error ('writeTokenToQuery error:', er);
+      }
     }
   }
 
-  function populateFormFromToken(token, form) {
-    try {
-      var data = decodeTokenToObject(token || '');
-      if (!form || !data) return;
-      var els = form.elements;
-      for (var i = 0; i < els.length; i++) {
-        var el = els[i];
-        if (!el.name && !el.id) continue;
-        var key = el.name || el.id;
-        if (!(key in data)) continue;
-        var tag = (el.tagName || '').toLowerCase();
-        var type = (el.type || '').toLowerCase();
-        var val = data[key];
-        if (type === 'checkbox') {
-          el.checked = !!val && (val === true || val === '1' || val === 1);
-        } else if (type === 'radio') {
-          el.checked = (el.value === val);
-        } else if (tag === 'select') {
-          if (el.multiple && Array.isArray(val)) {
-            for (var j = 0; j < el.options.length; j++) {
-              el.options[j].selected = val.indexOf(el.options[j].value) !== -1;
+  function populateFormFromToken (token, form) {
+    (async function () {
+      try {
+        var data = await decodeTokenToObject (token || '');
+        if (!form || !data) return;
+        var els = form.elements;
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          if (!el.name && !el.id) continue;
+          var key = el.name || el.id;
+          if (!(key in data)) continue;
+          var tag = (el.tagName || '').toLowerCase ();
+          var type = (el.type || '').toLowerCase ();
+          var val = data[key];
+          if (type === 'checkbox') {
+            el.checked = !!val && (val === true || val === '1' || val === 1);
+          } else if (type === 'radio') {
+            el.checked = el.value === val;
+          } else if (tag === 'select') {
+            if (el.multiple && Array.isArray (val)) {
+              for (var j = 0; j < el.options.length; j++) {
+                el.options[j].selected =
+                  val.indexOf (el.options[j].value) !== -1;
+              }
+            } else {
+              el.value = val;
             }
           } else {
             el.value = val;
           }
-        } else {
-          el.value = val;
         }
+        try {
+          form.dispatchEvent (new Event ('change', {bubbles: true}));
+        } catch (e) {}
+      } catch (e) {
+        console.error ('populateFormFromToken error:', e);
       }
-      // trigger change event so UI can re-render
-      try { form.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {}
-    } catch (e) {
-      console.error('populateFormFromToken error:', e);
-    }
+    }) ();
   }
 
   window.formHelpers.base64UrlEncode = base64UrlEncode;
@@ -605,5 +756,4 @@
   window.formHelpers.decodeTokenToObject = decodeTokenToObject;
   window.formHelpers.writeTokenToQuery = writeTokenToQuery;
   window.formHelpers.populateFormFromToken = populateFormFromToken;
-
-})();
+}) ();

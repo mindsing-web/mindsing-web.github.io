@@ -2,6 +2,7 @@
 title: "DIME Calculator"
 hideFromSitemap: true
 password: "creative"
+token_salt: "b3JpZ2luYWwtc2VjdXJlLXNlcnZlci1zYWx0LWFzZGZoYWtzZA"
 ---
 
 <!-- DIME calculator page -->
@@ -12,7 +13,7 @@ password: "creative"
   <button type="button" class="btn btn--primary btn--access-content" data-protect-id="dime">Access Content</button>
 </div>
 
-<form id="dime-form" class="mw7 center pa3 calculator--form js-password-protected relative" data-protect-id="dime" style="padding-bottom:92px;">
+<form id="dime-form" class="mw7 center pa3 calculator--form js-password-protected relative" data-protect-id="dime" data-token-salt="b3JpZ2luYWwtc2VjdXJlLXNlcnZlci1zYWx0LWFzZGZoYWtzZA" style="padding-bottom:92px;">
 
 <div class="flex flex-wrap nl2 nr2">
 
