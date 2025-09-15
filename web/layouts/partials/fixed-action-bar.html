@@ -4,13 +4,14 @@
       {{ if .Buttons }}
       {{ .Buttons }}
       {{ else }}
-      <button type="submit" form="dime-form" class="btn btn--primary mr2">Calculate</button>
-      <button type="button" class="btn btn--secondary btn--clear-values" {{ if .FormID
+      <button type="submit" form="dime-form" class="btn btn--primary mr2-ns mb3 mb0-ns">Calculate</button>
+      <button type="button" class="btn btn--secondary btn--clear-values mr2-ns mb0-ns" {{ if .FormID
         }}data-target-form="{{ .FormID }}" {{ end }}>Clear values</button>
       {{ end }}
     </div>
     <div>
-      <button type="button" id="btn-toggle-notes" class="btn btn--gray btn--notes-toggle">Notes</button>
+  <button type="button" id="btn-add-key" class="btn mr2-ns mb3 mb0-ns">Add key</button>
+  <button type="button" id="btn-toggle-notes" class="btn btn--gray btn--notes-toggle mb0-ns">Notes</button>
     </div>
   </div>
 </div>
