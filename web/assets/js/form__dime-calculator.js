@@ -213,6 +213,85 @@
     }
   }
 
+  // Collapse the form to a compact summary after calculation
+  function collapseToSummary(form) {
+    try {
+      if (!form) return;
+      if (form.getAttribute('data-dime-collapsed') === 'true') return;
+      // compute values
+      var d = computeDebtValue(form);
+      var i = computeIncomeValue(form);
+      var m = computeMortgageValue(form);
+      var e = computeEducationValue(form).total || 0;
+      var coverage = computeCoverageNeed(form);
+      // create spinner outside the form so it stays visible when form is hidden
+      var spinner = document.createElement('div');
+      spinner.className = 'dime-spinner mw7 center pa3';
+      spinner.setAttribute('role','status');
+      spinner.style.textAlign = 'center';
+      spinner.textContent = 'Calculating...';
+      try { form.parentNode.insertBefore(spinner, form); } catch (e) { /* ignore */ }
+
+      // store original display value for the form
+      try { form.dataset.dimeOrigDisplay = form.style.display || ''; } catch (e) {}
+
+      // small delay to show spinner
+      setTimeout(function(){
+        try { form.style.display = 'none'; } catch (e) {}
+
+        // build summary
+        var s = document.createElement('div');
+        s.id = 'dime-summary';
+        s.className = 'mw7 center pa3';
+        s.style.opacity = '0';
+        s.style.transition = 'opacity 300ms ease';
+        var html = '';
+        html += '<p class="mb1"><strong>D =</strong> ' + formatCurrency(d) + '</p>';
+        html += '<p class="mb1"><strong>I =</strong> ' + formatCurrency(i) + '</p>';
+        html += '<p class="mb1"><strong>M =</strong> ' + formatCurrency(m) + '</p>';
+        html += '<p class="mb2"><strong>E =</strong> ' + formatCurrency(e) + '</p>';
+        if (coverage && coverage.inForce && coverage.inForce > 0) {
+          html += '<p class="mb1"><small>Current in-force: ' + formatCurrency(coverage.inForce) + '</small></p>';
+        }
+        html += '<h3 class="mt2 mb1">Total Need: ' + formatCurrency(coverage ? coverage.need : computeDimeValue(form)) + '</h3>';
+        html += '<div class="tr mt3"><button id="btn-show-details" class="btn">Show details</button></div>';
+        s.innerHTML = html;
+
+        // insert summary where the form was
+        try { form.parentNode.insertBefore(s, form.nextSibling); } catch (e) {}
+        // remove spinner
+        try { spinner.parentNode && spinner.parentNode.removeChild(spinner); } catch (e) {}
+        setTimeout(function(){ s.style.opacity = '1'; }, 20);
+
+        form.setAttribute('data-dime-collapsed','true');
+
+        // hook show details
+        var showBtn = document.getElementById('btn-show-details');
+        if (showBtn) showBtn.addEventListener('click', function(){ expandFromSummary(form); }, true);
+      }, 300);
+    } catch (e) {
+      console.error('collapseToSummary error:', e);
+    }
+  }
+
+  function expandFromSummary(form) {
+    try {
+      if (!form) return;
+      if (form.getAttribute('data-dime-collapsed') !== 'true') return;
+      var summary = document.getElementById('dime-summary');
+      if (summary && summary.parentNode) summary.parentNode.removeChild(summary);
+      // restore form display
+      try {
+        var orig = form.dataset && form.dataset.dimeOrigDisplay;
+        form.style.display = (typeof orig !== 'undefined') ? orig : '';
+        try { delete form.dataset.dimeOrigDisplay; } catch (e) {}
+      } catch (e) {}
+      form.removeAttribute('data-dime-collapsed');
+    } catch (e) {
+      console.error('expandFromSummary error:', e);
+    }
+  }
+
   function initDebtOutput (root) {
     root = root || document;
     try {
@@ -420,6 +499,9 @@
           function () {
             renderDimeOutput (form);
             renderCoverageNeed (form);
+            try {
+              collapseToSummary(form);
+            } catch (err) {}
           },
           true
         );
@@ -483,6 +565,10 @@
                   if (sb) try { sb.blur(); } catch (e) {}
                 } catch (e) {}
               }, 50);
+            } catch (e) {}
+            // Collapse to compact summary after calculation
+            try {
+              collapseToSummary(form);
             } catch (e) {}
           } catch (err) {
             console.error ('form__dime submit handler error:', err);
@@ -700,5 +786,7 @@
     renderMortgageOutput: renderMortgageOutput,
     computeEducationValue: computeEducationValue,
     renderEducationOutput: renderEducationOutput,
+    collapseToSummary: collapseToSummary,
+    expandFromSummary: expandFromSummary,
   };
 }) ();

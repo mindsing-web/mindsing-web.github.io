@@ -352,5 +352,17 @@ article a.no-underline:hover,
   }
 }
 
+/* DIME calculator summary and spinner */
+.dime-spinner {
+  font-weight: 600;
+  color: $primary-color;
+}
+
+#dime-summary {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
 // Modifier class for notes-specific dialogs (keeps semantic naming available)
 /* dialog--notes modifier intentionally left out (use .dialog for defaults) */
