@@ -31,6 +31,11 @@
     this.buttonSelector = options.buttonSelector || '.btn--access-content';
     this.button = null;
     this.overlay = null;
+    this.actionBar = document.getElementById('action-bar');
+    console.log('PasswordGate: actionBar found:', this.actionBar);
+    if (this.actionBar) {
+      this.actionBar.style.visibility = 'hidden';
+    }
     this.init();
   }
 
@@ -45,6 +50,9 @@
   PasswordGate.prototype.showContent = function () {
     this.root.style.display = '';
     this.root.removeAttribute('aria-hidden');
+    if (this.actionBar) {
+      this.actionBar.style.visibility = 'visible';
+    }
     if (!this.button) return;
     try {
       var wrapper = null;
