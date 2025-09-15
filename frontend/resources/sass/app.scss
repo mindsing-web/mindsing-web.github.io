@@ -259,6 +259,12 @@ article a.no-underline:hover,
   }
 }
 
+// Required field asterisk
+.required-asterisk {
+  color: $primary-color;
+  margin-right: 0.25rem;
+}
+
 // Secondary button variant
 .btn--secondary {
   background-color: #fff;
