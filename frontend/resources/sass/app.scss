@@ -28,6 +28,13 @@ article .link:visited:not(.bg-orange):not([class*="bg-"]):not(.btn) {
   }
 }
 
+// Make `.info` elements show a hand cursor to indicate interactivity
+a.info,
+a.info:hover,
+a.info:focus {
+  cursor: pointer;
+}
+
 // Parallax section styles
 .parallax-section {
 
