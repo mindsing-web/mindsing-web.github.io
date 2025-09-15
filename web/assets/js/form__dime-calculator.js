@@ -261,6 +261,31 @@
         el.addEventListener('blur', function () { renderDimeOutput(form); renderCoverageNeed(form); }, true);
         el.addEventListener('change', function () { renderDimeOutput(form); renderCoverageNeed(form); }, true);
       });
+
+      // Notes toggle button
+      try {
+        var notesBtn = form.querySelector('#btn-toggle-notes');
+        var notesContainer = form.querySelector('#notes-container');
+        var notesTextarea = form.querySelector('#notes_dime');
+        function hideNotes() {
+          if (notesContainer) notesContainer.style.display = 'none';
+          if (notesBtn) notesBtn.setAttribute('aria-expanded', 'false');
+        }
+        function showNotes() {
+          if (notesContainer) notesContainer.style.display = '';
+          if (notesBtn) notesBtn.setAttribute('aria-expanded', 'true');
+          if (notesTextarea) notesTextarea.focus();
+        }
+        if (notesBtn) {
+          notesBtn.addEventListener('click', function () {
+            if (!notesContainer) return;
+            var isHidden = notesContainer.style.display === 'none' || notesContainer.style.display === '' && window.getComputedStyle(notesContainer).display === 'none';
+            if (isHidden) showNotes(); else hideNotes();
+          }, true);
+        }
+        // Hide notes on form cleared
+        form.addEventListener('form:cleared', function () { hideNotes(); }, true);
+      } catch (e) { console.error('form__dime notes toggle init error', e); }
     } catch (e) {
       console.error('form__dime initDebtOutput error:', e);
     }

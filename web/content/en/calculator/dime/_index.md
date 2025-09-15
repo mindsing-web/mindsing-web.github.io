@@ -10,7 +10,7 @@ password: "creative"
 
 <button type="button" class="btn btn--primary btn--access-content" data-protect-id="dime">Access Content</button>
 
-<form id="dime-form" class="mw7 center pa3 calculator--form js-password-protected" data-protect-id="dime">
+<form id="dime-form" class="mw7 center pa3 calculator--form js-password-protected relative" data-protect-id="dime" style="padding-bottom:92px;">
 
 <div class="flex flex-wrap nl2 nr2">
 
@@ -45,13 +45,7 @@ password: "creative"
   </div>
 
   <!-- Debt section output -->
-  <div class="w-100 ph2 mb4">
-    <div id="debt-output" class="section-output"></div>
-  </div>
-
-  <!-- Section: Income -->
-  <h2 class="w-100 ph2 mt3 mb2">Income</h2>
-
+  
   <div class="w-100 w-50-ns ph2 mb3">
     <label for="annual_salary" class="db mb1">Annual salary</label>
     <input id="annual_salary" name="annual_salary" type="number"
@@ -142,21 +136,22 @@ password: "creative"
     <div id="coverage-need-output" class="section-output"></div>
   </div>
 
-  <div class="w-100 ph2 mb4">
+  <div id="notes-container" class="w-100 ph2 mb4" style="display:none;">
     <label for="notes_dime" class="db mb1">Notes</label>
     <textarea id="notes_dime" name="notes_dime" rows="4" class="input-reset ba b--black-20 pa2 w-100"></textarea>
   </div>
 
-  <div class="w-100 ph2 mb3">
-    <p class="mb0"><span class="required-asterisk">*</span> Required field</p>
-  </div>
-
-  <div class="w-100 ph2 mv3">
-    <div class="form__controls-row">
-      <button type="submit" class="btn btn--primary mr2">Calculate DIME</button>
-      <button type="button" class="btn btn--secondary btn--clear-values">Clear values</button>
+  <!-- Fixed bottom action bar -->
+  <div id="action-bar" class="fixed-bottom-action-bar" style="position:fixed;left:0;right:0;bottom:0;background:#ffffff;box-shadow:0 -4px 12px rgba(0,0,0,0.08);z-index:40000;">
+    <div class="mw7 center ph3 pv3 flex items-center justify-between">
+      <div class="">
+        <button type="submit" form="dime-form" class="btn btn--primary mr2">Calculate DIME</button>
+        <button type="button" class="btn btn--secondary btn--clear-values">Clear values</button>
+      </div>
+      <div>
+        <button type="button" id="btn-toggle-notes" class="btn btn--secondary btn--notes-toggle" aria-expanded="false" style="background:#6b7280;color:#ffffff;border:0;padding:8px 12px;">Notes</button>
+      </div>
     </div>
-    <a class="btn btn--secondary mt3" href="/calculator/">Back to Calculator</a>
   </div>
 
 </div>
