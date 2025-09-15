@@ -97,6 +97,34 @@
     }
   }
 
+  // --- Education calculation and output ---
+  function computeEducationValue(form) {
+    try {
+      var loansEl = form.querySelector('#student_loans');
+      var depEl = form.querySelector('#dependent_education');
+      var loans = loansEl ? parseFloat(loansEl.value) : 0;
+      var dep = depEl ? parseFloat(depEl.value) : 0;
+      if (!isFinite(loans)) loans = 0;
+      if (!isFinite(dep)) dep = 0;
+      return { loans: loans, dependent: dep, total: loans + dep };
+    } catch (e) {
+      console.error('form__dime computeEducationValue error:', e);
+      return { loans: 0, dependent: 0, total: 0 };
+    }
+  }
+
+  function renderEducationOutput(form) {
+    try {
+      var out = document.getElementById('education-output');
+      if (!out) return;
+      var data = computeEducationValue(form);
+      // Show E = total and a small breakdown
+      out.innerHTML = '<p class="mb0"><strong>E =</strong> ' + formatCurrency(data.total) + '</p>';
+    } catch (e) {
+      console.error('form__dime renderEducationOutput error:', e);
+    }
+  }
+
   function initDebtOutput(root) {
     root = root || document;
     try {
@@ -141,6 +169,19 @@
         mort.addEventListener('blur', function () { renderMortgageOutput(form); }, true);
         mort.addEventListener('change', function () { renderMortgageOutput(form); }, true);
       }
+
+      // Init education output and handlers
+      renderEducationOutput(form);
+      var loans = form.querySelector('#student_loans');
+      var depEdu = form.querySelector('#dependent_education');
+      if (loans) {
+        loans.addEventListener('blur', function () { renderEducationOutput(form); }, true);
+        loans.addEventListener('change', function () { renderEducationOutput(form); }, true);
+      }
+      if (depEdu) {
+        depEdu.addEventListener('blur', function () { renderEducationOutput(form); }, true);
+        depEdu.addEventListener('change', function () { renderEducationOutput(form); }, true);
+      }
     } catch (e) {
       console.error('form__dime initDebtOutput error:', e);
     }
@@ -161,6 +202,8 @@
     renderIncomeOutput: renderIncomeOutput
     ,computeMortgageValue: computeMortgageValue,
     renderMortgageOutput: renderMortgageOutput
+    ,computeEducationValue: computeEducationValue,
+    renderEducationOutput: renderEducationOutput
   };
 
 })();
