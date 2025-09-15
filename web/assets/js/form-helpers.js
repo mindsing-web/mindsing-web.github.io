@@ -38,6 +38,7 @@
   function initInfoTooltips(root) {
     root = root || document;
     try {
+      var DEFAULT_OFFSET = 20; // px distance from trigger to tooltip
       var infos = Array.prototype.slice.call(root.querySelectorAll('a.info'));
       infos.forEach(function (el, i) {
         // Ensure it's focusable and has role
@@ -49,6 +50,10 @@
 
         // Remove default title to avoid native tooltip
         el.removeAttribute('title');
+
+
+        // Per-element offset override (data-tooltip-offset="16")
+        var OFFSET = parseInt(el.getAttribute('data-tooltip-offset'), 10) || DEFAULT_OFFSET;
 
         // Create tooltip element
         var tip = document.createElement('div');
@@ -81,17 +86,17 @@
           var scrollY = window.scrollY || window.pageYOffset;
           var scrollX = window.scrollX || window.pageXOffset;
           // Place above by default, otherwise below
-          var top = rect.top + scrollY - tip.offsetHeight - 8;
-          if (top < scrollY + 8) {
-            top = rect.bottom + scrollY + 8;
+          var top = rect.top + scrollY - tip.offsetHeight - OFFSET;
+          if (top < scrollY + OFFSET) {
+            top = rect.bottom + scrollY + OFFSET;
           }
           var left = rect.left + scrollX + (rect.width / 2) - (tip.offsetWidth / 2);
-          left = Math.max(scrollX + 8, Math.min(left, scrollX + document.documentElement.clientWidth - tip.offsetWidth - 8));
+          left = Math.max(scrollX + OFFSET, Math.min(left, scrollX + document.documentElement.clientWidth - tip.offsetWidth - OFFSET));
           tip.style.top = top + 'px';
           tip.style.left = left + 'px';
         }
 
-        function openTip(e) {
+        function openTip() {
           positionTip();
           tip.style.display = 'block';
           el.setAttribute('aria-expanded', 'true');
