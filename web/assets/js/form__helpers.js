@@ -410,4 +410,200 @@
   window.formHelpers.showConfirm = showConfirm;
   window.formHelpers.initClearValues = initClearValues;
 
+  // --- Encode form values into URL (query string in fragment/hash)
+  // Usage: formHelpers.encodeFormToURLHash(form, { includeEmpty: false, useFragment: true })
+  function encodeFormToURLHash(form, opts) {
+    opts = opts || {};
+    var includeEmpty = !!opts.includeEmpty;
+    var useFragment = (typeof opts.useFragment === 'undefined') ? true : !!opts.useFragment;
+    try {
+      if (!form || !(form instanceof HTMLFormElement)) return '';
+      var data = {};
+      var els = form.elements;
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (!el.name && !el.id) continue;
+        var key = el.name || el.id;
+        var tag = (el.tagName || '').toLowerCase();
+        var type = (el.type || '').toLowerCase();
+        var val = null;
+        if (type === 'checkbox') {
+          val = el.checked ? '1' : '0';
+        } else if (type === 'radio') {
+          if (!el.checked) continue; else val = el.value;
+        } else if (tag === 'select') {
+          if (el.multiple) {
+            var vals = [];
+            for (var j = 0; j < el.options.length; j++) {
+              if (el.options[j].selected) vals.push(el.options[j].value);
+            }
+            val = vals.join(',');
+          } else {
+            val = el.value;
+          }
+        } else {
+          val = el.value;
+        }
+        if (!includeEmpty && (val === null || val === '' || typeof val === 'undefined')) continue;
+        data[key] = val;
+      }
+      // Build query string
+      var parts = [];
+      Object.keys(data).forEach(function (k) {
+        try { parts.push(encodeURIComponent(k) + '=' + encodeURIComponent(String(data[k]))); } catch (e) {}
+      });
+      var qs = parts.join('&');
+      if (useFragment) {
+        // Use location.hash without triggering navigation: preserve existing path/search
+        var hash = qs ? ('#' + qs) : '';
+        try {
+          if (history && history.replaceState) {
+            history.replaceState(null, '', location.pathname + location.search + hash);
+          } else {
+            location.hash = qs;
+          }
+        } catch (e) {
+          try { location.hash = qs; } catch (er) {}
+        }
+      } else {
+        // Update search (will reload in some browsers if assigned directly)
+        var newUrl = location.pathname + (qs ? ('?' + qs) : '');
+        try {
+          if (history && history.replaceState) history.replaceState(null, '', newUrl);
+          else location.search = qs;
+        } catch (e) { try { location.search = qs; } catch (er) {} }
+      }
+      return qs;
+    } catch (e) {
+      console.error('form__helpers encodeFormToURLHash error:', e);
+      return '';
+    }
+  }
+
+  window.formHelpers.encodeFormToURLHash = encodeFormToURLHash;
+
+  // Auto-bind: if a form has `data-hash-on-submit`, encode on submit.
+  function initHashOnSubmit(root) {
+    root = root || document;
+    try {
+      var forms = Array.prototype.slice.call(root.querySelectorAll('form[data-hash-on-submit]'));
+      forms.forEach(function (form) {
+        form.addEventListener('submit', function (e) {
+          try {
+            e.preventDefault();
+            encodeFormToURLHash(form, { includeEmpty: false, useFragment: true });
+            var submitAfter = form.getAttribute('data-submit-after-hash');
+            if (submitAfter === 'true') form.submit();
+          } catch (err) { console.error('initHashOnSubmit submit handler error:', err); }
+        }, true);
+      });
+    } catch (e) { console.error('initHashOnSubmit error:', e); }
+  }
+
+  window.formHelpers.initHashOnSubmit = initHashOnSubmit;
+
+  // --- Tokenized form export/import (base64url of JSON)
+  function base64UrlEncode(str) {
+    try {
+      // UTF-8 encode then base64
+      var b64 = btoa(unescape(encodeURIComponent(str)));
+      return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+    } catch (e) {
+      console.error('base64UrlEncode error:', e);
+      return '';
+    }
+  }
+
+  function base64UrlDecode(b64url) {
+    try {
+      var b64 = b64url.replace(/-/g, '+').replace(/_/g, '/');
+      // Pad length
+      while (b64.length % 4) b64 += '=';
+      return decodeURIComponent(escape(atob(b64)));
+    } catch (e) {
+      console.error('base64UrlDecode error:', e);
+      return '';
+    }
+  }
+
+  function createTokenFromForm(form) {
+    try {
+      var json = serializeForm(form) || '{}';
+      return base64UrlEncode(json);
+    } catch (e) {
+      console.error('createTokenFromForm error:', e);
+      return '';
+    }
+  }
+
+  function decodeTokenToObject(token) {
+    try {
+      if (!token) return {};
+      var json = base64UrlDecode(token);
+      return JSON.parse(json || '{}');
+    } catch (e) {
+      console.error('decodeTokenToObject error:', e);
+      return {};
+    }
+  }
+
+  function writeTokenToQuery(token, opts) {
+    opts = opts || {};
+    try {
+      if (!token) {
+        if (history && history.replaceState) history.replaceState(null, '', location.pathname + location.hash);
+        else location.search = '';
+        return;
+      }
+      var query = '?' + token;
+      if (history && history.replaceState) history.replaceState(null, '', location.pathname + query + location.hash);
+      else location.search = token;
+    } catch (e) {
+      try { location.search = token; } catch (er) { console.error('writeTokenToQuery error:', er); }
+    }
+  }
+
+  function populateFormFromToken(token, form) {
+    try {
+      var data = decodeTokenToObject(token || '');
+      if (!form || !data) return;
+      var els = form.elements;
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (!el.name && !el.id) continue;
+        var key = el.name || el.id;
+        if (!(key in data)) continue;
+        var tag = (el.tagName || '').toLowerCase();
+        var type = (el.type || '').toLowerCase();
+        var val = data[key];
+        if (type === 'checkbox') {
+          el.checked = !!val && (val === true || val === '1' || val === 1);
+        } else if (type === 'radio') {
+          el.checked = (el.value === val);
+        } else if (tag === 'select') {
+          if (el.multiple && Array.isArray(val)) {
+            for (var j = 0; j < el.options.length; j++) {
+              el.options[j].selected = val.indexOf(el.options[j].value) !== -1;
+            }
+          } else {
+            el.value = val;
+          }
+        } else {
+          el.value = val;
+        }
+      }
+      // trigger change event so UI can re-render
+      try { form.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {}
+    } catch (e) {
+      console.error('populateFormFromToken error:', e);
+    }
+  }
+
+  window.formHelpers.base64UrlEncode = base64UrlEncode;
+  window.formHelpers.base64UrlDecode = base64UrlDecode;
+  window.formHelpers.createTokenFromForm = createTokenFromForm;
+  window.formHelpers.decodeTokenToObject = decodeTokenToObject;
+  window.formHelpers.writeTokenToQuery = writeTokenToQuery;
+  window.formHelpers.populateFormFromToken = populateFormFromToken;
+
 })();

@@ -262,6 +262,31 @@
         el.addEventListener('change', function () { renderDimeOutput(form); renderCoverageNeed(form); }, true);
       });
 
+      // When the form is submitted (Calculate), encode visible values into the URL hash
+      form.addEventListener('submit', function (e) {
+        try {
+          // Prevent navigation so we can show results and keep the user on the page
+          e.preventDefault();
+          if (window.formHelpers && typeof window.formHelpers.createTokenFromForm === 'function') {
+            var token = window.formHelpers.createTokenFromForm(form);
+            // write token to query string (e.g. ?<token>) so it looks opaque
+            if (typeof window.formHelpers.writeTokenToQuery === 'function') {
+              window.formHelpers.writeTokenToQuery(token);
+            } else {
+              // fallback: set location.search
+              try { location.search = token; } catch (err) {}
+            }
+          }
+          // After encoding, re-render outputs just in case values changed
+          renderDebtOutput(form);
+          renderIncomeOutput(form);
+          renderMortgageOutput(form);
+          renderEducationOutput(form);
+          renderDimeOutput(form);
+          renderCoverageNeed(form);
+        } catch (err) { console.error('form__dime submit handler error:', err); }
+      }, true);
+
       // Notes dialog (uses <dialog>)
       try {
         var notesBtn = form.querySelector('#btn-toggle-notes');
