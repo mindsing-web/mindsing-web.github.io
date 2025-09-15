@@ -281,7 +281,7 @@
           if (token) keyDisplay = token;
         } catch (e) { keyDisplay = ''; }
         if (keyDisplay) {
-          html += '<p class="mt2 mb0"><small>Insurance target key: <code id="dime-summary-key">' + escapeHtml(keyDisplay) + '</code></small></p>';
+          html += '<p class="mt2 mb0"><small>Insurance target key: <code class="summary-key">' + escapeHtml(keyDisplay) + '</code></small></p>';
         }
         s.innerHTML = html;
 
@@ -294,10 +294,10 @@
         form.setAttribute('data-dime-collapsed','true');
 
         // hook show details
-        var showBtn = document.getElementById('btn-show-details');
+        var showBtn = s.querySelector('#btn-show-details') || document.getElementById('btn-show-details');
         if (showBtn) showBtn.addEventListener('click', function(){ expandFromSummary(form); }, true);
         // hook copy to clipboard
-        var copyBtn = document.getElementById('btn-copy-target');
+        var copyBtn = s.querySelector('#btn-copy-target') || document.getElementById('btn-copy-target');
         if (copyBtn) {
           copyBtn.addEventListener('click', function(){
             try {
@@ -324,7 +324,8 @@
               lines.push('');
               // Key
               var tokenTxt = '';
-              var el = document.getElementById('dime-summary-key');
+              var el = s.querySelector('.summary-key');
+              if (!el) el = document.querySelector('.summary-key');
               if (el) tokenTxt = (el.textContent || el.innerText || '').trim();
               if (!tokenTxt) {
                 try {

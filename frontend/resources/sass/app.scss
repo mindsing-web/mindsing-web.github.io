@@ -3,7 +3,7 @@
 }
 
 #dime-summary small {
-  color: #4b5563; /* slightly muted */
+  color: $muted-color; /* slightly muted */
 }
 
 /* Ensure the underlined DIME target's em is italic and stands out */
@@ -136,14 +136,6 @@ a.info:focus {
 .orange.ba:hover {
   color: $primary-color;
   text-decoration: none;
-}
-
-.site-logo {
-  transition: all .2s ease-in-out;
-
-  &:hover {
-    transform: scale(1.1);
-  }
 }
 
 .navigation-main {
@@ -287,7 +279,7 @@ article a.no-underline:hover,
 
 // Notes button: gray background with white text
 .btn--gray {
-  background-color: #6b7280; // gray-500
+  background-color: $gray-500; // gray-500
   color: #ffffff;
   border: 0;
   // match `.btn` sizing
@@ -302,7 +294,7 @@ article a.no-underline:hover,
 
   &:hover,
   &:focus {
-    background-color: darken(#6b7280, 6%);
+  background-color: darken($gray-500, 6%);
     color: #ffffff;
   }
 }
@@ -337,7 +329,7 @@ article a.no-underline:hover,
   max-width: 760px;
   width: calc(100% - 32px);
 
-  border: 1px solid #e5e7eb;
+  border: 1px solid $border-color;
   border-radius: 8px;
   padding: 18px;
   box-sizing: border-box;
@@ -384,20 +376,19 @@ article a.no-underline:hover,
 }
 
 /* Summary key styling: smaller, monospace, wrap */
-#dime-summary code#dime-summary-key,
-#dime-summary code {
+/* Generic summary key styling used across calculators */
+.summary-key,
+.summary-key code {
   display: inline-block;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Source Code Pro', monospace;
-  font-size: 10pt;
+  font-family: $code-font;
+  font-size: 8px;
   line-height: 1.2;
   word-break: break-all;
   max-width: 100%;
+  color: $muted-dark;
 }
 
 /* Ensure the button row uses full width and buttons keep alignment */
 #dime-summary .btn {
   min-width: 120px;
 }
-
-// Modifier class for notes-specific dialogs (keeps semantic naming available)
-/* dialog--notes modifier intentionally left out (use .dialog for defaults) */
