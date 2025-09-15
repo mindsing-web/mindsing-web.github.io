@@ -1,6 +1,7 @@
 ---
 title: "Calculator"
 hideFromMenu: true
+hideFromSitemap: true
 layout: "calculator"
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "DIME Calculator"
+hideFromSitemap: true
 ---
 
 <!-- DIME calculator page -->
