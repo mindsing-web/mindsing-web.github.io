@@ -29,7 +29,7 @@
         label.insertBefore(span, label.firstChild);
       });
     } catch (e) {
-      console.error('form-helpers addAsterisks error:', e);
+      console.error('form__helpers addAsterisks error:', e);
     }
   }
 
@@ -50,7 +50,6 @@
 
         // Remove default title to avoid native tooltip
         el.removeAttribute('title');
-
 
         // Per-element offset override (data-tooltip-offset="16")
         var OFFSET = parseInt(el.getAttribute('data-tooltip-offset'), 10) || DEFAULT_OFFSET;
@@ -135,6 +134,14 @@
           }
         }
 
+        // Remove fragment hrefs so clicks don't add #
+        try {
+          var href = el.getAttribute('href');
+          if (href && (href === '#' || href.indexOf('#') === 0)) {
+            el.removeAttribute('href');
+          }
+        } catch (err) {}
+
         el.addEventListener('click', function (ev) {
           ev.preventDefault();
           ev.stopPropagation();
@@ -152,28 +159,9 @@
         window.addEventListener('scroll', function () { if (tip.style.display !== 'none') positionTip(); }, true);
       });
     } catch (e) {
-      console.error('form-helpers initInfoTooltips error:', e);
+      console.error('form__helpers initInfoTooltips error:', e);
     }
   }
-
-  // Auto-init on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      addAsterisks(document);
-      initInfoTooltips(document);
-      initFormPersistence(document);
-    });
-  } else {
-    addAsterisks(document);
-    initInfoTooltips(document);
-    initFormPersistence(document);
-  }
-
-  // Expose functions for dynamic content
-  window.formHelpers = {
-    addAsterisks: addAsterisks,
-    initInfoTooltips: initInfoTooltips
-  };
 
   // --- Form persistence (sessionStorage) ---
   function getFormKey(form) {
@@ -248,7 +236,7 @@
         }
       }
     } catch (e) {
-      console.error('form-helpers restoreForm error:', e);
+      console.error('form__helpers restoreForm error:', e);
     }
   }
 
@@ -258,7 +246,7 @@
       var raw = serializeForm(form);
       sessionStorage.setItem(key, raw);
     } catch (e) {
-      console.error('form-helpers saveFormState error:', e);
+      console.error('form__helpers saveFormState error:', e);
     }
   }
 
@@ -267,7 +255,7 @@
       var key = getFormKey(form);
       sessionStorage.removeItem(key);
     } catch (e) {
-      console.error('form-helpers clearFormState error:', e);
+      console.error('form__helpers clearFormState error:', e);
     }
   }
 
@@ -303,12 +291,27 @@
         }, true);
       });
     } catch (e) {
-      console.error('form-helpers initFormPersistence error:', e);
+      console.error('form__helpers initFormPersistence error:', e);
     }
   }
 
-  // Expose persistence helpers
+  // Auto-init on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      addAsterisks(document);
+      initInfoTooltips(document);
+      initFormPersistence(document);
+    });
+  } else {
+    addAsterisks(document);
+    initInfoTooltips(document);
+    initFormPersistence(document);
+  }
+
+  // Expose functions for dynamic content
   window.formHelpers = window.formHelpers || {};
+  window.formHelpers.addAsterisks = addAsterisks;
+  window.formHelpers.initInfoTooltips = initInfoTooltips;
   window.formHelpers.saveFormState = saveFormState;
   window.formHelpers.clearFormState = clearFormState;
 
