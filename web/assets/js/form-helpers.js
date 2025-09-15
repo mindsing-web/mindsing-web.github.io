@@ -161,10 +161,12 @@
     document.addEventListener('DOMContentLoaded', function () {
       addAsterisks(document);
       initInfoTooltips(document);
+      initFormPersistence(document);
     });
   } else {
     addAsterisks(document);
     initInfoTooltips(document);
+    initFormPersistence(document);
   }
 
   // Expose functions for dynamic content
@@ -172,5 +174,142 @@
     addAsterisks: addAsterisks,
     initInfoTooltips: initInfoTooltips
   };
+
+  // --- Form persistence (sessionStorage) ---
+  function getFormKey(form) {
+    var id = form.id || form.getAttribute('name') || 'form';
+    return 'formstate:' + (location.pathname || '') + ':' + id;
+  }
+
+  function serializeForm(form) {
+    var data = {};
+    var els = form.elements;
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (!el.name && !el.id) continue;
+      var key = el.name || el.id;
+      var tag = (el.tagName || '').toLowerCase();
+      var type = (el.type || '').toLowerCase();
+      if (type === 'password' || type === 'file') continue;
+      if (type === 'checkbox') {
+        data[key] = el.checked;
+      } else if (type === 'radio') {
+        if (el.checked) data[key] = el.value;
+      } else if (tag === 'select') {
+        if (el.multiple) {
+          var vals = [];
+          for (var j = 0; j < el.options.length; j++) {
+            if (el.options[j].selected) vals.push(el.options[j].value);
+          }
+          data[key] = vals;
+        } else {
+          data[key] = el.value;
+        }
+      } else {
+        data[key] = el.value;
+      }
+    }
+    try {
+      return JSON.stringify(data);
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function restoreForm(form) {
+    try {
+      var key = getFormKey(form);
+      var raw = sessionStorage.getItem(key);
+      if (!raw) return;
+      var data = JSON.parse(raw || '{}');
+      var els = form.elements;
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (!el.name && !el.id) continue;
+        var name = el.name || el.id;
+        var tag = (el.tagName || '').toLowerCase();
+        var type = (el.type || '').toLowerCase();
+        if (!(name in data)) continue;
+        var val = data[name];
+        if (type === 'checkbox') {
+          el.checked = !!val;
+        } else if (type === 'radio') {
+          el.checked = (el.value === val);
+        } else if (tag === 'select') {
+          if (el.multiple && Array.isArray(val)) {
+            for (var j = 0; j < el.options.length; j++) {
+              el.options[j].selected = val.indexOf(el.options[j].value) !== -1;
+            }
+          } else {
+            el.value = val;
+          }
+        } else {
+          el.value = val;
+        }
+      }
+    } catch (e) {
+      console.error('form-helpers restoreForm error:', e);
+    }
+  }
+
+  function saveFormState(form) {
+    try {
+      var key = getFormKey(form);
+      var raw = serializeForm(form);
+      sessionStorage.setItem(key, raw);
+    } catch (e) {
+      console.error('form-helpers saveFormState error:', e);
+    }
+  }
+
+  function clearFormState(form) {
+    try {
+      var key = getFormKey(form);
+      sessionStorage.removeItem(key);
+    } catch (e) {
+      console.error('form-helpers clearFormState error:', e);
+    }
+  }
+
+  function initFormPersistence(root) {
+    root = root || document;
+    try {
+      var selector = 'form.calculator--form, form[data-save="session"]';
+      var forms = Array.prototype.slice.call(root.querySelectorAll(selector));
+      forms.forEach(function (form, idx) {
+        // Restore existing state
+        restoreForm(form);
+
+        // Debounced save
+        var saveTimer = null;
+        function scheduleSave() {
+          if (saveTimer) clearTimeout(saveTimer);
+          saveTimer = setTimeout(function () { saveFormState(form); }, 250);
+        }
+
+        // Listen for input and change events
+        form.addEventListener('input', scheduleSave, true);
+        form.addEventListener('change', scheduleSave, true);
+
+        // On submit clear if requested
+        form.addEventListener('submit', function (e) {
+          var clearOnSubmit = form.getAttribute('data-clear-on-submit');
+          if (clearOnSubmit === 'true' || clearOnSubmit === '' ) {
+            clearFormState(form);
+          } else {
+            // ensure final values saved
+            saveFormState(form);
+          }
+        }, true);
+      });
+    } catch (e) {
+      console.error('form-helpers initFormPersistence error:', e);
+    }
+  }
+
+  // Expose persistence helpers
+  window.formHelpers = window.formHelpers || {};
+  window.formHelpers.saveFormState = saveFormState;
+  window.formHelpers.clearFormState = clearFormState;
 
 })();
