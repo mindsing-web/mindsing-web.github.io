@@ -301,11 +301,32 @@
         if (copyBtn) {
           copyBtn.addEventListener('click', function(){
             try {
-              var txt = '';
+              // Build a plain-text summary to copy
+              var lines = [];
+              lines.push('DIME Calculator');
+              lines.push('');
+              // D/I/M/E values
+              try {
+                lines.push('D: ' + formatCurrency(d) + ' (Debt)');
+                lines.push('I: ' + formatCurrency(i) + ' (Income)');
+                lines.push('M: ' + formatCurrency(m) + ' (Mortgage)');
+                lines.push('E: ' + formatCurrency(e) + ' (Education)');
+              } catch (e) {}
+              // Optional coverage target / in-force
+              try {
+                if (coverage && coverage.inForce && coverage.inForce > 0) {
+                  if (typeof coverage.target !== 'undefined') lines.push('DIME Target: ' + formatCurrency(coverage.target));
+                  lines.push('Current in-force: ' + formatCurrency(coverage.inForce));
+                }
+              } catch (e) {}
+              // Main headline
+              try { lines.push(''); lines.push('Life Insurance Target: ' + formatCurrency(coverage ? coverage.need : computeDimeValue(form))); } catch (e) {}
+              lines.push('');
+              // Key
+              var tokenTxt = '';
               var el = document.getElementById('dime-summary-key');
-              if (el) txt = (el.textContent || el.innerText || '').trim();
-              if (!txt) {
-                // try parse token= from query string
+              if (el) tokenTxt = (el.textContent || el.innerText || '').trim();
+              if (!tokenTxt) {
                 try {
                   var qs = (location.search || '').replace(/^\?/, '');
                   var params = qs.split('&').reduce(function(acc, p){
@@ -314,25 +335,21 @@
                     acc[decodeURIComponent(parts[0])] = decodeURIComponent(parts.slice(1).join('='));
                     return acc;
                   }, {});
-                  if (params.token) txt = params.token;
-                  else if (params.key) txt = params.key;
-                  else txt = qs || '';
-                } catch (e) { txt = (location.search || '').replace(/^\?/, ''); }
+                  tokenTxt = params.token || params.key || qs || '';
+                } catch (e) { tokenTxt = (location.search || '').replace(/^\?/, ''); }
               }
-              if (!txt && window.formHelpers && typeof window.formHelpers.getTokenFromForm === 'function') {
-                try { txt = window.formHelpers.getTokenFromForm(form) || ''; } catch (e) { txt = ''; }
-              }
-              if (!txt) return;
+              if (tokenTxt) lines.push('Insurance target key: ' + tokenTxt);
+
+              var full = lines.join('\n');
               if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(txt).then(function(){
+                navigator.clipboard.writeText(full).then(function(){
                   copyBtn.textContent = 'Copied';
                   setTimeout(function(){ copyBtn.textContent = 'Copy to clipboard'; }, 2000);
                 }).catch(function(){
-                  // fallback
-                  fallbackCopyTextToClipboard(txt, copyBtn);
+                  fallbackCopyTextToClipboard(full, copyBtn);
                 });
               } else {
-                fallbackCopyTextToClipboard(txt, copyBtn);
+                fallbackCopyTextToClipboard(full, copyBtn);
               }
             } catch (e) {
               try { console.error('copy error', e); } catch (err) {}
