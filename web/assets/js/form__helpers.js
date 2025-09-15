@@ -488,6 +488,7 @@
       initClearValues (document);
       initHashOnSubmit (document);
       initPrefillFromURL (document);
+      initAddKeyButton (document);
     });
   } else {
     addAsterisks (document);
@@ -496,6 +497,7 @@
     initClearValues (document);
     initHashOnSubmit (document);
     initPrefillFromURL (document);
+    initAddKeyButton (document);
   }
 
   // Delegated handler for any clear-values buttons that may be added later
@@ -835,7 +837,7 @@
   window.formHelpers.decodeTokenToObject = decodeTokenToObject;
   window.formHelpers.writeTokenToQuery = writeTokenToQuery;
   window.formHelpers.populateFormFromToken = populateFormFromToken;
-  
+
   // --- Prefill forms from URL hash or query ---
   // Looks for either a token in the search ("?token") or a query-string-style
   // fragment ("#field=val&...") and populates the target form.
@@ -902,4 +904,109 @@
   }
 
   window.formHelpers.initPrefillFromURL = initPrefillFromURL;
+
+  // --- Add key button behavior ---
+  // When present, the button with id `btn-add-key` will prompt the user for a token
+  // or query-style fragment. The value will be written to the URL (hash preferred)
+  // and the form will be populated immediately.
+  function initAddKeyButton (root) {
+    root = root || document;
+    try {
+      var btn = document.getElementById('btn-add-key');
+      if (!btn) return;
+
+  var dialog = document.getElementById('add-key-dialog');
+  var input = dialog ? dialog.querySelector('#add_key_input') : null;
+  var closeBtn = dialog ? dialog.querySelector('#add-key-close') : null;
+  var submitBtn = dialog ? dialog.querySelector('#add-key-submit') : null;
+  var errorEl = dialog ? dialog.querySelector('#add-key-error') : null;
+
+      function openDialog() {
+        try {
+          if (!dialog) return;
+          if (typeof dialog.showModal === 'function') dialog.showModal();
+          else dialog.setAttribute('open', '');
+        } catch (e) { dialog.setAttribute('open', ''); }
+        if (input) { input.value = ''; setTimeout(function(){ input.focus(); }, 10); }
+      }
+
+      function closeDialog() {
+        try { if (!dialog) return; if (typeof dialog.close === 'function') dialog.close(); else dialog.removeAttribute('open'); } catch (e) { dialog.removeAttribute('open'); }
+      }
+
+      function isValidToken(str) {
+        if (!str) return false;
+        var s = (str || '').replace(/^[#?]/, '').trim();
+        // Reject empty, whitespace, or query-style strings with '&'
+        if (!s) return false;
+        if (/\s/.test(s)) return false;
+        if (s.indexOf('&') !== -1) return false;
+        // Accept anything else (be permissive so tokens that work in the URL are accepted)
+        return true;
+      }
+
+      function applyFragment(fragment) {
+        fragment = (fragment || '').replace(/^[#?]/, '');
+        if (!fragment) return;
+        try {
+          if (history && history.replaceState) {
+            var url = new URL(location.href);
+            // write to the query string (search) so URL looks like ?token
+            url.search = fragment ? ('?' + fragment) : '';
+            history.replaceState({}, document.title, url.toString());
+          } else {
+            location.search = fragment ? ('?' + fragment) : '';
+          }
+        } catch (err) {
+          try { location.search = fragment ? ('?' + fragment) : ''; } catch (er) {}
+        }
+        var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
+        if (!form) return;
+        try { window.formHelpers.populateFormFromToken(fragment, form); } catch (e) {}
+      }
+
+      // Register click on main button to open the dialog (or fallback to prompt)
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (!dialog) {
+          var val = window.prompt('Paste token (base64url or base64url.signature):', '');
+          if (!val) return;
+          var frag = val.replace(/^#/, '').trim();
+          if (!isValidToken(frag)) {
+            try { alert('Invalid key format. Paste a base64url token optionally with a signature separated by a dot.'); } catch (e) {}
+            return;
+          }
+          applyFragment(frag);
+          return;
+        }
+        openDialog();
+      }, true);
+
+      // Register dialog controls once
+      if (closeBtn) closeBtn.addEventListener('click', function () { closeDialog(); }, true);
+      if (dialog) dialog.addEventListener('cancel', function (ev) { ev.preventDefault(); closeDialog(); }, true);
+      if (submitBtn && input) {
+        submitBtn.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          var v = (input.value || '').trim();
+          if (!isValidToken(v)) {
+            if (errorEl) { errorEl.style.display = 'block'; }
+            input && input.focus();
+            return;
+          }
+          if (errorEl) { errorEl.style.display = 'none'; }
+          applyFragment(v);
+          closeDialog();
+        }, true);
+        // allow Enter key inside input to submit
+        input.addEventListener('keydown', function(ev){ if (ev.key === 'Enter') { ev.preventDefault(); submitBtn.click(); } }, true);
+        // hide error when typing
+        input.addEventListener('input', function(){ if (errorEl) errorEl.style.display = 'none'; }, true);
+      }
+    } catch (e) {
+      console.error('initAddKeyButton error:', e);
+    }
+  }
+
+  window.formHelpers.initAddKeyButton = initAddKeyButton;
 }) ();
