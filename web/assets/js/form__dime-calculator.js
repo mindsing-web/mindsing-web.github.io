@@ -282,6 +282,17 @@
         } catch (e) { keyDisplay = ''; }
         if (keyDisplay) {
           html += '<p class="mt2 mb0"><small>Insurance target key: <code class="summary-key">' + escapeHtml(keyDisplay) + '</code></small></p>';
+          // Also show any saved notes below the insurance key
+          try {
+            var notesText = '';
+            var notesEl = form.querySelector('#notes_dime') || document.getElementById('notes_dime');
+            if (notesEl) notesText = (notesEl.value || '').trim();
+            if (notesText) {
+              html += '<p class="mt1 mb0 summary-notes"><small>Notes: ' + escapeHtml(notesText).replace(/\n/g, '<br>') + '</small></p>';
+            }
+          } catch (e) {
+            // ignore notes rendering errors
+          }
         }
         s.innerHTML = html;
 
@@ -342,6 +353,23 @@
                 } catch (e) { tokenTxt = (location.search || '').replace(/^\?/, ''); }
               }
               if (tokenTxt) lines.push('Insurance target key: ' + tokenTxt);
+
+              // Include notes if present
+              try {
+                var notesEl2 = form.querySelector('#notes_dime') || document.getElementById('notes_dime');
+                var notesTxt = '';
+                if (notesEl2) notesTxt = (notesEl2.value || '').trim();
+                if (!notesTxt) {
+                  // also try to find notes inside dialog textarea if copied from summary
+                  var summaryNotes = s.querySelector('.summary-notes');
+                  if (summaryNotes) notesTxt = (summaryNotes.textContent || summaryNotes.innerText || '').trim();
+                }
+                if (notesTxt) {
+                  lines.push('');
+                  lines.push('Notes:');
+                  lines.push(notesTxt);
+                }
+              } catch (e) {}
 
               var full = lines.join('\n');
               if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -836,12 +864,28 @@
         if (notesSave) {
           notesSave.addEventListener (
             'click',
-            function () {
+            function (ev) {
+              try { if (ev && typeof ev.preventDefault === 'function') ev.preventDefault(); } catch (e) {}
+              try { if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation(); } catch (e) {}
               closeNotes ();
             },
             true
           );
         }
+
+        // Prevent the notes dialog form from submitting the parent calculator form
+        try {
+          if (notesDialog) {
+            var notesFormInner = notesDialog.querySelector('form');
+            if (notesFormInner) {
+              notesFormInner.addEventListener('submit', function(ev){
+                try { if (ev && typeof ev.preventDefault === 'function') ev.preventDefault(); } catch (e) {}
+                try { if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation(); } catch (e) {}
+                closeNotes();
+              }, true);
+            }
+          }
+        } catch (e) {}
 
         // close notes when form cleared
         form.addEventListener (
