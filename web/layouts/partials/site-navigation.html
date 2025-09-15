@@ -23,11 +23,13 @@
       {{ if .Site.Menus.main }}
         <ul class="pl0 mr3 flex-l list">
           {{ range .Site.Menus.main }}
-          <li class="f5 f4-ns fw4 dib-l db pr3-l pv2">
-            <a class="hover-white no-underline white-90 db" href="{{ .URL }}" title="{{ i18n "pageTitle" . }}">
-              {{ .Name }}
-            </a>
-          </li>
+            {{ if not (.Page.Params.hideFromMenu) }}
+              <li class="f5 f4-ns fw4 dib-l db pr3-l pv2">
+                <a class="hover-white no-underline white-90 db" href="{{ .URL }}" title="{{ i18n "pageTitle" . }}">
+                  {{ .Name }}
+                </a>
+              </li>
+            {{ end }}
           {{ end }}
         </ul>
       {{ end }}

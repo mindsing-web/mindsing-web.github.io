@@ -164,6 +164,23 @@ git push origin main        # Triggers GitHub Pages build
 - **Custom Overrides**: Local template overrides in `web/layouts/`
 - **Frontend Assets**: Managed separately in `frontend/` directory
 
+## Hiding Pages From The Main Navigation
+
+You can prevent a page or section from appearing in the site's main navigation by adding a `hideFromMenu: true` boolean to the page's front matter. This is useful for utility pages (like `/calculator/`) that should be reachable but not shown in the global nav.
+
+Example front matter:
+
+```yaml
+---
+title: "Calculator"
+hideFromMenu: true
+---
+```
+
+Notes:
+- The theme's navigation partial may also check additional conditions (for example local template overrides under `web/layouts/partials/` can change behavior).
+- If you have a local override for the navigation partial it will take precedence over the theme's partial. Remove or edit `web/layouts/partials/site-navigation.html` if you want the theme's default behavior.
+
 ## Troubleshooting
 
 ### Submodule Issues

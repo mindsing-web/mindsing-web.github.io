@@ -1,5 +1,6 @@
 ---
 title: "Calculator"
+hideFromMenu: true
 layout: "calculator"
 ---
 
