@@ -8,7 +8,9 @@ password: "creative"
 
 # DIME Calculator
 
-<button type="button" class="btn btn--primary btn--access-content" data-protect-id="dime">Access Content</button>
+<div class="password-access-wrapper">
+  <button type="button" class="btn btn--primary btn--access-content" data-protect-id="dime">Access Content</button>
+</div>
 
 <form id="dime-form" class="mw7 center pa3 calculator--form js-password-protected relative" data-protect-id="dime" style="padding-bottom:92px;">
 
@@ -45,7 +47,7 @@ password: "creative"
   </div>
 
   <!-- Debt section output -->
-  
+
   <div class="w-100 w-50-ns ph2 mb3">
     <label for="annual_salary" class="db mb1">Annual salary</label>
     <input id="annual_salary" name="annual_salary" type="number"

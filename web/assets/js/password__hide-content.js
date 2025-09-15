@@ -45,7 +45,37 @@
   PasswordGate.prototype.showContent = function () {
     this.root.style.display = '';
     this.root.removeAttribute('aria-hidden');
-    if (this.button) this.button.style.display = 'none';
+    if (!this.button) return;
+    try {
+      var wrapper = null;
+      try { wrapper = this.button.closest ? this.button.closest('.password-access-wrapper') : null; } catch (er) { wrapper = null; }
+
+      if (wrapper && wrapper.parentNode) {
+        // remove wrapper if present
+        if (wrapper.remove) wrapper.remove(); else wrapper.parentNode.removeChild(wrapper);
+      } else {
+        // remove the button itself
+        var parent = this.button.parentNode;
+        try { if (this.button.remove) this.button.remove(); else if (parent) parent.removeChild(this.button); } catch (er) { /* ignore */ }
+        // if parent now empty (no element children and no non-whitespace text), remove it
+        try {
+          if (parent && parent.parentNode) {
+            var isEmpty = true;
+            for (var i = 0; i < parent.childNodes.length; i++) {
+              var n = parent.childNodes[i];
+              if (n.nodeType === 1) { isEmpty = false; break; }
+              if (n.nodeType === 3 && (n.textContent || '').trim() !== '') { isEmpty = false; break; }
+            }
+            if (isEmpty) {
+              if (parent.remove) parent.remove(); else parent.parentNode.removeChild(parent);
+            }
+          }
+        } catch (er) { /* ignore */ }
+      }
+    } catch (e) {
+      try { this.button.style.display = 'none'; } catch (er) { /* ignore */ }
+    }
+    this.button = null;
   };
 
   PasswordGate.prototype.hideContent = function () {
