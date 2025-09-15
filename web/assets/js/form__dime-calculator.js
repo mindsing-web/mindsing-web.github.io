@@ -461,6 +461,16 @@
             renderEducationOutput (form);
             renderDimeOutput (form);
             renderCoverageNeed (form);
+            // remove focus/active state from the submit button so visual "active" styles clear
+            try {
+              var active = document.activeElement;
+              if (active && (active.tagName === 'BUTTON' || active.tagName === 'INPUT') && form.contains(active)) {
+                active.blur();
+              } else {
+                var submitBtn = form.querySelector('button[type="submit"]');
+                if (submitBtn) submitBtn.blur();
+              }
+            } catch (err) {}
           } catch (err) {
             console.error ('form__dime submit handler error:', err);
           }
@@ -616,15 +626,43 @@
           } catch (err) {}
         }
         try {
-          if (
-            window.formDime &&
-            typeof window.formDime.renderDebtOutput === 'function'
-          ) {
-            window.formDime.renderDebtOutput (form);
+          if (window.formDime && typeof window.formDime.renderDebtOutput === 'function') {
+            window.formDime.renderDebtOutput(form);
           }
-        } catch (err) {}
+          if (window.formDime && typeof window.formDime.renderIncomeOutput === 'function') {
+            window.formDime.renderIncomeOutput(form);
+          }
+          if (window.formDime && typeof window.formDime.renderMortgageOutput === 'function') {
+            window.formDime.renderMortgageOutput(form);
+          }
+          if (window.formDime && typeof window.formDime.renderEducationOutput === 'function') {
+            window.formDime.renderEducationOutput(form);
+          }
+          if (window.formDime && typeof window.formDime.renderDimeOutput === 'function') {
+            window.formDime.renderDimeOutput(form);
+          }
+          if (window.formDime && typeof window.formDime.renderCoverageNeed === 'function') {
+            window.formDime.renderCoverageNeed(form);
+          }
+          // clear focus from submit if the button was outside the form or still focused
+          try {
+            var active = document.activeElement;
+            if (
+              active &&
+              (active.tagName === 'BUTTON' || active.tagName === 'INPUT') &&
+              form.contains(active)
+            ) {
+              active.blur();
+            } else {
+              var submitBtn = form.querySelector('button[type="submit"]');
+              if (submitBtn) submitBtn.blur();
+            }
+          } catch (err) {}
+        } catch (err) {
+          console.error('form__dime delegated submit handler error:', err);
+        }
       } catch (err) {
-        console.error ('delegated dime submit handler error:', err);
+        console.error('form__dime delegated submit listener error:', err);
       }
     },
     true

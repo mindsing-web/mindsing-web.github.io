@@ -410,11 +410,32 @@
           'form.calculator--form, form[data-save="session"]'
         )
       );
+      // helper to run the clear flow for a specific form element
+      function handleClearForForm(form) {
+        if (!form) return;
+        clearFormState (form);
+        try { form.reset(); } catch (err) {}
+        try {
+          if (window.history && typeof window.history.replaceState === 'function') {
+            var url = new URL(location.href);
+            url.search = '';
+            window.history.replaceState({}, document.title, url.toString());
+          } else {
+            location.search = '';
+          }
+        } catch (err) {
+          console.error('clear-values: could not clear URL token', err);
+        }
+        form.dispatchEvent (new CustomEvent('form:cleared'));
+      }
       forms.forEach (function (form) {
         var clearBtn = form.querySelector ('.btn--clear-values');
         if (!clearBtn) return;
+        // mark this button as bound so delegated handler can skip it
+        try { clearBtn.setAttribute('data-clear-bound', 'true'); } catch (err) {}
         clearBtn.addEventListener ('click', function (e) {
           e.preventDefault ();
+          e.stopPropagation();
           showConfirm ({
             title: 'Clear saved values?',
             body: 'This will clear saved form values for this calculator. Are you sure?',
@@ -422,13 +443,34 @@
             cancelText: 'Cancel',
           }).then (function (ok) {
             if (!ok) return;
-            clearFormState (form);
-            // clear visible inputs
-            try {
-              form.reset ();
-            } catch (err) {}
-            // trigger a custom event so pages can re-render outputs
-            form.dispatchEvent (new CustomEvent ('form:cleared'));
+            handleClearForForm(form);
+          });
+        });
+      });
+
+      // Also bind any clear buttons that live outside the forms (e.g., action bar)
+      var outerClearBtns = Array.prototype.slice.call(root.querySelectorAll('.btn--clear-values'));
+      outerClearBtns.forEach(function(btn){
+        // if the button is inside a form we've already bound, skip (it was handled above)
+        if (btn.closest('form')) return;
+        // if this button was already bound above, skip
+        if (btn.getAttribute && btn.getAttribute('data-clear-bound') === 'true') return;
+        // mark as bound to avoid future duplicate binding
+        try { btn.setAttribute('data-clear-bound', 'true'); } catch (err) {}
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          showConfirm({
+            title: 'Clear saved values?',
+            body: 'This will clear saved form values for this calculator. Are you sure?',
+            okText: 'Yes, clear',
+            cancelText: 'Cancel',
+          }).then(function(ok){
+            if (!ok) return;
+            // Try data-target-form attr, then fallback to default form id on page
+            var targetFormId = btn.getAttribute('data-target-form') || (root.querySelector('form.calculator--form') && root.querySelector('form.calculator--form').id) || 'dime-form';
+            var targetForm = document.getElementById(targetFormId) || document.querySelector('form.calculator--form');
+            handleClearForForm(targetForm);
           });
         });
       });
@@ -451,6 +493,39 @@
     initFormPersistence (document);
     initClearValues (document);
   }
+
+  // Delegated handler for any clear-values buttons that may be added later
+  try {
+  document.addEventListener('click', function(e){
+      var btn = e.target.closest && e.target.closest('.btn--clear-values');
+      if (!btn) return;
+      // If the button is inside a form, the per-form handler should handle it
+      if (btn.closest && btn.closest('form')) return;
+      // If the button was already bound directly, skip delegated handling
+      if (btn.getAttribute && btn.getAttribute('data-clear-bound') === 'true') return;
+      e.preventDefault();
+      showConfirm({
+        title: 'Clear saved values?',
+        body: 'This will clear saved form values for this calculator. Are you sure?',
+        okText: 'Yes, clear',
+        cancelText: 'Cancel',
+      }).then(function(ok){
+        if (!ok) return;
+        try {
+          var targetFormId = btn.getAttribute('data-target-form') || (document.querySelector('form.calculator--form') && document.querySelector('form.calculator--form').id) || 'dime-form';
+          var targetForm = document.getElementById(targetFormId) || document.querySelector('form.calculator--form');
+          if (!targetForm) return;
+          // reuse handleClearForForm if available in this scope
+          try { handleClearForForm(targetForm); } catch (err) {
+            // fallback: perform simple clear
+            try { targetForm.reset(); } catch (e) {}
+          }
+        } catch (err) {
+          console.error('delegated clear-values handler error', err);
+        }
+      });
+  }, false);
+  } catch (e) {}
 
   // Expose functions for dynamic content
   window.formHelpers = window.formHelpers || {};

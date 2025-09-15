@@ -2,14 +2,15 @@
   <div class="mw7 center ph3 pv3 flex items-center justify-between">
     <div>
       {{ if .Buttons }}
-        {{ .Buttons }}
+      {{ .Buttons }}
       {{ else }}
-        <button type="submit" form="dime-form" class="btn btn--primary mr2">Calculate</button>
-        <button type="button" class="btn btn--secondary btn--clear-values">Clear values</button>
+      <button type="submit" form="dime-form" class="btn btn--primary mr2">Calculate</button>
+      <button type="button" class="btn btn--secondary btn--clear-values" {{ if .FormID
+        }}data-target-form="{{ .FormID }}" {{ end }}>Clear values</button>
       {{ end }}
     </div>
     <div>
-  <button type="button" id="btn-toggle-notes" class="btn btn--gray btn--notes-toggle">Notes</button>
+      <button type="button" id="btn-toggle-notes" class="btn btn--gray btn--notes-toggle">Notes</button>
     </div>
   </div>
 </div>
