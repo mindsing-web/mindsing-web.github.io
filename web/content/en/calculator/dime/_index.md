@@ -5,6 +5,8 @@ hideFromSitemap: true
 
 <!-- DIME calculator page -->
 
+# DIME Calculator
+
 <form id="dime-form" class="mw7 center pa3 calculator--form">
 
 <div class="flex flex-wrap nl2 nr2">

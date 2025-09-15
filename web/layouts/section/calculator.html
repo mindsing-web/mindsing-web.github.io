@@ -7,7 +7,7 @@
     {{ partial "site-style.html" . }}
 </head>
 <body class="calculator-page">
-    <main class="calculator-page__content flex items-center justify-center min-vh-100">
+    <main class="calculator-page__content flex flex-column items-center justify-center min-vh-100">
         {{ .Content }}
     </main>
         {{/* Load form-helpers script via Hugo resources (fall back to /assets/js or /static/js) */}}
