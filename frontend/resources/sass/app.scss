@@ -360,8 +360,31 @@ article a.no-underline:hover,
 
 #dime-summary {
   background: #fff;
-  border: 1px solid #e5e7eb;
+  border: 0; // no border as requested
   border-radius: 8px;
+  box-shadow: none;
+}
+
+/* Ensure primary action in summary looks prominent */
+.btn--primary {
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+}
+
+/* Summary key styling: smaller, monospace, wrap */
+#dime-summary code#dime-summary-key,
+#dime-summary code {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Source Code Pro', monospace;
+  font-size: 10pt;
+  line-height: 1.2;
+  word-break: break-all;
+  max-width: 100%;
+}
+
+/* Ensure the button row uses full width and buttons keep alignment */
+#dime-summary .btn {
+  min-width: 120px;
 }
 
 // Modifier class for notes-specific dialogs (keeps semantic naming available)

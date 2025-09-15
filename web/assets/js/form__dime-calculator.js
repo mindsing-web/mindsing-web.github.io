@@ -251,10 +251,37 @@
         html += '<p class="mb1"><strong>M =</strong> ' + formatCurrency(m) + '</p>';
         html += '<p class="mb2"><strong>E =</strong> ' + formatCurrency(e) + '</p>';
         if (coverage && coverage.inForce && coverage.inForce > 0) {
+          // When there is an existing in-force policy, show the DIME Target above it
+          if (typeof coverage.target !== 'undefined') {
+            html += '<p class="mb1"><small>DIME Target: ' + formatCurrency(coverage.target) + '</small></p>';
+          }
           html += '<p class="mb1"><small>Current in-force: ' + formatCurrency(coverage.inForce) + '</small></p>';
         }
-        html += '<h3 class="mt2 mb1">Total Need: ' + formatCurrency(coverage ? coverage.need : computeDimeValue(form)) + '</h3>';
-        html += '<div class="tr mt3"><button id="btn-show-details" class="btn">Show details</button></div>';
+        // Always show the Life Insurance Target (total need)
+        html += '<h3 class="mt2 mb1">Life Insurance Target: ' + formatCurrency(coverage ? coverage.need : computeDimeValue(form)) + '</h3>';
+  // Buttons row: copy left, show details right (secondary)
+  html += '<div class="mt3" style="display:flex; justify-content:space-between; align-items:center;">';
+  html += '<div class="">';
+  html += '<button id="btn-copy-target" class="btn btn--primary">Copy to clipboard</button>';
+  html += '</div>';
+  html += '<div class="">';
+  html += '<button id="btn-show-details" class="btn btn--secondary">Show details</button>';
+  html += '</div>';
+  html += '</div>';
+        // Display the token/key underneath
+        var keyDisplay = '';
+        try {
+          var token = '';
+          // prefer query string token if present
+          try { token = (location.search || '').replace(/^\?/, ''); } catch (e) { token = ''; }
+          if (!token && window.formHelpers && typeof window.formHelpers.getTokenFromForm === 'function') {
+            try { token = window.formHelpers.getTokenFromForm(form) || ''; } catch (e) { token = ''; }
+          }
+          if (token) keyDisplay = token;
+        } catch (e) { keyDisplay = ''; }
+        if (keyDisplay) {
+          html += '<p class="mt2 mb0"><small>Insurance target key: <code id="dime-summary-key">' + escapeHtml(keyDisplay) + '</code></small></p>';
+        }
         s.innerHTML = html;
 
         // insert summary where the form was
@@ -268,6 +295,49 @@
         // hook show details
         var showBtn = document.getElementById('btn-show-details');
         if (showBtn) showBtn.addEventListener('click', function(){ expandFromSummary(form); }, true);
+        // hook copy to clipboard
+        var copyBtn = document.getElementById('btn-copy-target');
+        if (copyBtn) {
+          copyBtn.addEventListener('click', function(){
+            try {
+              var txt = '';
+              var el = document.getElementById('dime-summary-key');
+              if (el) txt = (el.textContent || el.innerText || '').trim();
+              if (!txt) {
+                // try parse token= from query string
+                try {
+                  var qs = (location.search || '').replace(/^\?/, '');
+                  var params = qs.split('&').reduce(function(acc, p){
+                    var parts = p.split('=');
+                    if (parts.length === 1) return acc;
+                    acc[decodeURIComponent(parts[0])] = decodeURIComponent(parts.slice(1).join('='));
+                    return acc;
+                  }, {});
+                  if (params.token) txt = params.token;
+                  else if (params.key) txt = params.key;
+                  else txt = qs || '';
+                } catch (e) { txt = (location.search || '').replace(/^\?/, ''); }
+              }
+              if (!txt && window.formHelpers && typeof window.formHelpers.getTokenFromForm === 'function') {
+                try { txt = window.formHelpers.getTokenFromForm(form) || ''; } catch (e) { txt = ''; }
+              }
+              if (!txt) return;
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(txt).then(function(){
+                  copyBtn.textContent = 'Copied';
+                  setTimeout(function(){ copyBtn.textContent = 'Copy to clipboard'; }, 2000);
+                }).catch(function(){
+                  // fallback
+                  fallbackCopyTextToClipboard(txt, copyBtn);
+                });
+              } else {
+                fallbackCopyTextToClipboard(txt, copyBtn);
+              }
+            } catch (e) {
+              try { console.error('copy error', e); } catch (err) {}
+            }
+          }, true);
+        }
       }, 300);
     } catch (e) {
       console.error('collapseToSummary error:', e);
@@ -290,6 +360,45 @@
     } catch (e) {
       console.error('expandFromSummary error:', e);
     }
+  }
+
+  // Simple HTML escape helper for injecting token text
+  function escapeHtml (str) {
+    if (!str && str !== 0) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Fallback copy for older browsers
+  function fallbackCopyTextToClipboard(text, btn) {
+    try {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      var selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : null;
+      textarea.select();
+      try {
+        var ok = document.execCommand('copy');
+        if (ok && btn) {
+          var old = btn.textContent;
+          btn.textContent = 'Copied';
+          setTimeout(function(){ try { btn.textContent = old; } catch(e){} }, 2000);
+        }
+      } catch (err) {
+        // give up quietly
+      }
+      document.body.removeChild(textarea);
+      if (selected) {
+        try { document.getSelection().removeAllRanges(); document.getSelection().addRange(selected); } catch (e) {}
+      }
+    } catch (e) {}
   }
 
   function initDebtOutput (root) {
@@ -499,9 +608,6 @@
           function () {
             renderDimeOutput (form);
             renderCoverageNeed (form);
-            try {
-              collapseToSummary(form);
-            } catch (err) {}
           },
           true
         );
