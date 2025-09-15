@@ -5,7 +5,7 @@ hideFromSitemap: true
 
 <!-- DIME calculator page -->
 
-<form id="dime-form" class="mw7 center pa3">
+<form id="dime-form" class="mw7 center pa3 calculator--form">
 
 <h3 class="mt0">Debt</h3>
 <label class="db mv2">Final expenses: $ <a href="#" class="info" title="Experts recommend $10,000–25,000">(i)</a><input class="ml2" type="number" name="final_expenses" id="final_expenses">
