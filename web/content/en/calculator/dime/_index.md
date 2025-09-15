@@ -151,23 +151,9 @@ token_salt: "b3JpZ2luYWwtc2VjdXJlLXNlcnZlci1zYWx0LWFzZGZoYWtzZA"
       </div>
     </form>
   </dialog>
-
-  <!-- Fixed bottom action bar -->
-  <div id="action-bar" class="fixed-bottom-action-bar" style="position:fixed;left:0;right:0;bottom:0;background:#ffffff;box-shadow:0 -4px 12px rgba(0,0,0,0.08);z-index:40000;">
-    <div class="mw7 center ph3 pv3 flex items-center justify-between">
-      <div class="">
-        <button type="submit" form="dime-form" class="btn btn--primary mr2">Calculate DIME</button>
-        <button type="button" class="btn btn--secondary btn--clear-values">Clear values</button>
-      </div>
-      <div>
-        <button type="button" id="btn-toggle-notes" class="btn btn--secondary btn--notes-toggle" aria-expanded="false" style="background:#6b7280;color:#ffffff;border:0;padding:8px 12px;">Notes</button>
-      </div>
-    </div>
-  </div>
-
 </div>
 </form>
 
 <p class="mw7 center ph3 pb6">
-  <a href="/calculator/" class="btn btn--secondary">← Back to calculator</a>
+  <a href="/calculator/" class="btn btn--secondary">← Calculator Home</a>
 </p>

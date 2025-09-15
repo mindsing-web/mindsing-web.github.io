@@ -47,5 +47,15 @@
             {{ end }}
           {{ end }}
         {{ end }}
+
+  {{/* Fixed action bar for calculator pages. Allow pages to set .form_id or override action_bar_buttons in front matter. */}}
+  {{ $formID := .Params.form_id }}
+  {{ $buttons := .Params.action_bar_buttons }}
+  {{ if $buttons }}
+    {{ partial "fixed-action-bar.html" (dict "Buttons" $buttons "FormID" $formID "Page" .) }}
+  {{ else }}
+    {{ partial "fixed-action-bar.html" (dict "FormID" $formID "Page" .) }}
+  {{ end }}
+
 </body>
 </html>

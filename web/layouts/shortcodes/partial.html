@@ -1,0 +1,12 @@
+{{/*
+  Shortcode: partial
+  Usage in content: {{< partial "fixed-action-bar.html" . >}}
+  Forwards to the named partial and passes the provided context (or the current page if none supplied).
+*/}}
+{{ $name := .Get 0 }}
+{{ $ctx := .Get 1 }}
+{{ if $ctx }}
+  {{ partial $name $ctx }}
+{{ else }}
+  {{ partial $name .Page }}
+{{ end }}

@@ -474,8 +474,9 @@
 
       // Notes dialog (uses <dialog>)
       try {
-        var notesBtn = form.querySelector ('#btn-toggle-notes');
-        var notesDialog = document.getElementById ('notes-dialog');
+  // Notes toggle button may be inside the form or injected elsewhere (layout partial).
+  var notesBtn = form.querySelector('#btn-toggle-notes') || document.getElementById('btn-toggle-notes') || document.querySelector('.btn--notes-toggle');
+  var notesDialog = document.getElementById('notes-dialog');
         var notesClose = notesDialog
           ? notesDialog.querySelector ('#notes-close')
           : null;

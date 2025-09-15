@@ -1,0 +1,15 @@
+<div id="action-bar" class="fixed bottom-0 left-0 right-0 bg-white shadow-0 z-9999">
+  <div class="mw7 center ph3 pv3 flex items-center justify-between">
+    <div>
+      {{ if .Buttons }}
+        {{ .Buttons }}
+      {{ else }}
+        <button type="submit" form="dime-form" class="btn btn--primary mr2">Calculate</button>
+        <button type="button" class="btn btn--secondary btn--clear-values">Clear values</button>
+      {{ end }}
+    </div>
+    <div>
+  <button type="button" id="btn-toggle-notes" class="btn btn--gray btn--notes-toggle">Notes</button>
+    </div>
+  </div>
+</div>
