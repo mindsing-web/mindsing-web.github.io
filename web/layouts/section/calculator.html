@@ -8,17 +8,30 @@
 </head>
 <body class="calculator-page">
     <main class="calculator-page__content flex flex-column items-center justify-center min-vh-100">
-        {{ .Content }}
+      {{ .Content }}
     </main>
-        {{/* Load form-helpers script via Hugo resources (fall back to /assets/js or /static/js) */}}
-        {{ with resources.Get "js/form-helpers.js" }}
-            {{ $fh := . }}
-            {{ if hugo.IsProduction }}
-                {{ $fh = $fh | minify | fingerprint }}
-            {{ end }}
-            <script src="{{ $fh.RelPermalink }}"></script>
-        {{ else }}
-            <script src="/assets/js/form-helpers.js"></script>
+      {{/* Load base form helpers */}}
+      {{ with resources.Get "js/form__helpers.js" }}
+        {{ $fh := . }}
+        {{ if hugo.IsProduction }}
+          {{ $fh = $fh | minify | fingerprint }}
         {{ end }}
+          <script src="{{ $fh.RelPermalink }}"></script>
+        {{ else }}
+          <script src="/assets/js/form__helpers.js"></script>
+        {{ end }}
+
+        {{/* DIME calculator specific scripts - only include for dime page */}}
+        {{ if in .File.Path "calculator/dime" }}
+          {{ with resources.Get "js/form__dime-calculator.js" }}
+          {{ $d := . }}
+          {{ if hugo.IsProduction }}
+            {{ $d = $d | minify | fingerprint }}
+          {{ end }}
+            <script src="{{ $d.RelPermalink }}"></script>
+          {{ else }}
+            <script src="/assets/js/form__dime-calculator.js"></script>
+        {{ end }}
+      {{ end }}
 </body>
 </html>
