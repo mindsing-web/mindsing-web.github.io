@@ -40,6 +40,33 @@
     }
   }
 
+  // --- Income calculation and output ---
+  function computeIncomeValue(form) {
+    try {
+      var salaryEl = form.querySelector('#annual_salary');
+      var multEl = form.querySelector('#income_multiplier');
+      var salary = salaryEl ? parseFloat(salaryEl.value) : 0;
+      var mult = multEl ? parseFloat(multEl.value) : 0;
+      if (!isFinite(salary)) salary = 0;
+      if (!isFinite(mult)) mult = 0;
+      return salary * mult;
+    } catch (e) {
+      console.error('form__dime computeIncomeValue error:', e);
+      return 0;
+    }
+  }
+
+  function renderIncomeOutput(form) {
+    try {
+      var out = document.getElementById('income-output');
+      if (!out) return;
+      var value = computeIncomeValue(form);
+      out.innerHTML = '<p class="mb0"><strong>I =</strong> ' + formatCurrency(value) + '</p>';
+    } catch (e) {
+      console.error('form__dime renderIncomeOutput error:', e);
+    }
+  }
+
   function initDebtOutput(root) {
     root = root || document;
     try {
@@ -53,6 +80,19 @@
         el.addEventListener('blur', function () { renderDebtOutput(form); }, true);
         el.addEventListener('change', function () { renderDebtOutput(form); }, true);
       });
+
+      // Init income output and handlers
+      renderIncomeOutput(form);
+      var salary = form.querySelector('#annual_salary');
+      var mult = form.querySelector('#income_multiplier');
+      if (salary) {
+        salary.addEventListener('blur', function () { renderIncomeOutput(form); }, true);
+        salary.addEventListener('change', function () { renderIncomeOutput(form); }, true);
+      }
+      if (mult) {
+        mult.addEventListener('blur', function () { renderIncomeOutput(form); }, true);
+        mult.addEventListener('change', function () { renderIncomeOutput(form); }, true);
+      }
     } catch (e) {
       console.error('form__dime initDebtOutput error:', e);
     }
@@ -69,6 +109,8 @@
     initDebtOutput: initDebtOutput,
     computeDebtValue: computeDebtValue,
     renderDebtOutput: renderDebtOutput
+    ,computeIncomeValue: computeIncomeValue,
+    renderIncomeOutput: renderIncomeOutput
   };
 
 })();
