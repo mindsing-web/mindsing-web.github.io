@@ -486,12 +486,16 @@
       initInfoTooltips (document);
       initFormPersistence (document);
       initClearValues (document);
+      initHashOnSubmit (document);
+      initPrefillFromURL (document);
     });
   } else {
     addAsterisks (document);
     initInfoTooltips (document);
     initFormPersistence (document);
     initClearValues (document);
+    initHashOnSubmit (document);
+    initPrefillFromURL (document);
   }
 
   // Delegated handler for any clear-values buttons that may be added later
@@ -831,4 +835,71 @@
   window.formHelpers.decodeTokenToObject = decodeTokenToObject;
   window.formHelpers.writeTokenToQuery = writeTokenToQuery;
   window.formHelpers.populateFormFromToken = populateFormFromToken;
+  
+  // --- Prefill forms from URL hash or query ---
+  // Looks for either a token in the search ("?token") or a query-string-style
+  // fragment ("#field=val&...") and populates the target form.
+  function initPrefillFromURL (root) {
+    root = root || document;
+    try {
+      // find target form: prefer explicit form with id 'dime-form', then any calculator form
+      var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form') || null;
+      if (!form) return;
+
+      // Helper to parse hash like '#a=1&b=2' -> URLSearchParams
+      function parseFragmentToParams (frag) {
+        if (!frag) return null;
+        var s = frag.replace(/^#/, '');
+        if (!s) return null;
+        return new URLSearchParams(s);
+      }
+
+      // If there's a search token (e.g., '?<payload>' or '?payload.sig'), try to decode and populate
+      var search = (location.search || '').replace(/^\?/, '');
+      if (search) {
+        // assume search is a token payload (base64url or base64url.sig)
+        try {
+          window.formHelpers.populateFormFromToken(search, form);
+          return;
+        } catch (e) {}
+      }
+
+      // Next, look at fragment as either token or query string
+      var hash = (location.hash || '').replace(/^#/, '');
+      if (!hash) return;
+
+      // If hash contains '=' treat it as query-string-style values
+      if (hash.indexOf('=') !== -1) {
+        var params = parseFragmentToParams(location.hash);
+        if (!params) return;
+        // Apply params to form elements
+        for (var pair of params.entries()) {
+          var key = pair[0];
+          var val = pair[1];
+          var el = form.elements[key] || form.querySelector('#' + key);
+          if (!el) continue;
+          var tag = (el.tagName || '').toLowerCase();
+          var type = (el.type || '').toLowerCase();
+          try {
+            if (type === 'checkbox') el.checked = (val === '1' || val === 'true');
+            else if (type === 'radio') {
+              var radios = form.querySelectorAll('input[name="' + key + '"]');
+              radios.forEach(function(r){ if (r.value === val) r.checked = true; });
+            } else { el.value = val; }
+          } catch (e) {}
+        }
+        try { form.dispatchEvent(new Event('change', {bubbles:true})); } catch (e) {}
+        return;
+      }
+
+      // Otherwise treat hash as a base64url token and try to populate
+      try {
+        window.formHelpers.populateFormFromToken(location.hash.replace(/^#/, ''), form);
+      } catch (e) {}
+    } catch (e) {
+      console.error('initPrefillFromURL error:', e);
+    }
+  }
+
+  window.formHelpers.initPrefillFromURL = initPrefillFromURL;
 }) ();
