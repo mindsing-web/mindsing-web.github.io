@@ -7,7 +7,9 @@ hideFromSitemap: true
 
 # DIME Calculator
 
-<form id="dime-form" class="mw7 center pa3 calculator--form">
+<button type="button" class="btn btn--primary btn--access-content" data-protect-id="dime">Access Content</button>
+
+<form id="dime-form" class="mw7 center pa3 calculator--form js-password-protected" data-protect-id="dime" data-password="creative">
 
 <div class="flex flex-wrap nl2 nr2">
 

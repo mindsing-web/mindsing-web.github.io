@@ -32,6 +32,16 @@
           {{ else }}
             <script src="/assets/js/form__dime-calculator.js"></script>
         {{ end }}
+
+          {{ with resources.Get "js/password__hide-content.js" }}
+          {{ $p := . }}
+          {{ if hugo.IsProduction }}
+            {{ $p = $p | minify | fingerprint }}
+          {{ end }}
+            <script src="{{ $p.RelPermalink }}"></script>
+          {{ else }}
+            <script src="/assets/js/password__hide-content.js"></script>
+          {{ end }}
       {{ end }}
 </body>
 </html>
