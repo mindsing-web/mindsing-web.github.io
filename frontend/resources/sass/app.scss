@@ -278,3 +278,43 @@ article a.no-underline:hover,
     border-color: darken($primary-color, 10%);
   }
 }
+
+// Reusable dialog styles
+.dialog {
+  // Backdrop color for browsers that support ::backdrop
+  &::backdrop {
+    background: rgba(0,0,0,0.6);
+  }
+
+  max-width: 760px;
+  width: calc(100% - 32px);
+
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 18px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+
+  // Ensure forms inside dialogs reset margin
+  form { margin: 0; }
+
+  // Small utility for dialog footer buttons
+  .dialog-footer { text-align: right; margin-top: 12px; }
+
+  textarea { min-height: 220px; padding: 12px; }
+
+  // Slightly larger save button in dialogs
+  button { &[id$="-save"] { padding: 8px 16px; } }
+
+  // Responsive: full-screen on small devices
+  @media (max-width: 640px) {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border-radius: 0;
+    padding: 16px;
+  }
+}
+
+// Modifier class for notes-specific dialogs (keeps semantic naming available)
+/* dialog--notes modifier intentionally left out (use .dialog for defaults) */

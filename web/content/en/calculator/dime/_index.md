@@ -138,10 +138,18 @@ password: "creative"
     <div id="coverage-need-output" class="section-output"></div>
   </div>
 
-  <div id="notes-container" class="w-100 ph2 mb4" style="display:none;">
-    <label for="notes_dime" class="db mb1">Notes</label>
-    <textarea id="notes_dime" name="notes_dime" rows="4" class="input-reset ba b--black-20 pa2 w-100"></textarea>
-  </div>
+  <dialog id="notes-dialog" class="dialog dialog--notes mw7 center" aria-labelledby="notes-title" aria-modal="true">
+    <form method="dialog" class="ph3 pv3">
+      <div class="flex items-center justify-between mb3">
+        <h3 id="notes-title" class="ma0">Notes</h3>
+        <button type="button" id="notes-close" class="btn btn--secondary" aria-label="Close notes">Close</button>
+      </div>
+      <textarea id="notes_dime" name="notes_dime" rows="8" class="input-reset ba b--black-20 pa2 w-100"></textarea>
+      <div class="tr mt3">
+        <button id="notes-save" class="btn btn--primary" type="submit">Save</button>
+      </div>
+    </form>
+  </dialog>
 
   <!-- Fixed bottom action bar -->
   <div id="action-bar" class="fixed-bottom-action-bar" style="position:fixed;left:0;right:0;bottom:0;background:#ffffff;box-shadow:0 -4px 12px rgba(0,0,0,0.08);z-index:40000;">
