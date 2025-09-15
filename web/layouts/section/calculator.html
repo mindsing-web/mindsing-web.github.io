@@ -10,5 +10,15 @@
     <main class="calculator-page__content flex items-center justify-center min-vh-100">
         {{ .Content }}
     </main>
+        {{/* Load required-asterisk script via Hugo resources (fall back to /assets/js or /static/js) */}}
+        {{ with resources.Get "js/required-asterisk.js" }}
+            {{ $ra := . }}
+            {{ if hugo.IsProduction }}
+                {{ $ra = $ra | minify | fingerprint }}
+            {{ end }}
+            <script src="{{ $ra.RelPermalink }}"></script>
+        {{ else }}
+            <script src="/assets/js/required-asterisk.js"></script>
+        {{ end }}
 </body>
 </html>
