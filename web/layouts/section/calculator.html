@@ -10,15 +10,15 @@
     <main class="calculator-page__content flex items-center justify-center min-vh-100">
         {{ .Content }}
     </main>
-        {{/* Load required-asterisk script via Hugo resources (fall back to /assets/js or /static/js) */}}
-        {{ with resources.Get "js/required-asterisk.js" }}
-            {{ $ra := . }}
+        {{/* Load form-helpers script via Hugo resources (fall back to /assets/js or /static/js) */}}
+        {{ with resources.Get "js/form-helpers.js" }}
+            {{ $fh := . }}
             {{ if hugo.IsProduction }}
-                {{ $ra = $ra | minify | fingerprint }}
+                {{ $fh = $fh | minify | fingerprint }}
             {{ end }}
-            <script src="{{ $ra.RelPermalink }}"></script>
+            <script src="{{ $fh.RelPermalink }}"></script>
         {{ else }}
-            <script src="/assets/js/required-asterisk.js"></script>
+            <script src="/assets/js/form-helpers.js"></script>
         {{ end }}
 </body>
 </html>
