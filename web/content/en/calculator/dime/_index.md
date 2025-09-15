@@ -18,7 +18,7 @@ hideFromSitemap: true
       <a href="#" class="info ml1" title="Experts recommend $10,000–25,000">(i)</a>
     </label>
     <input id="final_expenses" name="final_expenses" type="number"
-            class="input-reset ba b--black-20 pa2 w-100">
+      class="input-reset ba b--black-20 pa2 w-100" required aria-required="true">
   </div>
 
   <div class="w-100 w-50-ns ph2 mb3">
@@ -45,7 +45,7 @@ hideFromSitemap: true
   <div class="w-100 w-50-ns ph2 mb3">
     <label for="annual_salary" class="db mb1">Annual salary</label>
     <input id="annual_salary" name="annual_salary" type="number"
-            class="input-reset ba b--black-20 pa2 w-100">
+      class="input-reset ba b--black-20 pa2 w-100" required aria-required="true">
   </div>
 
   <div class="w-100 w-50-ns ph2 mb3">
@@ -54,7 +54,7 @@ hideFromSitemap: true
       <a href="#" class="info ml1" title="Experts recommend six to ten times annual income">(i)</a>
     </label>
     <input id="income_multiplier" name="income_multiplier" type="number"
-            class="input-reset ba b--black-20 pa2 w-100">
+      class="input-reset ba b--black-20 pa2 w-100" required aria-required="true">
   </div>
 
   <!-- Section: Mortgage -->
