@@ -1,0 +1,25 @@
+{{- /* Custom sitemap that excludes pages with `hideFromSitemap: true` */ -}}
+{{- print "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" | safeHTML -}}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  {{- /* Include site home first (if not hidden) */ -}}
+  {{- if not (.Site.Home.Params.hideFromSitemap) }}
+  <url>
+    <loc>{{ .Site.Home.RelPermalink }}</loc>
+    {{ with .Site.Home.Lastmod }}<lastmod>{{ .Format "2006-01-02T15:04:05Z07:00" }}</lastmod>{{ end }}
+  </url>
+  {{- end }}
+
+  {{- /* Use .Site.Pages to include list pages (sections, taxonomy pages) as well as content pages */ -}}
+  {{- $pages := where .Site.Pages "Params.hideFromSitemap" "ne" true -}}
+  {{- /* Exclude home (already included) */ -}}
+  {{- $pages = where $pages "Kind" "ne" "home" -}}
+  {{- /* No hard-coded path exclusions: rely on per-page `hideFromSitemap` front-matter */ -}}
+  {{- $filtered := $pages -}}
+
+  {{- range $filtered -}}
+    <url>
+      <loc>{{ .RelPermalink }}</loc>
+      {{ with .Lastmod }}<lastmod>{{ .Format "2006-01-02T15:04:05Z07:00" }}</lastmod>{{ end }}
+    </url>
+  {{- end -}}
+</urlset>
