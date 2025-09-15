@@ -53,6 +53,7 @@ token_salt: "b3JpZ2luYWwtc2VjdXJlLXNlcnZlci1zYWx0LWFzZGZoYWtzZA"
     <div id="debt-output" class="section-output"></div>
   </div>
 
+  <!-- Section: Income -->
   <h2 class="w-100 ph2 mt0 mb2">Income</h2>
 
   <div class="w-100 w-50-ns ph2 mb3">
