@@ -39,6 +39,11 @@ hideFromSitemap: true
             class="input-reset ba b--black-20 pa2 w-100">
   </div>
 
+  <!-- Debt section output -->
+  <div class="w-100 ph2 mb4">
+    <div id="debt-output" class="section-output"></div>
+  </div>
+
   <!-- Section: Income -->
   <h3 class="w-100 ph2 mt3 mb2">Income</h3>
 
@@ -55,6 +60,11 @@ hideFromSitemap: true
     </label>
     <input id="income_multiplier" name="income_multiplier" type="number"
       class="input-reset ba b--black-20 pa2 w-100" required aria-required="true">
+  </div>
+
+  <!-- Income section output -->
+  <div class="w-100 ph2 mb4">
+    <div id="income-output" class="section-output"></div>
   </div>
 
   <!-- Section: Mortgage -->
@@ -81,6 +91,11 @@ hideFromSitemap: true
             class="input-reset ba b--black-20 pa2 w-100">
   </div>
 
+  <!-- Mortgage section output -->
+  <div class="w-100 ph2 mb4">
+    <div id="mortgage-output" class="section-output"></div>
+  </div>
+
   <!-- Section: Education -->
   <h3 class="w-100 ph2 mt3 mb2">Education</h3>
 
@@ -97,6 +112,11 @@ hideFromSitemap: true
     </label>
     <input id="dependent_education" name="dependent_education" type="number"
             class="input-reset ba b--black-20 pa2 w-100">
+  </div>
+
+  <!-- Education section output -->
+  <div class="w-100 ph2 mb4">
+    <div id="education-output" class="section-output"></div>
   </div>
 
   <!-- Section: DIME Insurance Targets -->
