@@ -136,16 +136,16 @@ hideFromSitemap: true
             class="input-reset ba b--black-20 pa2 w-100">
   </div>
 
+  <div class="w-100 ph2 mb3">
+    <p class="mb0"><span class="required-asterisk">*</span> Required field</p>
+  </div>
+
   <div class="w-100 ph2 mv3">
     <div class="form__controls-row">
       <button type="submit" class="btn btn--primary mr2">Calculate DIME</button>
       <button type="button" class="btn btn--secondary btn--clear-values">Clear values</button>
     </div>
     <a class="btn btn--secondary mt3" href="/calculator/">Back to Calculator</a>
-  </div>
-
-  <div class="w-100 ph2 mb3">
-    <p class="mb0"><span class="required-asterisk">*</span> Required field</p>
   </div>
 
 </div>
