@@ -7,7 +7,7 @@
     {{ partial "site-style.html" . }}
 </head>
 <body class="calculator-page">
-    <main class="calculator-page__content flex flex-column items-center justify-center min-vh-100">
+  <main class="calculator-page__content flex flex-column items-center justify-center min-vh-100" {{ if isset .Params "password" }}data-protect-password="{{ .Params.password }}"{{ end }}>
       {{ .Content }}
     </main>
       {{/* Load base form helpers */}}

@@ -20,6 +20,14 @@
     this.id = options.id || rootEl.getAttribute('data-protect-id') || 'default';
     this.storageKey = 'password_gate_unlocked:' + this.id;
     this.password = options.password || rootEl.getAttribute('data-password') || '';
+    if (!this.password) {
+      try {
+        var main = rootEl.closest ? rootEl.closest('main') : document.querySelector('main');
+        if (main && main.getAttribute) {
+          this.password = main.getAttribute('data-protect-password') || this.password;
+        }
+      } catch (e) { /* ignore */ }
+    }
     this.buttonSelector = options.buttonSelector || '.btn--access-content';
     this.button = null;
     this.overlay = null;
@@ -167,7 +175,10 @@
   function autoInit() {
     $all('.js-password-protected').forEach(function (el) {
       try {
-        new PasswordGate(el, { id: el.getAttribute('data-protect-id') || undefined, password: el.getAttribute('data-password') || '', buttonSelector: '.btn--access-content' });
+        var opts = { id: el.getAttribute('data-protect-id') || undefined, buttonSelector: '.btn--access-content' };
+        var pw = el.getAttribute('data-password');
+        if (pw) opts.password = pw;
+        new PasswordGate(el, opts);
       } catch (e) { console.error('PasswordGate init error', e); }
     });
   }
