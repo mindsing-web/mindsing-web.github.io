@@ -137,8 +137,11 @@ hideFromSitemap: true
   </div>
 
   <div class="w-100 ph2 mv3">
-    <button type="submit" class="btn btn--primary mr2">Calculate DIME</button>
-    <a class="btn btn--secondary" href="/calculator/">Back to Calculator</a>
+    <div class="form__controls-row">
+      <button type="submit" class="btn btn--primary mr2">Calculate DIME</button>
+      <button type="button" class="btn btn--secondary btn--clear-values">Clear values</button>
+    </div>
+    <a class="btn btn--secondary mt3" href="/calculator/">Back to Calculator</a>
   </div>
 
   <div class="w-100 ph2 mb3">

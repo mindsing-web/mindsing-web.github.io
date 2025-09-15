@@ -295,17 +295,110 @@
     }
   }
 
+  // --- Confirm dialog utility ---
+  function showConfirm(options) {
+    options = options || {};
+    var title = options.title || 'Are you sure?';
+    var body = options.body || '';
+    var okText = options.okText || 'OK';
+    var cancelText = options.cancelText || 'Cancel';
+    return new Promise(function (resolve) {
+      try {
+        // create modal elements
+        var overlay = document.createElement('div');
+        overlay.className = 'confirm-overlay fixed top-0 left-0 w-100 h-100 flex items-center justify-center';
+        overlay.style.zIndex = 20000;
+        overlay.style.background = 'rgba(0,0,0,0.4)';
+
+        var box = document.createElement('div');
+        box.className = 'confirm-box bg-white pa3 br2';
+        box.style.minWidth = '320px';
+        box.style.maxWidth = '90%';
+
+        var h = document.createElement('h3');
+        h.textContent = title;
+        h.style.marginTop = '0';
+        var p = document.createElement('p');
+        p.innerHTML = body;
+
+        var controls = document.createElement('div');
+        controls.className = 'tr mt3';
+
+        var cancel = document.createElement('button');
+        cancel.className = 'btn mr2';
+        cancel.textContent = cancelText;
+        var ok = document.createElement('button');
+        ok.className = 'btn btn--primary';
+        ok.textContent = okText;
+
+        controls.appendChild(cancel);
+        controls.appendChild(ok);
+        box.appendChild(h);
+        box.appendChild(p);
+        box.appendChild(controls);
+        overlay.appendChild(box);
+        document.body.appendChild(overlay);
+
+        function cleanup() {
+          document.body.removeChild(overlay);
+          document.removeEventListener('keydown', onKey, true);
+        }
+        function onKey(e) {
+          if (e.key === 'Escape' || e.key === 'Esc') {
+            cleanup();
+            resolve(false);
+          }
+        }
+        cancel.addEventListener('click', function () { cleanup(); resolve(false); });
+        ok.addEventListener('click', function () { cleanup(); resolve(true); });
+        document.addEventListener('keydown', onKey, true);
+      } catch (e) {
+        console.error('showConfirm error:', e);
+        resolve(false);
+      }
+    });
+  }
+
+  // --- Initialize clear-values buttons on forms ---
+  function initClearValues(root) {
+    root = root || document;
+    try {
+      var forms = Array.prototype.slice.call(root.querySelectorAll('form.calculator--form, form[data-save="session"]'));
+      forms.forEach(function (form) {
+        var clearBtn = form.querySelector('.btn--clear-values');
+        if (!clearBtn) return;
+        clearBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          showConfirm({ title: 'Clear saved values?', body: 'This will clear saved form values for this calculator. Are you sure?', okText: 'Yes, clear', cancelText: 'Cancel' }).then(function (ok) {
+            if (!ok) return;
+            clearFormState(form);
+            // clear visible inputs
+            try {
+              form.reset();
+            } catch (err) {}
+            // trigger a custom event so pages can re-render outputs
+            form.dispatchEvent(new CustomEvent('form:cleared'));
+          });
+        });
+      });
+    } catch (e) {
+      console.error('initClearValues error:', e);
+    }
+  }
+
   // Auto-init on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       addAsterisks(document);
       initInfoTooltips(document);
       initFormPersistence(document);
+      initClearValues(document);
     });
   } else {
     addAsterisks(document);
     initInfoTooltips(document);
     initFormPersistence(document);
+    initClearValues(document);
   }
 
   // Expose functions for dynamic content
@@ -314,5 +407,7 @@
   window.formHelpers.initInfoTooltips = initInfoTooltips;
   window.formHelpers.saveFormState = saveFormState;
   window.formHelpers.clearFormState = clearFormState;
+  window.formHelpers.showConfirm = showConfirm;
+  window.formHelpers.initClearValues = initClearValues;
 
 })();
