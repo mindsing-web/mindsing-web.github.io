@@ -34,7 +34,8 @@
       var out = document.getElementById('debt-output');
       if (!out) return;
       var value = computeDebtValue(form);
-      out.innerHTML = '<p class="mb0"><strong>D =</strong> ' + formatCurrency(value) + '</p>';
+      out.innerHTML = '<p class="mb0"><strong>D =</strong> ' + formatCurrency(value) + '</p>' +
+        '<p class="mt1 mb0"><small>Total debt and final expense protection</small></p>';
     } catch (e) {
       console.error('form__dime renderDebtOutput error:', e);
     }
@@ -61,7 +62,8 @@
       var out = document.getElementById('income-output');
       if (!out) return;
       var value = computeIncomeValue(form);
-      out.innerHTML = '<p class="mb0"><strong>I =</strong> ' + formatCurrency(value) + '</p>';
+      out.innerHTML = '<p class="mb0"><strong>I =</strong> ' + formatCurrency(value) + '</p>' +
+        '<p class="mt1 mb0"><small>Income replacement target (annual salary × multiplier)</small></p>';
     } catch (e) {
       console.error('form__dime renderIncomeOutput error:', e);
     }
@@ -91,7 +93,8 @@
       var out = document.getElementById('mortgage-output');
       if (!out) return;
       var value = computeMortgageValue(form);
-      out.innerHTML = '<p class="mb0"><strong>M =</strong> ' + formatCurrency(value) + '</p>';
+      out.innerHTML = '<p class="mb0"><strong>M =</strong> ' + formatCurrency(value) + '</p>' +
+        '<p class="mt1 mb0"><small>Provides basic living cost replacement protection</small></p>';
     } catch (e) {
       console.error('form__dime renderMortgageOutput error:', e);
     }
@@ -119,7 +122,8 @@
       if (!out) return;
       var data = computeEducationValue(form);
       // Show E = total and a small breakdown
-      out.innerHTML = '<p class="mb0"><strong>E =</strong> ' + formatCurrency(data.total) + '</p>';
+      out.innerHTML = '<p class="mb0"><strong>E =</strong> ' + formatCurrency(data.total) + '</p>' +
+        '<p class="mt1 mb0"><small>Covers outstanding student loans and dependent education needs</small></p>';
     } catch (e) {
       console.error('form__dime renderEducationOutput error:', e);
     }
