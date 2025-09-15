@@ -137,6 +137,11 @@ password: "creative"
             class="input-reset ba b--black-20 pa2 w-100">
   </div>
 
+  <!-- Gap and Coverage need output -->
+  <div class="w-100 ph2 mb3">
+    <div id="coverage-need-output" class="section-output"></div>
+  </div>
+
   <div class="w-100 ph2 mb4">
     <label for="notes_dime" class="db mb1">Notes</label>
     <textarea id="notes_dime" name="notes_dime" rows="4" class="input-reset ba b--black-20 pa2 w-100"></textarea>

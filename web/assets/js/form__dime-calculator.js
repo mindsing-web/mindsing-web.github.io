@@ -148,10 +148,38 @@
       var out = document.getElementById('dime-output');
       if (!out) return;
       var value = computeDimeValue(form);
-      out.innerHTML = '<h3 class="mb0 underline">DIME Coverage Target = <i>' + formatCurrency(value) + '</i></h3>' +
+      out.innerHTML = '<h3 class="mb0 underline">DIME Coverage Target = <em>' + formatCurrency(value) + '</em></h3>' +
         '<p class="mt1 mb0"><small>Combined total of debt, income replacement, mortgage, and education needs</small></p>';
     } catch (e) {
       console.error('form__dime renderDimeOutput error:', e);
+    }
+  }
+
+  // --- Coverage need calculation (DIME target - in-force)
+  function computeCoverageNeed(form) {
+    try {
+      var target = computeDimeValue(form) || 0;
+      var inForceEl = form.querySelector('#current_insurance');
+      var inForce = inForceEl ? parseFloat(inForceEl.value) : 0;
+      if (!isFinite(inForce)) inForce = 0;
+      var need = target - inForce;
+      if (!isFinite(need) || need < 0) need = 0;
+      return { target: target, inForce: inForce, need: need };
+    } catch (e) {
+      console.error('form__dime computeCoverageNeed error:', e);
+      return { target: 0, inForce: 0, need: 0 };
+    }
+  }
+
+  function renderCoverageNeed(form) {
+    try {
+      var out = document.getElementById('coverage-need-output');
+      if (!out) return;
+      var data = computeCoverageNeed(form);
+      out.innerHTML = '<h2 class="mb0"><u>Total Coverage Need = <em>' + formatCurrency(data.need) + '</em></u></h2>' +
+        '<p class="mt1 mb0"><small>DIME Coverage Target (' + formatCurrency(data.target) + ') - in-force (' + formatCurrency(data.inForce) + ') = Total Coverage Need</small></p>';
+    } catch (e) {
+      console.error('form__dime renderCoverageNeed error:', e);
     }
   }
 
@@ -163,7 +191,7 @@
       // Listen for form cleared event to reset outputs
       form.addEventListener('form:cleared', function () {
         try {
-          var ids = ['debt-output', 'income-output', 'mortgage-output', 'education-output', 'dime-output'];
+          var ids = ['debt-output', 'income-output', 'mortgage-output', 'education-output', 'dime-output', 'coverage-need-output'];
           ids.forEach(function (id) {
             var el = document.getElementById(id);
             if (el) el.innerHTML = '';
@@ -225,12 +253,13 @@
 
       // Init DIME combined output and wire updates when any section updates
       renderDimeOutput(form);
-      var allIds = ['final_expenses','credit_card_debts','car_loans','other_debts','annual_salary','income_multiplier','monthly_rent','months_rent','mortgage_balance','student_loans','dependent_education'];
+      renderCoverageNeed(form);
+      var allIds = ['final_expenses','credit_card_debts','car_loans','other_debts','annual_salary','income_multiplier','monthly_rent','months_rent','mortgage_balance','student_loans','dependent_education','current_insurance'];
       allIds.forEach(function (id) {
         var el = form.querySelector('#' + id);
         if (!el) return;
-        el.addEventListener('blur', function () { renderDimeOutput(form); }, true);
-        el.addEventListener('change', function () { renderDimeOutput(form); }, true);
+        el.addEventListener('blur', function () { renderDimeOutput(form); renderCoverageNeed(form); }, true);
+        el.addEventListener('change', function () { renderDimeOutput(form); renderCoverageNeed(form); }, true);
       });
     } catch (e) {
       console.error('form__dime initDebtOutput error:', e);
