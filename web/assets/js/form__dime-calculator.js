@@ -130,6 +130,16 @@
     try {
       var form = root.querySelector('#dime-form');
       if (!form) return;
+      // Listen for form cleared event to reset outputs
+      form.addEventListener('form:cleared', function () {
+        try {
+          var ids = ['debt-output', 'income-output', 'mortgage-output', 'education-output'];
+          ids.forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.innerHTML = '';
+          });
+        } catch (e) { console.error('form__dime clear outputs error:', e); }
+      }, true);
       renderDebtOutput(form);
       var ids = ['final_expenses', 'credit_card_debts', 'car_loans', 'other_debts'];
       ids.forEach(function (id) {
