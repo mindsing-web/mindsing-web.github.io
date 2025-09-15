@@ -246,19 +246,20 @@
         s.style.opacity = '0';
         s.style.transition = 'opacity 300ms ease';
         var html = '';
-        html += '<p class="mb1"><strong>D =</strong> ' + formatCurrency(d) + '</p>';
-        html += '<p class="mb1"><strong>I =</strong> ' + formatCurrency(i) + '</p>';
-        html += '<p class="mb1"><strong>M =</strong> ' + formatCurrency(m) + '</p>';
-        html += '<p class="mb2"><strong>E =</strong> ' + formatCurrency(e) + '</p>';
+  html += '<p class="mb1"><strong>D =</strong> ' + formatCurrency(d) + ' <small>(Debt)</small></p>';
+  html += '<p class="mb1"><strong>I =</strong> ' + formatCurrency(i) + ' <small>(Income)</small></p>';
+  html += '<p class="mb1"><strong>M =</strong> ' + formatCurrency(m) + ' <small>(Mortgage)</small></p>';
+  html += '<p class="mb2"><strong>E =</strong> ' + formatCurrency(e) + ' <small>(Education)</small></p>';
         if (coverage && coverage.inForce && coverage.inForce > 0) {
           // When there is an existing in-force policy, show the DIME Target above it
           if (typeof coverage.target !== 'undefined') {
-            html += '<p class="mb1"><small>DIME Target: ' + formatCurrency(coverage.target) + '</small></p>';
+            // Underline the DIME Target and italicize the dollar amount
+            html += '<p class="mb1"><small><u>DIME Target: <em>' + formatCurrency(coverage.target) + '</em></u></small></p>';
           }
           html += '<p class="mb1"><small>Current in-force: ' + formatCurrency(coverage.inForce) + '</small></p>';
         }
-        // Always show the Life Insurance Target (total need)
-        html += '<h3 class="mt2 mb1">Life Insurance Target: ' + formatCurrency(coverage ? coverage.need : computeDimeValue(form)) + '</h3>';
+        // Always show the Life Insurance Target (total need) with extra padding above
+        html += '<h3 class="mt4 mb1">Life Insurance Target: ' + formatCurrency(coverage ? coverage.need : computeDimeValue(form)) + '</h3>';
   // Buttons row: copy left, show details right (secondary)
   html += '<div class="mt3" style="display:flex; justify-content:space-between; align-items:center;">';
   html += '<div class="">';

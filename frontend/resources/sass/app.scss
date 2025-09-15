@@ -1,3 +1,15 @@
+#dime-summary h3.mt4 {
+  margin-top: 1.25rem; /* extra padding above Life Insurance Target */
+}
+
+#dime-summary small {
+  color: #4b5563; /* slightly muted */
+}
+
+/* Ensure the underlined DIME target's em is italic and stands out */
+#dime-summary u em {
+  font-style: italic;
+}
 // Import shared variables
 @import 'vars';
 
