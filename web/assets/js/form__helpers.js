@@ -81,8 +81,24 @@
         el.setAttribute ('aria-expanded', 'false');
         el.setAttribute ('aria-controls', tipId);
 
-        // Insert into DOM
-        document.body.appendChild (tip);
+        // Insert into DOM. If PasswordGate exists and content is locked,
+        // defer insertion until unlock to avoid exposing protected info.
+        function doInsertTip() { try { document.body.appendChild (tip); } catch (e) {} }
+        if (window.PasswordGate && typeof window.PasswordGate === 'function') {
+          // If any password-protected areas are present and not unlocked, defer.
+          try {
+            var anyLocked = !!document.querySelector('.js-password-protected');
+            if (anyLocked) {
+              window.formHelpers = window.formHelpers || {};
+              window.formHelpers._deferredInfoTooltips = window.formHelpers._deferredInfoTooltips || [];
+              window.formHelpers._deferredInfoTooltips.push(doInsertTip);
+            } else {
+              doInsertTip();
+            }
+          } catch (e) { doInsertTip(); }
+        } else {
+          doInsertTip();
+        }
 
         function positionTip () {
           var rect = el.getBoundingClientRect ();
@@ -190,6 +206,16 @@
     } catch (e) {
       console.error ('form__helpers initInfoTooltips error:', e);
     }
+  }
+
+  // Public helper to flush deferred info tooltips after content is revealed
+  function flushDeferredInfoTooltips() {
+    try {
+      window.formHelpers = window.formHelpers || {};
+      var q = window.formHelpers._deferredInfoTooltips || [];
+      q.forEach(function (f) { try { f(); } catch (e) {} });
+      window.formHelpers._deferredInfoTooltips = [];
+    } catch (e) {}
   }
 
   // --- Form persistence (sessionStorage) ---

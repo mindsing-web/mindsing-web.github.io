@@ -8,7 +8,7 @@ form_id: "cashflow-form"
 
 <!-- Cashflow calculator page -->
 
-# Cashflow Calculator
+# <h1 class="pw-hide-until-unlock">Cashflow Calculator</h1>
 
 <div class="password-access-wrapper">
   <button type="button" class="btn btn--primary btn--access-content" data-protect-id="cashflow">Access Content</button>
@@ -214,5 +214,5 @@ form_id: "cashflow-form"
 </form>
 
 <p class="mw8 center ph3 pb6">
-  <a href="/calculator/" class="btn btn--secondary">← Calculator Home</a>
+  <a href="/calculator/" class="btn btn--secondary pw-hide-until-unlock">← Calculator Home</a>
 </p>

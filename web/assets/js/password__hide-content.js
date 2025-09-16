@@ -23,30 +23,58 @@
     // emitted as `data-protect-password-hash` on the <main> element. If a
     // plaintext option is provided (for backwards compatibility), it will be used.
     this.password = options.password || rootEl.getAttribute('data-password') || '';
-    this.passwordHash = null;
+  this.passwordHash = null;
+  // Ensure a shared, in-memory store for password hashes so we can remove them from the DOM
+  PasswordGate.hashStore = PasswordGate.hashStore || {};
     try {
       var main = rootEl.closest ? rootEl.closest('main') : document.querySelector('main');
       if (main && main.getAttribute) {
-        var ph = main.getAttribute('data-protect-password-hash');
-        if (ph) this.passwordHash = ph;
-        else {
-          // backward-compat: if site emitted plaintext attr (rare), compute its hash client-side
+        try {
+          var ph = main.getAttribute('data-protect-password-hash');
           var plain = main.getAttribute('data-protect-password');
-          if (plain) {
-            // compute sha256 hex synchronously via simple fallback (non-crypto) not available; leave null
-            try { /* prefer Web Crypto when verifying at input time */ } catch (e) {}
+          if (ph) {
+            // store and remove from DOM to avoid exposing in inspector
+            PasswordGate.hashStore[this.id] = PasswordGate.hashStore[this.id] || {};
+            PasswordGate.hashStore[this.id].hash = ph;
+            try { main.removeAttribute('data-protect-password-hash'); } catch (e) {}
+            this.passwordHash = ph;
+          } else if (plain) {
+            PasswordGate.hashStore[this.id] = PasswordGate.hashStore[this.id] || {};
+            PasswordGate.hashStore[this.id].plain = plain;
+            try { main.removeAttribute('data-protect-password'); } catch (e) {}
+            this.password = plain;
           }
-        }
+        } catch (e) { /* ignore */ }
       }
     } catch (e) { /* ignore */ }
     this.buttonSelector = options.buttonSelector || '.btn--access-content';
     this.button = null;
     this.overlay = null;
-    this.actionBar = document.getElementById('action-bar');
+    this.actionBar = document.querySelector('.action-bar');
+    // Prefer any stored values from the in-memory hash store
+    try {
+      PasswordGate.hashStore = PasswordGate.hashStore || {};
+      if (PasswordGate.hashStore[this.id]) {
+        if (PasswordGate.hashStore[this.id].hash) this.passwordHash = PasswordGate.hashStore[this.id].hash;
+        if (PasswordGate.hashStore[this.id].plain) this.password = PasswordGate.hashStore[this.id].plain;
+      }
+    } catch (ee) {}
     try { /* intentionally silent in production */ } catch (e) {}
     if (this.actionBar) {
-      // add a class so CSS controls visibility until we explicitly show it
+      // ensure the action bar is hidden via CSS until JS reveals it
       this.actionBar.classList.add('pw-action-hidden');
+      // detach it now so it doesn't flash (replace with placeholder)
+      try {
+        var abParent = this.actionBar.parentNode;
+        if (abParent) {
+          var abPlaceholder = document.createElement('div');
+          abPlaceholder.className = 'pw-actionbar-placeholder';
+          try { abParent.replaceChild(abPlaceholder, this.actionBar); } catch (e) { /* ignore */ }
+          this._actionBarOriginal = this.actionBar;
+          this._actionBarPlaceholder = abPlaceholder;
+          this._actionBarDetached = true;
+        }
+      } catch (e) { /* ignore */ }
     }
     this.init();
   }
@@ -69,9 +97,19 @@
     }
     this.root.style.display = '';
     this.root.removeAttribute('aria-hidden');
+      // Reinsert the action bar if we detached it earlier
+      if (this._actionBarDetached && this._actionBarPlaceholder && this._actionBarOriginal) {
+        try {
+          this._actionBarPlaceholder.parentNode.replaceChild(this._actionBarOriginal, this._actionBarPlaceholder);
+          this.actionBar = this._actionBarOriginal;
+        } catch (e) { /* ignore */ }
+      }
       if (this.actionBar) {
         this.actionBar.classList.remove('pw-action-hidden');
       }
+      try { document.body.classList.add('pw-unlocked'); } catch (e) {}
+      // Flush any deferred info-tooltips so they can be inserted now
+      try { if (window.formHelpers && typeof window.formHelpers.flushDeferredInfoTooltips === 'function') window.formHelpers.flushDeferredInfoTooltips(); } catch (e) {}
     try { document.body.classList.remove('pw-content-hidden'); } catch (e) {}
     if (!this.button) return;
     try {
@@ -126,6 +164,7 @@
     }
     // re-hide the action bar until content is shown
     if (this.actionBar) this.actionBar.classList.add('pw-action-hidden');
+  try { document.body.classList.remove('pw-unlocked'); } catch (e) {}
     // restore body-level hiding only if there are no access buttons explicitly visible
     try {
       var anyVisible = !!document.querySelector('.btn--access-content.pw-access-visible');

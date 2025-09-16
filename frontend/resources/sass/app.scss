@@ -272,7 +272,7 @@ article a.no-underline:hover,
 // Fixed action bar shadow
 .fixed-action-bar,
 .fixed-bottom-action-bar,
-#action-bar {
+.action-bar {
   box-shadow: 0 -6px 18px rgba(16,24,40,0.12);
 }
 
@@ -399,6 +399,23 @@ article a.no-underline:hover,
   /* Keep the disabled cursor visible when hovering or focusing. */
   cursor: not-allowed;
 }
+
+/* PasswordGate visibility helpers (moved from calculator layout inline <style>)
+   Keep early CSS to prevent FOUC of protected content before JS runs. */
+.pw-buttons-hidden .btn--access-content { display: none; }
+.pw-buttons-hidden .btn--access-content.pw-access-visible { display: inline-block; }
+.pw-action-hidden { visibility: hidden; }
+.pw-content-hidden .js-password-protected { display: none; }
+
+/* Hide the page title and calculator home link on calculator sub-pages until unlocked */
+.calculator-page.pw-content-hidden h1 { display: none; }
+.calculator-page.pw-content-hidden a[href="/calculator/"] { display: none; }
+
+/* Generic helper: hide elements until the password gate unlocks.
+  Apply `pw-hide-until-unlock` to any element that should be invisible
+  until the site JS adds `pw-unlocked` to the body on successful unlock. */
+.pw-hide-until-unlock { display: none !important; }
+.pw-unlocked .pw-hide-until-unlock { display: inherit !important; }
 
 /* Ensure hover/focus state still shows not-allowed cursor for disabled buttons */
 .btn--disabled:hover,
