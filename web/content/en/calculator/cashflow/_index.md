@@ -67,7 +67,7 @@ token_salt: "Y2FzaGZsb3ctcGFnZS1zYWx0LTIwMjUtMDktMTYtYWJjMTIz"
   <h2 class="w-100 ph2 mt0 mb2">Expenses, monthly</h2>
 
   <!-- Left column: expense fields -->
-  <div class="w-100 w-two-thirds-ns ph2">
+  <div class="w-100 ph2">
     <div class="flex flex-wrap nl2 nr2">
 
   <div class="w-100 w-50-ns ph2 mb3">
@@ -174,12 +174,6 @@ token_salt: "Y2FzaGZsb3ctcGFnZS1zYWx0LTIwMjUtMDktMTYtYWJjMTIz"
 </div>
   </div>
 
-  <!-- Right column: expense notes -->
-  <div class="w-100 w-third-ns ph2 mb3">
-    <label for="expense_notes" class="db mb1">Expense notes</label>
-    <textarea id="expense_notes" name="expense_notes" rows="12"
-              class="input-reset ba b--black-20 pa2 w-100"></textarea>
-  </div>
 
   <!-- Expenses output -->
   <div class="w-100 ph2 mb4">
@@ -193,7 +187,6 @@ token_salt: "Y2FzaGZsb3ctcGFnZS1zYWx0LTIwMjUtMDktMTYtYWJjMTIz"
   </div>
 
   <!-- Notes dialog (shared pattern with DIME) -->
-  <!-- Notes dialog removed: generic notes helper will operate on `#expense_notes` in this form -->
 
   <!-- Optional: Add key dialog (same UX as DIME) -->
   <dialog id="add-key-dialog" class="dialog mw6 center" aria-labelledby="add-key-title" aria-modal="true">
