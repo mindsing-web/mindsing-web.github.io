@@ -6,7 +6,7 @@
   "contentDir": "content",
   "DefaultContentLanguage": "en",
   "SectionPagesMenu": "main",
-  "Paginate": 5,
+  "pagination": { "pagerSize": 5 },
   "enableRobotsTXT": true,
   "markup": {
     "goldmark": {

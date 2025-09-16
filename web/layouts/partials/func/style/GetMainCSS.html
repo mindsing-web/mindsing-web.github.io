@@ -1,0 +1,34 @@
+{{/*
+  Site override: func/style/GetMainCSS
+  This file mirrors the theme partial but uses Hugo's newer css.Sass pipeline
+  so we don't need to patch the theme submodule directly.
+*/}}
+{{ $main_style := dict }}
+
+{{/* Gather assets to concat */}}
+{{ $assets_to_concat := slice }}
+{{ range slice "_tachyons.css" "_code.css" "_hugo-internal-templates.css" "_social-icons.css" "_styles" }}
+  {{ with partialCached "func/style/GetResource" . . }}
+    {{ $assets_to_concat = $assets_to_concat | append . }}
+  {{ end }}
+{{ end }}
+
+{{ with site.Params.custom_css }}
+  {{ range . }}
+    {{ with partialCached "func/style/GetResource" . . }}
+      {{ $assets_to_concat = $assets_to_concat | append . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ with $assets_to_concat }}
+  {{ $style := . | resources.Concat "ananke/css/main.css" }}
+  {{ $options := dict "target" "css" "outputStyle" "expanded" }}
+  {{ $style = $style | css.Sass $options | minify }}
+  {{ if eq (getenv "HUGO_ENV") "production" }}
+    {{ $style = $style | fingerprint }}
+  {{ end }}
+  {{ $main_style = $style }}
+{{ end }}
+
+{{ return $main_style }}
