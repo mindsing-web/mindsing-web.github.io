@@ -32,7 +32,7 @@
     this.button = null;
     this.overlay = null;
     this.actionBar = document.getElementById('action-bar');
-    console.log('PasswordGate: actionBar found:', this.actionBar);
+    try { /* intentionally silent in production */ } catch (e) {}
     if (this.actionBar) {
       this.actionBar.style.visibility = 'hidden';
     }
