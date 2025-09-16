@@ -3,6 +3,7 @@ title: "Cashflow Calculator"
 hideFromSitemap: true
 password: "creative"
 token_salt: "Y2FzaGZsb3ctcGFnZS1zYWx0LTIwMjUtMDktMTYtYWJjMTIz"
+form_id: "cashflow-form"
 ---
 
 <!-- Cashflow calculator page -->

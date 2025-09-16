@@ -517,6 +517,7 @@
       initHashOnSubmit (document);
       initPrefillFromURL (document);
       initAddKeyButton (document);
+      initNotesButton (document);
     });
   } else {
     addAsterisks (document);
@@ -526,6 +527,7 @@
     initHashOnSubmit (document);
     initPrefillFromURL (document);
     initAddKeyButton (document);
+    initNotesButton (document);
   }
 
   // Delegated handler for any clear-values buttons that may be added later
@@ -559,6 +561,26 @@
         }
       });
   }, false);
+  } catch (e) {}
+
+  // Delegated handler for notes toggle buttons as a fallback
+  try {
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('.btn--notes-toggle') : null;
+      if (!btn) return;
+      // If button was already directly bound, let that handler run
+      if (btn.__notes_bound) return;
+      e.preventDefault();
+      e.stopPropagation();
+      try {
+        var targetFormId = btn.getAttribute && btn.getAttribute('data-target-form');
+        var form = null;
+        if (targetFormId) form = document.getElementById(targetFormId);
+        if (!form) form = document.querySelector('form.calculator--form') || document.querySelector('form');
+        if (!form) return;
+        window.formHelpers.openNotes(form);
+      } catch (err) {}
+    }, false);
   } catch (e) {}
 
   // Expose functions for dynamic content
@@ -712,6 +734,20 @@
       var saveBtn = dlg.querySelector('#notes-save');
       var ta = dlg.querySelector('#notes_dialog_textarea');
 
+      function setNotesToggleState(formId, state) {
+        try {
+          var toggles = Array.prototype.slice.call(document.querySelectorAll('.btn--notes-toggle'));
+          toggles.forEach(function(tb){
+            try {
+              var tgt = tb.getAttribute && tb.getAttribute('data-target-form');
+              if (!tgt || !formId || tgt === formId) {
+                tb.setAttribute('aria-expanded', state ? 'true' : 'false');
+              }
+            } catch (e) {}
+          });
+        } catch (e) {}
+      }
+
       function closeNotesInternal() {
         try {
           if (typeof dlg.close === 'function') dlg.close();
@@ -719,9 +755,11 @@
         } catch (e) {
           try { dlg.removeAttribute('open'); } catch (err) {}
         }
+        try { var fid = dlg.__notes_target_form_id || null; } catch (e) { var fid = null; }
         try { delete dlg.__notes_target; } catch (e) {}
         try { dlg.__notes_target_selector = null; } catch (e) {}
-        try { var btn = document.getElementById('btn-toggle-notes'); if (btn) btn.setAttribute('aria-expanded','false'); } catch (e) {}
+        try { dlg.__notes_target_form_id = null; } catch (e) {}
+        setNotesToggleState(fid, false);
       }
 
       function saveNotesInternal(ev) {
@@ -733,10 +771,19 @@
           if (target && target.tagName) {
             try { target.value = txt; } catch (e) {}
             try { target.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {}
+            try {
+              // Ensure form persistence saves immediately in case delegated listeners missed the event
+              var parentForm = (target && target.closest) ? target.closest('form') : null;
+              if (parentForm) try { saveFormState(parentForm); } catch (e) {}
+            } catch (e) {}
           } else if (dlg.__notes_target_selector) {
             try {
               var el = document.querySelector(dlg.__notes_target_selector);
               if (el) { el.value = txt; try { el.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {} }
+              try {
+                var pf = (el && el.closest) ? el.closest('form') : null;
+                if (pf) try { saveFormState(pf); } catch (e) {}
+              } catch (e) {}
             } catch (e) {}
           }
         } catch (e) {}
@@ -771,10 +818,11 @@
           }
           dlg.__notes_target = target;
           dlg.__notes_target_selector = selector || null;
+          try { dlg.__notes_target_form_id = form && (form.id || form.getAttribute && form.getAttribute('name')) ? (form.id || form.getAttribute('name')) : null; } catch (e) { dlg.__notes_target_form_id = null; }
           try { if (ta) ta.value = (target && target.value) ? target.value : ''; } catch (e) { if (ta) ta.value = ''; }
           try { if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open',''); } catch (e) { dlg.setAttribute('open',''); }
           try { if (ta) { ta.focus(); var v = ta.value || ''; ta.selectionStart = ta.selectionEnd = v.length; } } catch (e) {}
-          try { var btn = document.getElementById('btn-toggle-notes'); if (btn) btn.setAttribute('aria-expanded','true'); } catch (e) {}
+          try { setNotesToggleState(dlg.__notes_target_form_id, true); } catch (e) {}
         } catch (e) {}
       };
 
@@ -1381,4 +1429,32 @@
   }
 
   window.formHelpers.initAddKeyButton = initAddKeyButton;
+
+  // --- Notes button initializer ---
+  function initNotesButton(root) {
+    root = root || document;
+    try {
+      var buttons = Array.prototype.slice.call(root.querySelectorAll('#btn-toggle-notes, .btn--notes-toggle'));
+      buttons.forEach(function(btn){
+        if (btn.__notes_bound) return;
+        btn.__notes_bound = true;
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          // Allow explicit target via data-target-form, otherwise find the first calculator form
+          var targetFormId = btn.getAttribute && btn.getAttribute('data-target-form');
+          var form = null;
+          if (targetFormId) form = document.getElementById(targetFormId);
+          if (!form) form = document.querySelector('form.calculator--form') || document.querySelector('form');
+          if (!form) return;
+          try {
+            // openNotes will gracefully return if no dialog/template is present
+            window.formHelpers.openNotes(form);
+          } catch (err) {}
+        }, true);
+      });
+    } catch (e) {}
+  }
+
+  window.formHelpers.initNotesButton = initNotesButton;
 }) ();

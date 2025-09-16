@@ -3,6 +3,7 @@ title: "DIME Calculator"
 hideFromSitemap: true
 password: "creative"
 token_salt: "b3JpZ2luYWwtc2VjdXJlLXNlcnZlci1zYWx0LWFzZGZoYWtzZA"
+form_id: "dime-form"
 ---
 
 <!-- DIME calculator page -->

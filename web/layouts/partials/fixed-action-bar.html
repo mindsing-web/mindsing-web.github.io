@@ -11,7 +11,7 @@
     </div>
     <div>
   <button type="button" id="btn-add-key" class="btn mr2-ns mb3 mb0-ns">Add key</button>
-  <button type="button" id="btn-toggle-notes" class="btn btn--gray btn--notes-toggle mb0-ns">Notes</button>
+  <button type="button" class="btn btn--gray btn--notes-toggle mb0-ns" {{ if .FormID }}data-target-form="{{ .FormID }}"{{ end }}>Notes</button>
     </div>
   </div>
 </div>
