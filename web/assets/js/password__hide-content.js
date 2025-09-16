@@ -60,6 +60,13 @@
   };
 
   PasswordGate.prototype.showContent = function () {
+    // If we detached the node earlier, re-insert it first
+    if (this._detached && this._placeholder && this._originalNode) {
+      try {
+        this._placeholder.parentNode.replaceChild(this._originalNode, this._placeholder);
+        this.root = this._originalNode;
+      } catch (e) { /* ignore */ }
+    }
     this.root.style.display = '';
     this.root.removeAttribute('aria-hidden');
       if (this.actionBar) {
@@ -100,8 +107,20 @@
   };
 
   PasswordGate.prototype.hideContent = function () {
-    this.root.style.display = 'none';
-    this.root.setAttribute('aria-hidden', 'true');
+    // Detach the protected node from the DOM and replace with a lightweight placeholder
+    try {
+      if (!this._detached && this.root && this.root.parentNode) {
+        var placeholder = document.createElement('div');
+        placeholder.className = 'pw-protected-placeholder';
+        placeholder.setAttribute('aria-hidden', 'true');
+        try { this.root.parentNode.replaceChild(placeholder, this.root); } catch (e) { /* ignore */ }
+        this._originalNode = this.root;
+        this._placeholder = placeholder;
+        this._detached = true;
+      }
+    } catch (e) { /* ignore */ }
+    try { this.root.style.display = 'none'; } catch (e) {}
+    try { this.root.setAttribute && this.root.setAttribute('aria-hidden', 'true'); } catch (e) {}
     if (this.button) {
       try { this.button.classList.remove('pw-access-visible'); } catch (e) {}
     }
