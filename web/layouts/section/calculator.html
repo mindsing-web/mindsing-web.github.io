@@ -62,6 +62,19 @@
               <script src="/assets/js/form__dime-calculator.js"></script>
             {{ end }}
           {{ end }}
+
+          {{/* Cashflow calculator specific script only for cashflow page */}}
+          {{ if in .File.Path "calculator/cashflow" }}
+            {{ with resources.Get "js/form__cashflow-calculator.js" }}
+            {{ $c := . }}
+            {{ if hugo.IsProduction }}
+              {{ $c = $c | minify | fingerprint }}
+            {{ end }}
+              <script src="{{ $c.RelPermalink }}"></script>
+            {{ else }}
+              <script src="/assets/js/form__cashflow-calculator.js"></script>
+            {{ end }}
+          {{ end }}
         {{ end }}
 
   {{/* Fixed action bar for calculator pages. Allow pages to set .form_id or override action_bar_buttons in front matter. */}}
