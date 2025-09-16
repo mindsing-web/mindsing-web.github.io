@@ -1155,29 +1155,36 @@
       btn.addEventListener('click', function (e) {
         e.preventDefault();
         if (!dialog) {
-          // Fallback prompt: accept either a passphrase or a full query string containing ct/iv/salt
-          var val = window.prompt('Paste passphrase OR full query (ct/iv/salt). Example passphrase or "ct=...&iv=...&salt=...":', '');
+          // Fallback prompt: accept ONLY a full query string containing ct/iv/salt and that starts with 'ct='
+          var val = window.prompt('Paste full query (must start with "ct=...&iv=...&salt=..."):', '');
           if (!val) return;
           var raw = val.trim();
-          // If looks like a query string, try to parse and apply it
-          if (/ct=/.test(raw) && /iv=/.test(raw) && /salt=/.test(raw)) {
-            var usp = new URLSearchParams(raw.replace(/^\?/, ''));
-            var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
-            // prompt for passphrase to decrypt
-            var pass = window.prompt('Passphrase to decrypt data:', '');
-            if (!pass) return;
-            window.formHelpers.tryDecryptSearchToForm(usp, pass, form).then(function(ok){ if (!ok) try { alert('Decryption failed'); } catch(e){} });
+          // Strict: must start with ct= and include iv and salt
+          if (!(raw.indexOf('ct=') === 0 && /ct=/.test(raw) && /iv=/.test(raw) && /salt=/.test(raw))) {
+            try { alert('Invalid input. Only encrypted ciphertext in the form "ct=...&iv=...&salt=..." is accepted.'); } catch (e) {}
             return;
           }
-          // Otherwise treat it as a passphrase to apply to existing query params
-          var pass = raw;
-          var usp2 = new URLSearchParams(location.search.replace(/^\?/, ''));
-          var form2 = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
-          if (usp2.get('ct') && usp2.get('iv') && usp2.get('salt')) {
-            window.formHelpers.tryDecryptSearchToForm(usp2, pass, form2).then(function(ok){ if (!ok) try { alert('Decryption failed'); } catch(e){} });
-            return;
-          }
-          try { alert('No ciphertext present in URL to decrypt.'); } catch (e) {}
+          var usp = new URLSearchParams(raw.replace(/^\?/, ''));
+          var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
+          // Use stored passphrase from localStorage only
+          try {
+            var pidx = form && form.getAttribute ? (form.getAttribute('data-protect-id') || 'default') : 'default';
+            var storedPass = null;
+            try { storedPass = localStorage.getItem('password_gate:' + pidx) || null; } catch (ee) { storedPass = null; }
+            if (!storedPass) {
+              try { alert('No stored passphrase found in localStorage. Unlock the protected content or enable "remember password" before adding an encrypted key.'); } catch (e) {}
+              return;
+            }
+            window.formHelpers.tryDecryptSearchToForm(usp, storedPass, form).then(function(ok){
+              if (!ok) {
+                try { alert('Decryption failed'); } catch(e){}
+                return;
+              }
+              try {
+                form.dispatchEvent(new Event('submit', {bubbles:true}));
+              } catch (e) {}
+            });
+          } catch (e) { try { alert('Failed to apply key'); } catch (err) {} }
           return;
         }
         openDialog();
@@ -1195,40 +1202,41 @@
             input && input.focus();
             return;
           }
-          // If user pasted a full query (ct/iv/salt), parse it and prompt for passphrase
+          // If user pasted a full query (ct/iv/salt), parse it and use stored passphrase from localStorage
           if (/ct=/.test(v) && /iv=/.test(v) && /salt=/.test(v)) {
-            var usp = new URLSearchParams(v.replace(/^\?/, ''));
-            var pass = window.prompt('Passphrase to decrypt data:', '');
-            if (!pass) {
-              try { if (errorEl) errorEl.style.display = 'block'; } catch(e){}
+            // require it to start with ct=
+            var raw = v.replace(/^[#?]/, '').trim();
+            if (raw.indexOf('ct=') !== 0) {
+              if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = 'Encrypted key must start with "ct="'; }
+              input && input.focus();
               return;
             }
+            var usp = new URLSearchParams(raw.replace(/^\?/, ''));
             var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
-            window.formHelpers.tryDecryptSearchToForm(usp, pass, form).then(function(ok){ if (!ok) try { alert('Decryption failed'); } catch(e){} });
-            closeDialog();
-            return;
-          }
-
-          // Otherwise treat value as a passphrase; attempt to decrypt current URL query if present
-          var passOnly = v;
-          var usp2 = new URLSearchParams(location.search.replace(/^\?/, ''));
-          var form2 = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
-          if (usp2.get('ct') && usp2.get('iv') && usp2.get('salt')) {
-            window.formHelpers.tryDecryptSearchToForm(usp2, passOnly, form2).then(function(ok){ if (!ok) try { alert('Decryption failed'); } catch(e){} });
-            closeDialog();
-            return;
-          }
-
-          // As a convenience: if user pasted a raw base64 token (old-style payload), try populating with populateFormFromToken
-          try {
-            if (window.formHelpers && typeof window.formHelpers.populateFormFromToken === 'function') {
-              var form3 = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
-              window.formHelpers.populateFormFromToken(v, form3).then(function(){ closeDialog(); }).catch(function(){ if (errorEl) errorEl.style.display = 'block'; });
-              return;
+              try {
+              var pidy = form && form.getAttribute ? (form.getAttribute('data-protect-id') || 'default') : 'default';
+              var stored = null;
+              try { stored = localStorage.getItem('password_gate:' + pidy) || null; } catch (ee) { stored = null; }
+              if (!stored) {
+                if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = 'No stored passphrase found in localStorage. Unlock content or enable "remember password".'; }
+                input && input.focus();
+                return;
+              }
+              window.formHelpers.tryDecryptSearchToForm(usp, stored, form).then(function(ok){
+                if (!ok) {
+                  try { alert('Decryption failed'); } catch(e){}
+                  return;
+                }
+                try { form.dispatchEvent(new Event('submit', {bubbles:true})); } catch(e) {}
+              });
+            } catch (e) {
+              if (errorEl) { errorEl.style.display = 'block'; }
             }
-          } catch (e) {}
-
-          if (errorEl) { errorEl.style.display = 'block'; }
+            closeDialog();
+            return;
+          }
+          // Anything else is invalid for Add Key (we only accept ct=... keys)
+          if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = 'Invalid key. Paste encrypted ciphertext starting with "ct=...&iv=...&salt=...".'; }
           input && input.focus();
         }, true);
         // allow Enter key inside input to submit
