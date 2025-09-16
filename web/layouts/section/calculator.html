@@ -57,5 +57,8 @@
     {{ partial "fixed-action-bar.html" (dict "FormID" $formID "Page" .) }}
   {{ end }}
 
+  {{/* Notes dialog partial - only included on calculator pages */}}
+  {{ partial "notes-dialog.html" . }}
+
 </body>
 </html>

@@ -671,17 +671,42 @@
   // --- Generic notes dialog (reusable across forms) ---
   function ensureNotesDialog() {
     try {
+      // If server-rendered dialog exists, use it
       var existing = document.getElementById('notes-dialog');
-      if (existing) return existing;
-      var dlg = document.createElement('dialog');
-      dlg.id = 'notes-dialog';
-      dlg.className = 'dialog dialog--notes mw7 center';
-      dlg.setAttribute('aria-labelledby', 'notes-title');
-      dlg.setAttribute('aria-modal', 'true');
+      if (existing) {
+        bindNotesDialog(existing);
+        return existing;
+      }
 
-      dlg.innerHTML = '\n        <form method="dialog" class="ph3 pv3">\n          <div class="flex items-center justify-between mb3">\n            <h3 id="notes-title" class="ma0">Notes</h3>\n            <button type="button" id="notes-close" class="btn btn--secondary" aria-label="Close notes">Close</button>\n          </div>\n          <textarea id="notes_dialog_textarea" name="notes_dialog_textarea" rows="8" class="input-reset ba b--black-20 pa2 w-100"></textarea>\n          <div class="tr mt3">\n            <button id="notes-save" class="btn btn--primary" type="submit">Save</button>\n          </div>\n        </form>\n      ';
+      // If a template is provided (<template id="notes-dialog-template">), clone it
+      try {
+        var tpl = document.getElementById('notes-dialog-template');
+        if (tpl && tpl.content) {
+          var clone = tpl.content.cloneNode(true);
+          // find dialog node in clone
+          var dlg = clone.querySelector && clone.querySelector('dialog');
+          if (dlg) {
+            document.body.appendChild(clone);
+            bindNotesDialog(dlg);
+            return dlg;
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
 
-      document.body.appendChild(dlg);
+      // No server markup found; do not inject HTML from JS. Return null so callers can handle absence.
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Helper to attach handlers to an existing dialog element. Idempotent.
+  function bindNotesDialog(dlg) {
+    try {
+      if (!dlg || dlg.__notes_bound) return;
+      dlg.__notes_bound = true;
 
       var closeBtn = dlg.querySelector('#notes-close');
       var saveBtn = dlg.querySelector('#notes-save');
@@ -703,7 +728,7 @@
         try { if (ev && typeof ev.preventDefault === 'function') ev.preventDefault(); } catch (e) {}
         try { if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation(); } catch (e) {}
         try {
-          var txt = (ta.value || '').trim();
+          var txt = (ta && ta.value) ? ta.value.trim() : '';
           var target = dlg.__notes_target;
           if (target && target.tagName) {
             try { target.value = txt; } catch (e) {}
@@ -725,15 +750,15 @@
         try {
           var target = null;
           var selector = null;
-          if (targetSelectorOrId) {
-            selector = (targetSelectorOrId.charAt(0) === '#') ? targetSelectorOrId : ('#' + targetSelectorOrId);
+          if (targetSelectorOrId && form) {
+            selector = (targetSelectorOrId.charAt && targetSelectorOrId.charAt(0) === '#') ? targetSelectorOrId : ('#' + targetSelectorOrId);
             try { target = form.querySelector(selector); } catch (e) { target = null; }
           }
-          if (!target) {
+          if (!target && form) {
             var t = form.querySelector('textarea[id^="notes_"]') || form.querySelector('textarea[name^="notes"]') || form.querySelector('#expense_notes') || form.querySelector('textarea[data-notes]');
             if (t) { target = t; selector = '#' + (t.id || t.name); }
           }
-          if (!target && selector) {
+          if (!target && selector && form) {
             try {
               var id = selector.replace(/^#/, '');
               var hidden = document.createElement('textarea');
@@ -746,19 +771,15 @@
           }
           dlg.__notes_target = target;
           dlg.__notes_target_selector = selector || null;
-          try { ta.value = (target && target.value) ? target.value : ''; } catch (e) { ta.value = ''; }
+          try { if (ta) ta.value = (target && target.value) ? target.value : ''; } catch (e) { if (ta) ta.value = ''; }
           try { if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open',''); } catch (e) { dlg.setAttribute('open',''); }
-          try { ta.focus(); var v = ta.value || ''; ta.selectionStart = ta.selectionEnd = v.length; } catch (e) {}
+          try { if (ta) { ta.focus(); var v = ta.value || ''; ta.selectionStart = ta.selectionEnd = v.length; } } catch (e) {}
           try { var btn = document.getElementById('btn-toggle-notes'); if (btn) btn.setAttribute('aria-expanded','true'); } catch (e) {}
         } catch (e) {}
       };
 
       dlg.__close = function () { closeNotesInternal(); };
-
-      return dlg;
-    } catch (e) {
-      return null;
-    }
+    } catch (e) {}
   }
 
   function openNotes(form, targetSelectorOrId) {
