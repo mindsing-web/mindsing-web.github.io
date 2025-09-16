@@ -281,7 +281,8 @@
           if (token) keyDisplay = token;
         } catch (e) { keyDisplay = ''; }
         if (keyDisplay) {
-          html += '<p class="mt2 mb0"><small>Insurance target key: <code class="summary-key">' + escapeHtml(keyDisplay) + '</code></small></p>';
+          html += '<p class="mt2 mb0"><small>Insurance target key:</small></p>';
+          html += '<p class="mt0 mb0"><code class="summary-key" style="user-select: all;">' + escapeHtml(keyDisplay) + '</code></p>';
           // Also show any saved notes below the insurance key
           try {
             var notesText = '';
