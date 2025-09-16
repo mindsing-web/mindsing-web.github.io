@@ -644,6 +644,7 @@
   window.formHelpers = window.formHelpers || {};
   window.formHelpers.addAsterisks = addAsterisks;
   window.formHelpers.initInfoTooltips = initInfoTooltips;
+  window.formHelpers.flushDeferredInfoTooltips = flushDeferredInfoTooltips;
   window.formHelpers.saveFormState = saveFormState;
   window.formHelpers.clearFormState = clearFormState;
   window.formHelpers.showConfirm = showConfirm;

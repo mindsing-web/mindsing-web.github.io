@@ -53,7 +53,7 @@ form_id: "cashflow-form"
   <div class="w-100 w-50-ns ph2 mb3">
     <label for="average_tax_percent" class="db mb1">
       Average tax %
-      <a href="https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023" class="info ml1" title="Simplified guidance: uses approximate single-filer federal brackets plus ~4% state/local. Brackets used (approx): 10% up to 11,000; 12% up to 44,725; 22% up to 95,375; 24% up to 182,100; 32% up to 231,250; 35% up to 578,125; 37% above that. Source: IRS." target="_blank" rel="noopener">(i)</a>
+  <a href="#" class="info ml1" data-title="Simplified guidance: uses approximate single-filer federal brackets plus ~4% state/local. Brackets used (approx): 10% up to 11,000; 12% up to 44,725; 22% up to 95,375; 24% up to 182,100; 32% up to 231,250; 35% up to 578,125; 37% above that. Source: https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023">(i)</a>
     </label>
     <input id="average_tax_percent" name="average_tax_percent" type="number" step="0.01" min="0" max="100"
             class="input-reset ba b--black-20 pa2 w-100">
