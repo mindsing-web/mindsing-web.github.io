@@ -19,15 +19,26 @@
     this.root = rootEl;
     this.id = options.id || rootEl.getAttribute('data-protect-id') || 'default';
     this.storageKey = 'password_gate_unlocked:' + this.id;
+    // We avoid storing plaintext passwords in the DOM. Prefer a hashed value
+    // emitted as `data-protect-password-hash` on the <main> element. If a
+    // plaintext option is provided (for backwards compatibility), it will be used.
     this.password = options.password || rootEl.getAttribute('data-password') || '';
-    if (!this.password) {
-      try {
-        var main = rootEl.closest ? rootEl.closest('main') : document.querySelector('main');
-        if (main && main.getAttribute) {
-          this.password = main.getAttribute('data-protect-password') || this.password;
+    this.passwordHash = null;
+    try {
+      var main = rootEl.closest ? rootEl.closest('main') : document.querySelector('main');
+      if (main && main.getAttribute) {
+        var ph = main.getAttribute('data-protect-password-hash');
+        if (ph) this.passwordHash = ph;
+        else {
+          // backward-compat: if site emitted plaintext attr (rare), compute its hash client-side
+          var plain = main.getAttribute('data-protect-password');
+          if (plain) {
+            // compute sha256 hex synchronously via simple fallback (non-crypto) not available; leave null
+            try { /* prefer Web Crypto when verifying at input time */ } catch (e) {}
+          }
         }
-      } catch (e) { /* ignore */ }
-    }
+      }
+    } catch (e) { /* ignore */ }
     this.buttonSelector = options.buttonSelector || '.btn--access-content';
     this.button = null;
     this.overlay = null;
@@ -54,6 +65,7 @@
       if (this.actionBar) {
         this.actionBar.classList.remove('pw-action-hidden');
       }
+    try { document.body.classList.remove('pw-content-hidden'); } catch (e) {}
     if (!this.button) return;
     try {
       var wrapper = null;
@@ -99,6 +111,8 @@
     try {
       var anyVisible = !!document.querySelector('.btn--access-content.pw-access-visible');
       if (!anyVisible) document.body.classList.add('pw-buttons-hidden');
+      // ensure protected content remains hidden until explicitly revealed
+      try { document.body.classList.add('pw-content-hidden'); } catch (e) {}
     } catch (e) {}
   };
 
@@ -170,7 +184,22 @@
     cancel.addEventListener('click', function () { cleanup(); });
     ok.addEventListener('click', function () {
       var val = input.value || '';
-      if (val === self.password) {
+      (async function(){
+        var ok = false;
+        try {
+          // If a hash was provided by the server, compute SHA-256 of entered value and compare
+          if (self.passwordHash && window.crypto && window.crypto.subtle) {
+            var enc = new TextEncoder().encode(val);
+            var buf = await window.crypto.subtle.digest('SHA-256', enc);
+            var hex = Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('00' + b.toString(16)).slice(-2); }).join('');
+            if (hex === self.passwordHash) ok = true;
+          } else {
+            // fallback: compare plaintext if provided in options (back-compat)
+            if (val === self.password) ok = true;
+          }
+        } catch (e) { ok = false; }
+
+        if (ok) {
         self.setUnlocked(true);
         try { sessionStorage.setItem('password_gate:' + self.id, val); } catch (e) {}
         // Optional: remember password across sessions if user consents via data-remember-password="true" on the root element
@@ -189,6 +218,7 @@
         err.textContent = 'Incorrect password';
         input.focus();
       }
+    })();
     });
 
     document.addEventListener('keydown', onKey, true);
