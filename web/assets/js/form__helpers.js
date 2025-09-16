@@ -583,6 +583,37 @@
     }, false);
   } catch (e) {}
 
+  // Delegated fallback to persist form values: save form state on input/change (debounced)
+  try {
+    var __fh_save_timers = new WeakMap();
+    function __fh_schedule_save(form) {
+      try {
+        if (!form) return;
+        var t = __fh_save_timers.get(form);
+        if (t) clearTimeout(t);
+        __fh_save_timers.set(form, setTimeout(function(){ try { saveFormState(form); } catch(e){} }, 250));
+      } catch (e) {}
+    }
+    document.addEventListener('input', function(e){
+      try {
+        var el = e.target;
+        if (!el) return;
+        var form = el.closest && el.closest('form.calculator--form');
+        if (!form) return;
+        __fh_schedule_save(form);
+      } catch (err) {}
+    }, true);
+    document.addEventListener('change', function(e){
+      try {
+        var el = e.target;
+        if (!el) return;
+        var form = el.closest && el.closest('form.calculator--form');
+        if (!form) return;
+        __fh_schedule_save(form);
+      } catch (err) {}
+    }, true);
+  } catch (e) {}
+
   // Expose functions for dynamic content
   window.formHelpers = window.formHelpers || {};
   window.formHelpers.addAsterisks = addAsterisks;
