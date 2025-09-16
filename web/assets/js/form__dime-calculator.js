@@ -738,20 +738,49 @@
           try {
             e.preventDefault ();
             var salt = form.getAttribute ('data-token-salt') || null;
-            if (
-              window.formHelpers &&
-              typeof window.formHelpers.createTokenFromForm === 'function'
-            ) {
-              var token = await window.formHelpers.createTokenFromForm (form, {
-                salt: salt,
-              });
-              if (typeof window.formHelpers.writeTokenToQuery === 'function') {
-                window.formHelpers.writeTokenToQuery (token);
+            // Prefer encrypted share URL when possible (uses saved pass in sessionStorage/localStorage)
+            try {
+              if (window.formHelpers && typeof window.formHelpers.createEncryptedShareUrl === 'function') {
+                var encUrl = await window.formHelpers.createEncryptedShareUrl(form);
+                if (encUrl) {
+                  try { console.debug('form__dime: created encrypted share url'); } catch (e) {}
+                  try {
+                    // Replace the current URL without navigating
+                    if (history && history.replaceState) history.replaceState(null, document.title, encUrl);
+                    else location.href = encUrl;
+                  } catch (e) {
+                    try { location.href = encUrl; } catch (er) {}
+                  }
+                } else {
+                  try { console.debug('form__dime: no stored passphrase available, cannot produce encrypted URL'); } catch (e) {}
+                  try {
+                    showConfirm({ title: 'Encryption key missing', body: 'No stored passphrase was found to encrypt the share link. Unlock the protected content or add a key before sharing.', okText: 'OK' });
+                  } catch (e) {}
+                  return;
+                }
               } else {
-                try {
-                  location.search = token;
-                } catch (err) {}
+                // encryption helper not present: fallback to signed token
+                if (window.formHelpers && typeof window.formHelpers.createTokenFromForm === 'function') {
+                  var token = await window.formHelpers.createTokenFromForm(form, { salt: salt });
+                  if (typeof window.formHelpers.writeTokenToQuery === 'function') {
+                    window.formHelpers.writeTokenToQuery(token);
+                  } else {
+                    try { location.search = token; } catch (err) {}
+                  }
+                }
               }
+            } catch (e) {
+              // if anything goes wrong, fallback to existing token behavior
+              try {
+                if (window.formHelpers && typeof window.formHelpers.createTokenFromForm === 'function') {
+                  var token = await window.formHelpers.createTokenFromForm(form, { salt: salt });
+                  if (typeof window.formHelpers.writeTokenToQuery === 'function') {
+                    window.formHelpers.writeTokenToQuery(token);
+                  } else {
+                    try { location.search = token; } catch (err) {}
+                  }
+                }
+              } catch (err) {}
             }
             renderDebtOutput (form);
             renderIncomeOutput (form);
@@ -939,20 +968,27 @@
           return;
         e.preventDefault ();
         var salt = form.getAttribute ('data-token-salt') || null;
-        if (
-          window.formHelpers &&
-          typeof window.formHelpers.createTokenFromForm === 'function'
-        ) {
-          try {
-            var token = await window.formHelpers.createTokenFromForm (form, {
-              salt: salt,
-            });
-            if (typeof window.formHelpers.writeTokenToQuery === 'function') {
-              window.formHelpers.writeTokenToQuery (token);
+        try {
+          if (window.formHelpers && typeof window.formHelpers.createEncryptedShareUrl === 'function') {
+            var encUrl2 = await window.formHelpers.createEncryptedShareUrl(form);
+            if (encUrl2) {
+              try { if (history && history.replaceState) history.replaceState(null, document.title, encUrl2); else location.href = encUrl2; } catch (e) { try { location.href = encUrl2; } catch (er) {} }
             } else {
-              try {
-                location.search = token;
-              } catch (err) {}
+              try { console.debug('form__dime delegated submit: no stored passphrase available, cannot produce encrypted URL'); } catch (e) {}
+              try { showConfirm({ title: 'Encryption key missing', body: 'No stored passphrase was found to encrypt the share link. Unlock the protected content or add a key before sharing.', okText: 'OK' }); } catch (e) {}
+              return;
+            }
+          } else if (window.formHelpers && typeof window.formHelpers.createTokenFromForm === 'function') {
+            var token2 = await window.formHelpers.createTokenFromForm(form, { salt: salt });
+            if (typeof window.formHelpers.writeTokenToQuery === 'function') window.formHelpers.writeTokenToQuery(token2);
+            else try { location.search = token2; } catch (e) {}
+          }
+        } catch (e) {
+          try {
+            if (window.formHelpers && typeof window.formHelpers.createTokenFromForm === 'function') {
+              var token2 = await window.formHelpers.createTokenFromForm(form, { salt: salt });
+              if (typeof window.formHelpers.writeTokenToQuery === 'function') window.formHelpers.writeTokenToQuery(token2);
+              else try { location.search = token2; } catch (er) {}
             }
           } catch (err) {}
         }

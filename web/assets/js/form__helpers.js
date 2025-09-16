@@ -868,6 +868,124 @@
   window.formHelpers.writeTokenToQuery = writeTokenToQuery;
   window.formHelpers.populateFormFromToken = populateFormFromToken;
 
+  // --- Client-side AES-GCM helpers for encrypted share URLs ---
+  var b64u = {
+    enc: function (b) {
+      try {
+        var a = '';
+        var bytes = new Uint8Array(b);
+        for (var i = 0; i < bytes.byteLength; i++) a += String.fromCharCode(bytes[i]);
+        return btoa(a).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+      } catch (e) { return ''; }
+    },
+    dec: function (s) {
+      try {
+        var b64 = (s || '').replace(/-/g, '+').replace(/_/g, '/');
+        while (b64.length % 4) b64 += '=';
+        var bin = atob(b64);
+        var arr = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+        return arr;
+      } catch (e) { return new Uint8Array(); }
+    }
+  };
+
+  async function deriveKey (pass, saltUint8) {
+    var enc = new TextEncoder();
+    var keyMaterial = await crypto.subtle.importKey('raw', enc.encode(pass), {name:'PBKDF2'}, false, ['deriveKey']);
+    return crypto.subtle.deriveKey(
+      {name:'PBKDF2', salt: saltUint8, iterations: 100000, hash: 'SHA-256'},
+      keyMaterial,
+      {name:'AES-GCM', length: 256},
+      false,
+      ['encrypt','decrypt']
+    );
+  }
+
+  async function encryptJSON (obj, pass) {
+    var enc = new TextEncoder();
+    var iv = crypto.getRandomValues(new Uint8Array(12));
+    var salt = crypto.getRandomValues(new Uint8Array(16));
+    var key = await deriveKey(pass, salt);
+    var plaintext = enc.encode(JSON.stringify(obj));
+    var ct = await crypto.subtle.encrypt({name:'AES-GCM', iv: iv}, key, plaintext);
+    return { ct: b64u.enc(ct), iv: b64u.enc(iv), salt: b64u.enc(salt) };
+  }
+
+  async function decryptJSON (pack, pass) {
+    var dec = new TextDecoder();
+    var iv = b64u.dec(pack.iv || '');
+    var salt = b64u.dec(pack.salt || '');
+    var ct = b64u.dec(pack.ct || '');
+    var key = await deriveKey(pass, salt);
+    var pt = await crypto.subtle.decrypt({name:'AES-GCM', iv: iv}, key, ct);
+    return JSON.parse(dec.decode(pt));
+  }
+
+  // Build a share URL that places ciphertext in the query and the passphrase in the fragment
+  async function createEncryptedShareUrl (form, passphrase) {
+    try {
+      if (!form) return '';
+      var pass = passphrase || null;
+      if (!pass) {
+        try {
+          var pid = form.getAttribute && form.getAttribute('data-protect-id') ? form.getAttribute('data-protect-id') : 'default';
+          pass = sessionStorage.getItem('password_gate:' + pid) || localStorage.getItem('password_gate:' + pid) || null;
+        } catch (e) { pass = null; }
+      }
+      // If no pass found, return empty and let caller decide how to handle failure
+      if (!pass) return '';
+      var data = {};
+      var fd = new FormData(form);
+      fd.forEach(function(v,k){ data[k]=v; });
+      var pack = await encryptJSON(data, pass);
+      var q = new URLSearchParams(pack).toString();
+      return location.origin + location.pathname + '?' + q + '#key=' + encodeURIComponent(pass);
+    } catch (e) {
+      console.error('createEncryptedShareUrl error:', e);
+      return '';
+    }
+  }
+
+  // Try to decrypt a search (ct/iv/salt) using provided pass and populate a form
+  async function tryDecryptSearchToForm (searchParams, pass, form) {
+    try {
+      var pack = { ct: searchParams.get('ct'), iv: searchParams.get('iv'), salt: searchParams.get('salt') };
+      if (!pack.ct || !pack.iv || !pack.salt) return false;
+      var passToUse = pass || null;
+      if (!passToUse && form) {
+        try {
+          var pid2 = form.getAttribute && form.getAttribute('data-protect-id') ? form.getAttribute('data-protect-id') : 'default';
+          passToUse = sessionStorage.getItem('password_gate:' + pid2) || localStorage.getItem('password_gate:' + pid2) || null;
+        } catch (e) { passToUse = null; }
+      }
+      if (!passToUse) return false;
+      var data = await decryptJSON(pack, passToUse);
+      if (!form || !data) return true;
+      Object.keys(data).forEach(function (k) {
+        try {
+          var els = form.elements[k] || document.querySelector('[name="' + k + '"]') || document.getElementById(k);
+          if (!els) return;
+          // If multiple elements exist (NodeList), set each; otherwise set value
+          if (els.length && typeof els !== 'string') {
+            for (var i = 0; i < els.length; i++) try { els[i].value = data[k]; } catch (e) {}
+          } else {
+            try { els.value = data[k]; } catch (e) {}
+          }
+        } catch (e) {}
+      });
+      try { form.dispatchEvent(new Event('change', {bubbles:true})); } catch (e) {}
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  window.formHelpers.encryptJSON = encryptJSON;
+  window.formHelpers.decryptJSON = decryptJSON;
+  window.formHelpers.createEncryptedShareUrl = createEncryptedShareUrl;
+  window.formHelpers.tryDecryptSearchToForm = tryDecryptSearchToForm;
+
   // --- Prefill forms from URL hash or query ---
   // Looks for either a token in the search ("?token") or a query-string-style
   // fragment ("#field=val&...") and populates the target form.
@@ -889,7 +1007,22 @@
       // If there's a search token (e.g., '?<payload>' or '?payload.sig'), try to decode and populate
       var search = (location.search || '').replace(/^\?/, '');
       if (search) {
-        // assume search is a token payload (base64url or base64url.sig)
+        // If query contains encrypted payload (ct/iv/salt) and fragment contains key=, try to decrypt
+        try {
+          var usp = new URLSearchParams(location.search.replace(/^\?/, ''));
+          if (usp.get('ct') && usp.get('iv') && usp.get('salt')) {
+            var keyMatch = (location.hash || '').match(/key=([^&]+)/);
+            if (keyMatch) {
+              var pass = decodeURIComponent(keyMatch[1]);
+              try {
+                window.formHelpers.tryDecryptSearchToForm(usp, pass, form).then(function(ok){ /* ignore return */ });
+                return;
+              } catch (e) {}
+            }
+            // if no key in fragment, do not attempt decryption here
+          }
+        } catch (e) {}
+        // fallback: assume search is a token payload (base64url or base64url.sig)
         try {
           window.formHelpers.populateFormFromToken(search, form);
           return;
@@ -1022,14 +1155,29 @@
       btn.addEventListener('click', function (e) {
         e.preventDefault();
         if (!dialog) {
-          var val = window.prompt('Paste token (base64url or base64url.signature):', '');
+          // Fallback prompt: accept either a passphrase or a full query string containing ct/iv/salt
+          var val = window.prompt('Paste passphrase OR full query (ct/iv/salt). Example passphrase or "ct=...&iv=...&salt=...":', '');
           if (!val) return;
-          var frag = val.replace(/^#/, '').trim();
-          if (!isValidToken(frag)) {
-            try { alert('Invalid key format. Paste a base64url token optionally with a signature separated by a dot.'); } catch (e) {}
+          var raw = val.trim();
+          // If looks like a query string, try to parse and apply it
+          if (/ct=/.test(raw) && /iv=/.test(raw) && /salt=/.test(raw)) {
+            var usp = new URLSearchParams(raw.replace(/^\?/, ''));
+            var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
+            // prompt for passphrase to decrypt
+            var pass = window.prompt('Passphrase to decrypt data:', '');
+            if (!pass) return;
+            window.formHelpers.tryDecryptSearchToForm(usp, pass, form).then(function(ok){ if (!ok) try { alert('Decryption failed'); } catch(e){} });
             return;
           }
-          applyFragment(frag);
+          // Otherwise treat it as a passphrase to apply to existing query params
+          var pass = raw;
+          var usp2 = new URLSearchParams(location.search.replace(/^\?/, ''));
+          var form2 = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
+          if (usp2.get('ct') && usp2.get('iv') && usp2.get('salt')) {
+            window.formHelpers.tryDecryptSearchToForm(usp2, pass, form2).then(function(ok){ if (!ok) try { alert('Decryption failed'); } catch(e){} });
+            return;
+          }
+          try { alert('No ciphertext present in URL to decrypt.'); } catch (e) {}
           return;
         }
         openDialog();
@@ -1042,14 +1190,46 @@
         submitBtn.addEventListener('click', function (ev) {
           ev.preventDefault();
           var v = (input.value || '').trim();
-          if (!isValidToken(v)) {
+          if (!v) {
             if (errorEl) { errorEl.style.display = 'block'; }
             input && input.focus();
             return;
           }
-          if (errorEl) { errorEl.style.display = 'none'; }
-          applyFragment(v);
-          closeDialog();
+          // If user pasted a full query (ct/iv/salt), parse it and prompt for passphrase
+          if (/ct=/.test(v) && /iv=/.test(v) && /salt=/.test(v)) {
+            var usp = new URLSearchParams(v.replace(/^\?/, ''));
+            var pass = window.prompt('Passphrase to decrypt data:', '');
+            if (!pass) {
+              try { if (errorEl) errorEl.style.display = 'block'; } catch(e){}
+              return;
+            }
+            var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
+            window.formHelpers.tryDecryptSearchToForm(usp, pass, form).then(function(ok){ if (!ok) try { alert('Decryption failed'); } catch(e){} });
+            closeDialog();
+            return;
+          }
+
+          // Otherwise treat value as a passphrase; attempt to decrypt current URL query if present
+          var passOnly = v;
+          var usp2 = new URLSearchParams(location.search.replace(/^\?/, ''));
+          var form2 = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
+          if (usp2.get('ct') && usp2.get('iv') && usp2.get('salt')) {
+            window.formHelpers.tryDecryptSearchToForm(usp2, passOnly, form2).then(function(ok){ if (!ok) try { alert('Decryption failed'); } catch(e){} });
+            closeDialog();
+            return;
+          }
+
+          // As a convenience: if user pasted a raw base64 token (old-style payload), try populating with populateFormFromToken
+          try {
+            if (window.formHelpers && typeof window.formHelpers.populateFormFromToken === 'function') {
+              var form3 = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
+              window.formHelpers.populateFormFromToken(v, form3).then(function(){ closeDialog(); }).catch(function(){ if (errorEl) errorEl.style.display = 'block'; });
+              return;
+            }
+          } catch (e) {}
+
+          if (errorEl) { errorEl.style.display = 'block'; }
+          input && input.focus();
         }, true);
         // allow Enter key inside input to submit
         input.addEventListener('keydown', function(ev){ if (ev.key === 'Enter') { ev.preventDefault(); submitBtn.click(); } }, true);
