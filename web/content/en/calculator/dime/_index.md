@@ -146,18 +146,8 @@ token_salt: "b3JpZ2luYWwtc2VjdXJlLXNlcnZlci1zYWx0LWFzZGZoYWtzZA"
     <div id="coverage-need-output" class="section-output"></div>
   </div>
 
-  <dialog id="notes-dialog" class="dialog dialog--notes mw7 center" aria-labelledby="notes-title" aria-modal="true">
-    <form method="dialog" class="ph3 pv3">
-      <div class="flex items-center justify-between mb3">
-        <h3 id="notes-title" class="ma0">Notes</h3>
-        <button type="button" id="notes-close" class="btn btn--secondary" aria-label="Close notes">Close</button>
-      </div>
-      <textarea id="notes_dime" name="notes_dime" rows="8" class="input-reset ba b--black-20 pa2 w-100"></textarea>
-      <div class="tr mt3">
-        <button id="notes-save" class="btn btn--primary" type="submit">Save</button>
-      </div>
-    </form>
-  </dialog>
+  <!-- Notes storage field: kept in-form so the generic notes dialog can read/write this value -->
+  <textarea id="notes_dime" name="notes_dime" rows="4" style="display:none;" class="input-reset ba b--black-20 pa2 w-100"></textarea>
 
   <dialog id="add-key-dialog" class="dialog mw6 center" aria-labelledby="add-key-title" aria-modal="true">
     <form class="ph3 pv3">

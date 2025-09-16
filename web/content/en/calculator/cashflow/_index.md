@@ -193,18 +193,7 @@ token_salt: "Y2FzaGZsb3ctcGFnZS1zYWx0LTIwMjUtMDktMTYtYWJjMTIz"
   </div>
 
   <!-- Notes dialog (shared pattern with DIME) -->
-  <dialog id="notes-dialog" class="dialog dialog--notes mw7 center" aria-labelledby="notes-title" aria-modal="true">
-    <form method="dialog" class="ph3 pv3">
-      <div class="flex items-center justify-between mb3">
-        <h3 id="notes-title" class="ma0">Notes</h3>
-        <button type="button" id="notes-close" class="btn btn--secondary" aria-label="Close notes">Close</button>
-      </div>
-      <textarea id="notes_cashflow" name="notes_cashflow" rows="8" class="input-reset ba b--black-20 pa2 w-100"></textarea>
-      <div class="tr mt3">
-        <button id="notes-save" class="btn btn--primary" type="submit">Save</button>
-      </div>
-    </form>
-  </dialog>
+  <!-- Notes dialog removed: generic notes helper will operate on `#expense_notes` in this form -->
 
   <!-- Optional: Add key dialog (same UX as DIME) -->
   <dialog id="add-key-dialog" class="dialog mw6 center" aria-labelledby="add-key-title" aria-modal="true">

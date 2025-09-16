@@ -826,119 +826,26 @@
         form.setAttribute ('data-dime-handler-bound', 'true');
       } catch (e) {}
 
-      // Notes dialog (uses <dialog>)
+      // Notes dialog: use generic helper from formHelpers
       try {
-  // Notes toggle button may be inside the form or injected elsewhere (layout partial).
-  var notesBtn = form.querySelector('#btn-toggle-notes') || document.getElementById('btn-toggle-notes') || document.querySelector('.btn--notes-toggle');
-  var notesDialog = document.getElementById('notes-dialog');
-        var notesClose = notesDialog
-          ? notesDialog.querySelector ('#notes-close')
-          : null;
-        var notesSave = notesDialog
-          ? notesDialog.querySelector ('#notes-save')
-          : null;
-        var notesTextarea = notesDialog
-          ? notesDialog.querySelector ('#notes_dime')
-          : form.querySelector ('#notes_dime');
-
-        function openNotes () {
-          if (!notesDialog) return;
-          try {
-            if (typeof notesDialog.showModal === 'function')
-              notesDialog.showModal ();
-            else notesDialog.setAttribute ('open', '');
-          } catch (e) {
-            notesDialog.setAttribute ('open', '');
-          }
-          if (notesBtn) notesBtn.setAttribute ('aria-expanded', 'true');
-          if (notesTextarea) {
-            // move cursor to end
-            notesTextarea.focus ();
-            var val = notesTextarea.value || '';
-            notesTextarea.selectionStart = notesTextarea.selectionEnd =
-              val.length;
-          }
-        }
-
-        function closeNotes () {
-          if (!notesDialog) return;
-          try {
-            if (typeof notesDialog.close === 'function') notesDialog.close ();
-            else notesDialog.removeAttribute ('open');
-          } catch (e) {
-            notesDialog.removeAttribute ('open');
-          }
-          if (notesBtn) notesBtn.setAttribute ('aria-expanded', 'false');
-        }
-
+        var notesBtn = form.querySelector('#btn-toggle-notes') || document.getElementById('btn-toggle-notes') || document.querySelector('.btn--notes-toggle');
         if (notesBtn) {
-          notesBtn.addEventListener (
-            'click',
-            function () {
-              openNotes ();
-            },
-            true
-          );
+          notesBtn.addEventListener('click', function () {
+            try {
+              if (window.formHelpers && typeof window.formHelpers.openNotes === 'function') {
+                // prefer matching textarea id inside this form: notes_dime
+                window.formHelpers.openNotes(form, 'notes_dime');
+              }
+            } catch (e) {}
+          }, true);
         }
 
-        if (notesClose) {
-          notesClose.addEventListener (
-            'click',
-            function () {
-              closeNotes ();
-            },
-            true
-          );
-        }
-
-        if (notesSave) {
-          notesSave.addEventListener (
-            'click',
-            function (ev) {
-              try { if (ev && typeof ev.preventDefault === 'function') ev.preventDefault(); } catch (e) {}
-              try { if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation(); } catch (e) {}
-              closeNotes ();
-            },
-            true
-          );
-        }
-
-        // Prevent the notes dialog form from submitting the parent calculator form
-        try {
-          if (notesDialog) {
-            var notesFormInner = notesDialog.querySelector('form');
-            if (notesFormInner) {
-              notesFormInner.addEventListener('submit', function(ev){
-                try { if (ev && typeof ev.preventDefault === 'function') ev.preventDefault(); } catch (e) {}
-                try { if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation(); } catch (e) {}
-                closeNotes();
-              }, true);
-            }
-          }
-        } catch (e) {}
-
-        // close notes when form cleared
-        form.addEventListener (
-          'form:cleared',
-          function () {
-            closeNotes ();
-          },
-          true
-        );
-
-        // close dialog on Escape for browsers that support it
-        if (notesDialog) {
-          notesDialog.addEventListener (
-            'cancel',
-            function (ev) {
-              ev.preventDefault ();
-              closeNotes ();
-            },
-            true
-          );
-        }
+        // ensure form clears close the notes dialog
+        form.addEventListener('form:cleared', function () {
+          try { if (window.formHelpers && typeof window.formHelpers.closeNotes === 'function') window.formHelpers.closeNotes(); } catch (e) {}
+        }, true);
       } catch (e) {
-        console.error ('form__dime notes dialog init error', e);
+        console.error('form__dime notes dialog init error', e);
       }
     } catch (e) {
       console.error ('form__dime initDebtOutput error:', e);

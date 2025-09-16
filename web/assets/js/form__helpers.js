@@ -668,6 +668,116 @@
 
   window.formHelpers.initHashOnSubmit = initHashOnSubmit;
 
+  // --- Generic notes dialog (reusable across forms) ---
+  function ensureNotesDialog() {
+    try {
+      var existing = document.getElementById('notes-dialog');
+      if (existing) return existing;
+      var dlg = document.createElement('dialog');
+      dlg.id = 'notes-dialog';
+      dlg.className = 'dialog dialog--notes mw7 center';
+      dlg.setAttribute('aria-labelledby', 'notes-title');
+      dlg.setAttribute('aria-modal', 'true');
+
+      dlg.innerHTML = '\n        <form method="dialog" class="ph3 pv3">\n          <div class="flex items-center justify-between mb3">\n            <h3 id="notes-title" class="ma0">Notes</h3>\n            <button type="button" id="notes-close" class="btn btn--secondary" aria-label="Close notes">Close</button>\n          </div>\n          <textarea id="notes_dialog_textarea" name="notes_dialog_textarea" rows="8" class="input-reset ba b--black-20 pa2 w-100"></textarea>\n          <div class="tr mt3">\n            <button id="notes-save" class="btn btn--primary" type="submit">Save</button>\n          </div>\n        </form>\n      ';
+
+      document.body.appendChild(dlg);
+
+      var closeBtn = dlg.querySelector('#notes-close');
+      var saveBtn = dlg.querySelector('#notes-save');
+      var ta = dlg.querySelector('#notes_dialog_textarea');
+
+      function closeNotesInternal() {
+        try {
+          if (typeof dlg.close === 'function') dlg.close();
+          else dlg.removeAttribute('open');
+        } catch (e) {
+          try { dlg.removeAttribute('open'); } catch (err) {}
+        }
+        try { delete dlg.__notes_target; } catch (e) {}
+        try { dlg.__notes_target_selector = null; } catch (e) {}
+        try { var btn = document.getElementById('btn-toggle-notes'); if (btn) btn.setAttribute('aria-expanded','false'); } catch (e) {}
+      }
+
+      function saveNotesInternal(ev) {
+        try { if (ev && typeof ev.preventDefault === 'function') ev.preventDefault(); } catch (e) {}
+        try { if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation(); } catch (e) {}
+        try {
+          var txt = (ta.value || '').trim();
+          var target = dlg.__notes_target;
+          if (target && target.tagName) {
+            try { target.value = txt; } catch (e) {}
+            try { target.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {}
+          } else if (dlg.__notes_target_selector) {
+            try {
+              var el = document.querySelector(dlg.__notes_target_selector);
+              if (el) { el.value = txt; try { el.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {} }
+            } catch (e) {}
+          }
+        } catch (e) {}
+        closeNotesInternal();
+      }
+
+      if (closeBtn) closeBtn.addEventListener('click', function(){ closeNotesInternal(); }, true);
+      if (saveBtn) saveBtn.addEventListener('click', saveNotesInternal, true);
+
+      dlg.__openFor = function (form, targetSelectorOrId) {
+        try {
+          var target = null;
+          var selector = null;
+          if (targetSelectorOrId) {
+            selector = (targetSelectorOrId.charAt(0) === '#') ? targetSelectorOrId : ('#' + targetSelectorOrId);
+            try { target = form.querySelector(selector); } catch (e) { target = null; }
+          }
+          if (!target) {
+            var t = form.querySelector('textarea[id^="notes_"]') || form.querySelector('textarea[name^="notes"]') || form.querySelector('#expense_notes') || form.querySelector('textarea[data-notes]');
+            if (t) { target = t; selector = '#' + (t.id || t.name); }
+          }
+          if (!target && selector) {
+            try {
+              var id = selector.replace(/^#/, '');
+              var hidden = document.createElement('textarea');
+              hidden.id = id;
+              hidden.name = id;
+              hidden.style.display = 'none';
+              form.appendChild(hidden);
+              target = hidden;
+            } catch (e) { target = null; }
+          }
+          dlg.__notes_target = target;
+          dlg.__notes_target_selector = selector || null;
+          try { ta.value = (target && target.value) ? target.value : ''; } catch (e) { ta.value = ''; }
+          try { if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open',''); } catch (e) { dlg.setAttribute('open',''); }
+          try { ta.focus(); var v = ta.value || ''; ta.selectionStart = ta.selectionEnd = v.length; } catch (e) {}
+          try { var btn = document.getElementById('btn-toggle-notes'); if (btn) btn.setAttribute('aria-expanded','true'); } catch (e) {}
+        } catch (e) {}
+      };
+
+      dlg.__close = function () { closeNotesInternal(); };
+
+      return dlg;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function openNotes(form, targetSelectorOrId) {
+    try {
+      var dlg = ensureNotesDialog();
+      if (!dlg) return;
+      dlg.__openFor(form, targetSelectorOrId);
+    } catch (e) {}
+  }
+
+  function closeNotes() {
+    try { var dlg = document.getElementById('notes-dialog'); if (dlg && typeof dlg.__close === 'function') dlg.__close(); }
+    catch (e) {}
+  }
+
+  window.formHelpers.ensureNotesDialog = ensureNotesDialog;
+  window.formHelpers.openNotes = openNotes;
+  window.formHelpers.closeNotes = closeNotes;
+
   // --- Tokenized form export/import (base64url of JSON)
   function base64UrlEncode (str) {
     try {
