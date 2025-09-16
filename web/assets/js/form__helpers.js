@@ -448,6 +448,12 @@
         } catch (err) {
           // ignore
         }
+        // If a collapsed summary is visible, expand the form back before signalling cleared
+        try {
+          if (window.formDime && typeof window.formDime.expandFromSummary === 'function') {
+            try { window.formDime.expandFromSummary(form); } catch (e) { /* ignore */ }
+          }
+        } catch (e) {}
         form.dispatchEvent (new CustomEvent('form:cleared'));
       }
       forms.forEach (function (form) {
