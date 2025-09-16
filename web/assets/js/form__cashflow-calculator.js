@@ -51,6 +51,58 @@
     }
   }
 
+  // --- Tax guidance ---
+  // Simple US federal tax bracket approximation (single filer, 2023-ish thresholds)
+  var FEDERAL_BRACKETS = [
+    {rate: 0.10, thresh: 11000},
+    {rate: 0.12, thresh: 44725},
+    {rate: 0.22, thresh: 95375},
+    {rate: 0.24, thresh: 182100},
+    {rate: 0.32, thresh: 231250},
+    {rate: 0.35, thresh: 578125},
+    {rate: 0.37, thresh: Infinity},
+  ];
+
+  function estimateEffectiveTaxRate (gross) {
+    try {
+      if (!isFinite(gross) || gross <= 0) return 0;
+      // approximate progressive tax to compute an effective federal rate
+      var remaining = gross;
+      var prev = 0;
+      var tax = 0;
+      for (var i = 0; i < FEDERAL_BRACKETS.length; i++) {
+        var b = FEDERAL_BRACKETS[i];
+        var slice = Math.max(0, Math.min(remaining, b.thresh - prev));
+        if (slice <= 0) { prev = b.thresh; continue; }
+        tax += slice * b.rate;
+        remaining -= slice;
+        prev = b.thresh;
+        if (remaining <= 0) break;
+      }
+      // add rough state/local average (flat 4%) to suggest a combined effective rate
+      var stateLocal = 0.04 * gross;
+      var totalTax = tax + stateLocal;
+      var effective = (totalTax / gross) * 100;
+      return Math.round(effective * 100) / 100; // two decimals
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  function updateTaxHelp (form) {
+    try {
+      var help = document.getElementById('average-tax-help');
+      if (!help) return;
+      var gross = computeGrossIncome(form) || 0;
+      if (!gross || gross <= 0) {
+        help.textContent = 'Enter your estimated effective tax rate or use the suggested rate based on gross income.';
+        return;
+      }
+      var suggested = estimateEffectiveTaxRate(gross);
+      help.innerHTML = 'Suggested effective tax rate: <strong>' + (suggested ? suggested + '%' : '—') + '</strong> based on gross income of ' + formatCurrency(gross) + '. You can override in the field above.';
+    } catch (e) {}
+  }
+
   function attachHandlers (form) {
     try {
       if (!form) return;
@@ -77,6 +129,25 @@
       // Do not render initially to keep blank; but if any inputs already have values, render once
       var initial = computeGrossIncome(form);
       if (initial && initial > 0) renderGrossIncome(form);
+      // update tax help when gross income changes
+      try {
+        // hook into our render call so tax help also updates
+        var origRender = window.formCashflow && window.formCashflow.renderIncomeOutput;
+        // ensure help updates on input events for income fields
+        ['annual_salary','spouse_income','additional_income'].forEach(function(id){
+          var el = form.querySelector('#'+id);
+          if (!el) return;
+          el.addEventListener('blur', function(){ updateTaxHelp(form); }, true);
+          el.addEventListener('change', function(){ updateTaxHelp(form); }, true);
+        });
+        // update when average tax input is focused to show guidance
+        var taxInput = form.querySelector('#average_tax_percent');
+        if (taxInput) {
+          taxInput.addEventListener('focus', function(){ updateTaxHelp(form); }, true);
+        }
+        // initial help update
+        updateTaxHelp(form);
+      } catch (e) {}
       // Clear output when form values are cleared via the shared clear-values flow
       try {
         form.addEventListener('form:cleared', function () {
