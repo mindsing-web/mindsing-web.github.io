@@ -5,8 +5,17 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{ .Title }}</title>
     {{ partial "site-style.html" . }}
+    <style>
+      /* Hide access buttons by default to avoid flash before JS runs.
+         PasswordGate will reveal individual buttons by adding
+         the `pw-access-visible` class to the matching button. */
+      .pw-buttons-hidden .btn--access-content { display: none; }
+      .pw-buttons-hidden .btn--access-content.pw-access-visible { display: inline-block; }
+      /* Hide the calculator action bar until JS decides it's visible */
+      .pw-action-hidden { visibility: hidden; }
+    </style>
 </head>
-<body class="calculator-page">
+<body class="calculator-page pw-buttons-hidden">
   <main class="calculator-page__content flex flex-column items-center justify-center min-vh-100" {{ if isset .Params "password" }}data-protect-password="{{ .Params.password }}"{{ end }}>
       {{ .Content }}
     </main>

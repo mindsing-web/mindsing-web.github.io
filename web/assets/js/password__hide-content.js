@@ -34,7 +34,8 @@
     this.actionBar = document.getElementById('action-bar');
     try { /* intentionally silent in production */ } catch (e) {}
     if (this.actionBar) {
-      this.actionBar.style.visibility = 'hidden';
+      // add a class so CSS controls visibility until we explicitly show it
+      this.actionBar.classList.add('pw-action-hidden');
     }
     this.init();
   }
@@ -50,9 +51,9 @@
   PasswordGate.prototype.showContent = function () {
     this.root.style.display = '';
     this.root.removeAttribute('aria-hidden');
-    if (this.actionBar) {
-      this.actionBar.style.visibility = 'visible';
-    }
+      if (this.actionBar) {
+        this.actionBar.classList.remove('pw-action-hidden');
+      }
     if (!this.button) return;
     try {
       var wrapper = null;
@@ -89,7 +90,16 @@
   PasswordGate.prototype.hideContent = function () {
     this.root.style.display = 'none';
     this.root.setAttribute('aria-hidden', 'true');
-    if (this.button) this.button.style.display = '';
+    if (this.button) {
+      try { this.button.classList.remove('pw-access-visible'); } catch (e) {}
+    }
+    // re-hide the action bar until content is shown
+    if (this.actionBar) this.actionBar.classList.add('pw-action-hidden');
+    // restore body-level hiding only if there are no access buttons explicitly visible
+    try {
+      var anyVisible = !!document.querySelector('.btn--access-content.pw-access-visible');
+      if (!anyVisible) document.body.classList.add('pw-buttons-hidden');
+    } catch (e) {}
   };
 
   PasswordGate.prototype.buildOverlay = function () {
@@ -199,11 +209,13 @@
       return;
     }
 
-    this.hideContent();
+  this.hideContent();
 
     if (!this.button) {
       // create an access button and insert before the root
       var b = createEl('button', { 'type': 'button', 'class': 'btn btn--primary btn--access-content', 'data-protect-id': this.id }, 'Access Content');
+      // It will be controlled by the body-level `pw-buttons-hidden` class and the
+      // `pw-access-visible` class toggled below.
       this.button = b;
       try { this.root.parentNode.insertBefore(b, this.root); } catch (e) {}
     }
@@ -218,6 +230,14 @@
         input && input.focus();
       } catch (err) { console.error('PasswordGate open error', err); }
     }, true);
+    // If the content is locked (not unlocked) reveal the button and make sure
+    // body-level hiding class is removed so CSS can show explicit buttons.
+    try {
+      if (!this.isUnlocked()) {
+        try { this.button.classList.add('pw-access-visible'); } catch (e) {}
+        try { document.body.classList.remove('pw-buttons-hidden'); } catch (e) {}
+      }
+    } catch (e) {}
   };
 
   // Auto-init for elements with class js-password-protected
