@@ -147,6 +147,22 @@
         }
         // initial help update
         updateTaxHelp(form);
+        // --- Tax assumptions modal ---
+        var taxAssumptionsLink = document.getElementById('tax-assumptions-link');
+        var taxAssumptionsModal = document.getElementById('tax-assumptions-modal');
+        var taxAssumptionsClose = document.getElementById('tax-assumptions-close');
+        if (taxAssumptionsLink && taxAssumptionsModal) {
+          taxAssumptionsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            taxAssumptionsModal.showModal();
+          });
+        }
+        if (taxAssumptionsClose && taxAssumptionsModal) {
+          taxAssumptionsClose.addEventListener('click', function(e) {
+            e.preventDefault();
+            taxAssumptionsModal.close();
+          });
+        }
       } catch (e) {}
       // Clear output when form values are cleared via the shared clear-values flow
       try {

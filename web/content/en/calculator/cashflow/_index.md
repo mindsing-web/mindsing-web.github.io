@@ -21,10 +21,10 @@ form_id: "cashflow-form"
   <div class="flex flex-wrap nl2 nr2">
 
   <!-- ===================== Income ===================== -->
-  <h2 class="w-100 ph2 mt0 mb2">Income</h2>
 
   <!-- Left column: gross income fields -->
   <div class="w-100 w-50-ns ph2">
+    <h2 class="w-100 ph2 mt0 mb2">Income</h2>
     <div class="flex flex-wrap nl2 nr2">
       <div class="w-100 ph2 mb3">
         <label for="annual_salary" class="db mb1">
@@ -57,16 +57,47 @@ form_id: "cashflow-form"
 
   <!-- Right column: tax field -->
   <div class="w-100 w-50-ns ph2">
+    <h2 class="ph2 mt0 mb2">Tax estimation</h2>
     <div class="w-100 ph2 mb3">
       <label for="average_tax_percent" class="db mb1">
         Average tax %
-        <a href="#" class="info ml1" data-title="Simplified guidance: uses approximate single-filer federal brackets plus ~4% state/local. Brackets used (approx): 10% up to 11,000; 12% up to 44,725; 22% up to 95,375; 24% up to 182,100; 32% up to 231,250; 35% up to 578,125; 37% above that. Source: https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023">(i)</a>
       </label>
       <input id="average_tax_percent" name="average_tax_percent" type="number" step="0.01" min="0" max="100"
               class="input-reset ba b--black-20 pa2 w-100">
-      <p id="average-tax-help" class="mv2 f6 gray">Enter your estimated effective tax rate or use the suggested rate based on gross income. <a href="https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023" target="_blank" rel="noopener">More info</a></p>
+      <p id="average-tax-help" class="mv2 f6 gray">
+        Enter your estimated effective tax rate or use the suggested rate based on gross income.
+        <a href="https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023" target="_blank" rel="noopener">More info</a>
+      </p>
+      <p class="mv2 f6">
+        <a href="#" id="tax-assumptions-link">Tax assumptions</a>
+      </p>
     </div>
   </div>
+
+  <!-- Tax assumptions modal -->
+  <dialog id="tax-assumptions-modal" class="dialog mw6 center" aria-labelledby="tax-assumptions-title" aria-modal="true">
+    <form method="dialog" class="ph3 pv3">
+      <div class="flex items-center justify-between mb3">
+        <h3 id="tax-assumptions-title" class="ma0">Tax assumptions</h3>
+        <button type="button" id="tax-assumptions-close" class="btn btn--secondary" aria-label="Close">Close</button>
+      </div>
+      <div class="mb3">
+        <p>
+          Simplified guidance: uses approximate single-filer federal brackets plus ~4% state/local.</p>
+          <p>Brackets used (approx):</p>
+          <p>
+          10% up to $11,000;<br>
+          12% up to $44,725;<br>
+          22% up to $95,375;<br>
+          24% up to $182,100;<br>
+          32% up to $231,250;<br>
+          35% up to $578,125;<br>
+          37% above that.</p>
+          <p>Source: <a href="https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023" target="_blank" rel="noopener">IRS 2023 tax brackets</a>
+        </p>
+      </div>
+    </form>
+  </dialog>
 
   <!-- Income output -->
   <div class="w-100 ph2 mb4">
