@@ -65,8 +65,7 @@ form_id: "cashflow-form"
       <input id="average_tax_percent" name="average_tax_percent" type="number" step="0.01" min="0" max="100"
               class="input-reset ba b--black-20 pa2 w-100">
       <p id="average-tax-help" class="mv2 f6 gray">
-        Enter your estimated effective tax rate or use the suggested rate based on gross income.
-        <a href="https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023" target="_blank" rel="noopener">More info</a>
+        Estimated tax rate.
       </p>
       <p class="mv2 f6">
         <a href="#" id="tax-assumptions-link">Tax assumptions</a>
@@ -93,7 +92,10 @@ form_id: "cashflow-form"
           32% up to $231,250;<br>
           35% up to $578,125;<br>
           37% above that.</p>
-          <p>Source: <a href="https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023" target="_blank" rel="noopener">IRS 2023 tax brackets</a>
+          <p>Source: <a href="https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023" target="_blank" rel="noopener">
+            IRS 2023 tax brackets
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="0.95em" height="0.95em" style="display:inline;margin-left:0.18em;vertical-align:-0.18em;fill:currentColor;" aria-hidden="true" focusable="false"><path d="M14 3h7v7h-2V6.41l-9.29 9.3a1 1 0 0 1-1.42-1.42l9.3-9.29H14V3z"></path><path d="M5 5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7H5V5z"></path></svg>
+          </a>
         </p>
       </div>
     </form>
