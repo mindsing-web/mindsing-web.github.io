@@ -23,16 +23,19 @@ form_id: "cashflow-form"
   <!-- ===================== Income ===================== -->
   <h2 class="w-100 ph2 mt0 mb2">Income</h2>
 
-  <div class="w-100 w-50-ns ph2 mb3">
-    <label for="annual_salary" class="db mb1">
-      Annual salary
-      <a href="#" class="info ml1" title="Primary earner’s gross annual income.">(i)</a>
-    </label>
-    <input id="annual_salary" name="annual_salary" type="number"
-            class="input-reset ba b--black-20 pa2 w-100" required aria-required="true">
-  </div>
+  <!-- Left column: gross income fields -->
+  <div class="w-100 w-50-ns ph2">
+    <div class="flex flex-wrap nl2 nr2">
+      <div class="w-100 ph2 mb3">
+        <label for="annual_salary" class="db mb1">
+          Annual salary
+          <a href="#" class="info ml1" title="Primary earner’s gross annual income.">(i)</a>
+        </label>
+        <input id="annual_salary" name="annual_salary" type="number"
+                class="input-reset ba b--black-20 pa2 w-100" required aria-required="true">
+      </div>
 
-  <div class="w-100 w-50-ns ph2 mb3">
+  <div class="w-100 ph2 mb3">
     <label for="spouse_income" class="db mb1">
       Spouse annual income
       <a href="#" class="info ml1" title="Partner or spouse gross annual income, if applicable.">(i)</a>
@@ -41,7 +44,7 @@ form_id: "cashflow-form"
             class="input-reset ba b--black-20 pa2 w-100">
   </div>
 
-  <div class="w-100 w-50-ns ph2 mb3">
+  <div class="w-100 ph2 mb3">
     <label for="additional_income" class="db mb1">
       Additional income
       <a href="#" class="info ml1" title="Bonuses, side gigs, rental income, etc.">(i)</a>
@@ -49,15 +52,20 @@ form_id: "cashflow-form"
     <input id="additional_income" name="additional_income" type="number"
             class="input-reset ba b--black-20 pa2 w-100">
   </div>
+</div>
+  </div>
 
-  <div class="w-100 w-50-ns ph2 mb3">
-    <label for="average_tax_percent" class="db mb1">
-      Average tax %
-  <a href="#" class="info ml1" data-title="Simplified guidance: uses approximate single-filer federal brackets plus ~4% state/local. Brackets used (approx): 10% up to 11,000; 12% up to 44,725; 22% up to 95,375; 24% up to 182,100; 32% up to 231,250; 35% up to 578,125; 37% above that. Source: https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023">(i)</a>
-    </label>
-    <input id="average_tax_percent" name="average_tax_percent" type="number" step="0.01" min="0" max="100"
-            class="input-reset ba b--black-20 pa2 w-100">
-    <p id="average-tax-help" class="mv2 f6 gray">Enter your estimated effective tax rate or use the suggested rate based on gross income. <a href="https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023" target="_blank" rel="noopener">More info</a></p>
+  <!-- Right column: tax field -->
+  <div class="w-100 w-50-ns ph2">
+    <div class="w-100 ph2 mb3">
+      <label for="average_tax_percent" class="db mb1">
+        Average tax %
+        <a href="#" class="info ml1" data-title="Simplified guidance: uses approximate single-filer federal brackets plus ~4% state/local. Brackets used (approx): 10% up to 11,000; 12% up to 44,725; 22% up to 95,375; 24% up to 182,100; 32% up to 231,250; 35% up to 578,125; 37% above that. Source: https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023">(i)</a>
+      </label>
+      <input id="average_tax_percent" name="average_tax_percent" type="number" step="0.01" min="0" max="100"
+              class="input-reset ba b--black-20 pa2 w-100">
+      <p id="average-tax-help" class="mv2 f6 gray">Enter your estimated effective tax rate or use the suggested rate based on gross income. <a href="https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023" target="_blank" rel="noopener">More info</a></p>
+    </div>
   </div>
 
   <!-- Income output -->
@@ -176,7 +184,6 @@ form_id: "cashflow-form"
 </div>
   </div>
 
-
   <!-- Expenses output -->
   <div class="w-100 ph2 mb4">
     <div id="expenses-output" class="section-output"></div>
@@ -190,7 +197,8 @@ form_id: "cashflow-form"
 
   <!-- Notes dialog (shared pattern with DIME) -->
   <!-- Notes storage field (kept in-form so the shared notes dialog can read/write) -->
-  <textarea id="expense_notes" name="expense_notes" rows="4" style="display:none;" class="input-reset ba b--black-20 pa2 w-100"></textarea>
+
+<textarea id="expense_notes" name="expense_notes" rows="4" style="display:none;" class="input-reset ba b--black-20 pa2 w-100"></textarea>
 
   <!-- Optional: Add key dialog (same UX as DIME) -->
   <dialog id="add-key-dialog" class="dialog mw6 center" aria-labelledby="add-key-title" aria-modal="true">
