@@ -169,6 +169,15 @@
         form.addEventListener('form:cleared', function () {
           var out = document.getElementById('income-output');
           if (out) out.innerHTML = '';
+          // Clear estimated tax field by id (not scoped to form, in case of duplicate ids)
+          var taxInput = document.getElementById('average_tax_percent');
+          if (taxInput) taxInput.value = '';
+          // Clear help text for estimated tax
+          var taxHelp = document.getElementById('average-tax-help');
+          if (taxHelp) taxHelp.textContent = 'Estimated tax rate.';
+          // Move focus to first input (annual_salary) for accessibility
+          var firstInput = document.getElementById('annual_salary');
+          if (firstInput) firstInput.focus();
         }, true);
       } catch (e) {
         /* ignore */
