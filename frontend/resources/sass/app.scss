@@ -2,6 +2,8 @@
 @import 'vars';
 @import 'hamburger-menu';
 
+.not-allowed { cursor: not-allowed; }
+
 #dime-summary h3.mt4 {
   margin-top: 1.25rem; /* extra padding above Life Insurance Target */
 }
