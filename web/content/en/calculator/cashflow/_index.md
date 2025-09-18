@@ -22,9 +22,12 @@ form_id: "cashflow-form"
 
 
   <!-- ===================== Income Section (Restructured) ===================== -->
-  <div id="income-section" class="w-100 ph2 mb4">
-    <h2 class="mt0 mb3">After tax income</h2>
-    <div class="flex flex-wrap nl2 nr2">
+  <div id="income-section" class="w-100 ph2 mb1">
+    <h2 class="mt0 m1 collapse-section-header" id="after-tax-header">
+      After tax income
+      <span class="collapse-caret" aria-hidden="true">&#9654;</span>
+    </h2>
+  <div class="flex flex-wrap nl2 nr2 collapsible-section" id="income-collapsible-section">
       <div class="w-100 w-50-ns ph2">
         <h3 class="mt0 mb2">Income</h3>
         <div class="flex flex-wrap nl2 nr2">

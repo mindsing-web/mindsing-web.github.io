@@ -342,6 +342,20 @@
     } catch (e) {
       console.error('form__cashflow init error:', e);
     }
+
+    // Collapse/expand after-tax income section (not output)
+    var collapseHeader = document.getElementById('after-tax-header');
+    var collapsibleSection = document.getElementById('income-collapsible-section');
+    if (collapseHeader && collapsibleSection) {
+      collapseHeader.addEventListener('click', function() {
+        var collapsed = collapseHeader.classList.toggle('collapsed');
+        if (collapsed) {
+          collapsibleSection.style.display = 'none';
+        } else {
+          collapsibleSection.style.display = '';
+        }
+      });
+    }
   }, false);
 
 })();
