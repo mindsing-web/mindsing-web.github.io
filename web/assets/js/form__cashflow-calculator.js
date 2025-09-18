@@ -43,9 +43,19 @@
         out.innerHTML = '';
         return;
       }
+      // Monthly gross
+      var monthlyGross = value / 12;
+      // After-tax monthly
+      var taxInput = form.querySelector('#average_tax_percent');
+      var taxRate = taxInput ? parseFloat(taxInput.value) : 0;
+      if (!isFinite(taxRate) || taxRate < 0) taxRate = 0;
+      var afterTaxAnnual = value * (1 - taxRate / 100);
+      var afterTaxMonthly = afterTaxAnnual / 12;
       out.innerHTML =
         '<p class="mb0"><strong>Gross income =</strong> ' + formatCurrency(value) + '</p>' +
-        '<p class="mt1 mb0"><small>Sum of salary, spouse, and additional income</small></p>';
+        '<p class="mt1 mb0"><small>Sum of salary, spouse, and additional income</small></p>' +
+        '<p class="mt2 mb0"><strong>Monthly gross income =</strong> ' + formatCurrency(monthlyGross) + '</p>' +
+        '<p class="mt2 mb0"><strong>Monthly after-tax income =</strong> ' + formatCurrency(afterTaxMonthly) + '</p>';
     } catch (e) {
       console.error('form__cashflow renderGrossIncome error:', e);
     }
@@ -131,6 +141,11 @@
         // also update on input change for better UX
         el.addEventListener('change', function () { renderGrossIncome(form); autoPopulateTax(form); }, true);
       });
+      // Also update output when tax input changes
+      var taxInput = form.querySelector('#average_tax_percent');
+      if (taxInput) {
+        taxInput.addEventListener('input', function () { renderGrossIncome(form); }, true);
+      }
       // Handler for override checkbox
       var override = form.querySelector('#override-tax-input');
       var taxInput = form.querySelector('#average_tax_percent');
