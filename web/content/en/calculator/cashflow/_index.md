@@ -108,9 +108,36 @@ form_id: "cashflow-form"
     </form>
   </dialog>
 
+
   <!-- Income output -->
   <div class="w-100 ph2 mb4">
     <div id="income-output" class="section-output"></div>
+  </div>
+
+  <!-- ===================== Paycheck Deductions ===================== -->
+  <h2 class="w-100 ph2 mt0 mb2">Monthly Paycheck Deductions</h2>
+  <div class="w-100 ph2 mb4">
+    <div class="flex flex-wrap nl2 nr2">
+      <div class="w-100 w-50-ns ph2 mb3">
+        <label for="deduct_retirement" class="db mb1">
+          Retirement contributions (401k, IRA) <span class="gray">(monthly)</span>
+        </label>
+        <input id="deduct_retirement" name="deduct_retirement" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+      </div>
+      <div class="w-100 w-50-ns ph2 mb3">
+        <label for="deduct_health" class="db mb1">
+          Health insurance premiums <span class="gray">(monthly)</span>
+        </label>
+        <input id="deduct_health" name="deduct_health" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+      </div>
+      <div class="w-100 w-50-ns ph2 mb3">
+        <label for="deduct_hsa" class="db mb1">
+          HSA/FSA contributions <span class="gray">(monthly)</span>
+        </label>
+        <input id="deduct_hsa" name="deduct_hsa" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+      </div>
+    </div>
+    <div id="deduction-benefit-summary" class="mt3"></div>
   </div>
 
   <!-- ===================== Expenses (monthly) ===================== -->

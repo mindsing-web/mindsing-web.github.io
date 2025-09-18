@@ -2,6 +2,7 @@
 (function () {
   'use strict';
 
+
   function formatCurrency (val) {
     try {
       var n = Number (val) || 0;
@@ -13,6 +14,32 @@
     } catch (e) {
       return '$0';
     }
+  }
+
+  // --- Deduction benefit summary ---
+  function renderDeductionBenefitSummary(form) {
+    try {
+      var retirement = parseFloat(form.querySelector('#deduct_retirement')?.value) || 0;
+      var health = parseFloat(form.querySelector('#deduct_health')?.value) || 0;
+      var hsa = parseFloat(form.querySelector('#deduct_hsa')?.value) || 0;
+      var totalMonthly = retirement + health + hsa;
+      var totalAnnual = totalMonthly * 12;
+      var taxInput = form.querySelector('#average_tax_percent');
+      var taxRate = taxInput ? parseFloat(taxInput.value) : 0;
+      if (!isFinite(taxRate) || taxRate < 0) taxRate = 0;
+      var annualTaxBenefit = totalAnnual * (taxRate / 100);
+      var out = document.getElementById('deduction-benefit-summary');
+      if (!out) return;
+      out.innerHTML =
+        '<p class="mb0"><strong>Total monthly paycheck deductions:</strong> ' + formatCurrency(totalMonthly) + '</p>' +
+        '<ul class="pl3 mt1 mb2 gray f6">'
+        + '<li>Retirement: ' + formatCurrency(retirement) + '</li>'
+        + '<li>Health insurance: ' + formatCurrency(health) + '</li>'
+        + '<li>HSA/FSA: ' + formatCurrency(hsa) + '</li>'
+        + '</ul>'
+        + '<p class="mt2 mb0"><strong>Estimated annual tax benefit:</strong> ' + formatCurrency(annualTaxBenefit) + '</p>'
+        + '<p class="mt1 mb0"><small>Tax benefit is estimated as total annual deductions × effective tax rate.</small></p>';
+    } catch (e) { console.error('[deduction-summary] error', e); }
   }
 
   function computeGrossIncome (form) {
@@ -56,6 +83,7 @@
         '<p class="mt1 mb0"><small>Sum of salary, spouse, and additional income</small></p>' +
         '<p class="mt2 mb0"><strong>Monthly gross income =</strong> ' + formatCurrency(monthlyGross) + '</p>' +
         '<p class="mt2 mb0"><strong>Monthly after-tax income =</strong> ' + formatCurrency(afterTaxMonthly) + '</p>';
+      renderDeductionBenefitSummary(form);
     } catch (e) {
       console.error('form__cashflow renderGrossIncome error:', e);
     }
@@ -130,6 +158,17 @@
   }
 
   function attachHandlers (form) {
+      // Deduction fields update summary
+      ['deduct_retirement','deduct_health','deduct_hsa'].forEach(function(id){
+        var el = form.querySelector('#'+id);
+        if (!el) return;
+        el.addEventListener('input', function(){ renderDeductionBenefitSummary(form); }, true);
+      });
+      // Also update summary when tax rate changes
+      var taxInput2 = form.querySelector('#average_tax_percent');
+      if (taxInput2) {
+        taxInput2.addEventListener('input', function(){ renderDeductionBenefitSummary(form); }, true);
+      }
     try {
       if (!form) return;
       var fields = ['annual_salary', 'spouse_income', 'additional_income'];
@@ -182,9 +221,10 @@
       } else {
         taxInput.value = '';
       }
-  taxInput.setAttribute('readonly', 'readonly');
-  taxInput.classList.add('not-allowed');
-  taxInput.required = false;
+      taxInput.setAttribute('readonly', 'readonly');
+      taxInput.classList.add('not-allowed');
+      taxInput.required = false;
+      renderDeductionBenefitSummary(form);
     } catch (e) {}
   }
 
@@ -194,6 +234,7 @@
       var form = document.getElementById('cashflow-form') || document.querySelector('form.calculator--form');
       if (!form) return;
       attachHandlers(form);
+    renderDeductionBenefitSummary(form);
       // On load, ensure tax input state matches override checkbox
       var override = form.querySelector('#override-tax-input');
       var taxInput = form.querySelector('#average_tax_percent');
