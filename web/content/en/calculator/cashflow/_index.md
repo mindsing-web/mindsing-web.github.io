@@ -23,7 +23,7 @@ form_id: "cashflow-form"
 
   <!-- ===================== Income Section (Restructured) ===================== -->
   <div id="income-section" class="w-100 ph2 mb4">
-    <h2 class="mt0 mb3">Income &amp; Tax</h2>
+    <h2 class="mt0 mb3">After tax income</h2>
     <div class="flex flex-wrap nl2 nr2">
       <div class="w-100 w-50-ns ph2">
         <h3 class="mt0 mb2">Income</h3>
