@@ -8,7 +8,7 @@ form_id: "dime-form"
 
 <!-- DIME calculator page -->
 
-# <h1 class="pw-hide-until-unlock">DIME Calculator</h1>
+<h1 class="pw-hide-until-unlock">DIME Calculator</h1>
 
 <div class="password-access-wrapper">
   <button type="button" class="btn btn--primary btn--access-content" data-protect-id="dime">Access Content</button>
