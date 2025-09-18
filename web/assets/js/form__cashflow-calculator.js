@@ -96,10 +96,26 @@
       var gross = computeGrossIncome(form) || 0;
       if (!gross || gross <= 0) {
         help.textContent = 'Enter your estimated effective tax rate or use the suggested rate based on gross income.';
+        updateAnnualTaxLiability(0, 0);
         return;
       }
       var suggested = estimateEffectiveTaxRate(gross);
       help.innerHTML = 'Suggested effective tax rate: <strong>' + (suggested ? suggested + '%' : '—') + '</strong> based on gross income of ' + formatCurrency(gross) + '. You can override in the field above.';
+      updateAnnualTaxLiability(gross, suggested);
+    } catch (e) {}
+  }
+
+  // --- Annual tax liability display ---
+  function updateAnnualTaxLiability(gross, effectiveRate) {
+    try {
+      var liabilityEl = document.getElementById('annual-tax-liability');
+      if (!liabilityEl) return;
+      if (!gross || !effectiveRate) {
+        liabilityEl.innerHTML = '';
+        return;
+      }
+      var tax = Math.round((gross * effectiveRate) / 100);
+      liabilityEl.innerHTML = '<p class="mb0"><strong>Estimated annual tax liability:</strong> ' + formatCurrency(tax) + '</p>';
     } catch (e) {}
   }
 
@@ -111,13 +127,50 @@
         var el = form.querySelector('#' + id);
         if (!el) return;
         // on focus change (blur) update output
-        el.addEventListener('blur', function () { renderGrossIncome(form); }, true);
+        el.addEventListener('blur', function () { renderGrossIncome(form); autoPopulateTax(form); }, true);
         // also update on input change for better UX
-        el.addEventListener('change', function () { renderGrossIncome(form); }, true);
+        el.addEventListener('change', function () { renderGrossIncome(form); autoPopulateTax(form); }, true);
       });
+      // Handler for override checkbox
+      var override = form.querySelector('#override-tax-input');
+      var taxInput = form.querySelector('#average_tax_percent');
+      if (override && taxInput) {
+        override.addEventListener('change', function () {
+          if (override.checked) {
+            taxInput.removeAttribute('readonly');
+            taxInput.classList.remove('not-allowed');
+            taxInput.required = true;
+            taxInput.focus();
+          } else {
+            taxInput.setAttribute('readonly', 'readonly');
+            taxInput.classList.add('not-allowed');
+            taxInput.required = false;
+            autoPopulateTax(form);
+          }
+        });
+      }
     } catch (e) {
       console.error('form__cashflow attachHandlers error:', e);
     }
+  }
+
+  // Auto-populate tax input unless override is checked
+  function autoPopulateTax(form) {
+    try {
+      var taxInput = form.querySelector('#average_tax_percent');
+      var override = form.querySelector('#override-tax-input');
+      if (!taxInput || (override && override.checked)) return;
+      var gross = computeGrossIncome(form) || 0;
+      var suggested = gross ? estimateEffectiveTaxRate(gross) : '';
+      if (suggested) {
+        taxInput.value = suggested;
+      } else {
+        taxInput.value = '';
+      }
+  taxInput.setAttribute('readonly', 'readonly');
+  taxInput.classList.add('not-allowed');
+  taxInput.required = false;
+    } catch (e) {}
   }
 
   // Initialize when DOM is ready
@@ -126,9 +179,28 @@
       var form = document.getElementById('cashflow-form') || document.querySelector('form.calculator--form');
       if (!form) return;
       attachHandlers(form);
+      // On load, ensure tax input state matches override checkbox
+      var override = form.querySelector('#override-tax-input');
+      var taxInput = form.querySelector('#average_tax_percent');
+      if (override && taxInput) {
+        if (override.checked) {
+          taxInput.removeAttribute('readonly');
+          taxInput.classList.remove('not-allowed');
+          taxInput.required = true;
+        } else {
+          taxInput.setAttribute('readonly', 'readonly');
+          taxInput.classList.add('not-allowed');
+          taxInput.required = false;
+        }
+      }
       // Do not render initially to keep blank; but if any inputs already have values, render once
       var initial = computeGrossIncome(form);
-      if (initial && initial > 0) renderGrossIncome(form);
+      if (initial && initial > 0) {
+        renderGrossIncome(form);
+        autoPopulateTax(form);
+      } else {
+        autoPopulateTax(form);
+      }
       // update tax help when gross income changes
       try {
         // hook into our render call so tax help also updates
@@ -144,6 +216,16 @@
         var taxInput = form.querySelector('#average_tax_percent');
         if (taxInput) {
           taxInput.addEventListener('focus', function(){ updateTaxHelp(form); }, true);
+          // Also update annual tax liability on manual input
+          taxInput.addEventListener('input', function(){
+            var gross = computeGrossIncome(form) || 0;
+            var val = parseFloat(taxInput.value);
+            if (!isFinite(val) || val <= 0) {
+              updateAnnualTaxLiability(gross, 0);
+            } else {
+              updateAnnualTaxLiability(gross, val);
+            }
+          }, true);
         }
         // initial help update
         updateTaxHelp(form);
@@ -175,6 +257,16 @@
           // Clear help text for estimated tax
           var taxHelp = document.getElementById('average-tax-help');
           if (taxHelp) taxHelp.textContent = 'Estimated tax rate.';
+          // Clear annual tax liability
+          var liabilityEl = document.getElementById('annual-tax-liability');
+          if (liabilityEl) liabilityEl.innerHTML = '';
+          // Uncheck override and reset input state
+          var override = document.getElementById('override-tax-input');
+          if (override) override.checked = false;
+          if (taxInput) {
+            taxInput.setAttribute('readonly', 'readonly');
+            taxInput.required = false;
+          }
           // Move focus to first input (annual_salary) for accessibility
           var firstInput = document.getElementById('annual_salary');
           if (firstInput) firstInput.focus();

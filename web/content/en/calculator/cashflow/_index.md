@@ -1,3 +1,6 @@
+<style>
+.not-allowed { cursor: not-allowed; }
+</style>
 ---
 title: "Cashflow Calculator"
 hideFromSitemap: true
@@ -60,16 +63,20 @@ form_id: "cashflow-form"
     <h2 class="ph2 mt0 mb2">Tax estimation</h2>
     <div class="w-100 ph2 mb3">
       <label for="average_tax_percent" class="db mb1">
-        Average tax %
+        Estimated effective tax rate (%)
       </label>
-      <input id="average_tax_percent" name="average_tax_percent" type="number" step="0.01" min="0" max="100"
-              class="input-reset ba b--black-20 pa2 w-100">
-      <p id="average-tax-help" class="mv2 f6 gray">
-        Estimated tax rate.
-      </p>
+  <input type="number" id="average_tax_percent" name="average_tax_percent" min="0" max="100" step="0.01" class="input-reset ba b--black-20 pa2 w-100 not-allowed" readonly>
+      <div class="mt2">
+        <label class="flex items-center ma0">
+          <input type="checkbox" id="override-tax-input" class="mr2">
+          Override
+        </label>
+      </div>
+      <div id="average-tax-help" class="mv2 f6 gray">Estimated tax rate.</div>
       <p class="mv2 f6">
         <a href="#" id="tax-assumptions-link">Tax assumptions</a>
       </p>
+  <div id="annual-tax-liability" class="help-text mt2"></div>
     </div>
   </div>
 
