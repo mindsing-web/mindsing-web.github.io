@@ -84,7 +84,7 @@
         '<p class="mt1 mb0"><small>Sum of salary, spouse, and additional income</small></p>' +
         '<p class="mt2 mb0"><strong>Monthly gross income =</strong> ' + formatCurrency(monthlyGross) + '</p>';
       var afterTaxHtml =
-        '<p class="mt2 mb0"><strong>Monthly after-tax income =</strong> ' + formatCurrency(afterTaxMonthly) + '</p>';
+        '<h3 class="mt2 mb0"><strong>Monthly after-tax income =</strong> ' + formatCurrency(afterTaxMonthly) + '</h3>';
       // Place grossHtml inside #income-section-summary, afterTaxHtml in #income-output
       var sectionSummary = form.querySelector('#income-section-summary');
       if (sectionSummary) sectionSummary.innerHTML = grossHtml;

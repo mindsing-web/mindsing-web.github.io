@@ -22,14 +22,14 @@ form_id: "cashflow-form"
 
 
   <!-- ===================== Income Section (Restructured) ===================== -->
-  <div id="income-section" class="w-100 ph2 mb1">
-    <h2 class="mt0 m1 collapse-section-header" id="after-tax-header">
+  <div id="income-section" class="w-100 mb4 br3 shadow-1 bg-white ba b--black-10 bl br" style="overflow:hidden;">
+    <h2 class="mt0 mb0 pv3 ph2 collapse-section-header bb b--black-10 flex items-center bg-near-white" id="after-tax-header">
       After tax income
       <span class="collapse-caret" aria-hidden="true">
         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M7 5l6 5-6 5V5z"/></svg>
       </span>
     </h2>
-  <div class="flex flex-wrap nl2 nr2 collapsible-section" id="income-collapsible-section">
+  <div class="flex flex-wrap nl2 nr2 collapsible-section bg-white pv3 ph3" id="income-collapsible-section">
       <div class="w-100 w-50-ns ph2">
         <h3 class="mt0 mb2">Income</h3>
         <div class="flex flex-wrap nl2 nr2">
@@ -83,6 +83,9 @@ form_id: "cashflow-form"
       </div>
     </div>
     <!-- Tax assumptions modal (unchanged, remains inside the section for context) -->
+    <div class="bt b--black-10 bg-near-white pv2 ph2 flex items-center justify-between" style="border-bottom-left-radius:.5rem;border-bottom-right-radius:.5rem;">
+  <div id="income-output" class="section-output fw6"></div>
+    </div>
     <dialog id="tax-assumptions-modal" class="dialog mw6 center" aria-labelledby="tax-assumptions-title" aria-modal="true">
       <form method="dialog" class="ph3 pv3">
         <div class="flex items-center justify-between mb3">
@@ -111,10 +114,7 @@ form_id: "cashflow-form"
     </dialog>
   </div>
 
-  <!-- Monthly after-tax income output (moved outside income section) -->
-  <div class="w-100 ph2 mb4">
-    <div id="income-output" class="section-output"></div>
-  </div>
+  <!-- Monthly after-tax income output now integrated in income-section footer above -->
 
   <!-- Tax assumptions modal -->
   <dialog id="tax-assumptions-modal" class="dialog mw6 center" aria-labelledby="tax-assumptions-title" aria-modal="true">
