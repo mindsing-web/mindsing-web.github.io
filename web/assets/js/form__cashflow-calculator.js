@@ -78,11 +78,17 @@
       if (!isFinite(taxRate) || taxRate < 0) taxRate = 0;
       var afterTaxAnnual = value * (1 - taxRate / 100);
       var afterTaxMonthly = afterTaxAnnual / 12;
-      out.innerHTML =
+      // Move gross and monthly gross inside income-section, after-tax outside
+      var grossHtml =
         '<p class="mb0"><strong>Gross income =</strong> ' + formatCurrency(value) + '</p>' +
         '<p class="mt1 mb0"><small>Sum of salary, spouse, and additional income</small></p>' +
-        '<p class="mt2 mb0"><strong>Monthly gross income =</strong> ' + formatCurrency(monthlyGross) + '</p>' +
+        '<p class="mt2 mb0"><strong>Monthly gross income =</strong> ' + formatCurrency(monthlyGross) + '</p>';
+      var afterTaxHtml =
         '<p class="mt2 mb0"><strong>Monthly after-tax income =</strong> ' + formatCurrency(afterTaxMonthly) + '</p>';
+      // Place grossHtml inside #income-section-summary, afterTaxHtml in #income-output
+      var sectionSummary = form.querySelector('#income-section-summary');
+      if (sectionSummary) sectionSummary.innerHTML = grossHtml;
+      out.innerHTML = afterTaxHtml;
       renderDeductionBenefitSummary(form);
     } catch (e) {
       console.error('form__cashflow renderGrossIncome error:', e);

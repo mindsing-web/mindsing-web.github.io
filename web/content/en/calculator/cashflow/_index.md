@@ -20,61 +20,95 @@ form_id: "cashflow-form"
 
   <div class="flex flex-wrap nl2 nr2">
 
-  <!-- ===================== Income ===================== -->
 
-  <!-- Left column: gross income fields -->
-  <div class="w-100 w-50-ns ph2">
-    <h2 class="w-100 ph2 mt0 mb2">Income</h2>
+  <!-- ===================== Income Section (Restructured) ===================== -->
+  <div id="income-section" class="w-100 ph2 mb4">
+    <h2 class="mt0 mb3">Income &amp; Tax</h2>
     <div class="flex flex-wrap nl2 nr2">
-      <div class="w-100 ph2 mb3">
-        <label for="annual_salary" class="db mb1">
-          Annual salary
-          <a href="#" class="info ml1" title="Primary earner’s gross annual income.">(i)</a>
-        </label>
-        <input id="annual_salary" name="annual_salary" type="number"
-                class="input-reset ba b--black-20 pa2 w-100" required aria-required="true">
+      <div class="w-100 w-50-ns ph2">
+        <h3 class="mt0 mb2">Income</h3>
+        <div class="flex flex-wrap nl2 nr2">
+          <div class="w-100 ph2 mb3">
+            <label for="annual_salary" class="db mb1">
+              Annual salary
+              <a href="#" class="info ml1" title="Primary earner’s gross annual income.">(i)</a>
+            </label>
+            <input id="annual_salary" name="annual_salary" type="number"
+                    class="input-reset ba b--black-20 pa2 w-100" required aria-required="true">
+          </div>
+          <div class="w-100 ph2 mb3">
+            <label for="spouse_income" class="db mb1">
+              Spouse annual income
+              <a href="#" class="info ml1" title="Partner or spouse gross annual income, if applicable.">(i)</a>
+            </label>
+            <input id="spouse_income" name="spouse_income" type="number"
+                    class="input-reset ba b--black-20 pa2 w-100">
+          </div>
+          <div class="w-100 ph2 mb3">
+            <label for="additional_income" class="db mb1">
+              Additional income
+              <a href="#" class="info ml1" title="Bonuses, side gigs, rental income, etc.">(i)</a>
+            </label>
+            <input id="additional_income" name="additional_income" type="number"
+                    class="input-reset ba b--black-20 pa2 w-100">
+          </div>
+        </div>
+        <!-- Gross and monthly gross summary -->
+        <div id="income-section-summary" class="mt3"></div>
       </div>
-
-  <div class="w-100 ph2 mb3">
-    <label for="spouse_income" class="db mb1">
-      Spouse annual income
-      <a href="#" class="info ml1" title="Partner or spouse gross annual income, if applicable.">(i)</a>
-    </label>
-    <input id="spouse_income" name="spouse_income" type="number"
-            class="input-reset ba b--black-20 pa2 w-100">
-  </div>
-
-  <div class="w-100 ph2 mb3">
-    <label for="additional_income" class="db mb1">
-      Additional income
-      <a href="#" class="info ml1" title="Bonuses, side gigs, rental income, etc.">(i)</a>
-    </label>
-    <input id="additional_income" name="additional_income" type="number"
-            class="input-reset ba b--black-20 pa2 w-100">
-  </div>
-</div>
-  </div>
-
-  <!-- Right column: tax field -->
-  <div class="w-100 w-50-ns ph2">
-    <h2 class="ph2 mt0 mb2">Tax estimation</h2>
-    <div class="w-100 ph2 mb3">
-      <label for="average_tax_percent" class="db mb1">
-        Estimated effective tax rate (%)
-      </label>
-  <input type="number" id="average_tax_percent" name="average_tax_percent" min="0" max="100" step="0.01" class="input-reset ba b--black-20 pa2 w-100 not-allowed" readonly>
-      <div class="mt2">
-        <label class="flex items-center ma0">
-          <input type="checkbox" id="override-tax-input" class="mr2">
-          Override
-        </label>
+      <div class="w-100 w-50-ns ph2">
+        <h3 class="mt0 mb2">Tax estimation</h3>
+        <div class="w-100 ph2 mb3">
+          <label for="average_tax_percent" class="db mb1">
+            Estimated effective tax rate (%)
+          </label>
+          <input type="number" id="average_tax_percent" name="average_tax_percent" min="0" max="100" step="0.01" class="input-reset ba b--black-20 pa2 w-100 not-allowed" readonly>
+          <div class="mt2">
+            <label class="flex items-center ma0">
+              <input type="checkbox" id="override-tax-input" class="mr2">
+              Override
+            </label>
+          </div>
+          <div id="average-tax-help" class="mv2 f6 gray">Estimated tax rate.</div>
+          <p class="mv2 f6">
+            <a href="#" id="tax-assumptions-link">Tax assumptions</a>
+          </p>
+          <div id="annual-tax-liability" class="help-text mt2"></div>
+        </div>
       </div>
-      <div id="average-tax-help" class="mv2 f6 gray">Estimated tax rate.</div>
-      <p class="mv2 f6">
-        <a href="#" id="tax-assumptions-link">Tax assumptions</a>
-      </p>
-  <div id="annual-tax-liability" class="help-text mt2"></div>
     </div>
+    <!-- Tax assumptions modal (unchanged, remains inside the section for context) -->
+    <dialog id="tax-assumptions-modal" class="dialog mw6 center" aria-labelledby="tax-assumptions-title" aria-modal="true">
+      <form method="dialog" class="ph3 pv3">
+        <div class="flex items-center justify-between mb3">
+          <h3 id="tax-assumptions-title" class="ma0">Tax assumptions</h3>
+          <button type="button" id="tax-assumptions-close" class="btn btn--secondary" aria-label="Close">Close</button>
+        </div>
+        <div class="mb3">
+          <p>
+            Simplified guidance: uses approximate single-filer federal brackets plus ~4% state/local.</p>
+            <p>Brackets used (approx):</p>
+            <p>
+            10% up to $11,000;<br>
+            12% up to $44,725;<br>
+            22% up to $95,375;<br>
+            24% up to $182,100;<br>
+            32% up to $231,250;<br>
+            35% up to $578,125;<br>
+            37% above that.</p>
+            <p>Source: <a href="https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023" target="_blank" rel="noopener">
+              IRS 2023 tax brackets
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="0.95em" height="0.95em" style="display:inline;margin-left:0.18em;vertical-align:-0.18em;fill:currentColor;" aria-hidden="true" focusable="false"><path d="M14 3h7v7h-2V6.41l-9.29 9.3a1 1 0 0 1-1.42-1.42l9.3-9.29H14V3z"></path><path d="M5 5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7H5V5z"></path></svg>
+            </a>
+          </p>
+        </div>
+      </form>
+    </dialog>
+  </div>
+
+  <!-- Monthly after-tax income output (moved outside income section) -->
+  <div class="w-100 ph2 mb4">
+    <div id="income-output" class="section-output"></div>
   </div>
 
   <!-- Tax assumptions modal -->
