@@ -1,3 +1,32 @@
+// Collapsible section header caret styles
+.collapse-section-header {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+
+  .collapse-caret {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 1rem;
+    transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), margin-left 0.2s;
+    font-size: 1.2em;
+    transform: rotate(90deg);
+
+    svg {
+      width: 1em;
+      height: 1em;
+      display: block;
+    }
+  }
+  &:hover .collapse-caret {
+    margin-left: 1.5em;
+  }
+  &.collapsed .collapse-caret {
+    transform: rotate(0deg);
+  }
+}
 // Import variables and modules early so variables are available
 @import 'vars';
 @import 'hamburger-menu';
