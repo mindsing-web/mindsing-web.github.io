@@ -1,6 +1,3 @@
-<style>
-.not-allowed { cursor: not-allowed; }
-</style>
 ---
 title: "Cashflow Calculator"
 hideFromSitemap: true
@@ -8,6 +5,9 @@ password: "creative"
 token_salt: "Y2FzaGZsb3ctcGFnZS1zYWx0LTIwMjUtMDktMTYtYWJjMTIz"
 form_id: "cashflow-form"
 ---
+<style>
+.not-allowed { cursor: not-allowed; }
+</style>
 
 <!-- Cashflow calculator page -->
 
