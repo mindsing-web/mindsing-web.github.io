@@ -153,10 +153,10 @@ form_id: "cashflow-form"
           <input id="deduct_hsa" name="deduct_hsa" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
         </div>
         <div class="w-100 w-50-ns ph2 mb3">
-          <label for="deduct_annual" class="db mb1">
+          <label for="duduct_monthly_other" class="db mb1">
             Other monthly deductions <span class="gray">(monthly)</span>
           </label>
-          <input id="deduct_annual" name="deduct_annual" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+          <input id="duduct_monthly_other" name="duduct_monthly_other" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
         </div>
       </div>
       <div id="deduction-benefit-summary" class="mt3"></div>

@@ -19,11 +19,12 @@
   // --- Deduction benefit summary ---
   function renderDeductionBenefitSummary(form) {
     try {
-      var retirement = parseFloat(form.querySelector('#deduct_retirement')?.value) || 0;
-      var health = parseFloat(form.querySelector('#deduct_health')?.value) || 0;
-      var hsa = parseFloat(form.querySelector('#deduct_hsa')?.value) || 0;
-      var totalMonthly = retirement + health + hsa;
-      var totalAnnual = totalMonthly * 12;
+  var retirement = parseFloat(form.querySelector('#deduct_retirement')?.value) || 0;
+  var health = parseFloat(form.querySelector('#deduct_health')?.value) || 0;
+  var hsa = parseFloat(form.querySelector('#deduct_hsa')?.value) || 0;
+  var other = parseFloat(form.querySelector('#duduct_monthly_other')?.value) || 0;
+  var totalMonthly = retirement + health + hsa + other;
+  var totalAnnual = totalMonthly * 12;
       var taxInput = form.querySelector('#average_tax_percent');
       var taxRate = taxInput ? parseFloat(taxInput.value) : 0;
       if (!isFinite(taxRate) || taxRate < 0) taxRate = 0;
@@ -36,6 +37,7 @@
         + '<li>Retirement: ' + formatCurrency(retirement) + '</li>'
         + '<li>Health insurance: ' + formatCurrency(health) + '</li>'
         + '<li>HSA/FSA: ' + formatCurrency(hsa) + '</li>'
+        + '<li>Other monthly deductions: ' + formatCurrency(other) + ' <span class="gray">(monthly)</span></li>'
         + '</ul>'
         + '<p class="mt2 mb0"><strong>Estimated annual tax benefit:</strong> ' + formatCurrency(annualTaxBenefit) + '</p>'
         + '<p class="mt1 mb0"><small>Tax benefit is estimated as total annual deductions × effective tax rate.</small></p>';
@@ -165,7 +167,7 @@
 
   function attachHandlers (form) {
       // Deduction fields update summary
-      ['deduct_retirement','deduct_health','deduct_hsa'].forEach(function(id){
+  ['deduct_retirement','deduct_health','deduct_hsa','duduct_monthly_other'].forEach(function(id){
         var el = form.querySelector('#'+id);
         if (!el) return;
         el.addEventListener('input', function(){ renderDeductionBenefitSummary(form); }, true);
