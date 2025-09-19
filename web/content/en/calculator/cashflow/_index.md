@@ -124,30 +124,40 @@ form_id: "cashflow-form"
     <div id="income-output" class="section-output"></div>
   </div>
 
-  <!-- ===================== Paycheck Deductions ===================== -->
-  <h2 class="w-100 ph2 mt0 mb2">Monthly Paycheck Deductions</h2>
-  <div class="w-100 ph2 mb4">
-    <div class="flex flex-wrap nl2 nr2">
-      <div class="w-100 w-50-ns ph2 mb3">
-        <label for="deduct_retirement" class="db mb1">
-          Retirement contributions (401k, IRA) <span class="gray">(monthly)</span>
-        </label>
-        <input id="deduct_retirement" name="deduct_retirement" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+  <!-- ===================== Deductions Collapsible Section ===================== -->
+  <div id="deductions-section" class="w-100 mb4 br3 shadow-1 bg-white ba b--black-10 bl br" style="overflow:hidden;">
+    <h2 class="mt0 mb0 pv3 ph2 collapse-section-header bb b--black-10 flex items-center bg-near-white" id="deductions-header">
+      Deductions
+      <span class="collapse-caret" aria-hidden="true">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M7 5l6 5-6 5V5z"/></svg>
+      </span>
+    </h2>
+    <div class="collapsible-section bg-white pv3 ph3" id="deductions-collapsible-section">
+      <div class="flex flex-wrap nl2 nr2">
+        <div class="w-100 w-50-ns ph2 mb3">
+          <label for="deduct_retirement" class="db mb1">
+            Retirement contributions (401k, IRA) <span class="gray">(monthly)</span>
+          </label>
+          <input id="deduct_retirement" name="deduct_retirement" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+        </div>
+        <div class="w-100 w-50-ns ph2 mb3">
+          <label for="deduct_health" class="db mb1">
+            Health insurance premiums <span class="gray">(monthly)</span>
+          </label>
+          <input id="deduct_health" name="deduct_health" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+        </div>
+        <div class="w-100 w-50-ns ph2 mb3">
+          <label for="deduct_hsa" class="db mb1">
+            HSA/FSA contributions <span class="gray">(monthly)</span>
+          </label>
+          <input id="deduct_hsa" name="deduct_hsa" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+        </div>
       </div>
-      <div class="w-100 w-50-ns ph2 mb3">
-        <label for="deduct_health" class="db mb1">
-          Health insurance premiums <span class="gray">(monthly)</span>
-        </label>
-        <input id="deduct_health" name="deduct_health" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
-      </div>
-      <div class="w-100 w-50-ns ph2 mb3">
-        <label for="deduct_hsa" class="db mb1">
-          HSA/FSA contributions <span class="gray">(monthly)</span>
-        </label>
-        <input id="deduct_hsa" name="deduct_hsa" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
-      </div>
+      <div id="deduction-benefit-summary" class="mt3"></div>
     </div>
-    <div id="deduction-benefit-summary" class="mt3"></div>
+    <div class="bt b--black-10 bg-near-white pv2 ph2 flex items-center justify-between" style="border-bottom-left-radius:.5rem;border-bottom-right-radius:.5rem;">
+      <div id="deductions-output" class="section-output fw6"></div>
+    </div>
   </div>
 
   <!-- ===================== Expenses (monthly) ===================== -->
