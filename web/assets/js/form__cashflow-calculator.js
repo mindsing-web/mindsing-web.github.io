@@ -39,9 +39,28 @@
         + '<li>HSA/FSA: ' + formatCurrency(hsa) + '</li>'
         + '<li>Other monthly deductions: ' + formatCurrency(other) + ' <span class="gray">(monthly)</span></li>'
         + '</ul>'
+        + '<p class="mt1 mb0"><strong>Total annual deductions:</strong> ' + formatCurrency(totalAnnual) + '</p>'
         + '<p class="mt2 mb0"><strong>Estimated annual tax benefit:</strong> ' + formatCurrency(annualTaxBenefit) + '</p>'
         + '<p class="mt1 mb0"><small>Tax benefit is estimated as total annual deductions × effective tax rate.</small></p>';
     } catch (e) { console.error('[deduction-summary] error', e); }
+  }
+
+  // --- Annual deductions summary (annual fields) ---
+  function renderAnnualDeductionSummary(form) {
+    try {
+      var charity = parseFloat(form.querySelector('#annual_charity')?.value) || 0;
+      var mortgage = parseFloat(form.querySelector('#annual_mortgage_interest')?.value) || 0;
+      var property = parseFloat(form.querySelector('#annual_property_tax')?.value) || 0;
+      var other = parseFloat(form.querySelector('#annual_other')?.value) || 0;
+      var total = charity + mortgage + property + other;
+      var out = document.getElementById('annual-deduction-summary');
+      if (!out) return;
+      if (!total) {
+        out.innerHTML = '';
+        return;
+      }
+      out.innerHTML = '<p class="mb0"><strong>Total annual deductions:</strong> ' + formatCurrency(total) + '</p>';
+    } catch (e) { console.error('[annual-deduction-summary] error', e); }
   }
 
   function computeGrossIncome (form) {
@@ -211,6 +230,14 @@
           }
         });
       }
+      // Annual deduction fields: update annual summary on input/change/blur
+      ['annual_charity','annual_mortgage_interest','annual_property_tax','annual_other'].forEach(function(id){
+        var el = form.querySelector('#'+id);
+        if (!el) return;
+        el.addEventListener('input', function(){ renderAnnualDeductionSummary(form); }, true);
+        el.addEventListener('change', function(){ renderAnnualDeductionSummary(form); }, true);
+        el.addEventListener('blur', function(){ renderAnnualDeductionSummary(form); }, true);
+      });
     } catch (e) {
       console.error('form__cashflow attachHandlers error:', e);
     }
@@ -265,6 +292,8 @@
       } else {
         autoPopulateTax(form);
       }
+      // render annual deduction summary on load (if values present)
+      renderAnnualDeductionSummary(form);
       // update tax help when gross income changes
       try {
         // hook into our render call so tax help also updates
@@ -334,6 +363,9 @@
           // Move focus to first input (annual_salary) for accessibility
           var firstInput = document.getElementById('annual_salary');
           if (firstInput) firstInput.focus();
+          // clear annual deduction summary
+          var annualOut = document.getElementById('annual-deduction-summary');
+          if (annualOut) annualOut.innerHTML = '';
         }, true);
       } catch (e) {
         /* ignore */
@@ -341,6 +373,19 @@
       // expose for manual calls if needed
       window.formCashflow = window.formCashflow || {};
       window.formCashflow.renderIncomeOutput = function () { renderGrossIncome(form); };
+      // expose annual deduction renderer for debugging/workaround
+      window.formCashflow.renderAnnualDeductions = function () { renderAnnualDeductionSummary(document.getElementById('cashflow-form') || document.querySelector('form.calculator--form')); };
+      // Safety: attach document-level listeners to annual fields in case form-scoped handlers miss them
+      ['annual_charity','annual_mortgage_interest','annual_property_tax','annual_other'].forEach(function(id){
+        var el = document.getElementById(id);
+        if (!el) return;
+        ['input','change','blur'].forEach(function(ev){
+          el.addEventListener(ev, function(){
+            var f = document.getElementById('cashflow-form') || document.querySelector('form.calculator--form');
+            if (f) renderAnnualDeductionSummary(f);
+          }, true);
+        });
+      });
     } catch (e) {
       console.error('form__cashflow init error:', e);
     }
