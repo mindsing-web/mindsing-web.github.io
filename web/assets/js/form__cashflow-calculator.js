@@ -397,6 +397,34 @@
         }
       });
     }
+
+    // Collapse/expand deductions section
+    var deductionsHeader = document.getElementById('deductions-header');
+    var deductionsSection = document.getElementById('deductions-collapsible-section');
+    if (deductionsHeader && deductionsSection) {
+      deductionsHeader.addEventListener('click', function() {
+        var collapsed = deductionsHeader.classList.toggle('collapsed');
+        if (collapsed) {
+          deductionsSection.style.display = 'none';
+        } else {
+          deductionsSection.style.display = '';
+        }
+      });
+    }
+
+    // Collapse/expand annual deductions subsection
+    var annualHeader = document.getElementById('annual-deductions-header');
+    var annualSection = document.getElementById('annual-deductions-collapsible-section');
+    if (annualHeader && annualSection) {
+      annualHeader.addEventListener('click', function() {
+        var collapsed = annualHeader.classList.toggle('collapsed');
+        if (collapsed) {
+          annualSection.style.display = 'none';
+        } else {
+          annualSection.style.display = '';
+        }
+      });
+    }
   }, false);
 
 })();
