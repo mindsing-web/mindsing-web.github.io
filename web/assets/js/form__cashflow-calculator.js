@@ -384,46 +384,9 @@
       console.error('form__cashflow init error:', e);
     }
 
-    // Collapse/expand after-tax income section (not output)
-    var collapseHeader = document.getElementById('after-tax-header');
-    var collapsibleSection = document.getElementById('income-collapsible-section');
-    if (collapseHeader && collapsibleSection) {
-      collapseHeader.addEventListener('click', function() {
-        var collapsed = collapseHeader.classList.toggle('collapsed');
-        if (collapsed) {
-          collapsibleSection.style.display = 'none';
-        } else {
-          collapsibleSection.style.display = '';
-        }
-      });
-    }
-
-    // Collapse/expand deductions section
-    var deductionsHeader = document.getElementById('deductions-header');
-    var deductionsSection = document.getElementById('deductions-collapsible-section');
-    if (deductionsHeader && deductionsSection) {
-      deductionsHeader.addEventListener('click', function() {
-        var collapsed = deductionsHeader.classList.toggle('collapsed');
-        if (collapsed) {
-          deductionsSection.style.display = 'none';
-        } else {
-          deductionsSection.style.display = '';
-        }
-      });
-    }
-
-    // Collapse/expand annual deductions subsection
-    var annualHeader = document.getElementById('annual-deductions-header');
-    var annualSection = document.getElementById('annual-deductions-collapsible-section');
-    if (annualHeader && annualSection) {
-      annualHeader.addEventListener('click', function() {
-        var collapsed = annualHeader.classList.toggle('collapsed');
-        if (collapsed) {
-          annualSection.style.display = 'none';
-        } else {
-          annualSection.style.display = '';
-        }
-      });
+    // Initialize shared collapse/expand handlers for section headers
+    if (window.collapseSections && typeof window.collapseSections.init === 'function') {
+      try { window.collapseSections.init(document.getElementById('cashflow-form') || document); } catch (e) {}
     }
   }, false);
 

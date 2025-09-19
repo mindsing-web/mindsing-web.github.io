@@ -39,6 +39,16 @@
 
         {{/* Calculator-specific scripts */}}
         {{ if in .File.Path "calculator" }}
+            {{/* Shared collapse helper used by calculator forms */}}
+            {{ with resources.Get "js/collapse-sections.js" }}
+            {{ $cs := . }}
+            {{ if hugo.IsProduction }}
+              {{ $cs = $cs | minify | fingerprint }}
+            {{ end }}
+              <script src="{{ $cs.RelPermalink }}"></script>
+            {{ else }}
+              <script src="/assets/js/collapse-sections.js"></script>
+            {{ end }}
           {{/* Load password gate for any calculator page */}}
           {{ with resources.Get "js/password__hide-content.js" }}
           {{ $p := . }}
