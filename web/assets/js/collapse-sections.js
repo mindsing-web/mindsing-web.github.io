@@ -37,21 +37,41 @@
   function attach(header, section) {
     if (!header || !section) return;
     makeClickable(header);
+    // mark this header as JS-initialized so CSS fallback can target only non-JS state
+    try { header.classList.add('js-ready'); } catch (e) {}
     // restore state from sessionStorage if available
     try {
+      var applied = false;
       if (header.id) {
         var key = 'collapse:' + window.location.pathname + ':' + header.id;
         var stored = sessionStorage.getItem(key);
         if (stored === 'collapsed') {
           header.classList.add('collapsed');
-          section.style.display = 'none';
+          applied = true;
+        } else if (stored === 'expanded') {
+          // explicitly expanded
+          header.classList.remove('collapsed');
+          applied = true;
         }
+      }
+      // if no stored preference, respect data-default-collapsed attribute
+      if (!applied) {
+        try {
+          var def = header.getAttribute && header.getAttribute('data-default-collapsed');
+          if (def === 'true') {
+            header.classList.add('collapsed');
+            // remove the attribute so CSS fallback won't persist after JS initializes
+            try { header.removeAttribute('data-default-collapsed'); } catch (e) {}
+          }
+        } catch (e) {}
+      } else {
+        // if applied from storage, also remove the attribute to let JS control display
+        try { header.removeAttribute && header.removeAttribute('data-default-collapsed'); } catch (e) {}
       }
     } catch (e) {}
 
     header.addEventListener('click', function () {
       var collapsed = header.classList.toggle('collapsed');
-      section.style.display = collapsed ? 'none' : '';
       try {
         if (header.id) {
           var key = 'collapse:' + window.location.pathname + ':' + header.id;

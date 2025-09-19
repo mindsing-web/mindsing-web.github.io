@@ -27,6 +27,15 @@
     transform: rotate(0deg);
   }
 }
+/* Collapse state helpers for calculator sections
+   Moved here from inline/template CSS so rules are compiled with app styles.
+*/
+.collapse-section-header[data-default-collapsed="true"]:not(.js-ready) + .collapsible-section {
+  display: none;
+}
+.collapse-section-header.collapsed + .collapsible-section {
+  display: none;
+}
 // Import variables and modules early so variables are available
 @import 'vars';
 @import 'hamburger-menu';

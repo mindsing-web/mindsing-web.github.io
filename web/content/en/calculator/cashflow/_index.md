@@ -20,7 +20,6 @@ form_id: "cashflow-form"
 
   <div class="flex flex-wrap nl2 nr2">
 
-
   <!-- ===================== Income Section (Restructured) ===================== -->
   <div id="income-section" class="w-100 mb4 br3 shadow-1 bg-white ba b--black-10 bl br" style="overflow:hidden;">
     <h2 class="mt0 mb0 pv3 ph2 collapse-section-header bb b--black-10 flex items-center bg-near-white" id="after-tax-header">
@@ -118,7 +117,6 @@ form_id: "cashflow-form"
     </form>
   </dialog>
 
-
   <!-- Income output -->
   <div class="w-100 ph2 mb4">
     <div id="income-output" class="section-output"></div>
@@ -126,7 +124,7 @@ form_id: "cashflow-form"
 
   <!-- ===================== Deductions Collapsible Section ===================== -->
   <div id="deductions-section" class="w-100 mb4 br3 shadow-1 bg-white ba b--black-10 bl br" style="overflow:hidden;">
-    <h2 class="mt0 mb0 pv3 ph2 collapse-section-header bb b--black-10 flex items-center bg-near-white" id="deductions-header">
+  <h2 class="mt0 mb0 pv3 ph2 collapse-section-header bb b--black-10 flex items-center bg-near-white" id="deductions-header" data-default-collapsed="true">
       Deductions
       <span class="collapse-caret" aria-hidden="true">
         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M7 5l6 5-6 5V5z"/></svg>
@@ -162,7 +160,7 @@ form_id: "cashflow-form"
       <div id="deduction-benefit-summary" class="mt3"></div>
       <!-- Annual Deductions Collapsible Section -->
       <div id="annual-deductions-section" class="mt4 br2 shadow-1 bg-white ba b--black-10" style="overflow:hidden;">
-        <h3 class="mt0 mb0 pv2 ph2 collapse-section-header bb b--black-10 flex items-center bg-near-white pointer" id="annual-deductions-header">
+  <h3 class="mt0 mb0 pv2 ph2 collapse-section-header bb b--black-10 flex items-center bg-near-white pointer" id="annual-deductions-header" data-default-collapsed="true">
           Annual deductions
           <span class="collapse-caret ml2" aria-hidden="true">
             <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M7 5l6 5-6 5V5z"/></svg>
