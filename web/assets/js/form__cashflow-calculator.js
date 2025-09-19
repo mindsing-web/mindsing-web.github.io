@@ -33,15 +33,9 @@
       if (!out) return;
       out.innerHTML =
         '<p class="mb0"><strong>Total monthly paycheck deductions:</strong> ' + formatCurrency(totalMonthly) + '</p>' +
-        '<ul class="pl3 mt1 mb2 gray f6">'
-        + '<li>Retirement: ' + formatCurrency(retirement) + '</li>'
-        + '<li>Health insurance: ' + formatCurrency(health) + '</li>'
-        + '<li>HSA/FSA: ' + formatCurrency(hsa) + '</li>'
-        + '<li>Other monthly deductions: ' + formatCurrency(other) + ' <span class="gray">(monthly)</span></li>'
-        + '</ul>'
-        + '<p class="mt1 mb0"><strong>Total annual deductions:</strong> ' + formatCurrency(totalAnnual) + '</p>'
-        + '<p class="mt2 mb0"><strong>Estimated annual tax benefit:</strong> ' + formatCurrency(annualTaxBenefit) + '</p>'
-        + '<p class="mt1 mb0"><small>Tax benefit is estimated as total annual deductions × effective tax rate.</small></p>';
+        '<p class="mt1 mb0"><strong>Total annual deductions:</strong> ' + formatCurrency(totalAnnual) + '</p>' +
+        '<p class="mt2 mb0"><strong>Estimated annual tax benefit:</strong> ' + formatCurrency(annualTaxBenefit) + '</p>' +
+        '<p class="mt1 mb0"><small>Tax benefit is estimated as total annual deductions × effective tax rate.</small></p>';
     } catch (e) { console.error('[deduction-summary] error', e); }
   }
 
