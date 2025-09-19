@@ -37,9 +37,27 @@
   function attach(header, section) {
     if (!header || !section) return;
     makeClickable(header);
+    // restore state from sessionStorage if available
+    try {
+      if (header.id) {
+        var key = 'collapse:' + window.location.pathname + ':' + header.id;
+        var stored = sessionStorage.getItem(key);
+        if (stored === 'collapsed') {
+          header.classList.add('collapsed');
+          section.style.display = 'none';
+        }
+      }
+    } catch (e) {}
+
     header.addEventListener('click', function () {
       var collapsed = header.classList.toggle('collapsed');
       section.style.display = collapsed ? 'none' : '';
+      try {
+        if (header.id) {
+          var key = 'collapse:' + window.location.pathname + ':' + header.id;
+          sessionStorage.setItem(key, collapsed ? 'collapsed' : 'expanded');
+        }
+      } catch (e) {}
     }, true);
   }
 
