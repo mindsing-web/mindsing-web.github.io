@@ -160,6 +160,44 @@ form_id: "cashflow-form"
         </div>
       </div>
       <div id="deduction-benefit-summary" class="mt3"></div>
+      <!-- Annual Deductions Collapsible Section -->
+      <div id="annual-deductions-section" class="mt4 br2 shadow-1 bg-white ba b--black-10" style="overflow:hidden;">
+        <h3 class="mt0 mb0 pv2 ph2 collapse-section-header bb b--black-10 flex items-center bg-near-white pointer" id="annual-deductions-header">
+          Annual deductions
+          <span class="collapse-caret ml2" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M7 5l6 5-6 5V5z"/></svg>
+          </span>
+        </h3>
+        <div class="collapsible-section bg-white pv3 ph3" id="annual-deductions-collapsible-section">
+          <div class="flex flex-wrap nl2 nr2">
+            <div class="w-100 w-50-ns ph2 mb3">
+              <label for="annual_charity" class="db mb1">
+                Charitable contributions <span class="gray">(annual)</span>
+              </label>
+              <input id="annual_charity" name="annual_charity" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+            </div>
+            <div class="w-100 w-50-ns ph2 mb3">
+              <label for="annual_mortgage_interest" class="db mb1">
+                Mortgage interest <span class="gray">(annual)</span>
+              </label>
+              <input id="annual_mortgage_interest" name="annual_mortgage_interest" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+            </div>
+            <div class="w-100 w-50-ns ph2 mb3">
+              <label for="annual_property_tax" class="db mb1">
+                Property taxes <span class="gray">(annual)</span>
+              </label>
+              <input id="annual_property_tax" name="annual_property_tax" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+            </div>
+            <div class="w-100 w-50-ns ph2 mb3">
+              <label for="annual_other" class="db mb1">
+                Other annual deductions <span class="gray">(annual)</span>
+              </label>
+              <input id="annual_other" name="annual_other" type="number" class="input-reset ba b--black-20 pa2 w-100" min="0">
+            </div>
+          </div>
+          <div id="annual-deduction-summary" class="mt3"></div>
+        </div>
+      </div>
     </div>
     <div class="bt b--black-10 bg-near-white pv2 ph2 flex items-center justify-between" style="border-bottom-left-radius:.5rem;border-bottom-right-radius:.5rem;">
       <div id="deductions-output" class="section-output fw6"></div>
