@@ -86,32 +86,6 @@ form_id: "cashflow-form"
     <div class="bt b--black-10 bg-near-white pv2 ph2 flex items-center justify-between" style="border-bottom-left-radius:.5rem;border-bottom-right-radius:.5rem;">
   <div id="income-output" class="section-output fw6"></div>
     </div>
-    <dialog id="tax-assumptions-modal" class="dialog mw6 center" aria-labelledby="tax-assumptions-title" aria-modal="true">
-      <form method="dialog" class="ph3 pv3">
-        <div class="flex items-center justify-between mb3">
-          <h3 id="tax-assumptions-title" class="ma0">Tax assumptions</h3>
-          <button type="button" id="tax-assumptions-close" class="btn btn--secondary" aria-label="Close">Close</button>
-        </div>
-        <div class="mb3">
-          <p>
-            Simplified guidance: uses approximate single-filer federal brackets plus ~4% state/local.</p>
-            <p>Brackets used (approx):</p>
-            <p>
-            10% up to $11,000;<br>
-            12% up to $44,725;<br>
-            22% up to $95,375;<br>
-            24% up to $182,100;<br>
-            32% up to $231,250;<br>
-            35% up to $578,125;<br>
-            37% above that.</p>
-            <p>Source: <a href="https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments-for-tax-year-2023" target="_blank" rel="noopener">
-              IRS 2023 tax brackets
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="0.95em" height="0.95em" style="display:inline;margin-left:0.18em;vertical-align:-0.18em;fill:currentColor;" aria-hidden="true" focusable="false"><path d="M14 3h7v7h-2V6.41l-9.29 9.3a1 1 0 0 1-1.42-1.42l9.3-9.29H14V3z"></path><path d="M5 5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7H5V5z"></path></svg>
-            </a>
-          </p>
-        </div>
-      </form>
-    </dialog>
   </div>
 
   <!-- Monthly after-tax income output now integrated in income-section footer above -->
