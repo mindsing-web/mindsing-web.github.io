@@ -113,15 +113,26 @@
       calcArea.innerHTML = calcHtml;
 
       // Build summary output with after-deductions income for the gray footer
-      var grossMonthly = computeGrossIncome(form) / 12;
+      var grossAnnual = computeGrossIncome(form);
+      var grossMonthly = grossAnnual / 12;
       var afterTaxMonthly = grossMonthly * (1 - (taxRate / 100));
       var afterDeductionsMonthly = afterTaxMonthly + netMonthlyImpact;
 
-      if (grossMonthly > 0) {
+      // Check if there are any income inputs with values > 0
+      var hasIncomeInputs = false;
+      var incomeIds = ['annual_salary', 'spouse_income', 'additional_income'];
+      incomeIds.forEach(function(id) {
+        var el = form.querySelector('#' + id);
+        if (el && el.value && parseFloat(el.value) > 0) {
+          hasIncomeInputs = true;
+        }
+      });
+
+      if (hasIncomeInputs && grossAnnual > 0) {
         summaryOut.innerHTML = '<h3 class="mt0 mb0">Monthly after-tax and deductions income: ' +
           formatCurrency(afterDeductionsMonthly) + '</h3>';
       } else {
-        summaryOut.innerHTML = '<h3 class="mt0 mb0">Monthly after-tax and deductions income: calculating...</h3>';
+        summaryOut.innerHTML = '';
       }
 
       // Update net cashflow whenever deductions change
@@ -237,7 +248,7 @@
       // Get monthly after-tax and deductions income
       var grossMonthly = computeGrossIncome(form) / 12;
       if (grossMonthly === 0) {
-        if (headerSpan) headerSpan.textContent = '- calculating...';
+        if (headerSpan) headerSpan.textContent = '';
         if (header) header.className = header.className.replace(/ (green|red)/g, '');
         return;
       }
