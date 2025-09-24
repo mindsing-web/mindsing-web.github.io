@@ -206,11 +206,17 @@ form_id: "cashflow-form"
   </div>
 
   <!-- ===================== Expenses (monthly) ===================== -->
-  <h2 class="w-100 ph2 mt0 mb2">Expenses, monthly</h2>
-
-  <!-- Left column: expense fields -->
-  <div class="w-100 ph2">
-    <div class="flex flex-wrap nl2 nr2">
+  <div id="expenses-section" class="w-100 mb4 br3 shadow-1 bg-white ba b--black-10 bl br" style="overflow:hidden;">
+    <h2 class="mt0 mb0 pv3 ph2 collapse-section-header bb b--black-10 flex items-center bg-near-white" id="expenses-header">
+      Expenses, monthly
+      <span class="collapse-caret" aria-hidden="true">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M7 5l6 5-6 5V5z"/></svg>
+      </span>
+    </h2>
+    <div class="collapsible-section bg-white pv3 ph3" id="expenses-collapsible-section">
+      <!-- Left column: expense fields -->
+      <div class="w-100">
+        <div class="flex flex-wrap nl2 nr2">
 
   <div class="w-100 w-50-ns ph2 mb3">
     <label for="exp_housing" class="db mb1">
@@ -313,12 +319,12 @@ form_id: "cashflow-form"
             class="input-reset ba b--black-20 pa2 w-100">
   </div>
 
-</div>
   </div>
-
-  <!-- Expenses output -->
-  <div class="w-100 ph2 mb4">
-    <div id="expenses-output" class="section-output"></div>
+  </div>
+  </div>
+  <div class="bt b--black-10 bg-near-white pv2 ph2 flex items-center justify-between br--bottom br3">
+    <div id="expenses-output" class="section-output fw6"></div>
+  </div>
   </div>
 
   <!-- ===================== Net Cashflow ===================== -->
