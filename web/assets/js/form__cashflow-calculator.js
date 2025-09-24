@@ -124,6 +124,9 @@
         summaryOut.innerHTML = '<h3 class="mt0 mb0">Monthly after-tax and deductions income: calculating...</h3>';
       }
 
+      // Update net cashflow whenever deductions change
+      renderNetCashflowOutput(form);
+
     } catch (e) { console.error('[deductions-output] error', e); }
   }
 
@@ -175,8 +178,119 @@
       if (sectionSummary) sectionSummary.innerHTML = grossHtml;
       out.innerHTML = afterTaxHtml;
       renderDeductionBenefitSummary(form);
+      renderNetCashflowOutput(form);
     } catch (e) {
       console.error('form__cashflow renderGrossIncome error:', e);
+    }
+  }
+
+  // --- Expenses calculation and output ---
+  function computeMonthlyExpenses(form) {
+    try {
+      var expenseIds = [
+        'exp_housing', 'exp_transportation', 'exp_utilities', 'exp_extras',
+        'exp_life_ins', 'exp_medical', 'exp_groceries', 'exp_dining_travel',
+        'exp_childcare', 'exp_credit_cards', 'exp_other_debts', 'exp_savings', 'exp_other'
+      ];
+      var total = 0;
+      expenseIds.forEach(function(id) {
+        var el = form.querySelector('#' + id);
+        if (!el) return;
+        var val = parseFloat(el.value) || 0;
+        total += val;
+      });
+      return total;
+    } catch (e) {
+      console.error('[computeMonthlyExpenses] error:', e);
+      return 0;
+    }
+  }
+
+  function renderExpensesOutput(form) {
+    try {
+      var out = document.getElementById('expenses-output');
+      if (!out) return;
+
+      var totalExpenses = computeMonthlyExpenses(form);
+
+      if (totalExpenses === 0) {
+        out.innerHTML = '<h3 class="mt0 mb0">Total monthly expenses: Enter expenses above</h3>';
+        return;
+      }
+
+      out.innerHTML = '<h3 class="mt0 mb0">Total monthly expenses: ' + formatCurrency(totalExpenses) + '</h3>';
+
+      // Update net cashflow whenever expenses change
+      renderNetCashflowOutput(form);
+    } catch (e) {
+      console.error('[expenses-output] error', e);
+    }
+  }
+
+  // --- Net Cashflow calculation and output ---
+  function renderNetCashflowOutput(form) {
+    try {
+      var headerSpan = document.getElementById('net-cashflow-amount');
+      var header = document.getElementById('net-cashflow-header');
+      if (!headerSpan) return;
+
+      // Get monthly after-tax and deductions income
+      var grossMonthly = computeGrossIncome(form) / 12;
+      if (grossMonthly === 0) {
+        if (headerSpan) headerSpan.textContent = '- calculating...';
+        if (header) header.className = header.className.replace(/ (green|red)/g, '');
+        return;
+      }
+
+      // Calculate after-tax and deductions income (same logic as deductions output)
+      var taxInput = form.querySelector('#average_tax_percent');
+      var taxRate = taxInput ? parseFloat(taxInput.value) : 0;
+      if (!isFinite(taxRate) || taxRate < 0) taxRate = 0;
+
+      var afterTaxMonthly = grossMonthly * (1 - (taxRate / 100));
+
+      // Get deduction impact
+      var retirement = parseFloat(form.querySelector('#deduct_retirement')?.value) || 0;
+      var health = parseFloat(form.querySelector('#deduct_health')?.value) || 0;
+      var hsa = parseFloat(form.querySelector('#deduct_hsa')?.value) || 0;
+      var monthlyOther = parseFloat(form.querySelector('#duduct_monthly_other')?.value) || 0;
+      var totalMonthlyDeductions = retirement + health + hsa + monthlyOther;
+
+      var charity = parseFloat(form.querySelector('#annual_charity')?.value) || 0;
+      var mortgage = parseFloat(form.querySelector('#annual_mortgage_interest')?.value) || 0;
+      var property = parseFloat(form.querySelector('#annual_property_tax')?.value) || 0;
+      var annualOther = parseFloat(form.querySelector('#annual_other')?.value) || 0;
+      var totalAnnualDeductions = charity + mortgage + property + annualOther;
+      var monthlyFromAnnual = totalAnnualDeductions / 12;
+
+      var monthlyPaycheckTaxSavings = totalMonthlyDeductions * (taxRate / 100);
+      var annualTaxSavings = totalAnnualDeductions * (taxRate / 100);
+      var monthlyFromAnnualTaxSavings = annualTaxSavings / 12;
+      var totalMonthlyTaxSavings = monthlyPaycheckTaxSavings + monthlyFromAnnualTaxSavings;
+
+      var netMonthlyDeductionImpact = -(totalMonthlyDeductions + monthlyFromAnnual) + totalMonthlyTaxSavings;
+      var afterDeductionsMonthly = afterTaxMonthly + netMonthlyDeductionImpact;
+
+      // Get total monthly expenses
+      var totalExpenses = computeMonthlyExpenses(form);
+
+      // Calculate net cashflow
+      var netCashflow = afterDeductionsMonthly - totalExpenses;
+
+      // Display with color coding
+      var colorClass = netCashflow >= 0 ? 'green' : 'red';
+      var sign = netCashflow >= 0 ? '+' : '';
+
+      // Update the H2 header span and apply color class to header
+      if (headerSpan) {
+        headerSpan.textContent = sign + formatCurrency(netCashflow);
+      }
+      if (header) {
+        // Remove existing color classes and add the appropriate one
+        header.className = header.className.replace(/ (green|red)/g, '') + ' ' + colorClass;
+      }
+    } catch (e) {
+      console.error('[net-cashflow-output] error', e);
     }
   }
 
@@ -332,6 +446,26 @@
           renderDeductionsOutput(form);
         }, true);
       });
+
+      // Expense fields: update expenses output on input/change/blur
+      var expenseIds = [
+        'exp_housing', 'exp_transportation', 'exp_utilities', 'exp_extras',
+        'exp_life_ins', 'exp_medical', 'exp_groceries', 'exp_dining_travel',
+        'exp_childcare', 'exp_credit_cards', 'exp_other_debts', 'exp_savings', 'exp_other'
+      ];
+      expenseIds.forEach(function(id) {
+        var el = form.querySelector('#' + id);
+        if (!el) return;
+        el.addEventListener('input', function() {
+          renderExpensesOutput(form);
+        }, true);
+        el.addEventListener('change', function() {
+          renderExpensesOutput(form);
+        }, true);
+        el.addEventListener('blur', function() {
+          renderExpensesOutput(form);
+        }, true);
+      });
     } catch (e) {
       console.error('form__cashflow attachHandlers error:', e);
     }
@@ -401,6 +535,8 @@
       // render annual deduction summary and deductions output on load (if values present)
       renderAnnualDeductionSummary(form);
       renderDeductionsOutput(form);
+      renderExpensesOutput(form);
+      renderNetCashflowOutput(form);
       // update tax help when gross income changes
       try {
         // hook into our render call so tax help also updates

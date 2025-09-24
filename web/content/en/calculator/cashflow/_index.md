@@ -328,10 +328,7 @@ form_id: "cashflow-form"
   </div>
 
   <!-- ===================== Net Cashflow ===================== -->
-  <h2 class="w-100 ph2 mt3 mb2">Net cashflow</h2>
-  <div class="w-100 ph2 mb4">
-    <div id="net-cashflow-output" class="section-output"></div>
-  </div>
+  <h2 id="net-cashflow-header" class="w-100 ph2 mt3 mb4">Net cashflow <span id="net-cashflow-amount" class="fw6">- calculating...</span></h2>
 
   <!-- Notes dialog (shared pattern with DIME) -->
   <!-- Notes storage field (kept in-form so the shared notes dialog can read/write) -->
