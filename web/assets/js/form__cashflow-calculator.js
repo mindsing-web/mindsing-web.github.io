@@ -596,8 +596,34 @@
       // Clear output when form values are cleared via the shared clear-values flow
       try {
         form.addEventListener('form:cleared', function () {
-          var out = document.getElementById('income-output');
-          if (out) out.innerHTML = '';
+          // If we're in summary view, expand back to full form first
+          if (form.getAttribute('data-cashflow-collapsed') === 'true') {
+            expandFromSummary(form);
+          }
+          
+          // Clear all output elements
+          var outputIds = [
+            'income-output',
+            'income-section-summary',
+            'deduction-benefit-summary',
+            'deductions-calculations',
+            'annual-deduction-summary',
+            'deductions-output',
+            'expenses-output'
+          ];
+          outputIds.forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.innerHTML = '';
+          });
+          
+          // Clear net cashflow display
+          var netCashflowSpan = document.getElementById('net-cashflow-amount');
+          var netCashflowHeader = document.getElementById('net-cashflow-header');
+          if (netCashflowSpan) netCashflowSpan.textContent = '';
+          if (netCashflowHeader) {
+            netCashflowHeader.className = netCashflowHeader.className.replace(/ (green|red)/g, '');
+          }
+          
           // Clear estimated tax field by id (not scoped to form, in case of duplicate ids)
           var taxInput = document.getElementById('average_tax_percent');
           if (taxInput) taxInput.value = '';
@@ -617,11 +643,6 @@
           // Move focus to first input (annual_salary) for accessibility
           var firstInput = document.getElementById('annual_salary');
           if (firstInput) firstInput.focus();
-          // clear annual deduction summary and deductions output
-          var annualOut = document.getElementById('annual-deduction-summary');
-          if (annualOut) annualOut.innerHTML = '';
-          var deductionsOut = document.getElementById('deductions-output');
-          if (deductionsOut) deductionsOut.innerHTML = '';
         }, true);
       } catch (e) {
         /* ignore */
