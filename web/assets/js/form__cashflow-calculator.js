@@ -31,11 +31,17 @@
       var annualTaxBenefit = totalAnnual * (taxRate / 100);
       var out = document.getElementById('deduction-benefit-summary');
       if (!out) return;
-      out.innerHTML =
-        '<p class="mb0"><strong>Total monthly paycheck deductions:</strong> ' + formatCurrency(totalMonthly) + '</p>' +
-        '<p class="mt1 mb0"><strong>Total annual deductions:</strong> ' + formatCurrency(totalAnnual) + '</p>' +
-        '<p class="mt2 mb0"><strong>Estimated annual tax benefit:</strong> ' + formatCurrency(annualTaxBenefit) + '</p>' +
-        '<p class="mt1 mb0"><small>Tax benefit is estimated as total annual deductions × effective tax rate.</small></p>';
+      
+      // Only show content if there are actual deductions
+      if (totalMonthly > 0 || totalAnnual > 0) {
+        out.innerHTML =
+          '<p class="mb0"><strong>Total monthly paycheck deductions:</strong> ' + formatCurrency(totalMonthly) + '</p>' +
+          '<p class="mt1 mb0"><strong>Total annual deductions:</strong> ' + formatCurrency(totalAnnual) + '</p>' +
+          '<p class="mt2 mb0"><strong>Estimated annual tax benefit:</strong> ' + formatCurrency(annualTaxBenefit) + '</p>' +
+          '<p class="mt1 mb0"><small>Tax benefit is estimated as total annual deductions × effective tax rate.</small></p>';
+      } else {
+        out.innerHTML = '';
+      }
     } catch (e) { console.error('[deduction-summary] error', e); }
   }
 
@@ -600,7 +606,7 @@
           if (form.getAttribute('data-cashflow-collapsed') === 'true') {
             expandFromSummary(form);
           }
-          
+
           // Clear all output elements
           var outputIds = [
             'income-output',
@@ -615,7 +621,7 @@
             var el = document.getElementById(id);
             if (el) el.innerHTML = '';
           });
-          
+
           // Clear net cashflow display
           var netCashflowSpan = document.getElementById('net-cashflow-amount');
           var netCashflowHeader = document.getElementById('net-cashflow-header');
@@ -623,7 +629,7 @@
           if (netCashflowHeader) {
             netCashflowHeader.className = netCashflowHeader.className.replace(/ (green|red)/g, '');
           }
-          
+
           // Clear estimated tax field by id (not scoped to form, in case of duplicate ids)
           var taxInput = document.getElementById('average_tax_percent');
           if (taxInput) taxInput.value = '';
