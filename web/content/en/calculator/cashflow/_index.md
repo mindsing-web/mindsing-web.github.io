@@ -197,7 +197,7 @@ form_id: "cashflow-form"
         </div>
       </div>
     </div>
-    <div class="bt b--black-10 bg-near-white pv2 ph2 flex items-center justify-between" style="border-bottom-left-radius:.5rem;border-bottom-right-radius:.5rem;">
+    <div class="bt b--black-10 bg-near-white pv2 ph2 flex items-center justify-between br--bottom br3">
       <div id="deductions-output" class="section-output fw6"></div>
     </div>
   </div>
