@@ -221,6 +221,9 @@
             taxInput.classList.add('not-allowed');
             taxInput.required = false;
             autoPopulateTax(form);
+            // Recalculate income section to reflect the updated tax rate
+            renderGrossIncome(form);
+            updateTaxHelp(form);
           }
         });
       }
@@ -253,6 +256,18 @@
       taxInput.setAttribute('readonly', 'readonly');
       taxInput.classList.add('not-allowed');
       taxInput.required = false;
+      
+      // Trigger input event to ensure calculations update
+      try {
+        var event = new Event('input', { bubbles: true });
+        taxInput.dispatchEvent(event);
+      } catch (e) {
+        // Fallback for older browsers
+        if (taxInput.fireEvent) {
+          taxInput.fireEvent('oninput');
+        }
+      }
+      
       renderDeductionBenefitSummary(form);
     } catch (e) {}
   }
