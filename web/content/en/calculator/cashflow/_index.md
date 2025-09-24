@@ -358,5 +358,5 @@ form_id: "cashflow-form"
 </form>
 
 <p class="mw8 center ph3 pb6">
-  <a href="/calculator/" class="btn btn--secondary pw-hide-until-unlock">← Calculator Home</a>
+  <a href="/calculator/" class="btn btn--secondary">← Calculator Home</a>
 </p>

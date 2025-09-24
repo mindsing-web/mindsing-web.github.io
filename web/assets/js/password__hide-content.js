@@ -260,16 +260,8 @@
         if (ok) {
         self.setUnlocked(true);
         try { sessionStorage.setItem('password_gate:' + self.id, val); } catch (e) {}
-        // Optional: remember password across sessions if user consents via data-remember-password="true" on the root element
-        try {
-          var remember = false;
-          try { remember = !!(self.root && self.root.getAttribute && self.root.getAttribute('data-remember-password') === 'true'); } catch (ee) { remember = false; }
-          if (remember) {
-            try { localStorage.setItem('password_gate:' + self.id, val); } catch (e) {}
-          } else {
-            try { localStorage.removeItem('password_gate:' + self.id); } catch (e) {}
-          }
-        } catch (e) {}
+        // Store password in localStorage for encrypted key operations
+        try { localStorage.setItem('password_gate:' + self.id, val); } catch (e) {}
         cleanup();
         self.showContent();
       } else {

@@ -1,8 +1,7 @@
 ---
-title: "Calculator"
+title: "Calculator Home"
 hideFromMenu: true
 hideFromSitemap: true
-layout: "calculator"
 password: "creative"
 ---
 

@@ -301,6 +301,19 @@
         try { form.parentNode.insertBefore(s, form.nextSibling); } catch (e) {}
         // remove spinner
         try { spinner.parentNode && spinner.parentNode.removeChild(spinner); } catch (e) {}
+        // hide calculator home button on summary view
+        try { 
+          var homeButton = document.querySelector('a[href="/calculator/"]');
+          if (homeButton) {
+            homeButton.style.display = 'none';
+            homeButton.style.setProperty('display', 'none', 'important');
+            // Also hide the parent paragraph
+            if (homeButton.parentElement) {
+              homeButton.parentElement.style.display = 'none';
+              homeButton.parentElement.style.setProperty('display', 'none', 'important');
+            }
+          }
+        } catch (e) {}
         setTimeout(function(){ s.style.opacity = '1'; }, 20);
 
         form.setAttribute('data-dime-collapsed','true');
@@ -409,6 +422,19 @@
       form.removeAttribute('data-dime-collapsed');
         // Enable action bar controls after showing the summary
         try { enableActionBarControls(); } catch (e) {}
+      // show calculator home button when returning to full form
+      try { 
+        var homeButton = document.querySelector('a[href="/calculator/"]');
+        if (homeButton) {
+          homeButton.style.display = '';
+          homeButton.style.removeProperty('display');
+          // Also show the parent paragraph
+          if (homeButton.parentElement) {
+            homeButton.parentElement.style.display = '';
+            homeButton.parentElement.style.removeProperty('display');
+          }
+        }
+      } catch (e) {}
     } catch (e) {
       console.error('expandFromSummary error:', e);
     }
