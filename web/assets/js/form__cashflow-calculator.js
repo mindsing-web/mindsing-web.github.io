@@ -57,6 +57,75 @@
     } catch (e) { console.error('[annual-deduction-summary] error', e); }
   }
 
+  // --- Comprehensive deductions output (monthly cashflow impact) ---
+  function renderDeductionsOutput(form) {
+    try {
+      var out = document.getElementById('deductions-output');
+      if (!out) return;
+
+      // Monthly paycheck deductions
+      var retirement = parseFloat(form.querySelector('#deduct_retirement')?.value) || 0;
+      var health = parseFloat(form.querySelector('#deduct_health')?.value) || 0;
+      var hsa = parseFloat(form.querySelector('#deduct_hsa')?.value) || 0;
+      var monthlyOther = parseFloat(form.querySelector('#duduct_monthly_other')?.value) || 0;
+      var totalMonthlyDeductions = retirement + health + hsa + monthlyOther;
+
+      // Annual deductions (converted to monthly impact)
+      var charity = parseFloat(form.querySelector('#annual_charity')?.value) || 0;
+      var mortgage = parseFloat(form.querySelector('#annual_mortgage_interest')?.value) || 0;
+      var property = parseFloat(form.querySelector('#annual_property_tax')?.value) || 0;
+      var annualOther = parseFloat(form.querySelector('#annual_other')?.value) || 0;
+      var totalAnnualDeductions = charity + mortgage + property + annualOther;
+      var monthlyFromAnnual = totalAnnualDeductions / 12;
+
+      // Get tax rate for benefit calculations
+      var taxInput = form.querySelector('#average_tax_percent');
+      var taxRate = taxInput ? parseFloat(taxInput.value) : 0;
+      if (!isFinite(taxRate) || taxRate < 0) taxRate = 0;
+
+      // Calculate tax benefits
+      var monthlyPaycheckTaxSavings = totalMonthlyDeductions * (taxRate / 100);
+      var annualTaxSavings = totalAnnualDeductions * (taxRate / 100);
+      var monthlyFromAnnualTaxSavings = annualTaxSavings / 12;
+      var totalMonthlyTaxSavings = monthlyPaycheckTaxSavings + monthlyFromAnnualTaxSavings;
+
+      // Net monthly impact (deductions reduce take-home, but tax savings increase it)
+      var netMonthlyImpact = -(totalMonthlyDeductions + monthlyFromAnnual) + totalMonthlyTaxSavings;
+
+      // Build output
+      if (totalMonthlyDeductions === 0 && totalAnnualDeductions === 0) {
+        out.innerHTML = '';
+        return;
+      }
+
+      var html = '<div class="f6">';
+
+      if (totalMonthlyDeductions > 0) {
+        html += '<p class="mb1"><strong>Monthly paycheck deductions:</strong> ' + formatCurrency(totalMonthlyDeductions) + '</p>';
+      }
+
+      if (totalAnnualDeductions > 0) {
+        html += '<p class="mb1"><strong>Annual deductions (monthly impact):</strong> ' + formatCurrency(monthlyFromAnnual) + '</p>';
+      }
+
+      html += '<p class="mb1"><strong>Total monthly deductions impact:</strong> ' + formatCurrency(totalMonthlyDeductions + monthlyFromAnnual) + '</p>';
+
+      if (taxRate > 0) {
+        html += '<p class="mb1 green"><strong>Monthly tax savings:</strong> ' + formatCurrency(totalMonthlyTaxSavings) + '</p>';
+        html += '<p class="mb0 ' + (netMonthlyImpact >= 0 ? 'green' : 'red') + '"><strong>Net monthly cashflow impact:</strong> ';
+        html += (netMonthlyImpact >= 0 ? '+' : '') + formatCurrency(Math.abs(netMonthlyImpact));
+        html += '</p>';
+        html += '<p class="mt1 mb0 gray f7">Net impact = Tax savings - Deductions. Positive means more monthly cashflow.</p>';
+      } else {
+        html += '<p class="mb0 gray f7">Enter income to see tax savings from deductions.</p>';
+      }
+
+      html += '</div>';
+      out.innerHTML = html;
+
+    } catch (e) { console.error('[deductions-output] error', e); }
+  }
+
   function computeGrossIncome (form) {
     try {
       var ids = ['annual_salary', 'spouse_income', 'additional_income'];
@@ -179,16 +248,22 @@
   }
 
   function attachHandlers (form) {
-      // Deduction fields update summary
+      // Deduction fields update summary and output
   ['deduct_retirement','deduct_health','deduct_hsa','duduct_monthly_other'].forEach(function(id){
         var el = form.querySelector('#'+id);
         if (!el) return;
-        el.addEventListener('input', function(){ renderDeductionBenefitSummary(form); }, true);
+        el.addEventListener('input', function(){
+          renderDeductionBenefitSummary(form);
+          renderDeductionsOutput(form);
+        }, true);
       });
       // Also update summary when tax rate changes
       var taxInput2 = form.querySelector('#average_tax_percent');
       if (taxInput2) {
-        taxInput2.addEventListener('input', function(){ renderDeductionBenefitSummary(form); }, true);
+        taxInput2.addEventListener('input', function(){
+          renderDeductionBenefitSummary(form);
+          renderDeductionsOutput(form);
+        }, true);
       }
     try {
       if (!form) return;
@@ -197,14 +272,25 @@
         var el = form.querySelector('#' + id);
         if (!el) return;
         // on focus change (blur) update output
-        el.addEventListener('blur', function () { renderGrossIncome(form); autoPopulateTax(form); }, true);
+        el.addEventListener('blur', function () {
+          renderGrossIncome(form);
+          autoPopulateTax(form);
+          renderDeductionsOutput(form);
+        }, true);
         // also update on input change for better UX
-        el.addEventListener('change', function () { renderGrossIncome(form); autoPopulateTax(form); }, true);
+        el.addEventListener('change', function () {
+          renderGrossIncome(form);
+          autoPopulateTax(form);
+          renderDeductionsOutput(form);
+        }, true);
       });
       // Also update output when tax input changes
       var taxInput = form.querySelector('#average_tax_percent');
       if (taxInput) {
-        taxInput.addEventListener('input', function () { renderGrossIncome(form); }, true);
+        taxInput.addEventListener('input', function () {
+          renderGrossIncome(form);
+          renderDeductionsOutput(form);
+        }, true);
       }
       // Handler for override checkbox
       var override = form.querySelector('#override-tax-input');
@@ -224,16 +310,26 @@
             // Recalculate income section to reflect the updated tax rate
             renderGrossIncome(form);
             updateTaxHelp(form);
+            renderDeductionsOutput(form);
           }
         });
       }
-      // Annual deduction fields: update annual summary on input/change/blur
+      // Annual deduction fields: update annual summary and deductions output on input/change/blur
       ['annual_charity','annual_mortgage_interest','annual_property_tax','annual_other'].forEach(function(id){
         var el = form.querySelector('#'+id);
         if (!el) return;
-        el.addEventListener('input', function(){ renderAnnualDeductionSummary(form); }, true);
-        el.addEventListener('change', function(){ renderAnnualDeductionSummary(form); }, true);
-        el.addEventListener('blur', function(){ renderAnnualDeductionSummary(form); }, true);
+        el.addEventListener('input', function(){
+          renderAnnualDeductionSummary(form);
+          renderDeductionsOutput(form);
+        }, true);
+        el.addEventListener('change', function(){
+          renderAnnualDeductionSummary(form);
+          renderDeductionsOutput(form);
+        }, true);
+        el.addEventListener('blur', function(){
+          renderAnnualDeductionSummary(form);
+          renderDeductionsOutput(form);
+        }, true);
       });
     } catch (e) {
       console.error('form__cashflow attachHandlers error:', e);
@@ -256,7 +352,7 @@
       taxInput.setAttribute('readonly', 'readonly');
       taxInput.classList.add('not-allowed');
       taxInput.required = false;
-      
+
       // Trigger input event to ensure calculations update
       try {
         var event = new Event('input', { bubbles: true });
@@ -267,7 +363,7 @@
           taxInput.fireEvent('oninput');
         }
       }
-      
+
       renderDeductionBenefitSummary(form);
     } catch (e) {}
   }
@@ -301,8 +397,9 @@
       } else {
         autoPopulateTax(form);
       }
-      // render annual deduction summary on load (if values present)
+      // render annual deduction summary and deductions output on load (if values present)
       renderAnnualDeductionSummary(form);
+      renderDeductionsOutput(form);
       // update tax help when gross income changes
       try {
         // hook into our render call so tax help also updates
@@ -372,9 +469,11 @@
           // Move focus to first input (annual_salary) for accessibility
           var firstInput = document.getElementById('annual_salary');
           if (firstInput) firstInput.focus();
-          // clear annual deduction summary
+          // clear annual deduction summary and deductions output
           var annualOut = document.getElementById('annual-deduction-summary');
           if (annualOut) annualOut.innerHTML = '';
+          var deductionsOut = document.getElementById('deductions-output');
+          if (deductionsOut) deductionsOut.innerHTML = '';
         }, true);
       } catch (e) {
         /* ignore */
