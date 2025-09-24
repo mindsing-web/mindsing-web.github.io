@@ -1,0 +1,19 @@
+/**
+ * Fixed Action Bar
+ * Styles for calculator fixed action bars with shadows and disabled states
+ */
+
+// Fixed action bar shadow
+.fixed-action-bar,
+.fixed-bottom-action-bar,
+.action-bar {
+  box-shadow: 0 -6px 18px rgba(16,24,40,0.12);
+}
+
+/* Disabled button appearance for action-bar controls */
+.btn--disabled {
+  opacity: 0.5;
+  transform: none !important;
+  /* Keep the disabled cursor visible when hovering or focusing. */
+  cursor: not-allowed;
+}

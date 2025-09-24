@@ -9,3 +9,4 @@ const cssPath = 'static/css';
 mix.setPublicPath(path.normalize('../web/'));
 
 mix.sass('resources/sass/app.scss', `${cssPath}`);
+mix.sass('resources/sass/calculator.scss', `${cssPath}`);

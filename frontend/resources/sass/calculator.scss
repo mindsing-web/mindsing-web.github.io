@@ -1,0 +1,15 @@
+/**
+ * Calculator Styles
+ * Dedicated stylesheet for calculator pages and components
+ * Modular SCSS partials for form elements, dialogs, collapse sections, etc.
+ */
+
+// Import shared variables
+@import 'vars';
+
+// Calculator-specific partials
+@import 'partials/collapse';
+@import 'partials/fixed-action-bar';
+@import 'partials/forms';
+@import 'partials/dialog';
+@import 'partials/password';

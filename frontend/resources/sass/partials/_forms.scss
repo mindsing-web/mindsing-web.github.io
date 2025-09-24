@@ -1,0 +1,62 @@
+/**
+ * Form Styles
+ * Calculator-specific form styles and required field indicators
+ */
+
+// Required field asterisk
+.required-asterisk {
+  color: $primary-color;
+  margin-right: 0.25rem;
+}
+
+/* DIME calculator summary and spinner */
+#dime-summary .spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Ensure primary action in summary looks prominent */
+#dime-summary .btn--primary {
+  font-size: 1.1rem;
+  padding: 0.875rem 1.75rem;
+}
+
+/* Ensure the button row uses full width and buttons keep alignment */
+#dime-summary .btn {
+  min-width: 120px;
+}
+
+/* DIME calculator summary and spinner */
+.dime-spinner {
+  font-weight: 600;
+  color: $primary-color;
+}
+
+#dime-summary {
+  background: #fff;
+  border: 0; // no border as requested
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+/* Ensure the button row uses full width and buttons keep alignment */
+#dime-summary .btn {
+  min-width: 120px;
+}
+
+/* Summary key styling: smaller, monospace, wrap */
+/* Generic summary key styling used across calculators */
+.summary-key,
+.summary-key code {
+  display: inline-block;
+  font-family: $code-font;
+  font-size: 8px;
+  line-height: 1.2;
+  word-break: break-all;
+  max-width: 100%;
+  color: $muted-dark;
+}

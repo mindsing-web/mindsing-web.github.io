@@ -1,0 +1,44 @@
+/**
+ * Collapse Sections
+ * Styles for collapsible calculator sections with animated carets
+ */
+
+// Collapsible section header caret styles
+.collapse-section-header {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+
+  .collapse-caret {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.25rem;
+    margin-right: 0.5rem;
+    transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), margin-left 0.2s;
+    font-size: 1.2rem;
+    transform: rotate(90deg);
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+      display: block;
+    }
+  }
+  &:hover .collapse-caret {
+    margin-left: 0.5rem;
+  }
+  &.collapsed .collapse-caret {
+    transform: rotate(0deg);
+  }
+}
+
+/* Collapse state helpers for calculator sections
+   Moved here from inline/template CSS so rules are compiled with app styles.
+*/
+.collapse-section-header[data-default-collapsed="true"]:not(.js-ready) + .collapsible-section {
+  display: none;
+}
+.collapse-section-header.collapsed + .collapsible-section {
+  display: none;
+}

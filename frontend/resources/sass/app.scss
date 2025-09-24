@@ -1,43 +1,6 @@
-// Collapsible section header caret styles
-.collapse-section-header {
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  align-items: center;
-
-  .collapse-caret {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 0.25rem;
-    margin-right: 0.5rem;
-    transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), margin-left 0.2s;
-    font-size: 1.2rem;
-    transform: rotate(90deg);
-
-    svg {
-      width: 1rem;
-      height: 1rem;
-      display: block;
-    }
-  }
-  &:hover .collapse-caret {
-    margin-left: 0.5rem;
-  }
-  &.collapsed .collapse-caret {
-    transform: rotate(0deg);
-  }
-}
-/* Collapse state helpers for calculator sections
-   Moved here from inline/template CSS so rules are compiled with app styles.
-*/
-.collapse-section-header[data-default-collapsed="true"]:not(.js-ready) + .collapsible-section {
-  display: none;
-}
-.collapse-section-header.collapsed + .collapsible-section {
-  display: none;
-}
 // Import variables and modules early so variables are available
 @import 'vars';
+@import 'buttons';
 @import 'hamburger-menu';
 
 .not-allowed { cursor: not-allowed; }
@@ -158,12 +121,14 @@ a.info:focus {
 }
 
 .bg-orange,
-.orange.ba {
+.orange.ba,
+.site-logo {
   transition: transform 0.2s ease-in-out;
 }
 
 .bg-orange:hover,
-.orange.ba:hover {
+.orange.ba:hover,
+.site-logo:hover {
   transform: scale(1.1);
 }
 
@@ -271,72 +236,7 @@ article a.no-underline:hover,
   }
 }
 
-// Button system - modular classes
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.25rem;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  // Hover grow effect
-  &:hover,
-  &:focus {
-    transform: scale(1.10);
-    text-decoration: none;
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-}
-
-// Primary button variant
-.btn--primary {
-  background-color: $primary-color;
-  color: #fff;
-  border-color: $primary-color;
-
-  &:hover,
-  &:focus {
-    background-color: darken($primary-color, 10%);
-    border-color: darken($primary-color, 10%);
-    color: #fff;
-  }
-}
-
-// Fixed action bar shadow
-.fixed-action-bar,
-.fixed-bottom-action-bar,
-.action-bar {
-  box-shadow: 0 -6px 18px rgba(16,24,40,0.12);
-}
-
-// Notes button: gray background with white text
-.btn--gray {
-  background-color: $gray-500; // gray-500
-  color: #ffffff;
-  border: 0;
-  // match `.btn` sizing
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.25rem;
-  display: inline-block;
-  font-weight: 600;
-  font-size: 1rem;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  &:hover,
-  &:focus {
-  background-color: darken($gray-500, 6%);
-    color: #ffffff;
-  }
-}
+// Service heading links - make them orange.
 
 // Required field asterisk
 .required-asterisk {
