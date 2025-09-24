@@ -113,8 +113,7 @@
       calcArea.innerHTML = calcHtml;
 
       // Build summary output with after-deductions income for the gray footer
-      var grossAnnual = computeGrossIncome(form);
-      var grossMonthly = grossAnnual / 12;
+      var grossMonthly = computeGrossIncome(form) / 12;
       var afterTaxMonthly = grossMonthly * (1 - (taxRate / 100));
       var afterDeductionsMonthly = afterTaxMonthly + netMonthlyImpact;
 
@@ -629,6 +628,8 @@
       // expose for manual calls if needed
       window.formCashflow = window.formCashflow || {};
       window.formCashflow.renderIncomeOutput = function () { renderGrossIncome(form); };
+      window.formCashflow.collapseToSummary = collapseToSummary;
+      window.formCashflow.expandFromSummary = expandFromSummary;
       // expose annual deduction renderer for debugging/workaround
       window.formCashflow.renderAnnualDeductions = function () { renderAnnualDeductionSummary(document.getElementById('cashflow-form') || document.querySelector('form.calculator--form')); };
       // Safety: attach document-level listeners to annual fields in case form-scoped handlers miss them
@@ -645,6 +646,472 @@
     } catch (e) {
       console.error('form__cashflow init error:', e);
     }
+
+    // Collapse the form to a compact summary after calculation
+    function collapseToSummary(form) {
+      try {
+        if (!form) return;
+        if (form.getAttribute('data-cashflow-collapsed') === 'true') return;
+
+        // Compute values for summary
+        var grossAnnual = computeGrossIncome(form);
+        var grossMonthly = grossAnnual / 12;
+        var taxInput = form.querySelector('#average_tax_percent');
+        var taxRate = taxInput ? parseFloat(taxInput.value) : 0;
+        if (!isFinite(taxRate) || taxRate < 0) taxRate = 0;
+
+        var afterTaxMonthly = grossMonthly * (1 - (taxRate / 100));
+
+        // Get deduction impact (same as renderNetCashflowOutput)
+        var retirement = parseFloat(form.querySelector('#deduct_retirement')?.value) || 0;
+        var health = parseFloat(form.querySelector('#deduct_health')?.value) || 0;
+        var hsa = parseFloat(form.querySelector('#deduct_hsa')?.value) || 0;
+        var monthlyOther = parseFloat(form.querySelector('#duduct_monthly_other')?.value) || 0;
+        var totalMonthlyDeductions = retirement + health + hsa + monthlyOther;
+
+        var charity = parseFloat(form.querySelector('#annual_charity')?.value) || 0;
+        var mortgage = parseFloat(form.querySelector('#annual_mortgage_interest')?.value) || 0;
+        var property = parseFloat(form.querySelector('#annual_property_tax')?.value) || 0;
+        var annualOther = parseFloat(form.querySelector('#annual_other')?.value) || 0;
+        var totalAnnualDeductions = charity + mortgage + property + annualOther;
+        var monthlyFromAnnual = totalAnnualDeductions / 12;
+
+        var monthlyPaycheckTaxSavings = totalMonthlyDeductions * (taxRate / 100);
+        var annualTaxSavings = totalAnnualDeductions * (taxRate / 100);
+        var monthlyFromAnnualTaxSavings = annualTaxSavings / 12;
+        var totalMonthlyTaxSavings = monthlyPaycheckTaxSavings + monthlyFromAnnualTaxSavings;
+
+        var netMonthlyDeductionImpact = -(totalMonthlyDeductions + monthlyFromAnnual) + totalMonthlyTaxSavings;
+        var afterDeductionsMonthly = afterTaxMonthly + netMonthlyDeductionImpact;
+
+        var totalExpenses = computeMonthlyExpenses(form);
+        var netCashflow = afterDeductionsMonthly - totalExpenses;
+
+        // Create spinner
+        var spinner = document.createElement('div');
+        spinner.className = 'cashflow-spinner mw7 center pa3';
+        spinner.setAttribute('role','status');
+        spinner.style.textAlign = 'center';
+        spinner.textContent = 'Calculating...';
+        try { form.parentNode.insertBefore(spinner, form); } catch (e) { /* ignore */ }
+
+        // Store original display value for the form
+        try { form.dataset.cashflowOrigDisplay = form.style.display || ''; } catch (e) {}
+
+        // Small delay to show spinner
+        setTimeout(function(){
+          try { form.style.display = 'none'; } catch (e) {}
+
+          // Build summary
+          var s = document.createElement('div');
+          s.id = 'cashflow-summary';
+          s.className = 'mw7 center pa3';
+          s.style.opacity = '0';
+          s.style.transition = 'opacity 300ms ease';
+
+          var html = '';
+          html += '<p class="mb1"><strong>Monthly Income:</strong> ' + formatCurrency(afterDeductionsMonthly) + '</p>';
+          if (totalExpenses > 0) {
+            html += '<p class="mb1"><strong>Monthly Expenses:</strong> ' + formatCurrency(totalExpenses) + '</p>';
+          }
+
+          var colorClass = netCashflow >= 0 ? 'green' : 'red';
+          var sign = netCashflow >= 0 ? '+' : '';
+          html += '<h3 class="mt4 mb1 ' + colorClass + '">Net Income: ' + sign + formatCurrency(netCashflow) + '</h3>';
+
+          // Buttons row: copy left, show details right (secondary)
+          html += '<div class="mt3" style="display:flex; justify-content:space-between; align-items:center;">';
+          html += '<div class="">';
+          html += '<button id="btn-copy-cashflow" class="btn btn--primary">Copy to clipboard</button>';
+          html += '</div>';
+          html += '<div class="">';
+          html += '<button id="btn-show-cashflow-details" class="btn btn--secondary">Show details</button>';
+          html += '</div>';
+          html += '</div>';
+
+          // Display the token/key underneath
+          var keyDisplay = '';
+          try {
+            var token = '';
+            try { token = (location.search || '').replace(/^\?/, ''); } catch (e) { token = ''; }
+            if (!token && window.formHelpers && typeof window.formHelpers.getTokenFromForm === 'function') {
+              try { token = window.formHelpers.getTokenFromForm(form) || ''; } catch (e) { token = ''; }
+            }
+            if (token) keyDisplay = token;
+          } catch (e) { keyDisplay = ''; }
+
+          if (keyDisplay) {
+            html += '<p class="mt2 mb0"><small>Cashflow calculation key:</small></p>';
+            html += '<p class="mt0 mb0"><code class="summary-key" style="user-select: all;">' + escapeHtml(keyDisplay) + '</code></p>';
+
+            // Show any saved notes below the key
+            try {
+              var notesText = '';
+              var notesEl = form.querySelector('#notes_cashflow') || document.getElementById('notes_cashflow');
+              if (notesEl) notesText = (notesEl.value || '').trim();
+              if (notesText) {
+                html += '<p class="mt1 mb0 summary-notes"><small>Notes: ' + escapeHtml(notesText).replace(/\n/g, '<br>') + '</small></p>';
+              }
+            } catch (e) {
+              // ignore notes rendering errors
+            }
+          }
+
+          s.innerHTML = html;
+
+          // Insert summary where the form was
+          try { form.parentNode.insertBefore(s, form.nextSibling); } catch (e) {}
+          // Remove spinner
+          try { spinner.parentNode && spinner.parentNode.removeChild(spinner); } catch (e) {}
+          // Hide calculator home button on summary view
+          try {
+            var homeButton = document.querySelector('a[href="/calculator/"]');
+            if (homeButton) {
+              homeButton.style.display = 'none';
+              homeButton.style.setProperty('display', 'none', 'important');
+              if (homeButton.parentElement) {
+                homeButton.parentElement.style.display = 'none';
+                homeButton.parentElement.style.setProperty('display', 'none', 'important');
+              }
+            }
+          } catch (e) {}
+
+          setTimeout(function(){ s.style.opacity = '1'; }, 20);
+
+          form.setAttribute('data-cashflow-collapsed','true');
+
+          // Hook show details button
+          var showBtn = s.querySelector('#btn-show-cashflow-details');
+          if (showBtn) showBtn.addEventListener('click', function(){ expandFromSummary(form); }, true);
+
+          // Hook copy to clipboard button
+          var copyBtn = s.querySelector('#btn-copy-cashflow');
+          if (copyBtn) {
+            copyBtn.addEventListener('click', function(){
+              try {
+                var lines = [];
+                lines.push('Cashflow Calculator');
+                lines.push('');
+                lines.push('Monthly Income: ' + formatCurrency(afterDeductionsMonthly));
+                if (totalExpenses > 0) {
+                  lines.push('Monthly Expenses: ' + formatCurrency(totalExpenses));
+                }
+                lines.push('');
+                lines.push('Net Income: ' + sign + formatCurrency(netCashflow));
+                lines.push('');
+
+                // Key
+                var tokenTxt = '';
+                var el = s.querySelector('.summary-key');
+                if (el) tokenTxt = (el.textContent || el.innerText || '').trim();
+                if (tokenTxt) lines.push('Cashflow calculation key: ' + tokenTxt);
+
+                // Include notes if present
+                try {
+                  var notesEl2 = form.querySelector('#notes_cashflow') || document.getElementById('notes_cashflow');
+                  var notesTxt = '';
+                  if (notesEl2) notesTxt = (notesEl2.value || '').trim();
+                  if (notesTxt) {
+                    lines.push('');
+                    lines.push('Notes:');
+                    lines.push(notesTxt);
+                  }
+                } catch (e) {}
+
+                var full = lines.join('\n');
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                  navigator.clipboard.writeText(full).then(function(){
+                    copyBtn.textContent = 'Copied';
+                    setTimeout(function(){ copyBtn.textContent = 'Copy to clipboard'; }, 2000);
+                  }).catch(function(){
+                    fallbackCopyTextToClipboard(full, copyBtn);
+                  });
+                } else {
+                  fallbackCopyTextToClipboard(full, copyBtn);
+                }
+              } catch (e) {
+                try { console.error('copy error', e); } catch (err) {}
+              }
+            }, true);
+          }
+        }, 300);
+      } catch (e) {
+        console.error('collapseToSummary error:', e);
+      }
+    }
+
+    function expandFromSummary(form) {
+      try {
+        if (!form) return;
+        if (form.getAttribute('data-cashflow-collapsed') !== 'true') return;
+        var summary = document.getElementById('cashflow-summary');
+        if (summary && summary.parentNode) summary.parentNode.removeChild(summary);
+        // Restore form display
+        try {
+          var orig = form.dataset && form.dataset.cashflowOrigDisplay;
+          form.style.display = (typeof orig !== 'undefined') ? orig : '';
+          try { delete form.dataset.cashflowOrigDisplay; } catch (e) {}
+        } catch (e) {}
+        form.removeAttribute('data-cashflow-collapsed');
+        // Show calculator home button when returning to full form
+        try {
+          var homeButton = document.querySelector('a[href="/calculator/"]');
+          if (homeButton) {
+            homeButton.style.display = '';
+            homeButton.style.removeProperty('display');
+            if (homeButton.parentElement) {
+              homeButton.parentElement.style.display = '';
+              homeButton.parentElement.style.removeProperty('display');
+            }
+          }
+        } catch (e) {}
+      } catch (e) {
+        console.error('expandFromSummary error:', e);
+      }
+    }
+
+    // Simple HTML escape helper
+    function escapeHtml (str) {
+      if (!str && str !== 0) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // Fallback copy for older browsers
+    function fallbackCopyTextToClipboard(text, btn) {
+      try {
+        var textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        var selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : null;
+        textarea.select();
+        try {
+          var ok = document.execCommand('copy');
+          if (ok && btn) {
+            var old = btn.textContent;
+            btn.textContent = 'Copied';
+            setTimeout(function(){ try { btn.textContent = old; } catch(e){} }, 2000);
+          }
+        } catch (err) {
+          // give up quietly
+        }
+        document.body.removeChild(textarea);
+        if (selected) {
+          try { document.getSelection().removeAllRanges(); document.getSelection().addRange(selected); } catch (e) {}
+        }
+      } catch (e) {}
+    }
+
+    // Add form submission handler to trigger the summary
+    try {
+      var form = document.getElementById('cashflow-form') || document.querySelector('form.calculator--form');
+      if (form) {
+        form.addEventListener('submit', async function (e) {
+          try {
+            e.preventDefault();
+
+            // Prevent duplicate execution
+            if (form.getAttribute('data-cashflow-processing') === 'true') return;
+            form.setAttribute('data-cashflow-processing', 'true');
+
+            var salt = form.getAttribute('data-token-salt') || null;
+
+            // Handle token/URL creation (similar to DIME calculator)
+            try {
+              if (window.formHelpers && typeof window.formHelpers.createEncryptedShareUrl === 'function') {
+                var encUrl = await window.formHelpers.createEncryptedShareUrl(form);
+                if (encUrl) {
+                  try {
+                    if (history && history.replaceState) history.replaceState(null, document.title, encUrl);
+                    else location.href = encUrl;
+                  } catch (e) {
+                    try { location.href = encUrl; } catch (er) {}
+                  }
+                } else {
+                  try {
+                    showConfirm({ title: 'Encryption key missing', body: 'No stored passphrase was found to encrypt the share link. Unlock the protected content or add a key before sharing.', okText: 'OK' });
+                  } catch (e) {}
+                  return;
+                }
+              } else if (window.formHelpers && typeof window.formHelpers.createTokenFromForm === 'function') {
+                var token = await window.formHelpers.createTokenFromForm(form, { salt: salt });
+                if (typeof window.formHelpers.writeTokenToQuery === 'function') {
+                  window.formHelpers.writeTokenToQuery(token);
+                } else {
+                  try { location.search = token; } catch (err) {}
+                }
+              }
+            } catch (e) {
+              try {
+                if (window.formHelpers && typeof window.formHelpers.createTokenFromForm === 'function') {
+                  var token = await window.formHelpers.createTokenFromForm(form, { salt: salt });
+                  if (typeof window.formHelpers.writeTokenToQuery === 'function') {
+                    window.formHelpers.writeTokenToQuery(token);
+                  } else {
+                    try { location.search = token; } catch (err) {}
+                  }
+                }
+              } catch (err) {}
+            }
+
+            // Update all outputs before collapsing
+            renderGrossIncome(form);
+            renderDeductionBenefitSummary(form);
+            renderAnnualDeductionSummary(form);
+            renderDeductionsOutput(form);
+            renderExpensesOutput(form);
+            renderNetCashflowOutput(form);
+
+            // Remove focus from submit button
+            try {
+              var active = document.activeElement;
+              if (active && (active.tagName === 'BUTTON' || active.tagName === 'INPUT')) {
+                try { active.blur(); } catch (e) {}
+              }
+              var submitBtn = form.querySelector('button[type="submit"]');
+              if (submitBtn) submitBtn.blur();
+            } catch (err) {}
+
+            // Collapse to summary after calculation
+            try {
+              collapseToSummary(form);
+            } catch (e) {}
+
+            // Clear processing flag
+            form.removeAttribute('data-cashflow-processing');
+          } catch (err) {
+            form.removeAttribute('data-cashflow-processing');
+            console.error('form__cashflow submit handler error:', err);
+          }
+        }, true);
+
+        // Also add a direct click handler to the calculate button as backup
+        var calculateBtn = form.querySelector('button[type="submit"]') || form.querySelector('.btn--calculate');
+        if (!calculateBtn) {
+          // Look for any button that might contain "Calculate" text
+          var buttons = form.querySelectorAll('button');
+          for (var i = 0; i < buttons.length; i++) {
+            if (buttons[i].textContent && buttons[i].textContent.toLowerCase().includes('calculate')) {
+              calculateBtn = buttons[i];
+              break;
+            }
+          }
+        }
+        if (calculateBtn) {
+          calculateBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            // Trigger the same logic as form submit
+            form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+          }, true);
+        }
+      }
+    } catch (e) {
+      console.error('form__cashflow submit handler init error:', e);
+    }
+
+    // Delegated submit listener as backup
+    document.addEventListener('submit', async function (e) {
+      try {
+        var form = e.target;
+        if (!form || (form.id !== 'cashflow-form' && !form.classList.contains('calculator--form'))) return;
+
+        // Prevent duplicate execution
+        if (form.getAttribute('data-cashflow-processing') === 'true') return;
+        form.setAttribute('data-cashflow-processing', 'true');
+
+        e.preventDefault();
+        var salt = form.getAttribute('data-token-salt') || null;        // Handle token/URL creation
+        try {
+          if (window.formHelpers && typeof window.formHelpers.createEncryptedShareUrl === 'function') {
+            var encUrl = await window.formHelpers.createEncryptedShareUrl(form);
+            if (encUrl) {
+              try {
+                if (history && history.replaceState) history.replaceState(null, document.title, encUrl);
+                else location.href = encUrl;
+              } catch (e) {
+                try { location.href = encUrl; } catch (er) {}
+              }
+            } else {
+              try {
+                showConfirm({ title: 'Encryption key missing', body: 'No stored passphrase was found to encrypt the share link. Unlock the protected content or add a key before sharing.', okText: 'OK' });
+              } catch (e) {}
+              return;
+            }
+          } else if (window.formHelpers && typeof window.formHelpers.createTokenFromForm === 'function') {
+            var token = await window.formHelpers.createTokenFromForm(form, { salt: salt });
+            if (typeof window.formHelpers.writeTokenToQuery === 'function') {
+              window.formHelpers.writeTokenToQuery(token);
+            } else {
+              try { location.search = token; } catch (err) {}
+            }
+          }
+        } catch (e) {
+          try {
+            if (window.formHelpers && typeof window.formHelpers.createTokenFromForm === 'function') {
+              var token = await window.formHelpers.createTokenFromForm(form, { salt: salt });
+              if (typeof window.formHelpers.writeTokenToQuery === 'function') {
+                window.formHelpers.writeTokenToQuery(token);
+              } else {
+                try { location.search = token; } catch (err) {}
+              }
+            }
+          } catch (err) {}
+        }
+
+        // Update all outputs before collapsing
+        try {
+          if (window.formCashflow && typeof window.formCashflow.renderIncomeOutput === 'function') {
+            window.formCashflow.renderIncomeOutput();
+          }
+          // Call individual render functions if available
+          var formToUse = document.getElementById('cashflow-form') || document.querySelector('form.calculator--form');
+          if (formToUse) {
+            renderGrossIncome(formToUse);
+            renderDeductionBenefitSummary(formToUse);
+            renderAnnualDeductionSummary(formToUse);
+            renderDeductionsOutput(formToUse);
+            renderExpensesOutput(formToUse);
+            renderNetCashflowOutput(formToUse);
+          }
+        } catch (err) {
+          console.error('Error updating outputs:', err);
+        }
+
+        // Remove focus from submit button
+        try {
+          var active = document.activeElement;
+          if (active && (active.tagName === 'BUTTON' || active.tagName === 'INPUT')) {
+            try { active.blur(); } catch (e) {}
+          }
+          var submitBtn = form.querySelector('button[type="submit"]');
+          if (submitBtn) submitBtn.blur();
+        } catch (err) {}
+
+        // Collapse to summary after calculation
+        try {
+          if (window.formCashflow && typeof window.formCashflow.collapseToSummary === 'function') {
+            window.formCashflow.collapseToSummary(form);
+          } else {
+            collapseToSummary(form);
+          }
+        } catch (e) {
+          console.error('Error collapsing to summary:', e);
+        }
+
+        // Clear processing flag
+        form.removeAttribute('data-cashflow-processing');
+      } catch (err) {
+        form.removeAttribute('data-cashflow-processing');
+        console.error('form__cashflow delegated submit handler error:', err);
+      }
+    }, true);
 
     // Initialize shared collapse/expand handlers for section headers
     if (window.collapseSections && typeof window.collapseSections.init === 'function') {
