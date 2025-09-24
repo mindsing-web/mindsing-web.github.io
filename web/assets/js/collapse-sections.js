@@ -71,14 +71,20 @@
     } catch (e) {}
 
     header.addEventListener('click', function () {
-      var collapsed = header.classList.toggle('collapsed');
+      // Firefox-compatible: check state before toggle, then toggle and use the result
+      var wasCollapsed = header.classList.contains('collapsed');
+      header.classList.toggle('collapsed');
+      var isCollapsed = header.classList.contains('collapsed');
+      
       try {
         if (header.id) {
           var key = 'collapse:' + window.location.pathname + ':' + header.id;
-          sessionStorage.setItem(key, collapsed ? 'collapsed' : 'expanded');
+          sessionStorage.setItem(key, isCollapsed ? 'collapsed' : 'expanded');
         }
-      } catch (e) {}
-    }, true);
+      } catch (e) {
+        // Firefox may block sessionStorage in some contexts, fail gracefully
+      }
+    }, false);
   }
 
   function init(root) {
