@@ -1403,23 +1403,11 @@
           }
           var usp = new URLSearchParams(raw.replace(/^\?/, ''));
           var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
-          // Debug info
-          try { console.debug('Add Key: Found form:', form ? form.id : 'null', 'with data-protect-id:', form ? form.getAttribute('data-protect-id') : 'null'); } catch (e) {}
           // Use stored plaintext passphrase from localStorage only (sessionStorage contains hash, not usable for decryption)
           try {
             var pidx = form && form.getAttribute ? (form.getAttribute('data-protect-id') || 'default') : 'default';
             var storedPass = null;
-            try {
-              storedPass = localStorage.getItem('password_gate:' + pidx) || null;
-              // More detailed debugging
-              console.debug('Add Key: localStorage key "password_gate:' + pidx + '" =', localStorage.getItem('password_gate:' + pidx));
-              console.debug('Add Key: All localStorage keys:', Object.keys(localStorage).filter(k => k.includes('password')));
-            } catch (ee) {
-              console.debug('Add Key: localStorage access error:', ee);
-              storedPass = null;
-            }
-            // Debug info
-            try { console.debug('Add Key: Looking for password_gate:' + pidx + ', found:', !!storedPass); } catch (e) {}
+            try { storedPass = localStorage.getItem('password_gate:' + pidx) || null; } catch (ee) { storedPass = null; }
             if (!storedPass) {
               try { alert('No stored passphrase found in localStorage. Please unlock the protected content first before adding an encrypted key.'); } catch (e) {}
               return;
@@ -1466,17 +1454,7 @@
               try {
               var pidy = form && form.getAttribute ? (form.getAttribute('data-protect-id') || 'default') : 'default';
               var stored = null;
-              try {
-                stored = localStorage.getItem('password_gate:' + pidy) || null;
-                // More detailed debugging
-                console.debug('Add Key (dialog): localStorage key "password_gate:' + pidy + '" =', localStorage.getItem('password_gate:' + pidy));
-                console.debug('Add Key (dialog): All localStorage keys:', Object.keys(localStorage).filter(k => k.includes('password')));
-              } catch (ee) {
-                console.debug('Add Key (dialog): localStorage access error:', ee);
-                stored = null;
-              }
-              // Debug info
-              try { console.debug('Add Key: Looking for password_gate:' + pidy + ', found:', !!stored); } catch (e) {}
+              try { stored = localStorage.getItem('password_gate:' + pidy) || null; } catch (ee) { stored = null; }
               if (!stored) {
                 if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = 'No stored passphrase found. Please unlock the content first.'; }
                 input && input.focus();
@@ -1487,7 +1465,7 @@
                   try { alert('Decryption failed'); } catch(e){}
                   return;
                 }
-                // Auto-submit after decryption to trigger calculation  
+                // Auto-submit after decryption to trigger calculation
                 try { form.dispatchEvent(new Event('submit', {bubbles:true})); } catch(e) {}
               });
             } catch (e) {

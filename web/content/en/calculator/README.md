@@ -48,6 +48,20 @@ Security notes
  - The salt is required for verification; without it tokens are trivially decodable because the payload is just base64url(JSON).
  - The salt should be treated as a secret for pages where you want to prevent casual decoding. It should be stored in source (front matter) but not exposed publicly if you need strong secrecy (note: if the page is public, front matter may be visible in the repo).
 
+Password protection and encrypted sharing
+ - Calculator pages can be password-protected by adding a `password: "yourpassword"` field to the front matter.
+ - When a user unlocks protected content by entering the correct password, the plaintext password is automatically stored in localStorage under the key `password_gate:{page-id}` (where `{page-id}` is the `data-protect-id` attribute).
+ - This stored password enables encrypted sharing functionality: when the Calculate button is clicked, the form data is encrypted using AES-GCM with the stored password and embedded in a shareable URL.
+ - Encrypted share URLs have the format: `?ct=...&iv=...&salt=...#key=password` where the ciphertext is in the query string and the decryption key is in the URL fragment.
+ - The "Add Key" functionality allows users to paste encrypted ciphertext (starting with `ct=...`) to decrypt and populate the form, automatically triggering calculation.
+ - The password storage system ensures that encrypted keys can be decrypted even after page refreshes, as long as the user has previously unlocked the content.
+
+How password protection works:
+ 1. Hugo generates a SHA-256 hash of the password and places it in the DOM as `data-protect-password-hash`
+ 2. User enters password, which gets hashed client-side and compared to the stored hash
+ 3. On successful unlock: password is stored in localStorage, hash is removed from DOM for security
+ 4. The plaintext password in localStorage is used for encrypting/decrypting shared form data
+
 Automatic population on page load
  - If you want the page to auto-populate the form when a token is present in the URL, call `formHelpers.populateFormFromToken(token, form)` on load. If the token is signed and a salt is present, pass the salt when decoding via `decodeTokenToObject`.
 

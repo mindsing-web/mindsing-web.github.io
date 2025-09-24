@@ -302,7 +302,7 @@
         // remove spinner
         try { spinner.parentNode && spinner.parentNode.removeChild(spinner); } catch (e) {}
         // hide calculator home button on summary view
-        try { 
+        try {
           var homeButton = document.querySelector('a[href="/calculator/"]');
           if (homeButton) {
             homeButton.style.display = 'none';
@@ -423,7 +423,7 @@
         // Enable action bar controls after showing the summary
         try { enableActionBarControls(); } catch (e) {}
       // show calculator home button when returning to full form
-      try { 
+      try {
         var homeButton = document.querySelector('a[href="/calculator/"]');
         if (homeButton) {
           homeButton.style.display = '';
