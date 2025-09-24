@@ -60,8 +60,9 @@
   // --- Comprehensive deductions output (monthly cashflow impact) ---
   function renderDeductionsOutput(form) {
     try {
-      var out = document.getElementById('deductions-output');
-      if (!out) return;
+      var calcArea = document.getElementById('deductions-calculations');
+      var summaryOut = document.getElementById('deductions-output');
+      if (!calcArea || !summaryOut) return;
 
       // Monthly paycheck deductions
       var retirement = parseFloat(form.querySelector('#deduct_retirement')?.value) || 0;
@@ -92,36 +93,36 @@
       // Net monthly impact (deductions reduce take-home, but tax savings increase it)
       var netMonthlyImpact = -(totalMonthlyDeductions + monthlyFromAnnual) + totalMonthlyTaxSavings;
 
-      // Build output
-      if (totalMonthlyDeductions === 0 && totalAnnualDeductions === 0) {
-        out.innerHTML = '';
-        return;
+      // Build detailed calculations output for the white area
+      var calcHtml = '';
+      if (totalMonthlyDeductions > 0 || totalAnnualDeductions > 0) {
+        calcHtml = '<div class="f6">';
+        if (totalMonthlyDeductions > 0) {
+          calcHtml += '<p class="mb2"><strong>Monthly paycheck deductions:</strong> ' + formatCurrency(totalMonthlyDeductions) + '</p>';
+        }
+        if (totalAnnualDeductions > 0) {
+          calcHtml += '<p class="mb2"><strong>Monthly impact from annual deductions:</strong> ' + formatCurrency(monthlyFromAnnual) + '</p>';
+        }
+        calcHtml += '<p class="mb2"><strong>Total monthly deductions impact:</strong> ' + formatCurrency(totalMonthlyDeductions + monthlyFromAnnual) + '</p>';
+        if (taxRate > 0) {
+          calcHtml += '<p class="mb2 green"><strong>Monthly tax savings:</strong> ' + formatCurrency(totalMonthlyTaxSavings) + '</p>';
+          calcHtml += '<p class="mb0 f7">Based on ' + taxRate + '% effective tax rate</p>';
+        }
+        calcHtml += '</div>';
       }
+      calcArea.innerHTML = calcHtml;
 
-      var html = '<div class="f6">';
+      // Build summary output with after-deductions income for the gray footer
+      var grossMonthly = computeGrossIncome(form) / 12;
+      var afterTaxMonthly = grossMonthly * (1 - (taxRate / 100));
+      var afterDeductionsMonthly = afterTaxMonthly + netMonthlyImpact;
 
-      if (totalMonthlyDeductions > 0) {
-        html += '<p class="mb1"><strong>Monthly paycheck deductions:</strong> ' + formatCurrency(totalMonthlyDeductions) + '</p>';
-      }
-
-      if (totalAnnualDeductions > 0) {
-        html += '<p class="mb1"><strong>Annual deductions (monthly impact):</strong> ' + formatCurrency(monthlyFromAnnual) + '</p>';
-      }
-
-      html += '<p class="mb1"><strong>Total monthly deductions impact:</strong> ' + formatCurrency(totalMonthlyDeductions + monthlyFromAnnual) + '</p>';
-
-      if (taxRate > 0) {
-        html += '<p class="mb1 green"><strong>Monthly tax savings:</strong> ' + formatCurrency(totalMonthlyTaxSavings) + '</p>';
-        html += '<p class="mb0 ' + (netMonthlyImpact >= 0 ? 'green' : 'red') + '"><strong>Net monthly cashflow impact:</strong> ';
-        html += (netMonthlyImpact >= 0 ? '+' : '') + formatCurrency(Math.abs(netMonthlyImpact));
-        html += '</p>';
-        html += '<p class="mt1 mb0 gray f7">Net impact = Tax savings - Deductions. Positive means more monthly cashflow.</p>';
+      if (grossMonthly > 0) {
+        summaryOut.innerHTML = '<h3 class="mt0 mb0">Monthly after-tax and deductions income: ' +
+          formatCurrency(afterDeductionsMonthly) + '</h3>';
       } else {
-        html += '<p class="mb0 gray f7">Enter income to see tax savings from deductions.</p>';
+        summaryOut.innerHTML = '<h3 class="mt0 mb0">Monthly after-tax and deductions income: calculating...</h3>';
       }
-
-      html += '</div>';
-      out.innerHTML = html;
 
     } catch (e) { console.error('[deductions-output] error', e); }
   }

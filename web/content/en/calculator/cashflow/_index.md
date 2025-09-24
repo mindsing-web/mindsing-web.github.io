@@ -194,11 +194,14 @@ form_id: "cashflow-form"
             </div>
           </div>
           <div id="annual-deduction-summary" class="mt3"></div>
+          <div id="deductions-calculations" class="mt4 pt3 bt b--black-10"></div>
         </div>
       </div>
     </div>
     <div class="bt b--black-10 bg-near-white pv2 ph2 flex items-center justify-between br--bottom br3">
-      <div id="deductions-output" class="section-output fw6"></div>
+      <div id="deductions-output" class="section-output fw6">
+        <h3 class="mt0 mb0">Monthly after-tax and deductions income: calculating...</h3>
+      </div>
     </div>
   </div>
 
