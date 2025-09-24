@@ -1,6 +1,7 @@
 ---
 title: "Schedule an Appointment"
 description: "Schedule a meeting with us using our online calendar."
+type: "page"
 menu:
   main:
     weight: 3
