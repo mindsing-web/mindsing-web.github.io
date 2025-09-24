@@ -156,10 +156,10 @@ form_id: "dime-form"
         <h3 id="add-key-title" class="ma0">Add key</h3>
         <button type="button" id="add-key-close" class="btn btn--secondary" aria-label="Close">Close</button>
       </div>
-      <label for="add_key_input" class="db mb2">Paste hashed key (base64url or base64url.signature)</label>
-      <input id="add_key_input" name="add_key_input" type="text" class="input-reset ba b--black-20 pa2 w-100" placeholder="e.g. abcdef... or payload.sig" autocomplete="off">
-  <p class="mv2 f6 gray">Accepted characters: letters, numbers, '-', '_' and optional '.' for signature separator.</p>
-  <p id="add-key-error" class="mv2 f6 red" style="display:none;">Invalid key format. Paste a base64url token optionally with a signature separated by a dot.</p>
+      <label for="add_key_input" class="db mb2">Paste calculation key to restore previous results</label>
+      <input id="add_key_input" name="add_key_input" type="text" class="input-reset ba b--black-20 pa2 w-100" placeholder="e.g. abcdef123... or abcdef123.xyz789" autocomplete="off">
+  <p class="mv2 f6 gray">Paste the key from a previous calculation to restore your data and results.</p>
+  <p id="add-key-error" class="mv2 f6 red" style="display:none;">Invalid key format. Please paste a valid calculation key.</p>
       <div class="tr mt3">
   <button id="add-key-submit" class="btn btn--primary" type="button">Apply key</button>
       </div>

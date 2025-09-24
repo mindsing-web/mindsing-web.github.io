@@ -31,7 +31,7 @@
       var annualTaxBenefit = totalAnnual * (taxRate / 100);
       var out = document.getElementById('deduction-benefit-summary');
       if (!out) return;
-      
+
       // Only show content if there are actual deductions
       if (totalMonthly > 0 || totalAnnual > 0) {
         out.innerHTML =
