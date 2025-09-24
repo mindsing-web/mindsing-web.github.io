@@ -1,0 +1,12 @@
+{{/*
+  App Styles
+  Process app.scss with Hugo's built-in SCSS pipeline
+*/}}
+{{ $app_scss := resources.Get "scss/app.scss" }}
+{{ $options := dict "target" "css" "outputStyle" "expanded" }}
+{{ $app_css := $app_scss | css.Sass $options | minify }}
+{{ if eq (getenv "HUGO_ENV") "production" }}
+  {{ $app_css = $app_css | fingerprint }}
+{{ end }}
+
+{{ return $app_css }}

@@ -13,6 +13,11 @@
   {{ end }}
 {{ end }}
 
+{{/* Include Hugo-processed app.scss */}}
+{{ with partialCached "func/style/GetAppCSS" "app-css" }}
+  {{ $assets_to_concat = $assets_to_concat | append . }}
+{{ end }}
+
 {{ with site.Params.custom_css }}
   {{ range . }}
     {{ with partialCached "func/style/GetResource" . . }}

@@ -1,0 +1,12 @@
+{{/*
+  Calculator Styles
+  Process calculator.scss with Hugo's built-in SCSS pipeline
+*/}}
+{{ $calculator_scss := resources.Get "scss/calculator.scss" }}
+{{ $options := dict "target" "css" "outputStyle" "expanded" }}
+{{ $calculator_css := $calculator_scss | css.Sass $options | minify }}
+{{ if eq (getenv "HUGO_ENV") "production" }}
+  {{ $calculator_css = $calculator_css | fingerprint }}
+{{ end }}
+
+{{ return $calculator_css }}

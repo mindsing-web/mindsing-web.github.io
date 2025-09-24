@@ -7,15 +7,26 @@ Professional website at [www.mindsing.com](https://www.mindsing.com) - built wit
 ```
 mindsing-hugo/              # Main development repository
 ├── web/                    # Hugo source code
+│   ├── assets/             # Hugo assets (SCSS, images, etc.)
+│   │   ├── scss/           # SCSS stylesheets
+│   │   │   ├── app.scss              # Main site styles
+│   │   │   ├── calculator.scss       # Calculator-specific styles
+│   │   │   ├── _buttons.scss         # Site-wide button system
+│   │   │   ├── hamburger-menu.scss   # Navigation menu
+│   │   │   ├── vars.scss             # SCSS variables
+│   │   │   └── partials/             # Calculator partials
+│   │   │       ├── _collapse.scss
+│   │   │       ├── _fixed-action-bar.scss
+│   │   │       ├── _forms.scss
+│   │   │       ├── _dialog.scss
+│   │   │       └── _password.scss
+│   │   └── js/            # JavaScript files
 │   ├── content/           # Markdown content files
 │   ├── layouts/           # Custom Hugo templates
-│   ├── static/            # Static assets (images, CSS)
+│   ├── static/            # Static assets (images, favicons)
 │   ├── themes/ananke/     # Ananke theme (submodule)
 │   ├── config.json        # Hugo configuration
 │   └── public/            # Generated static site (GitHub Pages)
-├── frontend/              # Frontend development assets
-│   ├── package.json       # Node.js dependencies
-│   └── README.md          # Frontend-specific documentation
 └── README.md              # This file
 ```
 
@@ -23,7 +34,6 @@ mindsing-hugo/              # Main development repository
 
 - [Hugo Extended](https://gohugo.io/installation/) (latest version)
 - [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/) (for frontend development)
 - SSH access to GitHub (for publishing)
 
 ## SSH Configuration
@@ -61,25 +71,15 @@ cd mindsing-hugo
 git submodule update --init  # Initialize Ananke theme
 ```
 
-### 2. Frontend Setup
-```bash
-cd frontend
-npm install                  # Install frontend dependencies
-```
-
-### 3. Development Server
+### 2. Development Server
 ```bash
 cd web
 hugo server -D              # Development mode (includes drafts)
 ```
 
-For frontend development with live reloading:
-```bash
-cd frontend
-npm run watch               # Compile and watch frontend assets
-```
-
 Site will be available at `http://localhost:1313`
+
+**SCSS Processing:** Hugo automatically compiles all SCSS files using its built-in `css.Sass` pipeline. No additional build tools required.
 
 ## Development Workflow
 
@@ -98,6 +98,33 @@ git checkout -b feature-name  # Create new feature branch
 git push origin feature-name  # Push feature branch
 ```
 
+## Styling Architecture
+
+### SCSS Organization
+The project uses Hugo's built-in SCSS processing with a modular architecture:
+
+- **Main Site Styles**: `web/assets/scss/app.scss` - Compiled into main site CSS bundle
+- **Calculator Styles**: `web/assets/scss/calculator.scss` - Separate stylesheet for calculator pages
+- **Shared Components**:
+  - `_buttons.scss` - Site-wide button system
+  - `hamburger-menu.scss` - Navigation menu styles
+  - `vars.scss` - SCSS variables and mixins
+- **Calculator Partials**: Modular components in `partials/` directory
+  - `_collapse.scss` - Collapsible sections
+  - `_forms.scss` - Form-specific styles
+  - `_dialog.scss` - Modal dialogs
+  - `_password.scss` - Password protection states
+  - `_fixed-action-bar.scss` - Action bar components
+
+### How It Works
+1. **Hugo processes** SCSS files using `css.Sass` pipeline
+2. **Main site pages** get `app.scss` → included in main CSS bundle
+3. **Calculator pages** get `calculator.scss` → separate modular stylesheet
+4. **Automatic features**: Minification, fingerprinting in production, live reload in development
+
+### Making Style Changes
+Simply edit SCSS files in `web/assets/scss/` and Hugo will automatically recompile them during development.
+
 ## Content Management
 
 ### Creating New Content
@@ -113,17 +140,6 @@ hugo new content/page-name.md
 
 ### Adding Images
 Place images in `web/static/images/` - they'll be available at `/images/filename.jpg`
-
-## Frontend Development
-
-For detailed frontend development instructions, see `frontend/README.md`.
-
-### Quick Commands
-```bash
-cd frontend
-npm run watch               # Watch and compile assets
-npm run build               # Build for production
-```
 
 ## Publishing
 
@@ -162,7 +178,7 @@ git push origin main        # Triggers GitHub Pages build
 - **Publishing Repository**: `github-mindsing:mindsing-web/mindsing-web.github.io.git` - GitHub Pages deployment
 - **Theme**: Uses [Ananke](https://github.com/theNewDynamic/gohugo-theme-ananke) theme as Git submodule
 - **Custom Overrides**: Local template overrides in `web/layouts/`
-- **Frontend Assets**: Managed separately in `frontend/` directory
+- **SCSS Processing**: Hugo's native `css.Sass` pipeline handles all stylesheet compilation
 
 ## Hiding Pages From The Main Navigation
 
@@ -194,11 +210,12 @@ git restore .               # Reset any accidental theme modifications
 git submodule update --remote
 ```
 
-### Frontend Issues
+### SCSS Issues
 ```bash
-cd frontend
-npm install                 # Reinstall dependencies
-npm run build               # Rebuild assets
+# Hugo automatically recompiles SCSS on changes
+# If styles aren't updating, restart the Hugo server:
+cd web
+hugo server -D
 ```
 
 ### Repository Remote Issues

@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{ .Title }}</title>
     {{ partial "site-style.html" . }}
-    <!-- Calculator-specific styles -->
-    <link rel="stylesheet" href="{{ "/css/calculator.css" | relURL }}">
-    <!-- collapse-section styles are compiled into `calculator.css` via frontend build -->
-    <!-- PasswordGate visibility rules moved to `frontend/resources/sass/partials/_password.scss` -->
+    <!-- Calculator-specific styles processed by Hugo -->
+    {{ with partialCached "func/style/GetCalculatorCSS" "calculator-css" }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{ end }}
+    <!-- Calculator styles include collapse, fixed-action-bar, forms, dialog, and password partials -->
+    <!-- PasswordGate visibility rules are in _password.scss partial -->
 </head>
 <body class="calculator-page pw-buttons-hidden pw-content-hidden">
   {{/* Emit only a hash of the password (not the plaintext) so the DOM doesn't expose it. */}}
