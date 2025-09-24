@@ -11,11 +11,11 @@ form_id: "cashflow-form"
 <h1 class="pw-hide-until-unlock">Cashflow Calculator</h1>
 
 <div class="password-access-wrapper">
-  <button type="button" class="btn btn--primary btn--access-content" data-protect-id="cashflow">Access Content</button>
+  <button type="button" class="btn btn--primary btn--access-content" data-protect-id="calculator">Access Content</button>
 </div>
 
 <form id="cashflow-form" class="mw8 center pa3 calculator--form js-password-protected relative pb3"
-      data-protect-id="cashflow"
+      data-protect-id="calculator"
       data-token-salt="Y2FzaGZsb3ctcGFnZS1zYWx0LTIwMjUtMDktMTYtYWJjMTIz">
 
   <div class="flex flex-wrap nl2 nr2">

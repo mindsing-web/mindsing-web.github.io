@@ -11,10 +11,10 @@ form_id: "dime-form"
 <h1 class="pw-hide-until-unlock">DIME Calculator</h1>
 
 <div class="password-access-wrapper">
-  <button type="button" class="btn btn--primary btn--access-content" data-protect-id="dime">Access Content</button>
+  <button type="button" class="btn btn--primary btn--access-content" data-protect-id="calculator">Access Content</button>
 </div>
 
-<form id="dime-form" class="mw7 center pa3 calculator--form js-password-protected relative pb3" data-protect-id="dime" data-token-salt="b3JpZ2luYWwtc2VjdXJlLXNlcnZlci1zYWx0LWFzZGZoYWtzZA">
+<form id="dime-form" class="mw7 center pa3 calculator--form js-password-protected relative pb3" data-protect-id="calculator" data-token-salt="b3JpZ2luYWwtc2VjdXJlLXNlcnZlci1zYWx0LWFzZGZoYWtzZA">
 
 <div class="flex flex-wrap nl2 nr2">
 
