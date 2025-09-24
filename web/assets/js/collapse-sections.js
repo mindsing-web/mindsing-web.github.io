@@ -75,7 +75,7 @@
       var wasCollapsed = header.classList.contains('collapsed');
       header.classList.toggle('collapsed');
       var isCollapsed = header.classList.contains('collapsed');
-      
+
       try {
         if (header.id) {
           var key = 'collapse:' + window.location.pathname + ':' + header.id;
