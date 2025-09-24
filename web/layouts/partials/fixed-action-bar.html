@@ -4,7 +4,7 @@
       {{ if .Buttons }}
       {{ .Buttons }}
       {{ else }}
-      <button type="submit" form="dime-form" class="btn btn--primary mr2-ns mb3 mb0-ns">Calculate</button>
+      <button type="submit" {{ if .FormID }}form="{{ .FormID }}"{{ else }}form="dime-form"{{ end }} class="btn btn--primary mr2-ns mb3 mb0-ns">Calculate</button>
       <button type="button" class="btn btn--secondary btn--clear-values mr2-ns mb0-ns" {{ if .FormID
         }}data-target-form="{{ .FormID }}" {{ end }}>Clear values</button>
       {{ end }}

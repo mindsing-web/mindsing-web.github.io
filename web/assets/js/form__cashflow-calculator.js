@@ -113,7 +113,8 @@
       calcArea.innerHTML = calcHtml;
 
       // Build summary output with after-deductions income for the gray footer
-      var grossMonthly = computeGrossIncome(form) / 12;
+      var grossAnnual = computeGrossIncome(form);
+      var grossMonthly = grossAnnual / 12;
       var afterTaxMonthly = grossMonthly * (1 - (taxRate / 100));
       var afterDeductionsMonthly = afterTaxMonthly + netMonthlyImpact;
 
