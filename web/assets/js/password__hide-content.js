@@ -193,14 +193,34 @@
     box.style.width = '90%';
     box.style.boxShadow = '0 6px 24px rgba(0,0,0,0.3)';
 
-    var h = createEl('h3', {}, 'Enter password to access content');
+    var h = createEl('h3', {}, 'Enter your details to access content');
     h.style.marginTop = '0';
-    var p = createEl('p', {}, 'This content is password protected.');
+    var p = createEl('p', {}, 'Please provide your name and the password to access this protected content.');
 
-    var input = createEl('input', { 'type': 'password', 'class': 'password-gate-input', 'aria-label': 'Password' });
+    var nameLabel = createEl('label', { 'for': 'password-gate-name-input' });
+    nameLabel.innerHTML = 'Your Name <span style="color: red;">*</span>';
+    nameLabel.style.display = 'block';
+    nameLabel.style.marginTop = '12px';
+    nameLabel.style.marginBottom = '4px';
+    nameLabel.style.fontWeight = 'bold';
+
+    var nameInput = createEl('input', { 'type': 'text', 'class': 'password-gate-name-input', 'id': 'password-gate-name-input', 'aria-label': 'Your Name (required)', 'placeholder': 'Enter your name', 'required': 'required' });
+    nameInput.style.width = '100%';
+    nameInput.style.padding = '8px 10px';
+    nameInput.style.marginTop = '2px';
+    nameInput.style.boxSizing = 'border-box';
+
+    var passwordLabel = createEl('label', { 'for': 'password-gate-input' });
+    passwordLabel.innerHTML = 'Password <span style="color: red;">*</span>';
+    passwordLabel.style.display = 'block';
+    passwordLabel.style.marginTop = '12px';
+    passwordLabel.style.marginBottom = '4px';
+    passwordLabel.style.fontWeight = 'bold';
+
+    var input = createEl('input', { 'type': 'password', 'class': 'password-gate-input', 'id': 'password-gate-input', 'aria-label': 'Password (required)', 'placeholder': 'Enter password' });
     input.style.width = '100%';
     input.style.padding = '8px 10px';
-    input.style.marginTop = '8px';
+    input.style.marginTop = '2px';
     input.style.boxSizing = 'border-box';
 
     var err = createEl('div', { 'class': 'password-gate-error' });
@@ -220,6 +240,9 @@
     controls.appendChild(ok);
     box.appendChild(h);
     box.appendChild(p);
+    box.appendChild(nameLabel);
+    box.appendChild(nameInput);
+    box.appendChild(passwordLabel);
     box.appendChild(input);
     box.appendChild(err);
     box.appendChild(controls);
@@ -235,6 +258,13 @@
         cleanup();
       }
       if (e.key === 'Enter') {
+        // If currently focused on name field, move to password field
+        if (document.activeElement === nameInput) {
+          input.focus();
+          e.preventDefault();
+          return;
+        }
+        // Otherwise, submit the form
         ok.click();
       }
     }
@@ -242,6 +272,24 @@
     cancel.addEventListener('click', function () { cleanup(); });
     ok.addEventListener('click', function () {
       var val = input.value || '';
+      var nameVal = nameInput.value || '';
+
+      // Clear any existing error
+      err.textContent = '';
+
+      // Validate both fields are provided
+      if (!nameVal.trim()) {
+        err.textContent = 'Please enter your name';
+        nameInput.focus();
+        return;
+      }
+
+      if (!val.trim()) {
+        err.textContent = 'Please enter the password';
+        input.focus();
+        return;
+      }
+
       (async function(){
         var ok = false;
         try {
@@ -262,6 +310,27 @@
         try { sessionStorage.setItem('password_gate:' + self.id, val); } catch (e) {}
         // Store password in localStorage for encrypted key operations
         try { localStorage.setItem('password_gate:' + self.id, val); } catch (e) {}
+
+        // Store user name for session
+        try { sessionStorage.setItem('password_gate_user:' + self.id, nameVal.trim()); } catch (e) {}
+        try { localStorage.setItem('password_gate_user:' + self.id, nameVal.trim()); } catch (e) {}
+
+        // Store user name globally for GA4 tracking across all pages
+        try { localStorage.setItem('ga4_user_name', nameVal.trim()); } catch (e) {}
+        try { sessionStorage.setItem('ga4_user_name', nameVal.trim()); } catch (e) {}
+
+        // Send to GA4/GTM dataLayer
+        try {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: 'password_protected_access',
+            user_name: nameVal.trim(),
+            protection_id: self.id,
+            event_category: 'engagement',
+            event_label: 'protected_content_access'
+          });
+        } catch (e) { console.warn('GA4 tracking error:', e); }
+
         cleanup();
         self.showContent();
       } else {
@@ -306,8 +375,8 @@
       try {
         self.overlay = self.buildOverlay();
         document.body.appendChild(self.overlay);
-        var input = self.overlay.querySelector('.password-gate-input');
-        input && input.focus();
+        var nameInput = self.overlay.querySelector('.password-gate-name-input');
+        nameInput && nameInput.focus();
       } catch (err) { console.error('PasswordGate open error', err); }
     }, true);
     // If the content is locked (not unlocked) reveal the button and make sure
