@@ -197,6 +197,10 @@
     h.style.marginTop = '0';
     var p = createEl('p', {}, 'Please provide your name and the password to access this protected content.');
 
+    // Create a form element to enable HTML5 validation
+    var form = createEl('form', { 'class': 'password-gate-form' });
+    form.style.margin = '0';
+
     var nameLabel = createEl('label', { 'for': 'password-gate-name-input' });
     nameLabel.innerHTML = 'Your Name <span style="color: red;">*</span>';
     nameLabel.style.display = 'block';
@@ -204,11 +208,24 @@
     nameLabel.style.marginBottom = '4px';
     nameLabel.style.fontWeight = 'bold';
 
-    var nameInput = createEl('input', { 'type': 'text', 'class': 'password-gate-name-input', 'id': 'password-gate-name-input', 'aria-label': 'Your Name (required)', 'placeholder': 'Enter your name', 'required': 'required' });
+    var nameInput = createEl('input', {
+      'type': 'text',
+      'class': 'password-gate-name-input',
+      'id': 'password-gate-name-input',
+      'aria-label': 'Your Name (required)',
+      'placeholder': 'Enter your name',
+      'required': 'required',
+      'minlength': '2',
+      'maxlength': '50',
+      'pattern': '[a-zA-Z\\s\\-\\.]+',
+      'title': 'Please enter your name (2-50 characters, letters only)'
+    });
     nameInput.style.width = '100%';
     nameInput.style.padding = '8px 10px';
     nameInput.style.marginTop = '2px';
     nameInput.style.boxSizing = 'border-box';
+    nameInput.style.border = '1px solid #ccc';
+    nameInput.style.borderRadius = '4px';
 
     var passwordLabel = createEl('label', { 'for': 'password-gate-input' });
     passwordLabel.innerHTML = 'Password <span style="color: red;">*</span>';
@@ -217,13 +234,21 @@
     passwordLabel.style.marginBottom = '4px';
     passwordLabel.style.fontWeight = 'bold';
 
-    var input = createEl('input', { 'type': 'password', 'class': 'password-gate-input', 'id': 'password-gate-input', 'aria-label': 'Password (required)', 'placeholder': 'Enter password' });
+    var input = createEl('input', {
+      'type': 'password',
+      'class': 'password-gate-input',
+      'id': 'password-gate-input',
+      'aria-label': 'Password (required)',
+      'placeholder': 'Enter password',
+      'required': 'required',
+      'minlength': '1'
+    });
     input.style.width = '100%';
     input.style.padding = '8px 10px';
     input.style.marginTop = '2px';
     input.style.boxSizing = 'border-box';
-
-    var err = createEl('div', { 'class': 'password-gate-error' });
+    input.style.border = '1px solid #ccc';
+    input.style.borderRadius = '4px';    var err = createEl('div', { 'class': 'password-gate-error' });
     err.style.color = 'red';
     err.style.minHeight = '18px';
     err.style.marginTop = '8px';
@@ -233,20 +258,72 @@
     controls.style.textAlign = 'right';
 
     var cancel = createEl('button', { 'type': 'button', 'class': 'btn btn--secondary password-gate-cancel' }, 'Cancel');
-    var ok = createEl('button', { 'type': 'button', 'class': 'btn btn--primary password-gate-ok' }, 'Enter');
+    var ok = createEl('button', { 'type': 'submit', 'class': 'btn btn--primary password-gate-ok' }, 'Enter');
     cancel.style.marginRight = '8px';
 
     controls.appendChild(cancel);
     controls.appendChild(ok);
+
+    // Add fields to form
+    form.appendChild(nameLabel);
+    form.appendChild(nameInput);
+    form.appendChild(passwordLabel);
+    form.appendChild(input);
+    form.appendChild(err);
+    form.appendChild(controls);
+
+    // Add elements to box
     box.appendChild(h);
     box.appendChild(p);
-    box.appendChild(nameLabel);
-    box.appendChild(nameInput);
-    box.appendChild(passwordLabel);
-    box.appendChild(input);
-    box.appendChild(err);
-    box.appendChild(controls);
+    box.appendChild(form);
     overlay.appendChild(box);
+
+    // Add HTML5 validation styling and feedback
+    function handleInvalidInput(field, message) {
+      field.style.borderColor = '#dc3545';
+      field.style.boxShadow = '0 0 0 0.2rem rgba(220, 53, 69, 0.25)';
+      err.textContent = message;
+      err.style.display = 'block';
+    }
+
+    function handleValidInput(field) {
+      field.style.borderColor = '#28a745';
+      field.style.boxShadow = '0 0 0 0.2rem rgba(40, 167, 69, 0.25)';
+    }
+
+    function resetInputStyle(field) {
+      field.style.borderColor = '#ccc';
+      field.style.boxShadow = 'none';
+    }
+
+    // Handle validation events
+    nameInput.addEventListener('invalid', function(e) {
+      e.preventDefault(); // Prevent default browser validation message
+      handleInvalidInput(nameInput, this.validationMessage || 'Please enter a valid name');
+    });
+
+    input.addEventListener('invalid', function(e) {
+      e.preventDefault(); // Prevent default browser validation message
+      handleInvalidInput(input, this.validationMessage || 'Please enter the password');
+    });
+
+    nameInput.addEventListener('input', function() {
+      if (this.validity.valid) {
+        handleValidInput(this);
+        err.textContent = '';
+      } else {
+        resetInputStyle(this);
+      }
+    });
+
+    input.addEventListener('input', function() {
+      if (this.validity.valid) {
+        handleValidInput(this);
+        err.textContent = '';
+      } else {
+        resetInputStyle(this);
+      }
+    });
 
     function cleanup() {
       try { document.body.removeChild(overlay); } catch (e) {}
@@ -265,30 +342,23 @@
           return;
         }
         // Otherwise, submit the form
-        ok.click();
+        form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
       }
     }
 
     cancel.addEventListener('click', function () { cleanup(); });
-    ok.addEventListener('click', function () {
+
+    // Use form submit event instead of button click for HTML5 validation
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent actual form submission
+
+      // HTML5 validation will have already run at this point
+      // If we get here, the form is valid
       var val = input.value || '';
       var nameVal = nameInput.value || '';
 
       // Clear any existing error
       err.textContent = '';
-
-      // Validate both fields are provided
-      if (!nameVal.trim()) {
-        err.textContent = 'Please enter your name';
-        nameInput.focus();
-        return;
-      }
-
-      if (!val.trim()) {
-        err.textContent = 'Please enter the password';
-        input.focus();
-        return;
-      }
 
       (async function(){
         var ok = false;
