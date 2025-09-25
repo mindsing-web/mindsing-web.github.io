@@ -1417,12 +1417,12 @@
                 try { alert('Decryption failed'); } catch(e){}
                 return;
               }
-              
+
               // GA4 tracking for successful Add Key action
               try {
                 var userName = '';
                 try { userName = localStorage.getItem('ga4_user_name') || sessionStorage.getItem('ga4_user_name') || 'anonymous'; } catch (e) { userName = 'anonymous'; }
-                
+
                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({
                   event: 'add_key_success',
@@ -1432,7 +1432,7 @@
                   event_label: 'add_encrypted_key'
                 });
               } catch (e) { console.warn('GA4 tracking error:', e); }
-              
+
               // Auto-submit after decryption to trigger calculation
               try {
                 form.dispatchEvent(new Event('submit', {bubbles:true}));
@@ -1481,12 +1481,12 @@
                   try { alert('Decryption failed'); } catch(e){}
                   return;
                 }
-                
+
                 // GA4 tracking for successful Add Key action
                 try {
                   var userName = '';
                   try { userName = localStorage.getItem('ga4_user_name') || sessionStorage.getItem('ga4_user_name') || 'anonymous'; } catch (e) { userName = 'anonymous'; }
-                  
+
                   window.dataLayer = window.dataLayer || [];
                   window.dataLayer.push({
                     event: 'add_key_success',
@@ -1496,7 +1496,7 @@
                     event_label: 'add_encrypted_key'
                   });
                 } catch (e) { console.warn('GA4 tracking error:', e); }
-                
+
                 // Auto-submit after decryption to trigger calculation
                 try { form.dispatchEvent(new Event('submit', {bubbles:true})); } catch(e) {}
               });
