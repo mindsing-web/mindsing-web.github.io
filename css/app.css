@@ -3,6 +3,69 @@
  * Central location for all shared variables across the project
  */
 /**
+ * Button System
+ * Modular button classes used throughout the site
+ */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.btn:hover, .btn:focus {
+  transform: scale(1.1);
+  text-decoration: none;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn--primary {
+  background-color: #ee5240;
+  color: #fff;
+  border-color: #ee5240;
+}
+.btn--primary:hover, .btn--primary:focus {
+  background-color: #e62a15;
+  border-color: #e62a15;
+  color: #fff;
+}
+
+.btn--secondary {
+  background-color: #fff;
+  color: #ee5240;
+  border-color: #ee5240;
+}
+.btn--secondary:hover, .btn--secondary:focus {
+  background-color: #fff;
+  color: #e62a15;
+  border-color: #e62a15;
+}
+
+.btn--gray {
+  background-color: #6b7280;
+  color: #ffffff;
+  border: 0;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.btn--gray:hover, .btn--gray:focus {
+  background-color: #5d636f;
+  color: #ffffff;
+}
+
+/**
  * Hamburger Menu Styles
  * Responsive navigation hamburger menu at 1140px breakpoint
  */
@@ -90,6 +153,23 @@
   position: relative;
 }
 
+.not-allowed {
+  cursor: not-allowed;
+}
+
+#dime-summary h3.mt4 {
+  margin-top: 1.25rem; /* extra padding above Life Insurance Target */
+}
+
+#dime-summary small {
+  color: #4b5563; /* slightly muted */
+}
+
+/* Ensure the underlined DIME target's em is italic and stands out */
+#dime-summary u em {
+  font-style: italic;
+}
+
 main a:not(.bg-orange):not([class*=bg-]):not(.btn),
 main a:link:not(.bg-orange):not([class*=bg-]):not(.btn),
 main a:visited:not(.bg-orange):not([class*=bg-]):not(.btn),
@@ -130,6 +210,12 @@ article .link:visited:not(.bg-orange):not([class*=bg-]):not(.btn):hover,
 article .link:visited:not(.bg-orange):not([class*=bg-]):not(.btn):focus {
   color: #cf2612;
   text-decoration: underline;
+}
+
+a.info,
+a.info:hover,
+a.info:focus {
+  cursor: pointer;
 }
 
 .parallax-section {
@@ -188,12 +274,14 @@ article .link:visited:not(.bg-orange):not([class*=bg-]):not(.btn):focus {
 }
 
 .bg-orange,
-.orange.ba {
+.orange.ba,
+.site-logo {
   transition: transform 0.2s ease-in-out;
 }
 
 .bg-orange:hover,
-.orange.ba:hover {
+.orange.ba:hover,
+.site-logo:hover {
   transform: scale(1.1);
 }
 
@@ -205,13 +293,6 @@ article .link:visited:not(.bg-orange):not([class*=bg-]):not(.btn):focus {
 .orange.ba:hover {
   color: #ee5240;
   text-decoration: none;
-}
-
-.site-logo {
-  transition: all 0.2s ease-in-out;
-}
-.site-logo:hover {
-  transform: scale(1.1);
 }
 
 .navigation-main a {
@@ -278,34 +359,9 @@ article a.no-underline:hover,
   opacity: 1;
 }
 
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.25rem;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-.btn:hover, .btn:focus {
-  transform: scale(1.1);
-  text-decoration: none;
-}
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn--primary {
-  background-color: #ee5240;
-  color: #fff;
-  border-color: #ee5240;
-}
-.btn--primary:hover, .btn--primary:focus {
-  background-color: #e62a15;
-  border-color: #e62a15;
-  color: #fff;
+.required-asterisk {
+  color: #ee5240;
+  margin-right: 0.25rem;
 }
 
 .btn--secondary {
@@ -317,4 +373,132 @@ article a.no-underline:hover,
   background-color: #fff;
   color: #e62a15;
   border-color: #e62a15;
+}
+
+.dialog {
+  max-width: 760px;
+  width: calc(100% - 32px);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 18px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+.dialog::-webkit-backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+.dialog form {
+  margin: 0;
+}
+.dialog .dialog-footer {
+  text-align: right;
+  margin-top: 12px;
+}
+.dialog textarea {
+  min-height: 220px;
+  padding: 12px;
+}
+.dialog button[id$=-save] {
+  padding: 8px 16px;
+}
+@media (max-width: 640px) {
+  .dialog {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border-radius: 0;
+    padding: 16px;
+  }
+}
+
+/* DIME calculator summary and spinner */
+.dime-spinner {
+  font-weight: 600;
+  color: #ee5240;
+}
+
+#dime-summary {
+  background: #fff;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+/* Ensure primary action in summary looks prominent */
+.btn--primary {
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+}
+
+/* Summary key styling: smaller, monospace, wrap */
+/* Generic summary key styling used across calculators */
+.summary-key,
+.summary-key code {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Source Code Pro", monospace;
+  font-size: 8px;
+  line-height: 1.2;
+  word-break: break-all;
+  max-width: 100%;
+  color: #374151;
+}
+
+/* Ensure the button row uses full width and buttons keep alignment */
+#dime-summary .btn {
+  min-width: 120px;
+}
+
+/* Disabled button appearance for action-bar controls */
+.btn--disabled {
+  opacity: 0.5;
+  transform: none !important;
+  /* Keep the disabled cursor visible when hovering or focusing. */
+  cursor: not-allowed;
+}
+
+/* PasswordGate visibility helpers (moved from calculator layout inline <style>)
+   Keep early CSS to prevent FOUC of protected content before JS runs. */
+.pw-buttons-hidden .btn--access-content {
+  display: none;
+}
+
+.pw-buttons-hidden .btn--access-content.pw-access-visible {
+  display: inline-block;
+}
+
+.pw-action-hidden {
+  visibility: hidden;
+}
+
+.pw-content-hidden .js-password-protected {
+  display: none;
+}
+
+/* Hide the page title and calculator home link on calculator sub-pages until unlocked */
+.calculator-page.pw-content-hidden h1 {
+  display: none;
+}
+
+.calculator-page.pw-content-hidden a[href="/calculator/"] {
+  display: none;
+}
+
+/* Generic helper: hide elements until the password gate unlocks.
+  Apply `pw-hide-until-unlock` to any element that should be invisible
+  until the site JS adds `pw-unlocked` to the body on successful unlock. */
+.pw-hide-until-unlock {
+  display: none !important;
+}
+
+.pw-unlocked .pw-hide-until-unlock {
+  display: inherit !important;
+}
+
+/* Ensure hover/focus state still shows not-allowed cursor for disabled buttons */
+.btn--disabled:hover,
+.btn--disabled:focus {
+  cursor: not-allowed;
 }

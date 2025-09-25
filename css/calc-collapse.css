@@ -1,0 +1,9 @@
+/* Collapse helpers for calculator sections
+   This file replaces inline <style> in the calculator template.
+*/
+.collapse-section-header[data-default-collapsed="true"]:not(.js-ready) + .collapsible-section {
+  display: none;
+}
+.collapse-section-header.collapsed + .collapsible-section {
+  display: none;
+}

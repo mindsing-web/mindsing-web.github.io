@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Calculator Home on MindSing</title><link>/calculator/</link><description>Recent content in Calculator Home on MindSing</description><generator>Hugo</generator><language>en</language><atom:link href="/calculator/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>/calculator/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/calculator/readme/</guid><description>&lt;h1 id="calculator-url-token-behavior"&gt;Calculator: URL Token Behavior&lt;/h1&gt;
+&lt;p&gt;This README explains how the calculator serializes form values into an opaque token placed in the browser URL so results can be saved and later decoded to repopulate the form.&lt;/p&gt;
+&lt;p&gt;Where implemented:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Helpers are in &lt;code&gt;web/assets/js/form__helpers.js&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The DIME calculator uses these helpers in &lt;code&gt;web/assets/js/form__dime-calculator.js&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;What it does:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;When the calculator &lt;code&gt;Calculate&lt;/code&gt; button is clicked the DIME calculator now creates an opaque token: a base64url-encoded JSON blob containing the serialized form values.&lt;/li&gt;
+&lt;li&gt;The token is written to the query string as &lt;code&gt;?{token}&lt;/code&gt; (for example &lt;code&gt;?eyJhb...&lt;/code&gt;) using &lt;code&gt;history.replaceState()&lt;/code&gt; so the page does not reload.&lt;/li&gt;
+&lt;li&gt;The token is reversible — it can be decoded back into the original form values.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Programmatic usage:&lt;/p&gt;</description></item></channel></rss>

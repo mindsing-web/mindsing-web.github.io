@@ -1,0 +1,236 @@
+/**
+ * Calculator Styles
+ * Dedicated stylesheet for calculator pages and components
+ * Modular SCSS partials for form elements, dialogs, collapse sections, etc.
+ */
+/**
+ * Shared SCSS Variables
+ * Central location for all shared variables across the project
+ */
+/**
+ * Collapse Sections
+ * Styles for collapsible calculator sections with animated carets
+ */
+.collapse-section-header {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: flex;
+  align-items: center;
+}
+.collapse-section-header .collapse-caret {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.25rem;
+  margin-right: 0.5rem;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), margin-left 0.2s;
+  font-size: 1.2rem;
+  transform: rotate(90deg);
+}
+.collapse-section-header .collapse-caret svg {
+  width: 1rem;
+  height: 1rem;
+  display: block;
+}
+.collapse-section-header:hover .collapse-caret {
+  margin-left: 0.5rem;
+}
+.collapse-section-header.collapsed .collapse-caret {
+  transform: rotate(0deg);
+}
+
+/* Collapse state helpers for calculator sections
+   Moved here from inline/template CSS so rules are compiled with app styles.
+*/
+.collapse-section-header[data-default-collapsed=true]:not(.js-ready) + .collapsible-section {
+  display: none;
+}
+
+.collapse-section-header.collapsed + .collapsible-section {
+  display: none;
+}
+
+/**
+ * Fixed Action Bar
+ * Styles for calculator fixed action bars with shadows and disabled states
+ */
+.fixed-action-bar,
+.fixed-bottom-action-bar,
+.action-bar {
+  box-shadow: 0 -6px 18px rgba(16, 24, 40, 0.12);
+}
+
+/* Disabled button appearance for action-bar controls */
+.btn--disabled {
+  opacity: 0.5;
+  transform: none !important;
+  /* Keep the disabled cursor visible when hovering or focusing. */
+  cursor: not-allowed;
+}
+
+/**
+ * Form Styles
+ * Calculator-specific form styles and required field indicators
+ */
+.required-asterisk {
+  color: #ee5240;
+  margin-right: 0.25rem;
+}
+
+/* DIME calculator summary and spinner */
+#dime-summary .spinner {
+  -webkit-animation: spin 1s linear infinite;
+          animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* Ensure primary action in summary looks prominent */
+#dime-summary .btn--primary {
+  font-size: 1.1rem;
+  padding: 0.875rem 1.75rem;
+}
+
+/* Ensure the button row uses full width and buttons keep alignment */
+#dime-summary .btn {
+  min-width: 120px;
+}
+
+/* DIME calculator summary and spinner */
+.dime-spinner {
+  font-weight: 600;
+  color: #ee5240;
+}
+
+#dime-summary {
+  background: #fff;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+/* Ensure the button row uses full width and buttons keep alignment */
+#dime-summary .btn {
+  min-width: 120px;
+}
+
+/* Summary key styling: smaller, monospace, wrap */
+/* Generic summary key styling used across calculators */
+.summary-key,
+.summary-key code {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Source Code Pro", monospace;
+  font-size: 8px;
+  line-height: 1.2;
+  word-break: break-all;
+  max-width: 100%;
+  color: #374151;
+}
+
+/**
+ * Dialog
+ * Reusable modal dialog styles for calculator forms and interactions
+ */
+.dialog {
+  max-width: 760px;
+  width: calc(100% - 32px);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 18px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+.dialog::-webkit-backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+.dialog form {
+  margin: 0;
+}
+.dialog .dialog-footer {
+  text-align: right;
+  margin-top: 12px;
+}
+.dialog textarea {
+  min-height: 220px;
+  padding: 12px;
+}
+.dialog button[id$=-save] {
+  padding: 8px 16px;
+}
+@media (max-width: 640px) {
+  .dialog {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border-radius: 0;
+    padding: 16px;
+  }
+}
+
+/**
+ * Password Protection
+ * Styles for password-protected calculator content visibility states
+ */
+/* PasswordGate visibility helpers (moved from calculator layout inline <style>)
+   Keep early CSS to prevent FOUC of protected content before JS runs. */
+.pw-buttons-hidden .btn--access-content {
+  display: none;
+}
+
+.pw-buttons-hidden .btn--access-content.pw-access-visible {
+  display: inline-block;
+}
+
+.pw-action-hidden {
+  visibility: hidden;
+}
+
+.pw-content-hidden .js-password-protected {
+  display: none;
+}
+
+/* Hide the page title and calculator home link on calculator sub-pages until unlocked */
+.calculator-page.pw-content-hidden h1 {
+  display: none;
+}
+
+.calculator-page.pw-content-hidden a[href="/calculator/"] {
+  display: none;
+}
+
+/* Generic helper: hide elements until the password gate unlocks.
+  Apply `pw-hide-until-unlock` to any element that should be invisible
+  until the site JS adds `pw-unlocked` to the body on successful unlock. */
+.pw-hide-until-unlock {
+  display: none !important;
+}
+
+.pw-unlocked .pw-hide-until-unlock {
+  display: inherit !important;
+}
+
+/* Ensure hover/focus state still shows not-allowed cursor for disabled buttons */
+.btn--disabled:hover,
+.btn--disabled:focus {
+  cursor: not-allowed;
+}

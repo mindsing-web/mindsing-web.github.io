@@ -1,310 +1,323 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Enterprise Web Systems that Scale on MindSing</title><link>/</link><description>Recent content in Enterprise Web Systems that Scale on MindSing</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 22 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>API Development &amp; Integrations</title><link>/services/api-development/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/api-development/</guid><description>&lt;p>&lt;strong>Modern enterprise web systems require seamless integration&lt;/strong> with existing business systems, third-party services, and custom applications. We specialize in &lt;strong>custom API development&lt;/strong> and &lt;strong>enterprise system integrations&lt;/strong> that connect your web platform with the broader technology ecosystem.&lt;/p>
-&lt;h2 id="custom-api-development">Custom API Development&lt;/h2>
-&lt;h3 id="restful-api-design">RESTful API Design&lt;/h3>
-&lt;ul>
-&lt;li>Scalable backend services architecture&lt;/li>
-&lt;li>Resource-based API design and documentation&lt;/li>
-&lt;li>Authentication and authorization systems&lt;/li>
-&lt;li>Rate limiting and security implementations&lt;/li>
-&lt;/ul>
-&lt;h3 id="graphql-solutions">GraphQL Solutions&lt;/h3>
-&lt;ul>
-&lt;li>Efficient data fetching and query optimization&lt;/li>
-&lt;li>Schema design for complex data relationships&lt;/li>
-&lt;li>Real-time subscriptions and live updates&lt;/li>
-&lt;li>Integration with existing REST services&lt;/li>
-&lt;/ul>
-&lt;h3 id="microservices-architecture">Microservices Architecture&lt;/h3>
-&lt;ul>
-&lt;li>Distributed system design and implementation&lt;/li>
-&lt;li>Service communication and message queuing&lt;/li>
-&lt;li>Container orchestration and deployment&lt;/li>
-&lt;li>Monitoring and logging solutions&lt;/li>
-&lt;/ul>
-&lt;h2 id="enterprise-system-integrations">Enterprise System Integrations&lt;/h2>
-&lt;h3 id="crm--marketing-automation">CRM &amp;amp; Marketing Automation&lt;/h3>
-&lt;ul>
-&lt;li>Salesforce, HubSpot, and Marketo integrations&lt;/li>
-&lt;li>Lead capture and customer data synchronization&lt;/li>
-&lt;li>Marketing campaign automation workflows&lt;/li>
-&lt;li>Customer journey tracking and analytics&lt;/li>
-&lt;/ul>
-&lt;h3 id="authentication--identity-management">Authentication &amp;amp; Identity Management&lt;/h3>
-&lt;ul>
-&lt;li>Single Sign-On (SSO) implementations&lt;/li>
-&lt;li>LDAP and Active Directory integration&lt;/li>
-&lt;li>Multi-factor authentication systems&lt;/li>
-&lt;li>Role-based access control (RBAC)&lt;/li>
-&lt;/ul>
-&lt;h3 id="payment--e-commerce">Payment &amp;amp; E-commerce&lt;/h3>
-&lt;ul>
-&lt;li>Secure payment gateway integrations&lt;/li>
-&lt;li>Subscription and billing system connections&lt;/li>
-&lt;li>Inventory management system APIs&lt;/li>
-&lt;li>Order fulfillment and shipping integrations&lt;/li>
-&lt;/ul>
-&lt;h2 id="higher-education-integrations">Higher Education Integrations&lt;/h2>
-&lt;h3 id="student-information-systems">Student Information Systems&lt;/h3>
-&lt;ul>
-&lt;li>Student data synchronization and management&lt;/li>
-&lt;li>Grade reporting and transcript systems&lt;/li>
-&lt;li>Registration and enrollment workflows&lt;/li>
-&lt;/ul>
-&lt;h3 id="learning-management-systems">Learning Management Systems&lt;/h3>
-&lt;ul>
-&lt;li>Course content synchronization&lt;/li>
-&lt;li>Single sign-on for educational platforms&lt;/li>
-&lt;li>Grade passback and roster management&lt;/li>
-&lt;/ul>
-&lt;h3 id="research--academic-systems">Research &amp;amp; Academic Systems&lt;/h3>
-&lt;ul>
-&lt;li>Library system integrations&lt;/li>
-&lt;li>Research database connections&lt;/li>
-&lt;li>Publication and citation management&lt;/li>
-&lt;li>Grant management system APIs&lt;/li>
-&lt;/ul>
-&lt;h2 id="technology-stack">Technology Stack&lt;/h2>
-&lt;h3 id="backend-development">Backend Development&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>PHP&lt;/strong> (Laravel, Symfony)&lt;/li>
-&lt;li>&lt;strong>Node.js&lt;/strong> (Express, NestJS, Fastify)&lt;/li>
-&lt;li>&lt;strong>Python&lt;/strong> (Django, FastAPI)&lt;/li>
-&lt;li>&lt;strong>Database Integration&lt;/strong> (MySQL, PostgreSQL, MongoDB)&lt;/li>
-&lt;/ul>
-&lt;h3 id="api-technologies">API Technologies&lt;/h3>
-&lt;ul>
-&lt;li>REST API design and implementation&lt;/li>
-&lt;li>GraphQL schema development&lt;/li>
-&lt;li>WebSocket real-time connections&lt;/li>
-&lt;li>Message queuing (Redis, RabbitMQ)&lt;/li>
-&lt;/ul>
-&lt;h3 id="integration-platforms">Integration Platforms&lt;/h3>
-&lt;ul>
-&lt;li>Custom webhook implementations&lt;/li>
-&lt;li>ETL data processing pipelines&lt;/li>
-&lt;li>API gateway and proxy services&lt;/li>
-&lt;/ul>
-&lt;h2 id="development-process">Development Process&lt;/h2>
-&lt;h3 id="1-integration-assessment">1. Integration Assessment&lt;/h3>
-&lt;ul>
-&lt;li>Current system analysis and documentation&lt;/li>
-&lt;li>API capability evaluation&lt;/li>
-&lt;li>Data flow mapping and requirements gathering&lt;/li>
-&lt;li>Security and compliance considerations&lt;/li>
-&lt;/ul>
-&lt;h3 id="2-api-design--architecture">2. API Design &amp;amp; Architecture&lt;/h3>
-&lt;ul>
-&lt;li>RESTful resource design or GraphQL schema planning&lt;/li>
-&lt;li>Authentication and authorization strategy&lt;/li>
-&lt;li>Rate limiting and caching architecture&lt;/li>
-&lt;li>Documentation and testing framework setup&lt;/li>
-&lt;/ul>
-&lt;h3 id="3-development--testing">3. Development &amp;amp; Testing&lt;/h3>
-&lt;ul>
-&lt;li>Iterative API development and versioning&lt;/li>
-&lt;li>Comprehensive testing (unit, integration, load)&lt;/li>
-&lt;li>Security auditing and penetration testing&lt;/li>
-&lt;li>Performance optimization and monitoring&lt;/li>
-&lt;/ul>
-&lt;h3 id="4-deployment--monitoring">4. Deployment &amp;amp; Monitoring&lt;/h3>
-&lt;ul>
-&lt;li>Production deployment and configuration&lt;/li>
-&lt;li>API monitoring and analytics setup&lt;/li>
-&lt;li>Documentation and training delivery&lt;/li>
-&lt;li>Ongoing maintenance and support planning&lt;/li>
-&lt;/ul></description></item><item><title>Web Development</title><link>/services/web-development/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/web-development/</guid><description>&lt;p>We specialize in building &lt;strong>enterprise-grade web systems&lt;/strong> that handle complex organizational requirements and scale to support thousands of users. Our expertise spans &lt;strong>Drupal&lt;/strong>, &lt;strong>WordPress&lt;/strong>, and &lt;strong>custom API development&lt;/strong> for organizations that demand reliability, security, and performance.&lt;/p>
-&lt;h2 id="enterprise-drupal-development">Enterprise Drupal Development&lt;/h2>
-&lt;h3 id="why-drupal-for-enterprise">Why Drupal for Enterprise?&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Multi-site management&lt;/strong> - Manage hundreds of sites from a single installation&lt;/li>
-&lt;li>&lt;strong>Advanced content workflows&lt;/strong> - Editorial approval processes and content governance&lt;/li>
-&lt;li>&lt;strong>Enterprise integrations&lt;/strong> - Seamless connection with CRM, ERP, and authentication systems&lt;/li>
-&lt;li>&lt;strong>Scalability&lt;/strong> - Handle high traffic loads and complex data structures&lt;/li>
-&lt;li>&lt;strong>Security&lt;/strong> - Enterprise-grade security features and regular security updates&lt;/li>
-&lt;/ul>
-&lt;h3 id="our-drupal-expertise">Our Drupal Expertise:&lt;/h3>
-&lt;ul>
-&lt;li>Custom module development and theme creation&lt;/li>
-&lt;li>Drupal 8/9/10/11+ migrations and upgrades&lt;/li>
-&lt;li>Headless/decoupled Drupal implementations&lt;/li>
-&lt;li>Performance optimization and caching strategies&lt;/li>
-&lt;li>Multi-language and internationalization setup&lt;/li>
-&lt;/ul>
-&lt;h2 id="wordpress-enterprise-solutions">WordPress Enterprise Solutions&lt;/h2>
-&lt;h3 id="wordpress-at-scale">WordPress at Scale:&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Multi-site networks&lt;/strong> - Centralized management for multiple WordPress sites&lt;/li>
-&lt;li>&lt;strong>Custom plugin development&lt;/strong> - Tailored functionality for specific business needs&lt;/li>
-&lt;li>&lt;strong>Advanced custom fields&lt;/strong> - Complex content types and data structures&lt;/li>
-&lt;li>&lt;strong>WooCommerce enterprise&lt;/strong> - High-volume e-commerce solutions&lt;/li>
-&lt;li>&lt;strong>API integrations&lt;/strong> - Connect WordPress with external systems and services&lt;/li>
-&lt;/ul>
-&lt;h2 id="higher-education-expertise">Higher Education Expertise&lt;/h2>
-&lt;h3 id="specialized-solutions-for-academic-institutions">Specialized Solutions for Academic Institutions:&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Student portal development&lt;/strong> - Secure, scalable student information systems&lt;/li>
-&lt;li>&lt;strong>Faculty websites&lt;/strong> - Academic profile management and research showcase platforms&lt;/li>
-&lt;li>&lt;strong>Event management systems&lt;/strong> - Conference, seminar, and academic event platforms&lt;/li>
-&lt;li>&lt;strong>Learning management integration&lt;/strong> - LMS connectivity and custom learning tools&lt;/li>
-&lt;li>&lt;strong>Alumni networks&lt;/strong> - Engagement platforms and donation management systems&lt;/li>
-&lt;/ul>
-&lt;h2 id="custom-api-development">Custom API Development&lt;/h2>
-&lt;h3 id="full-stack-development-services">Full-Stack Development Services:&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>RESTful API design&lt;/strong> - Scalable backend services and microservices architecture&lt;/li>
-&lt;li>&lt;strong>GraphQL implementations&lt;/strong> - Efficient data fetching for modern applications&lt;/li>
-&lt;li>&lt;strong>Third-party integrations&lt;/strong> - CRM, payment processors, marketing automation&lt;/li>
-&lt;li>&lt;strong>Headless CMS solutions&lt;/strong> - Decouple content management from presentation layers&lt;/li>
-&lt;li>&lt;strong>Real-time applications&lt;/strong> - WebSocket implementations and live data updates&lt;/li>
-&lt;/ul>
-&lt;h2 id="technology-stack">Technology Stack&lt;/h2>
-&lt;h3 id="backend-technologies">Backend Technologies:&lt;/h3>
-&lt;ul>
-&lt;li>PHP (Laravel, Symfony)&lt;/li>
-&lt;li>Node.js (Express, NestJS)&lt;/li>
-&lt;li>Python (Django, FastAPI)&lt;/li>
-&lt;li>Database design (MySQL, PostgreSQL, MongoDB)&lt;/li>
-&lt;/ul>
-&lt;h3 id="frontend-technologies">Frontend Technologies:&lt;/h3>
-&lt;ul>
-&lt;li>Modern JavaScript (React, Vue.js, Angular)&lt;/li>
-&lt;li>Progressive Web Apps (PWAs)&lt;/li>
-&lt;li>Mobile-responsive design&lt;/li>
-&lt;li>Performance optimization&lt;/li>
-&lt;li>SCSS/CSS architecture&lt;/li>
-&lt;/ul>
-&lt;h2 id="our-development-process">Our Development Process&lt;/h2>
-&lt;h3 id="1-discovery--planning">1. Discovery &amp;amp; Planning&lt;/h3>
-&lt;ul>
-&lt;li>Requirements analysis and technical architecture planning&lt;/li>
-&lt;li>Technology stack recommendations&lt;/li>
-&lt;li>Project timeline and milestone definition&lt;/li>
-&lt;/ul>
-&lt;h3 id="2-development--testing">2. Development &amp;amp; Testing&lt;/h3>
-&lt;ul>
-&lt;li>Agile development methodology&lt;/li>
-&lt;li>Continuous integration and deployment&lt;/li>
-&lt;li>Comprehensive testing (unit, integration, performance)&lt;/li>
-&lt;/ul>
-&lt;h3 id="3-launch--optimization">3. Launch &amp;amp; Optimization&lt;/h3>
-&lt;ul>
-&lt;li>Server setup and deployment&lt;/li>
-&lt;li>Performance monitoring and optimization&lt;/li>
-&lt;li>Security auditing and hardening&lt;/li>
-&lt;/ul>
-&lt;h3 id="4-ongoing-support">4. Ongoing Support&lt;/h3>
-&lt;ul>
-&lt;li>Regular updates and security patches&lt;/li>
-&lt;li>Performance monitoring and optimization&lt;/li>
-&lt;li>Feature enhancements and scaling support&lt;/li>
-&lt;/ul></description></item><item><title>Technical Content &amp; Documentation</title><link>/services/content-writing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/content-writing/</guid><description>&lt;p>&lt;strong>Enterprise organizations need clear, professional content&lt;/strong> that communicates complex technical concepts to diverse audiences. We specialize in creating &lt;strong>technical documentation&lt;/strong>, &lt;strong>user guides&lt;/strong>, and &lt;strong>enterprise content&lt;/strong> that supports your web systems and organizational goals.&lt;/p>
-&lt;h2 id="enterprise-content-services">Enterprise Content Services&lt;/h2>
-&lt;h3 id="technical-documentation">Technical Documentation&lt;/h3>
-&lt;ul>
-&lt;li>API documentation and developer guides&lt;/li>
-&lt;li>System administration manuals&lt;/li>
-&lt;li>User training materials and workflows&lt;/li>
-&lt;li>Integration guides and troubleshooting resources&lt;/li>
-&lt;/ul>
-&lt;h3 id="institutional-content">Institutional Content&lt;/h3>
-&lt;ul>
-&lt;li>Academic program descriptions and course catalogs&lt;/li>
-&lt;li>Faculty profiles and research publications&lt;/li>
-&lt;li>Policy documentation and compliance guides&lt;/li>
-&lt;li>Student resources and help documentation&lt;/li>
-&lt;/ul>
-&lt;h3 id="web-content-strategy">Web Content Strategy&lt;/h3>
-&lt;ul>
-&lt;li>Content architecture planning&lt;/li>
-&lt;li>Editorial workflow development&lt;/li>
-&lt;li>Content governance and style guides&lt;/li>
-&lt;li>Multi-language content management&lt;/li>
-&lt;/ul>
-&lt;h2 id="content-management-integration">Content Management Integration&lt;/h2>
-&lt;h3 id="drupal-content-strategy">Drupal Content Strategy&lt;/h3>
-&lt;ul>
-&lt;li>Custom content types and taxonomies&lt;/li>
-&lt;li>Editorial workflow configuration&lt;/li>
-&lt;li>Content migration and restructuring&lt;/li>
-&lt;li>Multi-site content distribution&lt;/li>
-&lt;/ul>
-&lt;h3 id="wordpress-editorial-systems">WordPress Editorial Systems&lt;/h3>
-&lt;ul>
-&lt;li>Advanced custom fields setup&lt;/li>
-&lt;li>Editorial calendar management&lt;/li>
-&lt;li>Content approval workflows&lt;/li>
-&lt;li>Media library organization&lt;/li>
-&lt;/ul></description></item><item><title>Digital Media Integration</title><link>/services/multi-media/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/multi-media/</guid><description>&lt;p>&lt;strong>Enterprise web systems require sophisticated media management&lt;/strong> capabilities to handle large volumes of digital assets, streaming content, and multi-format media delivery. We specialize in &lt;strong>enterprise media architecture&lt;/strong> and &lt;strong>scalable content delivery&lt;/strong> solutions.&lt;/p>
-&lt;h2 id="enterprise-media-solutions">Enterprise Media Solutions&lt;/h2>
-&lt;h3 id="digital-asset-management">Digital Asset Management&lt;/h3>
-&lt;ul>
-&lt;li>Large-scale media library organization&lt;/li>
-&lt;li>Automated metadata tagging and categorization&lt;/li>
-&lt;li>Advanced search and filtering capabilities&lt;/li>
-&lt;li>Version control and approval workflows&lt;/li>
-&lt;/ul>
-&lt;h3 id="video-platform-integration">Video Platform Integration&lt;/h3>
-&lt;ul>
-&lt;li>Enterprise video hosting and streaming&lt;/li>
-&lt;li>Live event broadcasting and webinar platforms&lt;/li>
-&lt;li>Video content management systems&lt;/li>
-&lt;li>Accessibility compliance (captions, transcripts)&lt;/li>
-&lt;/ul>
-&lt;h3 id="media-optimization--delivery">Media Optimization &amp;amp; Delivery&lt;/h3>
-&lt;ul>
-&lt;li>CDN integration for global content delivery&lt;/li>
-&lt;li>Responsive image and video optimization&lt;/li>
-&lt;li>Progressive web app media handling&lt;/li>
-&lt;li>Performance optimization for high-traffic sites&lt;/li>
-&lt;/ul>
-&lt;h2 id="higher-education-media-systems">Higher Education Media Systems&lt;/h2>
-&lt;h3 id="academic-video-platforms">Academic Video Platforms&lt;/h3>
-&lt;ul>
-&lt;li>Lecture capture and streaming systems&lt;/li>
-&lt;li>Student presentation and portfolio platforms&lt;/li>
-&lt;li>Research documentation and archival systems&lt;/li>
-&lt;li>Campus event broadcasting solutions&lt;/li>
-&lt;/ul>
-&lt;h3 id="digital-collections">Digital Collections&lt;/h3>
-&lt;ul>
-&lt;li>Library digital archive management&lt;/li>
-&lt;li>Research publication platforms&lt;/li>
-&lt;li>Historical media preservation&lt;/li>
-&lt;li>Museum and gallery systems&lt;/li>
-&lt;/ul>
-&lt;h2 id="technical-implementation">Technical Implementation&lt;/h2>
-&lt;h3 id="drupal-media-management">Drupal Media Management&lt;/h3>
-&lt;ul>
-&lt;li>Media entity configuration and workflows&lt;/li>
-&lt;li>Custom media types and field structures&lt;/li>
-&lt;li>Bulk media processing and migration&lt;/li>
-&lt;li>Integration with external media services&lt;/li>
-&lt;/ul>
-&lt;h3 id="wordpress-media-architecture">WordPress Media Architecture&lt;/h3>
-&lt;ul>
-&lt;li>Advanced media library customization&lt;/li>
-&lt;li>Custom media post types and taxonomies&lt;/li>
-&lt;li>Media workflow automation&lt;/li>
-&lt;li>Multi-site media sharing&lt;/li>
-&lt;/ul></description></item><item><title>Privacy Policy</title><link>/privacy-policy/</link><pubDate>Sat, 22 Mar 2025 00:00:00 +0000</pubDate><guid>/privacy-policy/</guid><description>&lt;p>&lt;em>Last updated: March 22, 2025&lt;/em>&lt;/p>
-&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>Welcome to MindSing. We respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website.&lt;/p>
-&lt;h2 id="information-we-collect">Information We Collect&lt;/h2>
-&lt;h3 id="information-you-provide">Information You Provide&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Contact information&lt;/strong>: When you contact us through our contact form, we collect your name and email address.&lt;/li>
-&lt;li>&lt;strong>Calendar booking information&lt;/strong>: When you schedule appointments through our calendar system, we collect your name, email address, and any additional information you provide related to the booking.&lt;/li>
-&lt;li>&lt;strong>User content&lt;/strong>: Any content you submit, including comments or feedback.&lt;/li>
-&lt;/ul>
-&lt;h3 id="information-collected-automatically">Information Collected Automatically&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Usage data&lt;/strong>: Information about how you interact with our website, including pages visited and time spent.&lt;/li>
-&lt;li>&lt;strong>Device information&lt;/strong>: Browser type, operating system, and device identifiers.&lt;/li>
-&lt;li>&lt;strong>IP address&lt;/strong>: Used to approximate your location and for security purposes.&lt;/li>
-&lt;/ul>
-&lt;h2 id="how-we-store-your-data">How We Store Your Data&lt;/h2>
-&lt;p>We use Zoho CRM to store and manage data collected through our website. Your personal information is processed and stored according to Zoho&amp;rsquo;s security and data protection policies. For more information about Zoho&amp;rsquo;s data practices, please visit &lt;a href="https://www.zoho.com/privacy.html">Zoho&amp;rsquo;s privacy policy&lt;/a>.&lt;/p></description></item><item><title>Schedule an Appointment</title><link>/booking/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/booking/</guid><description>&lt;p>Use our online calendar below to book an appointment at a time that works for you.&lt;/p>
-&lt;div class="calendar-container" style="position: relative; padding-bottom: 110%; height: 0; overflow: hidden; width: 100%; max-height: 990px;">
- &lt;iframe width='100%' src='https://meet.mindsing.com/portal-embed#/4685100000000041054' frameborder='0' allowfullscreen='' style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"> &lt;/iframe>
-&lt;/div>
-&lt;p class="f6 mt4">If you have any issues with the calendar, please &lt;a href="mailto:booking@mindsing.com">contact us directly&lt;/a>.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Enterprise Web Systems that Scale on MindSing</title><link>/</link><description>Recent content in Enterprise Web Systems that Scale on MindSing</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 22 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>API Development &amp; Integrations</title><link>/services/api-development/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/api-development/</guid><description>&lt;p&gt;&lt;strong&gt;Modern enterprise web systems require seamless integration&lt;/strong&gt; with existing business systems, third-party services, and custom applications. We specialize in &lt;strong&gt;custom API development&lt;/strong&gt; and &lt;strong&gt;enterprise system integrations&lt;/strong&gt; that connect your web platform with the broader technology ecosystem.&lt;/p&gt;
+&lt;h2 id="custom-api-development"&gt;Custom API Development&lt;/h2&gt;
+&lt;h3 id="restful-api-design"&gt;RESTful API Design&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Scalable backend services architecture&lt;/li&gt;
+&lt;li&gt;Resource-based API design and documentation&lt;/li&gt;
+&lt;li&gt;Authentication and authorization systems&lt;/li&gt;
+&lt;li&gt;Rate limiting and security implementations&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="graphql-solutions"&gt;GraphQL Solutions&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Efficient data fetching and query optimization&lt;/li&gt;
+&lt;li&gt;Schema design for complex data relationships&lt;/li&gt;
+&lt;li&gt;Real-time subscriptions and live updates&lt;/li&gt;
+&lt;li&gt;Integration with existing REST services&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="microservices-architecture"&gt;Microservices Architecture&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Distributed system design and implementation&lt;/li&gt;
+&lt;li&gt;Service communication and message queuing&lt;/li&gt;
+&lt;li&gt;Container orchestration and deployment&lt;/li&gt;
+&lt;li&gt;Monitoring and logging solutions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="enterprise-system-integrations"&gt;Enterprise System Integrations&lt;/h2&gt;
+&lt;h3 id="crm--marketing-automation"&gt;CRM &amp;amp; Marketing Automation&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Salesforce, HubSpot, and Marketo integrations&lt;/li&gt;
+&lt;li&gt;Lead capture and customer data synchronization&lt;/li&gt;
+&lt;li&gt;Marketing campaign automation workflows&lt;/li&gt;
+&lt;li&gt;Customer journey tracking and analytics&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="authentication--identity-management"&gt;Authentication &amp;amp; Identity Management&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Single Sign-On (SSO) implementations&lt;/li&gt;
+&lt;li&gt;LDAP and Active Directory integration&lt;/li&gt;
+&lt;li&gt;Multi-factor authentication systems&lt;/li&gt;
+&lt;li&gt;Role-based access control (RBAC)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="payment--e-commerce"&gt;Payment &amp;amp; E-commerce&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Secure payment gateway integrations&lt;/li&gt;
+&lt;li&gt;Subscription and billing system connections&lt;/li&gt;
+&lt;li&gt;Inventory management system APIs&lt;/li&gt;
+&lt;li&gt;Order fulfillment and shipping integrations&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="higher-education-integrations"&gt;Higher Education Integrations&lt;/h2&gt;
+&lt;h3 id="student-information-systems"&gt;Student Information Systems&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Student data synchronization and management&lt;/li&gt;
+&lt;li&gt;Grade reporting and transcript systems&lt;/li&gt;
+&lt;li&gt;Registration and enrollment workflows&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="learning-management-systems"&gt;Learning Management Systems&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Course content synchronization&lt;/li&gt;
+&lt;li&gt;Single sign-on for educational platforms&lt;/li&gt;
+&lt;li&gt;Grade passback and roster management&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="research--academic-systems"&gt;Research &amp;amp; Academic Systems&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Library system integrations&lt;/li&gt;
+&lt;li&gt;Research database connections&lt;/li&gt;
+&lt;li&gt;Publication and citation management&lt;/li&gt;
+&lt;li&gt;Grant management system APIs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="technology-stack"&gt;Technology Stack&lt;/h2&gt;
+&lt;h3 id="backend-development"&gt;Backend Development&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;PHP&lt;/strong&gt; (Laravel, Symfony)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Node.js&lt;/strong&gt; (Express, NestJS, Fastify)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Python&lt;/strong&gt; (Django, FastAPI)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Database Integration&lt;/strong&gt; (MySQL, PostgreSQL, MongoDB)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="api-technologies"&gt;API Technologies&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;REST API design and implementation&lt;/li&gt;
+&lt;li&gt;GraphQL schema development&lt;/li&gt;
+&lt;li&gt;WebSocket real-time connections&lt;/li&gt;
+&lt;li&gt;Message queuing (Redis, RabbitMQ)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="integration-platforms"&gt;Integration Platforms&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Custom webhook implementations&lt;/li&gt;
+&lt;li&gt;ETL data processing pipelines&lt;/li&gt;
+&lt;li&gt;API gateway and proxy services&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="development-process"&gt;Development Process&lt;/h2&gt;
+&lt;h3 id="1-integration-assessment"&gt;1. Integration Assessment&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Current system analysis and documentation&lt;/li&gt;
+&lt;li&gt;API capability evaluation&lt;/li&gt;
+&lt;li&gt;Data flow mapping and requirements gathering&lt;/li&gt;
+&lt;li&gt;Security and compliance considerations&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="2-api-design--architecture"&gt;2. API Design &amp;amp; Architecture&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;RESTful resource design or GraphQL schema planning&lt;/li&gt;
+&lt;li&gt;Authentication and authorization strategy&lt;/li&gt;
+&lt;li&gt;Rate limiting and caching architecture&lt;/li&gt;
+&lt;li&gt;Documentation and testing framework setup&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="3-development--testing"&gt;3. Development &amp;amp; Testing&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Iterative API development and versioning&lt;/li&gt;
+&lt;li&gt;Comprehensive testing (unit, integration, load)&lt;/li&gt;
+&lt;li&gt;Security auditing and penetration testing&lt;/li&gt;
+&lt;li&gt;Performance optimization and monitoring&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="4-deployment--monitoring"&gt;4. Deployment &amp;amp; Monitoring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Production deployment and configuration&lt;/li&gt;
+&lt;li&gt;API monitoring and analytics setup&lt;/li&gt;
+&lt;li&gt;Documentation and training delivery&lt;/li&gt;
+&lt;li&gt;Ongoing maintenance and support planning&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Web Development</title><link>/services/web-development/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/web-development/</guid><description>&lt;p&gt;We specialize in building &lt;strong&gt;enterprise-grade web systems&lt;/strong&gt; that handle complex organizational requirements and scale to support thousands of users. Our expertise spans &lt;strong&gt;Drupal&lt;/strong&gt;, &lt;strong&gt;WordPress&lt;/strong&gt;, and &lt;strong&gt;custom API development&lt;/strong&gt; for organizations that demand reliability, security, and performance.&lt;/p&gt;
+&lt;h2 id="enterprise-drupal-development"&gt;Enterprise Drupal Development&lt;/h2&gt;
+&lt;h3 id="why-drupal-for-enterprise"&gt;Why Drupal for Enterprise?&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Multi-site management&lt;/strong&gt; - Manage hundreds of sites from a single installation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Advanced content workflows&lt;/strong&gt; - Editorial approval processes and content governance&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Enterprise integrations&lt;/strong&gt; - Seamless connection with CRM, ERP, and authentication systems&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Scalability&lt;/strong&gt; - Handle high traffic loads and complex data structures&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Security&lt;/strong&gt; - Enterprise-grade security features and regular security updates&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="our-drupal-expertise"&gt;Our Drupal Expertise:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Custom module development and theme creation&lt;/li&gt;
+&lt;li&gt;Drupal 8/9/10/11+ migrations and upgrades&lt;/li&gt;
+&lt;li&gt;Headless/decoupled Drupal implementations&lt;/li&gt;
+&lt;li&gt;Performance optimization and caching strategies&lt;/li&gt;
+&lt;li&gt;Multi-language and internationalization setup&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="wordpress-enterprise-solutions"&gt;WordPress Enterprise Solutions&lt;/h2&gt;
+&lt;h3 id="wordpress-at-scale"&gt;WordPress at Scale:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Multi-site networks&lt;/strong&gt; - Centralized management for multiple WordPress sites&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Custom plugin development&lt;/strong&gt; - Tailored functionality for specific business needs&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Advanced custom fields&lt;/strong&gt; - Complex content types and data structures&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;WooCommerce enterprise&lt;/strong&gt; - High-volume e-commerce solutions&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;API integrations&lt;/strong&gt; - Connect WordPress with external systems and services&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="higher-education-expertise"&gt;Higher Education Expertise&lt;/h2&gt;
+&lt;h3 id="specialized-solutions-for-academic-institutions"&gt;Specialized Solutions for Academic Institutions:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Student portal development&lt;/strong&gt; - Secure, scalable student information systems&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Faculty websites&lt;/strong&gt; - Academic profile management and research showcase platforms&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Event management systems&lt;/strong&gt; - Conference, seminar, and academic event platforms&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Learning management integration&lt;/strong&gt; - LMS connectivity and custom learning tools&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Alumni networks&lt;/strong&gt; - Engagement platforms and donation management systems&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="custom-api-development"&gt;Custom API Development&lt;/h2&gt;
+&lt;h3 id="full-stack-development-services"&gt;Full-Stack Development Services:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;RESTful API design&lt;/strong&gt; - Scalable backend services and microservices architecture&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GraphQL implementations&lt;/strong&gt; - Efficient data fetching for modern applications&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Third-party integrations&lt;/strong&gt; - CRM, payment processors, marketing automation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Headless CMS solutions&lt;/strong&gt; - Decouple content management from presentation layers&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Real-time applications&lt;/strong&gt; - WebSocket implementations and live data updates&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="technology-stack"&gt;Technology Stack&lt;/h2&gt;
+&lt;h3 id="backend-technologies"&gt;Backend Technologies:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;PHP (Laravel, Symfony)&lt;/li&gt;
+&lt;li&gt;Node.js (Express, NestJS)&lt;/li&gt;
+&lt;li&gt;Python (Django, FastAPI)&lt;/li&gt;
+&lt;li&gt;Database design (MySQL, PostgreSQL, MongoDB)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="frontend-technologies"&gt;Frontend Technologies:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Modern JavaScript (React, Vue.js, Angular)&lt;/li&gt;
+&lt;li&gt;Progressive Web Apps (PWAs)&lt;/li&gt;
+&lt;li&gt;Mobile-responsive design&lt;/li&gt;
+&lt;li&gt;Performance optimization&lt;/li&gt;
+&lt;li&gt;SCSS/CSS architecture&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="our-development-process"&gt;Our Development Process&lt;/h2&gt;
+&lt;h3 id="1-discovery--planning"&gt;1. Discovery &amp;amp; Planning&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Requirements analysis and technical architecture planning&lt;/li&gt;
+&lt;li&gt;Technology stack recommendations&lt;/li&gt;
+&lt;li&gt;Project timeline and milestone definition&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="2-development--testing"&gt;2. Development &amp;amp; Testing&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Agile development methodology&lt;/li&gt;
+&lt;li&gt;Continuous integration and deployment&lt;/li&gt;
+&lt;li&gt;Comprehensive testing (unit, integration, performance)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="3-launch--optimization"&gt;3. Launch &amp;amp; Optimization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Server setup and deployment&lt;/li&gt;
+&lt;li&gt;Performance monitoring and optimization&lt;/li&gt;
+&lt;li&gt;Security auditing and hardening&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="4-ongoing-support"&gt;4. Ongoing Support&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Regular updates and security patches&lt;/li&gt;
+&lt;li&gt;Performance monitoring and optimization&lt;/li&gt;
+&lt;li&gt;Feature enhancements and scaling support&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Technical Content &amp; Documentation</title><link>/services/content-writing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/content-writing/</guid><description>&lt;p&gt;&lt;strong&gt;Enterprise organizations need clear, professional content&lt;/strong&gt; that communicates complex technical concepts to diverse audiences. We specialize in creating &lt;strong&gt;technical documentation&lt;/strong&gt;, &lt;strong&gt;user guides&lt;/strong&gt;, and &lt;strong&gt;enterprise content&lt;/strong&gt; that supports your web systems and organizational goals.&lt;/p&gt;
+&lt;h2 id="enterprise-content-services"&gt;Enterprise Content Services&lt;/h2&gt;
+&lt;h3 id="technical-documentation"&gt;Technical Documentation&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;API documentation and developer guides&lt;/li&gt;
+&lt;li&gt;System administration manuals&lt;/li&gt;
+&lt;li&gt;User training materials and workflows&lt;/li&gt;
+&lt;li&gt;Integration guides and troubleshooting resources&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="institutional-content"&gt;Institutional Content&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Academic program descriptions and course catalogs&lt;/li&gt;
+&lt;li&gt;Faculty profiles and research publications&lt;/li&gt;
+&lt;li&gt;Policy documentation and compliance guides&lt;/li&gt;
+&lt;li&gt;Student resources and help documentation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="web-content-strategy"&gt;Web Content Strategy&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Content architecture planning&lt;/li&gt;
+&lt;li&gt;Editorial workflow development&lt;/li&gt;
+&lt;li&gt;Content governance and style guides&lt;/li&gt;
+&lt;li&gt;Multi-language content management&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="content-management-integration"&gt;Content Management Integration&lt;/h2&gt;
+&lt;h3 id="drupal-content-strategy"&gt;Drupal Content Strategy&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Custom content types and taxonomies&lt;/li&gt;
+&lt;li&gt;Editorial workflow configuration&lt;/li&gt;
+&lt;li&gt;Content migration and restructuring&lt;/li&gt;
+&lt;li&gt;Multi-site content distribution&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="wordpress-editorial-systems"&gt;WordPress Editorial Systems&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Advanced custom fields setup&lt;/li&gt;
+&lt;li&gt;Editorial calendar management&lt;/li&gt;
+&lt;li&gt;Content approval workflows&lt;/li&gt;
+&lt;li&gt;Media library organization&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Digital Media Integration</title><link>/services/multi-media/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/multi-media/</guid><description>&lt;p&gt;&lt;strong&gt;Enterprise web systems require sophisticated media management&lt;/strong&gt; capabilities to handle large volumes of digital assets, streaming content, and multi-format media delivery. We specialize in &lt;strong&gt;enterprise media architecture&lt;/strong&gt; and &lt;strong&gt;scalable content delivery&lt;/strong&gt; solutions.&lt;/p&gt;
+&lt;h2 id="enterprise-media-solutions"&gt;Enterprise Media Solutions&lt;/h2&gt;
+&lt;h3 id="digital-asset-management"&gt;Digital Asset Management&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Large-scale media library organization&lt;/li&gt;
+&lt;li&gt;Automated metadata tagging and categorization&lt;/li&gt;
+&lt;li&gt;Advanced search and filtering capabilities&lt;/li&gt;
+&lt;li&gt;Version control and approval workflows&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="video-platform-integration"&gt;Video Platform Integration&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Enterprise video hosting and streaming&lt;/li&gt;
+&lt;li&gt;Live event broadcasting and webinar platforms&lt;/li&gt;
+&lt;li&gt;Video content management systems&lt;/li&gt;
+&lt;li&gt;Accessibility compliance (captions, transcripts)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="media-optimization--delivery"&gt;Media Optimization &amp;amp; Delivery&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;CDN integration for global content delivery&lt;/li&gt;
+&lt;li&gt;Responsive image and video optimization&lt;/li&gt;
+&lt;li&gt;Progressive web app media handling&lt;/li&gt;
+&lt;li&gt;Performance optimization for high-traffic sites&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="higher-education-media-systems"&gt;Higher Education Media Systems&lt;/h2&gt;
+&lt;h3 id="academic-video-platforms"&gt;Academic Video Platforms&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Lecture capture and streaming systems&lt;/li&gt;
+&lt;li&gt;Student presentation and portfolio platforms&lt;/li&gt;
+&lt;li&gt;Research documentation and archival systems&lt;/li&gt;
+&lt;li&gt;Campus event broadcasting solutions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="digital-collections"&gt;Digital Collections&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Library digital archive management&lt;/li&gt;
+&lt;li&gt;Research publication platforms&lt;/li&gt;
+&lt;li&gt;Historical media preservation&lt;/li&gt;
+&lt;li&gt;Museum and gallery systems&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="technical-implementation"&gt;Technical Implementation&lt;/h2&gt;
+&lt;h3 id="drupal-media-management"&gt;Drupal Media Management&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Media entity configuration and workflows&lt;/li&gt;
+&lt;li&gt;Custom media types and field structures&lt;/li&gt;
+&lt;li&gt;Bulk media processing and migration&lt;/li&gt;
+&lt;li&gt;Integration with external media services&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="wordpress-media-architecture"&gt;WordPress Media Architecture&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Advanced media library customization&lt;/li&gt;
+&lt;li&gt;Custom media post types and taxonomies&lt;/li&gt;
+&lt;li&gt;Media workflow automation&lt;/li&gt;
+&lt;li&gt;Multi-site media sharing&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Privacy Policy</title><link>/privacy-policy/</link><pubDate>Sat, 22 Mar 2025 00:00:00 +0000</pubDate><guid>/privacy-policy/</guid><description>&lt;p&gt;&lt;em&gt;Last updated: March 22, 2025&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Welcome to MindSing. We respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website.&lt;/p&gt;
+&lt;h2 id="information-we-collect"&gt;Information We Collect&lt;/h2&gt;
+&lt;h3 id="information-you-provide"&gt;Information You Provide&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Contact information&lt;/strong&gt;: When you contact us through our contact form, we collect your name and email address.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Calendar booking information&lt;/strong&gt;: When you schedule appointments through our calendar system, we collect your name, email address, and any additional information you provide related to the booking.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;User content&lt;/strong&gt;: Any content you submit, including comments or feedback.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="information-collected-automatically"&gt;Information Collected Automatically&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Usage data&lt;/strong&gt;: Information about how you interact with our website, including pages visited and time spent.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Device information&lt;/strong&gt;: Browser type, operating system, and device identifiers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IP address&lt;/strong&gt;: Used to approximate your location and for security purposes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="how-we-store-your-data"&gt;How We Store Your Data&lt;/h2&gt;
+&lt;p&gt;We use Zoho CRM to store and manage data collected through our website. Your personal information is processed and stored according to Zoho&amp;rsquo;s security and data protection policies. For more information about Zoho&amp;rsquo;s data practices, please visit &lt;a href="https://www.zoho.com/privacy.html"&gt;Zoho&amp;rsquo;s privacy policy&lt;/a&gt;.&lt;/p&gt;</description></item><item><title/><link>/calculator/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/calculator/readme/</guid><description>&lt;h1 id="calculator-url-token-behavior"&gt;Calculator: URL Token Behavior&lt;/h1&gt;
+&lt;p&gt;This README explains how the calculator serializes form values into an opaque token placed in the browser URL so results can be saved and later decoded to repopulate the form.&lt;/p&gt;
+&lt;p&gt;Where implemented:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Helpers are in &lt;code&gt;web/assets/js/form__helpers.js&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The DIME calculator uses these helpers in &lt;code&gt;web/assets/js/form__dime-calculator.js&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;What it does:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;When the calculator &lt;code&gt;Calculate&lt;/code&gt; button is clicked the DIME calculator now creates an opaque token: a base64url-encoded JSON blob containing the serialized form values.&lt;/li&gt;
+&lt;li&gt;The token is written to the query string as &lt;code&gt;?{token}&lt;/code&gt; (for example &lt;code&gt;?eyJhb...&lt;/code&gt;) using &lt;code&gt;history.replaceState()&lt;/code&gt; so the page does not reload.&lt;/li&gt;
+&lt;li&gt;The token is reversible — it can be decoded back into the original form values.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Programmatic usage:&lt;/p&gt;</description></item><item><title>Schedule an Appointment</title><link>/booking/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/booking/</guid><description>&lt;p&gt;Use our online calendar below to book an appointment at a time that works for you.&lt;/p&gt;
+&lt;div class="calendar-container" style="position: relative; padding-bottom: 110%; height: 0; overflow: hidden; width: 100%; max-height: 990px;"&gt;
+ &lt;iframe width='100%' src='https://meet.mindsing.com/portal-embed#/4685100000000041054' frameborder='0' allowfullscreen='' style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"&gt; &lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p class="f6 mt4"&gt;If you have any issues with the calendar, please &lt;a href="mailto:booking@mindsing.com"&gt;contact us directly&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
