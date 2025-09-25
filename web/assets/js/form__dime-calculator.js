@@ -763,12 +763,12 @@
         async function (e) {
           try {
             e.preventDefault ();
-            
+
             // GA4 tracking for calculate button click
             try {
               var userName = '';
               try { userName = localStorage.getItem('ga4_user_name') || sessionStorage.getItem('ga4_user_name') || 'anonymous'; } catch (e) { userName = 'anonymous'; }
-              
+
               window.dataLayer = window.dataLayer || [];
               window.dataLayer.push({
                 event: 'calculator_calculate',
@@ -778,7 +778,7 @@
                 event_label: 'calculate_button_click'
               });
             } catch (e) { console.warn('GA4 tracking error:', e); }
-            
+
             var salt = form.getAttribute ('data-token-salt') || null;
             // Prefer encrypted share URL when possible (uses saved pass in sessionStorage/localStorage)
             try {

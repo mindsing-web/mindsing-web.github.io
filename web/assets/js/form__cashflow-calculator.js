@@ -1035,12 +1035,12 @@
         if (calculateBtn) {
           calculateBtn.addEventListener('click', async function(e) {
             e.preventDefault();
-            
+
             // GA4 tracking for calculate button click
             try {
               var userName = '';
               try { userName = localStorage.getItem('ga4_user_name') || sessionStorage.getItem('ga4_user_name') || 'anonymous'; } catch (e) { userName = 'anonymous'; }
-              
+
               window.dataLayer = window.dataLayer || [];
               window.dataLayer.push({
                 event: 'calculator_calculate',
@@ -1050,7 +1050,7 @@
                 event_label: 'calculate_button_click'
               });
             } catch (e) { console.warn('GA4 tracking error:', e); }
-            
+
             // Trigger the same logic as form submit
             form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
           }, true);
