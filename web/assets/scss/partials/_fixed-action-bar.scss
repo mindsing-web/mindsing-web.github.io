@@ -10,6 +10,39 @@
   box-shadow: 0 -6px 18px rgba(16,24,40,0.12);
 }
 
+/* Mobile layout for action bar - stack buttons under tablet breakpoint */
+@media (max-width: #{$tablet-breakpoint - 1px}) {
+  .action-bar .action-bar__container {
+    align-items: flex-start;
+    gap: 2rem; /* Doubled horizontal gap between button groups */
+  }
+
+  .action-bar .action-bar__group {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 1rem); /* Account for the doubled gap */
+  }
+
+  .action-bar .action-bar__group--left {
+    align-items: flex-start;
+  }
+
+  .action-bar .action-bar__group--right {
+    align-items: flex-end;
+  }
+
+  .action-bar .action-bar__group .btn {
+    margin-right: 0;
+    margin-bottom: 1rem; /* Doubled vertical gap between buttons */
+    width: 100%;
+    min-width: 120px;
+  }
+
+  .action-bar .action-bar__group .btn:last-child {
+    margin-bottom: 0;
+  }
+}
+
 /* Disabled button appearance for action-bar controls */
 .btn--disabled {
   opacity: 0.5;

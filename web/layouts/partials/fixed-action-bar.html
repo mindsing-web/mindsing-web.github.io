@@ -1,16 +1,16 @@
 <div class="action-bar pw-action-hidden fixed bottom-0 left-0 right-0 bg-white shadow-0 z-9999">
-  <div class="mw7 center ph3 pv3 flex items-center justify-between">
-    <div>
+  <div class="mw7 center ph3 pv3 flex items-center justify-between action-bar__container">
+    <div class="action-bar__group action-bar__group--left">
       {{ if .Buttons }}
       {{ .Buttons }}
       {{ else }}
-      <button type="submit" {{ if .FormID }}form="{{ .FormID }}"{{ else }}form="dime-form"{{ end }} class="btn btn--primary mr2-ns mb3 mb0-ns">Calculate</button>
+      <button type="submit" {{ if .FormID }}form="{{ .FormID }}"{{ else }}form="dime-form"{{ end }} class="btn btn--primary mr2-ns mb0-ns">Calculate</button>
       <button type="button" class="btn btn--secondary btn--clear-values mr2-ns mb0-ns" {{ if .FormID
         }}data-target-form="{{ .FormID }}" {{ end }}>Clear values</button>
       {{ end }}
     </div>
-    <div>
-  <button type="button" id="btn-add-key" class="btn mr2-ns mb3 mb0-ns">Add key</button>
+    <div class="action-bar__group action-bar__group--right">
+  <button type="button" id="btn-add-key" class="btn mr2-ns mb0-ns">Add key</button>
   <button type="button" class="btn btn--gray btn--notes-toggle mb0-ns" {{ if .FormID }}data-target-form="{{ .FormID }}"{{ end }}>Notes</button>
     </div>
   </div>
