@@ -1403,7 +1403,7 @@
   }
 
   // Try to decrypt a search (ct/iv/salt) using provided pass and populate a form
-  async function tryDecryptSearchToForm (searchParams, pass, form) {
+  async function tryDecryptSearchToForm (searchParams, pass, form, source) {
     try {
       var pack = {
         ct: searchParams.get ('ct'),
@@ -1451,6 +1451,21 @@
       try {
         form.dispatchEvent (new Event ('change', {bubbles: true}));
       } catch (e) {}
+      
+      // Track successful encrypted URL decryption
+      try {
+        if (window.Tracking && typeof window.Tracking.sendEvent === 'function') {
+          window.Tracking.sendEvent('encrypted_url_accessed', {
+            event_category: 'engagement',
+            event_label: 'encrypted_form_data',
+            form_type: form.id || form.className || 'unknown',
+            decryption_source: source || 'unknown'
+          });
+        }
+      } catch (trackingErr) {
+        console.warn('Encrypted URL access tracking failed:', trackingErr);
+      }
+      
       return true;
     } catch (e) {
       return false;
@@ -1495,7 +1510,7 @@
               var pass = decodeURIComponent (keyMatch[1]);
               try {
                 window.formHelpers
-                  .tryDecryptSearchToForm (usp, pass, form)
+                  .tryDecryptSearchToForm (usp, pass, form, 'url_fragment_key')
                   .then (function (ok) {
                     /* ignore return */
                   });
@@ -1516,7 +1531,7 @@
               }
               if (storedPass) {
                 window.formHelpers
-                  .tryDecryptSearchToForm (usp, storedPass, form)
+                  .tryDecryptSearchToForm (usp, storedPass, form, 'stored_password')
                   .then (function (ok) {
                     /* ignore return */
                   });
@@ -1756,7 +1771,7 @@
                 return;
               }
               window.formHelpers
-                .tryDecryptSearchToForm (usp, storedPass, form)
+                .tryDecryptSearchToForm (usp, storedPass, form, 'add_key_action')
                 .then (function (ok) {
                   if (!ok) {
                     try {
@@ -1879,7 +1894,7 @@
                   return;
                 }
                 window.formHelpers
-                  .tryDecryptSearchToForm (usp, stored, form)
+                  .tryDecryptSearchToForm (usp, stored, form, 'share_url_input')
                   .then (function (ok) {
                     if (!ok) {
                       try {
