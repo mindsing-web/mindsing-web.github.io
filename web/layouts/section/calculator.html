@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
 <head>
+    {{ if hugo.IsProduction }}
+      {{ partial "gtm-header.html" (dict "context" . "environment" "production") }}
+    {{ else }}
+      {{ partial "gtm-header.html" (dict "context" . "environment" "development") }}
+    {{ end }}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{ .Title }}</title>
@@ -13,6 +18,11 @@
     <!-- PasswordGate visibility rules are in _password.scss partial -->
 </head>
 <body class="calculator-page pw-buttons-hidden pw-content-hidden">
+    {{ if hugo.IsProduction }}
+      {{ partial "gtm-body.html" (dict "context" . "environment" "production") }}
+    {{ else }}
+      {{ partial "gtm-body.html" (dict "context" . "environment" "development") }}
+    {{ end }}
   {{/* Emit only a hash of the password (not the plaintext) so the DOM doesn't expose it. */}}
   {{ $pw := .Params.password }}
   {{ if $pw }}
@@ -40,6 +50,17 @@
           <script src="{{ $fh.RelPermalink }}"></script>
         {{ else }}
           <script src="/assets/js/form__helpers.js"></script>
+        {{ end }}
+
+        {{/* Load tracking module before other scripts that depend on it */}}
+        {{ with resources.Get "js/tracking.js" }}
+        {{ $t := . }}
+        {{ if hugo.IsProduction }}
+          {{ $t = $t | minify | fingerprint }}
+        {{ end }}
+          <script src="{{ $t.RelPermalink }}"></script>
+        {{ else }}
+          <script src="/assets/js/tracking.js"></script>
         {{ end }}
 
         {{/* Calculator-specific scripts */}}
@@ -106,6 +127,9 @@
 
   {{/* Notes dialog partial - only included on calculator pages */}}
   {{ partial "notes-dialog.html" . }}
+
+  {{/* Privacy banner for GDPR/cookie compliance */}}
+  {{ partial "privacy-banner.html" . }}
 
 </body>
 </html>
