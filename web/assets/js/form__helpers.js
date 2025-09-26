@@ -1094,6 +1094,10 @@
 
   function base64UrlDecode (b64url) {
     try {
+      // Basic validation - should only contain base64url characters
+      if (!b64url || typeof b64url !== 'string') return '';
+      if (!/^[A-Za-z0-9_-]*$/.test(b64url)) return '';
+      
       // convert base64url to Uint8Array then decode as UTF-8
       var b64 = b64url.replace (/-/g, '+').replace (/_/g, '/');
       while (b64.length % 4)
@@ -1105,7 +1109,10 @@
         bytes[i] = binary.charCodeAt (i);
       return new TextDecoder ().decode (bytes);
     } catch (e) {
-      console.error ('base64UrlDecode error:', e);
+      // Only log unexpected errors, not validation failures
+      if (b64url && /^[A-Za-z0-9_-]+$/.test(b64url)) {
+        console.error ('base64UrlDecode error:', e);
+      }
       return '';
     }
   }
@@ -1495,12 +1502,44 @@
                 return;
               } catch (e) {}
             }
-            // if no key in fragment, do not attempt decryption here
+            // if no key in fragment, try using stored passphrase from localStorage
+            try {
+              var pidx = form && form.getAttribute
+                ? form.getAttribute ('data-protect-id') || 'default'
+                : 'default';
+              var storedPass = null;
+              try {
+                storedPass =
+                  localStorage.getItem ('password_gate:' + pidx) || null;
+              } catch (ee) {
+                storedPass = null;
+              }
+              if (storedPass) {
+                window.formHelpers
+                  .tryDecryptSearchToForm (usp, storedPass, form)
+                  .then (function (ok) {
+                    /* ignore return */
+                  });
+                return;
+              }
+            } catch (e) {}
           }
         } catch (e) {}
-        // fallback: assume search is a token payload (base64url or base64url.sig)
+        // fallback: assume search is a token payload (base64url or base64url.sig) - but only if it looks like one
+        // and is NOT an encrypted payload structure
         try {
-          window.formHelpers.populateFormFromToken (search, form);
+          var usp = new URLSearchParams(search);
+          // Skip token decoding if this looks like an encrypted payload (has ct, iv, salt)
+          if (usp.get('ct') || usp.get('iv') || usp.get('salt')) {
+            // This is an encrypted payload but no key was found in fragment, skip token decoding
+            return;
+          }
+          
+          // Only attempt token decoding if the search string looks like base64url
+          // Base64url should only contain: A-Z, a-z, 0-9, -, _, and optional dots for signatures
+          if (search && /^[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)?$/.test(search)) {
+            window.formHelpers.populateFormFromToken (search, form);
+          }
           return;
         } catch (e) {}
       }
