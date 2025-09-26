@@ -11,7 +11,10 @@
 
   // Prevent double initialization
   if (window.Tracking && window.Tracking._initialized) {
-    console.log('[Tracking] Already initialized, skipping duplicate load');
+    // Only log in development
+    if (window.HUGO_ENV === 'development') {
+      console.log('[Tracking] Already initialized, skipping duplicate load');
+    }
     return;
   }
 
@@ -26,8 +29,8 @@
 
   // Environment detection and configuration
   window.Tracking.config = {
-    // Auto-detect environment
-    environment: (function() {
+    // Use Hugo-injected environment if available, otherwise auto-detect
+    environment: window.HUGO_ENV || (function() {
       var hostname = window.location.hostname;
       if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('.local') || hostname.includes(':')) {
         return 'development';
@@ -40,7 +43,7 @@
 
     // Control tracking behavior by environment
     sendToGA4: true, // Set to false to completely disable GA4 in local
-    logEvents: true, // Always log events to console for debugging
+    logEvents: (window.HUGO_ENV === 'development'), // Only log in development when built by Hugo
 
     // Custom dimensions for environment separation
     environmentDimension: 'environment', // GA4 custom dimension name
@@ -285,7 +288,9 @@
       developerName: window.Tracking.config.developerName
     };
 
-    console.log('Tracking Status:', status);
+    if (window.Tracking.config.logEvents) {
+      console.log('Tracking Status:', status);
+    }
     return status;
   };
 
