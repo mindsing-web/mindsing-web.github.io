@@ -83,21 +83,28 @@
 
         // Insert into DOM. If PasswordGate exists and content is locked,
         // defer insertion until unlock to avoid exposing protected info.
-        function doInsertTip() { try { document.body.appendChild (tip); } catch (e) {} }
+        function doInsertTip () {
+          try {
+            document.body.appendChild (tip);
+          } catch (e) {}
+        }
         if (window.PasswordGate && typeof window.PasswordGate === 'function') {
           // If any password-protected areas are present and not unlocked, defer.
           try {
-            var anyLocked = !!document.querySelector('.js-password-protected');
+            var anyLocked = !!document.querySelector ('.js-password-protected');
             if (anyLocked) {
               window.formHelpers = window.formHelpers || {};
-              window.formHelpers._deferredInfoTooltips = window.formHelpers._deferredInfoTooltips || [];
-              window.formHelpers._deferredInfoTooltips.push(doInsertTip);
+              window.formHelpers._deferredInfoTooltips = window.formHelpers
+                ._deferredInfoTooltips || [];
+              window.formHelpers._deferredInfoTooltips.push (doInsertTip);
             } else {
-              doInsertTip();
+              doInsertTip ();
             }
-          } catch (e) { doInsertTip(); }
+          } catch (e) {
+            doInsertTip ();
+          }
         } else {
-          doInsertTip();
+          doInsertTip ();
         }
 
         function positionTip () {
@@ -209,11 +216,15 @@
   }
 
   // Public helper to flush deferred info tooltips after content is revealed
-  function flushDeferredInfoTooltips() {
+  function flushDeferredInfoTooltips () {
     try {
       window.formHelpers = window.formHelpers || {};
       var q = window.formHelpers._deferredInfoTooltips || [];
-      q.forEach(function (f) { try { f(); } catch (e) {} });
+      q.forEach (function (f) {
+        try {
+          f ();
+        } catch (e) {}
+      });
       window.formHelpers._deferredInfoTooltips = [];
     } catch (e) {}
   }
@@ -402,7 +413,9 @@
         document.body.appendChild (overlay);
 
         // focus the primary action so Enter will confirm
-        try { ok.focus && ok.focus(); } catch (e) {}
+        try {
+          ok.focus && ok.focus ();
+        } catch (e) {}
 
         function cleanup () {
           document.body.removeChild (overlay);
@@ -416,8 +429,8 @@
           }
           // Enter should accept the confirmation when the dialog is open
           if (e.key === 'Enter') {
-            cleanup();
-            resolve(true);
+            cleanup ();
+            resolve (true);
             return;
           }
         }
@@ -447,27 +460,35 @@
         )
       );
       // helper to run the clear flow for a specific form element
-      function handleClearForForm(form) {
+      function handleClearForForm (form) {
         if (!form) return;
         clearFormState (form);
-        try { form.reset(); } catch (err) {}
         try {
-          if (window.history && typeof window.history.replaceState === 'function') {
-            var url = new URL(location.href);
+          form.reset ();
+        } catch (err) {}
+        try {
+          if (
+            window.history &&
+            typeof window.history.replaceState === 'function'
+          ) {
+            var url = new URL (location.href);
             url.search = '';
-            window.history.replaceState({}, document.title, url.toString());
+            window.history.replaceState ({}, document.title, url.toString ());
           } else {
             location.search = '';
           }
         } catch (err) {
-          console.error('clear-values: could not clear URL token', err);
+          console.error ('clear-values: could not clear URL token', err);
         }
         // also clear hash if present
         try {
-          if (window.history && typeof window.history.replaceState === 'function') {
-            var url2 = new URL(location.href);
+          if (
+            window.history &&
+            typeof window.history.replaceState === 'function'
+          ) {
+            var url2 = new URL (location.href);
             url2.hash = '';
-            window.history.replaceState({}, document.title, url2.toString());
+            window.history.replaceState ({}, document.title, url2.toString ());
           } else {
             location.hash = '';
           }
@@ -476,20 +497,29 @@
         }
         // If a collapsed summary is visible, expand the form back before signalling cleared
         try {
-          if (window.formDime && typeof window.formDime.expandFromSummary === 'function') {
-            try { window.formDime.expandFromSummary(form); } catch (e) { /* ignore */ }
+          if (
+            window.formDime &&
+            typeof window.formDime.expandFromSummary === 'function'
+          ) {
+            try {
+              window.formDime.expandFromSummary (form);
+            } catch (e) {
+              /* ignore */
+            }
           }
         } catch (e) {}
-        form.dispatchEvent (new CustomEvent('form:cleared'));
+        form.dispatchEvent (new CustomEvent ('form:cleared'));
       }
       forms.forEach (function (form) {
         var clearBtn = form.querySelector ('.btn--clear-values');
         if (!clearBtn) return;
         // mark this button as bound so delegated handler can skip it
-        try { clearBtn.setAttribute('data-clear-bound', 'true'); } catch (err) {}
+        try {
+          clearBtn.setAttribute ('data-clear-bound', 'true');
+        } catch (err) {}
         clearBtn.addEventListener ('click', function (e) {
           e.preventDefault ();
-          e.stopPropagation();
+          e.stopPropagation ();
           showConfirm ({
             title: 'Clear saved values?',
             body: 'This will clear saved form values for this calculator. Are you sure?',
@@ -497,34 +527,48 @@
             cancelText: 'Cancel',
           }).then (function (ok) {
             if (!ok) return;
-            handleClearForForm(form);
+            handleClearForForm (form);
           });
         });
       });
 
       // Also bind any clear buttons that live outside the forms (e.g., action bar)
-      var outerClearBtns = Array.prototype.slice.call(root.querySelectorAll('.btn--clear-values'));
-      outerClearBtns.forEach(function(btn){
+      var outerClearBtns = Array.prototype.slice.call (
+        root.querySelectorAll ('.btn--clear-values')
+      );
+      outerClearBtns.forEach (function (btn) {
         // if the button is inside a form we've already bound, skip (it was handled above)
-        if (btn.closest('form')) return;
+        if (btn.closest ('form')) return;
         // if this button was already bound above, skip
-        if (btn.getAttribute && btn.getAttribute('data-clear-bound') === 'true') return;
+        if (
+          btn.getAttribute &&
+          btn.getAttribute ('data-clear-bound') === 'true'
+        )
+          return;
         // mark as bound to avoid future duplicate binding
-        try { btn.setAttribute('data-clear-bound', 'true'); } catch (err) {}
-        btn.addEventListener('click', function(e){
-          e.preventDefault();
-          e.stopPropagation();
-          showConfirm({
+        try {
+          btn.setAttribute ('data-clear-bound', 'true');
+        } catch (err) {}
+        btn.addEventListener ('click', function (e) {
+          e.preventDefault ();
+          e.stopPropagation ();
+          showConfirm ({
             title: 'Clear saved values?',
             body: 'This will clear saved form values for this calculator. Are you sure?',
             okText: 'Yes, clear',
             cancelText: 'Cancel',
-          }).then(function(ok){
+          }).then (function (ok) {
             if (!ok) return;
             // Try data-target-form attr, then fallback to default form id on page
-            var targetFormId = btn.getAttribute('data-target-form') || (root.querySelector('form.calculator--form') && root.querySelector('form.calculator--form').id) || 'dime-form';
-            var targetForm = document.getElementById(targetFormId) || document.querySelector('form.calculator--form');
-            handleClearForForm(targetForm);
+            var targetFormId =
+              btn.getAttribute ('data-target-form') ||
+              (root.querySelector ('form.calculator--form') &&
+                root.querySelector ('form.calculator--form').id) ||
+              'dime-form';
+            var targetForm =
+              document.getElementById (targetFormId) ||
+              document.querySelector ('form.calculator--form');
+            handleClearForForm (targetForm);
           });
         });
       });
@@ -558,86 +602,129 @@
 
   // Delegated handler for any clear-values buttons that may be added later
   try {
-  document.addEventListener('click', function(e){
-      var btn = e.target.closest && e.target.closest('.btn--clear-values');
-      if (!btn) return;
-      // If the button is inside a form, the per-form handler should handle it
-      if (btn.closest && btn.closest('form')) return;
-      // If the button was already bound directly, skip delegated handling
-      if (btn.getAttribute && btn.getAttribute('data-clear-bound') === 'true') return;
-      e.preventDefault();
-      showConfirm({
-        title: 'Clear saved values?',
-        body: 'This will clear saved form values for this calculator. Are you sure?',
-        okText: 'Yes, clear',
-        cancelText: 'Cancel',
-      }).then(function(ok){
-        if (!ok) return;
-        try {
-          var targetFormId = btn.getAttribute('data-target-form') || (document.querySelector('form.calculator--form') && document.querySelector('form.calculator--form').id) || 'dime-form';
-          var targetForm = document.getElementById(targetFormId) || document.querySelector('form.calculator--form');
-          if (!targetForm) return;
-          // reuse handleClearForForm if available in this scope
-          try { handleClearForForm(targetForm); } catch (err) {
-            // fallback: perform simple clear
-            try { targetForm.reset(); } catch (e) {}
+    document.addEventListener (
+      'click',
+      function (e) {
+        var btn = e.target.closest && e.target.closest ('.btn--clear-values');
+        if (!btn) return;
+        // If the button is inside a form, the per-form handler should handle it
+        if (btn.closest && btn.closest ('form')) return;
+        // If the button was already bound directly, skip delegated handling
+        if (
+          btn.getAttribute &&
+          btn.getAttribute ('data-clear-bound') === 'true'
+        )
+          return;
+        e.preventDefault ();
+        showConfirm ({
+          title: 'Clear saved values?',
+          body: 'This will clear saved form values for this calculator. Are you sure?',
+          okText: 'Yes, clear',
+          cancelText: 'Cancel',
+        }).then (function (ok) {
+          if (!ok) return;
+          try {
+            var targetFormId =
+              btn.getAttribute ('data-target-form') ||
+              (document.querySelector ('form.calculator--form') &&
+                document.querySelector ('form.calculator--form').id) ||
+              'dime-form';
+            var targetForm =
+              document.getElementById (targetFormId) ||
+              document.querySelector ('form.calculator--form');
+            if (!targetForm) return;
+            // reuse handleClearForForm if available in this scope
+            try {
+              handleClearForForm (targetForm);
+            } catch (err) {
+              // fallback: perform simple clear
+              try {
+                targetForm.reset ();
+              } catch (e) {}
+            }
+          } catch (err) {
+            console.error ('delegated clear-values handler error', err);
           }
-        } catch (err) {
-          console.error('delegated clear-values handler error', err);
-        }
-      });
-  }, false);
+        });
+      },
+      false
+    );
   } catch (e) {}
 
   // Delegated handler for notes toggle buttons as a fallback
   try {
-    document.addEventListener('click', function (e) {
-      var btn = e.target && e.target.closest ? e.target.closest('.btn--notes-toggle') : null;
-      if (!btn) return;
-      // If button was already directly bound, let that handler run
-      if (btn.__notes_bound) return;
-      e.preventDefault();
-      e.stopPropagation();
-      try {
-        var targetFormId = btn.getAttribute && btn.getAttribute('data-target-form');
-        var form = null;
-        if (targetFormId) form = document.getElementById(targetFormId);
-        if (!form) form = document.querySelector('form.calculator--form') || document.querySelector('form');
-        if (!form) return;
-        window.formHelpers.openNotes(form);
-      } catch (err) {}
-    }, false);
+    document.addEventListener (
+      'click',
+      function (e) {
+        var btn = e.target && e.target.closest
+          ? e.target.closest ('.btn--notes-toggle')
+          : null;
+        if (!btn) return;
+        // If button was already directly bound, let that handler run
+        if (btn.__notes_bound) return;
+        e.preventDefault ();
+        e.stopPropagation ();
+        try {
+          var targetFormId =
+            btn.getAttribute && btn.getAttribute ('data-target-form');
+          var form = null;
+          if (targetFormId) form = document.getElementById (targetFormId);
+          if (!form)
+            form =
+              document.querySelector ('form.calculator--form') ||
+              document.querySelector ('form');
+          if (!form) return;
+          window.formHelpers.openNotes (form);
+        } catch (err) {}
+      },
+      false
+    );
   } catch (e) {}
 
   // Delegated fallback to persist form values: save form state on input/change (debounced)
   try {
-    var __fh_save_timers = new WeakMap();
-    function __fh_schedule_save(form) {
+    var __fh_save_timers = new WeakMap ();
+    function __fh_schedule_save (form) {
       try {
         if (!form) return;
-        var t = __fh_save_timers.get(form);
-        if (t) clearTimeout(t);
-        __fh_save_timers.set(form, setTimeout(function(){ try { saveFormState(form); } catch(e){} }, 250));
+        var t = __fh_save_timers.get (form);
+        if (t) clearTimeout (t);
+        __fh_save_timers.set (
+          form,
+          setTimeout (function () {
+            try {
+              saveFormState (form);
+            } catch (e) {}
+          }, 250)
+        );
       } catch (e) {}
     }
-    document.addEventListener('input', function(e){
-      try {
-        var el = e.target;
-        if (!el) return;
-        var form = el.closest && el.closest('form.calculator--form');
-        if (!form) return;
-        __fh_schedule_save(form);
-      } catch (err) {}
-    }, true);
-    document.addEventListener('change', function(e){
-      try {
-        var el = e.target;
-        if (!el) return;
-        var form = el.closest && el.closest('form.calculator--form');
-        if (!form) return;
-        __fh_schedule_save(form);
-      } catch (err) {}
-    }, true);
+    document.addEventListener (
+      'input',
+      function (e) {
+        try {
+          var el = e.target;
+          if (!el) return;
+          var form = el.closest && el.closest ('form.calculator--form');
+          if (!form) return;
+          __fh_schedule_save (form);
+        } catch (err) {}
+      },
+      true
+    );
+    document.addEventListener (
+      'change',
+      function (e) {
+        try {
+          var el = e.target;
+          if (!el) return;
+          var form = el.closest && el.closest ('form.calculator--form');
+          if (!form) return;
+          __fh_schedule_save (form);
+        } catch (err) {}
+      },
+      true
+    );
   } catch (e) {}
 
   // Expose functions for dynamic content
@@ -749,25 +836,25 @@
   window.formHelpers.initHashOnSubmit = initHashOnSubmit;
 
   // --- Generic notes dialog (reusable across forms) ---
-  function ensureNotesDialog() {
+  function ensureNotesDialog () {
     try {
       // If server-rendered dialog exists, use it
-      var existing = document.getElementById('notes-dialog');
+      var existing = document.getElementById ('notes-dialog');
       if (existing) {
-        bindNotesDialog(existing);
+        bindNotesDialog (existing);
         return existing;
       }
 
       // If a template is provided (<template id="notes-dialog-template">), clone it
       try {
-        var tpl = document.getElementById('notes-dialog-template');
+        var tpl = document.getElementById ('notes-dialog-template');
         if (tpl && tpl.content) {
-          var clone = tpl.content.cloneNode(true);
+          var clone = tpl.content.cloneNode (true);
           // find dialog node in clone
-          var dlg = clone.querySelector && clone.querySelector('dialog');
+          var dlg = clone.querySelector && clone.querySelector ('dialog');
           if (dlg) {
-            document.body.appendChild(clone);
-            bindNotesDialog(dlg);
+            document.body.appendChild (clone);
+            bindNotesDialog (dlg);
             return dlg;
           }
         }
@@ -783,122 +870,210 @@
   }
 
   // Helper to attach handlers to an existing dialog element. Idempotent.
-  function bindNotesDialog(dlg) {
+  function bindNotesDialog (dlg) {
     try {
       if (!dlg || dlg.__notes_bound) return;
       dlg.__notes_bound = true;
 
-      var closeBtn = dlg.querySelector('#notes-close');
-      var saveBtn = dlg.querySelector('#notes-save');
-      var ta = dlg.querySelector('#notes_dialog_textarea');
+      var closeBtn = dlg.querySelector ('#notes-close');
+      var saveBtn = dlg.querySelector ('#notes-save');
+      var ta = dlg.querySelector ('#notes_dialog_textarea');
 
-      function setNotesToggleState(formId, state) {
+      function setNotesToggleState (formId, state) {
         try {
-          var toggles = Array.prototype.slice.call(document.querySelectorAll('.btn--notes-toggle'));
-          toggles.forEach(function(tb){
+          var toggles = Array.prototype.slice.call (
+            document.querySelectorAll ('.btn--notes-toggle')
+          );
+          toggles.forEach (function (tb) {
             try {
-              var tgt = tb.getAttribute && tb.getAttribute('data-target-form');
+              var tgt = tb.getAttribute && tb.getAttribute ('data-target-form');
               if (!tgt || !formId || tgt === formId) {
-                tb.setAttribute('aria-expanded', state ? 'true' : 'false');
+                tb.setAttribute ('aria-expanded', state ? 'true' : 'false');
               }
             } catch (e) {}
           });
         } catch (e) {}
       }
 
-      function closeNotesInternal() {
+      function closeNotesInternal () {
         try {
-          if (typeof dlg.close === 'function') dlg.close();
-          else dlg.removeAttribute('open');
+          if (typeof dlg.close === 'function') dlg.close ();
+          else dlg.removeAttribute ('open');
         } catch (e) {
-          try { dlg.removeAttribute('open'); } catch (err) {}
+          try {
+            dlg.removeAttribute ('open');
+          } catch (err) {}
         }
-        try { var fid = dlg.__notes_target_form_id || null; } catch (e) { var fid = null; }
-        try { delete dlg.__notes_target; } catch (e) {}
-        try { dlg.__notes_target_selector = null; } catch (e) {}
-        try { dlg.__notes_target_form_id = null; } catch (e) {}
-        setNotesToggleState(fid, false);
+        try {
+          var fid = dlg.__notes_target_form_id || null;
+        } catch (e) {
+          var fid = null;
+        }
+        try {
+          delete dlg.__notes_target;
+        } catch (e) {}
+        try {
+          dlg.__notes_target_selector = null;
+        } catch (e) {}
+        try {
+          dlg.__notes_target_form_id = null;
+        } catch (e) {}
+        setNotesToggleState (fid, false);
       }
 
-      function saveNotesInternal(ev) {
-        try { if (ev && typeof ev.preventDefault === 'function') ev.preventDefault(); } catch (e) {}
-        try { if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation(); } catch (e) {}
+      function saveNotesInternal (ev) {
         try {
-          var txt = (ta && ta.value) ? ta.value.trim() : '';
+          if (ev && typeof ev.preventDefault === 'function')
+            ev.preventDefault ();
+        } catch (e) {}
+        try {
+          if (ev && typeof ev.stopPropagation === 'function')
+            ev.stopPropagation ();
+        } catch (e) {}
+        try {
+          var txt = ta && ta.value ? ta.value.trim () : '';
           var target = dlg.__notes_target;
           if (target && target.tagName) {
-            try { target.value = txt; } catch (e) {}
-            try { target.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {}
+            try {
+              target.value = txt;
+            } catch (e) {}
+            try {
+              target.dispatchEvent (new Event ('change', {bubbles: true}));
+            } catch (e) {}
             try {
               // Ensure form persistence saves immediately in case delegated listeners missed the event
-              var parentForm = (target && target.closest) ? target.closest('form') : null;
-              if (parentForm) try { saveFormState(parentForm); } catch (e) {}
+              var parentForm = target && target.closest
+                ? target.closest ('form')
+                : null;
+              if (parentForm)
+                try {
+                  saveFormState (parentForm);
+                } catch (e) {}
             } catch (e) {}
           } else if (dlg.__notes_target_selector) {
             try {
-              var el = document.querySelector(dlg.__notes_target_selector);
-              if (el) { el.value = txt; try { el.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {} }
+              var el = document.querySelector (dlg.__notes_target_selector);
+              if (el) {
+                el.value = txt;
+                try {
+                  el.dispatchEvent (new Event ('change', {bubbles: true}));
+                } catch (e) {}
+              }
               try {
-                var pf = (el && el.closest) ? el.closest('form') : null;
-                if (pf) try { saveFormState(pf); } catch (e) {}
+                var pf = el && el.closest ? el.closest ('form') : null;
+                if (pf)
+                  try {
+                    saveFormState (pf);
+                  } catch (e) {}
               } catch (e) {}
             } catch (e) {}
           }
         } catch (e) {}
-        closeNotesInternal();
+        closeNotesInternal ();
       }
 
-      if (closeBtn) closeBtn.addEventListener('click', function(){ closeNotesInternal(); }, true);
-      if (saveBtn) saveBtn.addEventListener('click', saveNotesInternal, true);
+      if (closeBtn)
+        closeBtn.addEventListener (
+          'click',
+          function () {
+            closeNotesInternal ();
+          },
+          true
+        );
+      if (saveBtn) saveBtn.addEventListener ('click', saveNotesInternal, true);
 
       dlg.__openFor = function (form, targetSelectorOrId) {
         try {
           var target = null;
           var selector = null;
           if (targetSelectorOrId && form) {
-            selector = (targetSelectorOrId.charAt && targetSelectorOrId.charAt(0) === '#') ? targetSelectorOrId : ('#' + targetSelectorOrId);
-            try { target = form.querySelector(selector); } catch (e) { target = null; }
+            selector = targetSelectorOrId.charAt &&
+              targetSelectorOrId.charAt (0) === '#'
+              ? targetSelectorOrId
+              : '#' + targetSelectorOrId;
+            try {
+              target = form.querySelector (selector);
+            } catch (e) {
+              target = null;
+            }
           }
           if (!target && form) {
-            var t = form.querySelector('textarea[id^="notes_"]') || form.querySelector('textarea[name^="notes"]') || form.querySelector('#expense_notes') || form.querySelector('textarea[data-notes]');
-            if (t) { target = t; selector = '#' + (t.id || t.name); }
+            var t =
+              form.querySelector ('textarea[id^="notes_"]') ||
+              form.querySelector ('textarea[name^="notes"]') ||
+              form.querySelector ('#expense_notes') ||
+              form.querySelector ('textarea[data-notes]');
+            if (t) {
+              target = t;
+              selector = '#' + (t.id || t.name);
+            }
           }
           if (!target && selector && form) {
             try {
-              var id = selector.replace(/^#/, '');
-              var hidden = document.createElement('textarea');
+              var id = selector.replace (/^#/, '');
+              var hidden = document.createElement ('textarea');
               hidden.id = id;
               hidden.name = id;
               hidden.style.display = 'none';
-              form.appendChild(hidden);
+              form.appendChild (hidden);
               target = hidden;
-            } catch (e) { target = null; }
+            } catch (e) {
+              target = null;
+            }
           }
           dlg.__notes_target = target;
           dlg.__notes_target_selector = selector || null;
-          try { dlg.__notes_target_form_id = form && (form.id || form.getAttribute && form.getAttribute('name')) ? (form.id || form.getAttribute('name')) : null; } catch (e) { dlg.__notes_target_form_id = null; }
-          try { if (ta) ta.value = (target && target.value) ? target.value : ''; } catch (e) { if (ta) ta.value = ''; }
-          try { if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open',''); } catch (e) { dlg.setAttribute('open',''); }
-          try { if (ta) { ta.focus(); var v = ta.value || ''; ta.selectionStart = ta.selectionEnd = v.length; } } catch (e) {}
-          try { setNotesToggleState(dlg.__notes_target_form_id, true); } catch (e) {}
+          try {
+            dlg.__notes_target_form_id = form &&
+              (form.id || (form.getAttribute && form.getAttribute ('name')))
+              ? form.id || form.getAttribute ('name')
+              : null;
+          } catch (e) {
+            dlg.__notes_target_form_id = null;
+          }
+          try {
+            if (ta) ta.value = target && target.value ? target.value : '';
+          } catch (e) {
+            if (ta) ta.value = '';
+          }
+          try {
+            if (typeof dlg.showModal === 'function') dlg.showModal ();
+            else dlg.setAttribute ('open', '');
+          } catch (e) {
+            dlg.setAttribute ('open', '');
+          }
+          try {
+            if (ta) {
+              ta.focus ();
+              var v = ta.value || '';
+              ta.selectionStart = ta.selectionEnd = v.length;
+            }
+          } catch (e) {}
+          try {
+            setNotesToggleState (dlg.__notes_target_form_id, true);
+          } catch (e) {}
         } catch (e) {}
       };
 
-      dlg.__close = function () { closeNotesInternal(); };
+      dlg.__close = function () {
+        closeNotesInternal ();
+      };
     } catch (e) {}
   }
 
-  function openNotes(form, targetSelectorOrId) {
+  function openNotes (form, targetSelectorOrId) {
     try {
-      var dlg = ensureNotesDialog();
+      var dlg = ensureNotesDialog ();
       if (!dlg) return;
-      dlg.__openFor(form, targetSelectorOrId);
+      dlg.__openFor (form, targetSelectorOrId);
     } catch (e) {}
   }
 
-  function closeNotes() {
-    try { var dlg = document.getElementById('notes-dialog'); if (dlg && typeof dlg.__close === 'function') dlg.__close(); }
-    catch (e) {}
+  function closeNotes () {
+    try {
+      var dlg = document.getElementById ('notes-dialog');
+      if (dlg && typeof dlg.__close === 'function') dlg.__close ();
+    } catch (e) {}
   }
 
   window.formHelpers.ensureNotesDialog = ensureNotesDialog;
@@ -1110,53 +1285,73 @@
     enc: function (b) {
       try {
         var a = '';
-        var bytes = new Uint8Array(b);
-        for (var i = 0; i < bytes.byteLength; i++) a += String.fromCharCode(bytes[i]);
-        return btoa(a).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
-      } catch (e) { return ''; }
+        var bytes = new Uint8Array (b);
+        for (var i = 0; i < bytes.byteLength; i++)
+          a += String.fromCharCode (bytes[i]);
+        return btoa (a)
+          .replace (/\+/g, '-')
+          .replace (/\//g, '_')
+          .replace (/=+$/g, '');
+      } catch (e) {
+        return '';
+      }
     },
     dec: function (s) {
       try {
-        var b64 = (s || '').replace(/-/g, '+').replace(/_/g, '/');
-        while (b64.length % 4) b64 += '=';
-        var bin = atob(b64);
-        var arr = new Uint8Array(bin.length);
-        for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+        var b64 = (s || '').replace (/-/g, '+').replace (/_/g, '/');
+        while (b64.length % 4)
+          b64 += '=';
+        var bin = atob (b64);
+        var arr = new Uint8Array (bin.length);
+        for (var i = 0; i < bin.length; i++)
+          arr[i] = bin.charCodeAt (i);
         return arr;
-      } catch (e) { return new Uint8Array(); }
-    }
+      } catch (e) {
+        return new Uint8Array ();
+      }
+    },
   };
 
   async function deriveKey (pass, saltUint8) {
-    var enc = new TextEncoder();
-    var keyMaterial = await crypto.subtle.importKey('raw', enc.encode(pass), {name:'PBKDF2'}, false, ['deriveKey']);
-    return crypto.subtle.deriveKey(
-      {name:'PBKDF2', salt: saltUint8, iterations: 100000, hash: 'SHA-256'},
-      keyMaterial,
-      {name:'AES-GCM', length: 256},
+    var enc = new TextEncoder ();
+    var keyMaterial = await crypto.subtle.importKey (
+      'raw',
+      enc.encode (pass),
+      {name: 'PBKDF2'},
       false,
-      ['encrypt','decrypt']
+      ['deriveKey']
+    );
+    return crypto.subtle.deriveKey (
+      {name: 'PBKDF2', salt: saltUint8, iterations: 100000, hash: 'SHA-256'},
+      keyMaterial,
+      {name: 'AES-GCM', length: 256},
+      false,
+      ['encrypt', 'decrypt']
     );
   }
 
   async function encryptJSON (obj, pass) {
-    var enc = new TextEncoder();
-    var iv = crypto.getRandomValues(new Uint8Array(12));
-    var salt = crypto.getRandomValues(new Uint8Array(16));
-    var key = await deriveKey(pass, salt);
-    var plaintext = enc.encode(JSON.stringify(obj));
-    var ct = await crypto.subtle.encrypt({name:'AES-GCM', iv: iv}, key, plaintext);
-    return { ct: b64u.enc(ct), iv: b64u.enc(iv), salt: b64u.enc(salt) };
+    var enc = new TextEncoder ();
+    var iv = crypto.getRandomValues (new Uint8Array (12));
+    var salt = crypto.getRandomValues (new Uint8Array (16));
+    var key = await deriveKey (pass, salt);
+    var plaintext = enc.encode (JSON.stringify (obj));
+    var ct = await crypto.subtle.encrypt (
+      {name: 'AES-GCM', iv: iv},
+      key,
+      plaintext
+    );
+    return {ct: b64u.enc (ct), iv: b64u.enc (iv), salt: b64u.enc (salt)};
   }
 
   async function decryptJSON (pack, pass) {
-    var dec = new TextDecoder();
-    var iv = b64u.dec(pack.iv || '');
-    var salt = b64u.dec(pack.salt || '');
-    var ct = b64u.dec(pack.ct || '');
-    var key = await deriveKey(pass, salt);
-    var pt = await crypto.subtle.decrypt({name:'AES-GCM', iv: iv}, key, ct);
-    return JSON.parse(dec.decode(pt));
+    var dec = new TextDecoder ();
+    var iv = b64u.dec (pack.iv || '');
+    var salt = b64u.dec (pack.salt || '');
+    var ct = b64u.dec (pack.ct || '');
+    var key = await deriveKey (pass, salt);
+    var pt = await crypto.subtle.decrypt ({name: 'AES-GCM', iv: iv}, key, ct);
+    return JSON.parse (dec.decode (pt));
   }
 
   // Build a share URL that places ciphertext in the query and the passphrase in the fragment
@@ -1166,20 +1361,36 @@
       var pass = passphrase || null;
       if (!pass) {
         try {
-          var pid = form.getAttribute && form.getAttribute('data-protect-id') ? form.getAttribute('data-protect-id') : 'default';
-          pass = sessionStorage.getItem('password_gate:' + pid) || localStorage.getItem('password_gate:' + pid) || null;
-        } catch (e) { pass = null; }
+          var pid = form.getAttribute && form.getAttribute ('data-protect-id')
+            ? form.getAttribute ('data-protect-id')
+            : 'default';
+          pass =
+            sessionStorage.getItem ('password_gate:' + pid) ||
+            localStorage.getItem ('password_gate:' + pid) ||
+            null;
+        } catch (e) {
+          pass = null;
+        }
       }
       // If no pass found, return empty and let caller decide how to handle failure
       if (!pass) return '';
       var data = {};
-      var fd = new FormData(form);
-      fd.forEach(function(v,k){ data[k]=v; });
-      var pack = await encryptJSON(data, pass);
-      var q = new URLSearchParams(pack).toString();
-      return location.origin + location.pathname + '?' + q + '#key=' + encodeURIComponent(pass);
+      var fd = new FormData (form);
+      fd.forEach (function (v, k) {
+        data[k] = v;
+      });
+      var pack = await encryptJSON (data, pass);
+      var q = new URLSearchParams (pack).toString ();
+      return (
+        location.origin +
+        location.pathname +
+        '?' +
+        q +
+        '#key=' +
+        encodeURIComponent (pass)
+      );
     } catch (e) {
-      console.error('createEncryptedShareUrl error:', e);
+      console.error ('createEncryptedShareUrl error:', e);
       return '';
     }
   }
@@ -1187,31 +1398,52 @@
   // Try to decrypt a search (ct/iv/salt) using provided pass and populate a form
   async function tryDecryptSearchToForm (searchParams, pass, form) {
     try {
-      var pack = { ct: searchParams.get('ct'), iv: searchParams.get('iv'), salt: searchParams.get('salt') };
+      var pack = {
+        ct: searchParams.get ('ct'),
+        iv: searchParams.get ('iv'),
+        salt: searchParams.get ('salt'),
+      };
       if (!pack.ct || !pack.iv || !pack.salt) return false;
       var passToUse = pass || null;
       if (!passToUse && form) {
         try {
-          var pid2 = form.getAttribute && form.getAttribute('data-protect-id') ? form.getAttribute('data-protect-id') : 'default';
-          passToUse = sessionStorage.getItem('password_gate:' + pid2) || localStorage.getItem('password_gate:' + pid2) || null;
-        } catch (e) { passToUse = null; }
+          var pid2 = form.getAttribute && form.getAttribute ('data-protect-id')
+            ? form.getAttribute ('data-protect-id')
+            : 'default';
+          passToUse =
+            sessionStorage.getItem ('password_gate:' + pid2) ||
+            localStorage.getItem ('password_gate:' + pid2) ||
+            null;
+        } catch (e) {
+          passToUse = null;
+        }
       }
       if (!passToUse) return false;
-      var data = await decryptJSON(pack, passToUse);
+      var data = await decryptJSON (pack, passToUse);
       if (!form || !data) return true;
-      Object.keys(data).forEach(function (k) {
+      Object.keys (data).forEach (function (k) {
         try {
-          var els = form.elements[k] || document.querySelector('[name="' + k + '"]') || document.getElementById(k);
+          var els =
+            form.elements[k] ||
+            document.querySelector ('[name="' + k + '"]') ||
+            document.getElementById (k);
           if (!els) return;
           // If multiple elements exist (NodeList), set each; otherwise set value
           if (els.length && typeof els !== 'string') {
-            for (var i = 0; i < els.length; i++) try { els[i].value = data[k]; } catch (e) {}
+            for (var i = 0; i < els.length; i++)
+              try {
+                els[i].value = data[k];
+              } catch (e) {}
           } else {
-            try { els.value = data[k]; } catch (e) {}
+            try {
+              els.value = data[k];
+            } catch (e) {}
           }
         } catch (e) {}
       });
-      try { form.dispatchEvent(new Event('change', {bubbles:true})); } catch (e) {}
+      try {
+        form.dispatchEvent (new Event ('change', {bubbles: true}));
+      } catch (e) {}
       return true;
     } catch (e) {
       return false;
@@ -1230,29 +1462,36 @@
     root = root || document;
     try {
       // find target form: prefer explicit form with id 'dime-form', then any calculator form
-      var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form') || null;
+      var form =
+        document.getElementById ('dime-form') ||
+        document.querySelector ('form.calculator--form') ||
+        null;
       if (!form) return;
 
       // Helper to parse hash like '#a=1&b=2' -> URLSearchParams
       function parseFragmentToParams (frag) {
         if (!frag) return null;
-        var s = frag.replace(/^#/, '');
+        var s = frag.replace (/^#/, '');
         if (!s) return null;
-        return new URLSearchParams(s);
+        return new URLSearchParams (s);
       }
 
       // If there's a search token (e.g., '?<payload>' or '?payload.sig'), try to decode and populate
-      var search = (location.search || '').replace(/^\?/, '');
+      var search = (location.search || '').replace (/^\?/, '');
       if (search) {
         // If query contains encrypted payload (ct/iv/salt) and fragment contains key=, try to decrypt
         try {
-          var usp = new URLSearchParams(location.search.replace(/^\?/, ''));
-          if (usp.get('ct') && usp.get('iv') && usp.get('salt')) {
-            var keyMatch = (location.hash || '').match(/key=([^&]+)/);
+          var usp = new URLSearchParams (location.search.replace (/^\?/, ''));
+          if (usp.get ('ct') && usp.get ('iv') && usp.get ('salt')) {
+            var keyMatch = (location.hash || '').match (/key=([^&]+)/);
             if (keyMatch) {
-              var pass = decodeURIComponent(keyMatch[1]);
+              var pass = decodeURIComponent (keyMatch[1]);
               try {
-                window.formHelpers.tryDecryptSearchToForm(usp, pass, form).then(function(ok){ /* ignore return */ });
+                window.formHelpers
+                  .tryDecryptSearchToForm (usp, pass, form)
+                  .then (function (ok) {
+                    /* ignore return */
+                  });
                 return;
               } catch (e) {}
             }
@@ -1261,45 +1500,54 @@
         } catch (e) {}
         // fallback: assume search is a token payload (base64url or base64url.sig)
         try {
-          window.formHelpers.populateFormFromToken(search, form);
+          window.formHelpers.populateFormFromToken (search, form);
           return;
         } catch (e) {}
       }
 
       // Next, look at fragment as either token or query string
-      var hash = (location.hash || '').replace(/^#/, '');
+      var hash = (location.hash || '').replace (/^#/, '');
       if (!hash) return;
 
       // If hash contains '=' treat it as query-string-style values
-      if (hash.indexOf('=') !== -1) {
-        var params = parseFragmentToParams(location.hash);
+      if (hash.indexOf ('=') !== -1) {
+        var params = parseFragmentToParams (location.hash);
         if (!params) return;
         // Apply params to form elements
-        for (var pair of params.entries()) {
+        for (var pair of params.entries ()) {
           var key = pair[0];
           var val = pair[1];
-          var el = form.elements[key] || form.querySelector('#' + key);
+          var el = form.elements[key] || form.querySelector ('#' + key);
           if (!el) continue;
-          var tag = (el.tagName || '').toLowerCase();
-          var type = (el.type || '').toLowerCase();
+          var tag = (el.tagName || '').toLowerCase ();
+          var type = (el.type || '').toLowerCase ();
           try {
-            if (type === 'checkbox') el.checked = (val === '1' || val === 'true');
+            if (type === 'checkbox') el.checked = val === '1' || val === 'true';
             else if (type === 'radio') {
-              var radios = form.querySelectorAll('input[name="' + key + '"]');
-              radios.forEach(function(r){ if (r.value === val) r.checked = true; });
-            } else { el.value = val; }
+              var radios = form.querySelectorAll ('input[name="' + key + '"]');
+              radios.forEach (function (r) {
+                if (r.value === val) r.checked = true;
+              });
+            } else {
+              el.value = val;
+            }
           } catch (e) {}
         }
-        try { form.dispatchEvent(new Event('change', {bubbles:true})); } catch (e) {}
+        try {
+          form.dispatchEvent (new Event ('change', {bubbles: true}));
+        } catch (e) {}
         return;
       }
 
       // Otherwise treat hash as a base64url token and try to populate
       try {
-        window.formHelpers.populateFormFromToken(location.hash.replace(/^#/, ''), form);
+        window.formHelpers.populateFormFromToken (
+          location.hash.replace (/^#/, ''),
+          form
+        );
       } catch (e) {}
     } catch (e) {
-      console.error('initPrefillFromURL error:', e);
+      console.error ('initPrefillFromURL error:', e);
     }
   }
 
@@ -1312,248 +1560,408 @@
   function initAddKeyButton (root) {
     root = root || document;
     try {
-      var btn = document.getElementById('btn-add-key');
+      var btn = document.getElementById ('btn-add-key');
       if (!btn) return;
 
-  var dialog = document.getElementById('add-key-dialog');
-  var input = dialog ? dialog.querySelector('#add_key_input') : null;
-  var closeBtn = dialog ? dialog.querySelector('#add-key-close') : null;
-  var submitBtn = dialog ? dialog.querySelector('#add-key-submit') : null;
-  var errorEl = dialog ? dialog.querySelector('#add-key-error') : null;
+      var dialog = document.getElementById ('add-key-dialog');
+      var input = dialog ? dialog.querySelector ('#add_key_input') : null;
+      var closeBtn = dialog ? dialog.querySelector ('#add-key-close') : null;
+      var submitBtn = dialog ? dialog.querySelector ('#add-key-submit') : null;
+      var errorEl = dialog ? dialog.querySelector ('#add-key-error') : null;
 
-      function openDialog() {
+      function openDialog () {
         try {
           if (!dialog) return;
-          if (typeof dialog.showModal === 'function') dialog.showModal();
-          else dialog.setAttribute('open', '');
-        } catch (e) { dialog.setAttribute('open', ''); }
-        if (input) { input.value = ''; setTimeout(function(){ input.focus(); }, 10); }
+          if (typeof dialog.showModal === 'function') dialog.showModal ();
+          else dialog.setAttribute ('open', '');
+        } catch (e) {
+          dialog.setAttribute ('open', '');
+        }
+        if (input) {
+          input.value = '';
+          setTimeout (function () {
+            input.focus ();
+          }, 10);
+        }
       }
 
-      function closeDialog() {
-        try { if (!dialog) return; if (typeof dialog.close === 'function') dialog.close(); else dialog.removeAttribute('open'); } catch (e) { dialog.removeAttribute('open'); }
+      function closeDialog () {
+        try {
+          if (!dialog) return;
+          if (typeof dialog.close === 'function') dialog.close ();
+          else dialog.removeAttribute ('open');
+        } catch (e) {
+          dialog.removeAttribute ('open');
+        }
       }
 
-      function isValidToken(str) {
+      function isValidToken (str) {
         if (!str) return false;
-        var s = (str || '').replace(/^[#?]/, '').trim();
+        var s = (str || '').replace (/^[#?]/, '').trim ();
         // Reject empty, whitespace, or query-style strings with '&'
         if (!s) return false;
-        if (/\s/.test(s)) return false;
-        if (s.indexOf('&') !== -1) return false;
+        if (/\s/.test (s)) return false;
+        if (s.indexOf ('&') !== -1) return false;
         // Accept anything else (be permissive so tokens that work in the URL are accepted)
         return true;
       }
 
-      function applyFragment(fragment) {
-        fragment = (fragment || '').replace(/^[#?]/, '');
+      function applyFragment (fragment) {
+        fragment = (fragment || '').replace (/^[#?]/, '');
         if (!fragment) return;
         try {
           if (history && history.replaceState) {
-            var url = new URL(location.href);
+            var url = new URL (location.href);
             // write to the query string (search) so URL looks like ?token
-            url.search = fragment ? ('?' + fragment) : '';
-            history.replaceState({}, document.title, url.toString());
+            url.search = fragment ? '?' + fragment : '';
+            history.replaceState ({}, document.title, url.toString ());
           } else {
-            location.search = fragment ? ('?' + fragment) : '';
+            location.search = fragment ? '?' + fragment : '';
           }
         } catch (err) {
-          try { location.search = fragment ? ('?' + fragment) : ''; } catch (er) {}
+          try {
+            location.search = fragment ? '?' + fragment : '';
+          } catch (er) {}
         }
-        var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
+        var form =
+          document.getElementById ('dime-form') ||
+          document.querySelector ('form.calculator--form');
         if (!form) return;
         try {
           // populateFormFromToken now returns a Promise that resolves when populated
-          var p = window.formHelpers.populateFormFromToken(fragment, form);
+          var p = window.formHelpers.populateFormFromToken (fragment, form);
           if (p && typeof p.then === 'function') {
-            p.then(function () {
-              // Trigger the render/update functions if available
-              try {
-                if (window.formDime) {
-                  window.formDime.renderDebtOutput && window.formDime.renderDebtOutput(form);
-                  window.formDime.renderIncomeOutput && window.formDime.renderIncomeOutput(form);
-                  window.formDime.renderMortgageOutput && window.formDime.renderMortgageOutput(form);
-                  window.formDime.renderEducationOutput && window.formDime.renderEducationOutput(form);
-                  window.formDime.renderDimeOutput && window.formDime.renderDimeOutput(form);
-                  window.formDime.renderCoverageNeed && window.formDime.renderCoverageNeed(form);
-                } else {
-                  // fallback: submit the form programmatically to fire submit handlers
-                  try { form.dispatchEvent(new Event('submit', {bubbles:true})); } catch (e) {}
-                }
-              } catch (err) {}
-            }).catch(function(){
-              // ignore
-            });
+            p
+              .then (function () {
+                // Trigger the render/update functions if available
+                try {
+                  if (window.formDime) {
+                    window.formDime.renderDebtOutput &&
+                      window.formDime.renderDebtOutput (form);
+                    window.formDime.renderIncomeOutput &&
+                      window.formDime.renderIncomeOutput (form);
+                    window.formDime.renderMortgageOutput &&
+                      window.formDime.renderMortgageOutput (form);
+                    window.formDime.renderEducationOutput &&
+                      window.formDime.renderEducationOutput (form);
+                    window.formDime.renderDimeOutput &&
+                      window.formDime.renderDimeOutput (form);
+                    window.formDime.renderCoverageNeed &&
+                      window.formDime.renderCoverageNeed (form);
+                  } else {
+                    // fallback: submit the form programmatically to fire submit handlers
+                    try {
+                      form.dispatchEvent (
+                        new Event ('submit', {bubbles: true})
+                      );
+                    } catch (e) {}
+                  }
+                } catch (err) {}
+              })
+              .catch (function () {
+                // ignore
+              });
           }
         } catch (e) {}
       }
 
       // Register click on main button to open the dialog (or fallback to prompt)
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (!dialog) {
-          // Fallback prompt: accept ONLY a full query string containing ct/iv/salt and that starts with 'ct='
-          var val = window.prompt('Paste full query (must start with "ct=...&iv=...&salt=..."):', '');
-          if (!val) return;
-          var raw = val.trim();
-          // Strict: must start with ct= and include iv and salt
-          if (!(raw.indexOf('ct=') === 0 && /ct=/.test(raw) && /iv=/.test(raw) && /salt=/.test(raw))) {
-            try { alert('Invalid input. Only encrypted ciphertext in the form "ct=...&iv=...&salt=..." is accepted.'); } catch (e) {}
-            return;
-          }
-          var usp = new URLSearchParams(raw.replace(/^\?/, ''));
-          var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
-          // Use stored plaintext passphrase from localStorage only (sessionStorage contains hash, not usable for decryption)
-          try {
-            var pidx = form && form.getAttribute ? (form.getAttribute('data-protect-id') || 'default') : 'default';
-            var storedPass = null;
-            try { storedPass = localStorage.getItem('password_gate:' + pidx) || null; } catch (ee) { storedPass = null; }
-            if (!storedPass) {
-              try { alert('No stored passphrase found in localStorage. Please unlock the protected content first before adding an encrypted key.'); } catch (e) {}
+      btn.addEventListener (
+        'click',
+        function (e) {
+          e.preventDefault ();
+          if (!dialog) {
+            // Fallback prompt: accept ONLY a full query string containing ct/iv/salt and that starts with 'ct='
+            var val = window.prompt (
+              'Paste full query (must start with "ct=...&iv=...&salt=..."):',
+              ''
+            );
+            if (!val) return;
+            var raw = val.trim ();
+            // Strict: must start with ct= and include iv and salt
+            if (
+              !(raw.indexOf ('ct=') === 0 &&
+                /ct=/.test (raw) &&
+                /iv=/.test (raw) &&
+                /salt=/.test (raw))
+            ) {
+              try {
+                alert (
+                  'Invalid input. Only encrypted ciphertext in the form "ct=...&iv=...&salt=..." is accepted.'
+                );
+              } catch (e) {}
               return;
             }
-            window.formHelpers.tryDecryptSearchToForm(usp, storedPass, form).then(function(ok){
-              if (!ok) {
-                try { alert('Decryption failed'); } catch(e){}
+            var usp = new URLSearchParams (raw.replace (/^\?/, ''));
+            var form =
+              document.getElementById ('dime-form') ||
+              document.querySelector ('form.calculator--form');
+            // Use stored plaintext passphrase from localStorage only (sessionStorage contains hash, not usable for decryption)
+            try {
+              var pidx = form && form.getAttribute
+                ? form.getAttribute ('data-protect-id') || 'default'
+                : 'default';
+              var storedPass = null;
+              try {
+                storedPass =
+                  localStorage.getItem ('password_gate:' + pidx) || null;
+              } catch (ee) {
+                storedPass = null;
+              }
+              if (!storedPass) {
+                try {
+                  alert (
+                    'No stored passphrase found in localStorage. Please unlock the protected content first before adding an encrypted key.'
+                  );
+                } catch (e) {}
                 return;
               }
+              window.formHelpers
+                .tryDecryptSearchToForm (usp, storedPass, form)
+                .then (function (ok) {
+                  if (!ok) {
+                    try {
+                      alert ('Decryption failed');
+                    } catch (e) {}
+                    return;
+                  }
 
-              // Track successful Add Key action
-              if (window.Tracking) {
-                window.Tracking.addKeySuccess('prompt');
-              } else {
-                // Fallback if tracking module isn't loaded
-                try {
-                  var userName = '';
-                  try { userName = localStorage.getItem('ga4_user_name') || sessionStorage.getItem('ga4_user_name') || 'anonymous'; } catch (e) { userName = 'anonymous'; }
+                  // Track successful Add Key action
+                  if (window.Tracking) {
+                    window.Tracking.addKeySuccess ('prompt');
+                  } else {
+                    // Fallback if tracking module isn't loaded
+                    try {
+                      var userName = '';
+                      try {
+                        userName =
+                          localStorage.getItem ('ga4_user_name') ||
+                          sessionStorage.getItem ('ga4_user_name') ||
+                          'anonymous';
+                      } catch (e) {
+                        userName = 'anonymous';
+                      }
 
-                  window.dataLayer = window.dataLayer || [];
-                  window.dataLayer.push({
-                    event: 'add_key_success',
-                    user_name: userName,
-                    key_method: 'prompt',
-                    event_category: 'engagement',
-                    event_label: 'add_encrypted_key'
-                  });
-                } catch (e) { console.warn('GA4 tracking error:', e); }
-              }
+                      window.dataLayer = window.dataLayer || [];
+                      window.dataLayer.push ({
+                        event: 'add_key_success',
+                        user_name: userName,
+                        key_method: 'prompt',
+                        event_category: 'engagement',
+                        event_label: 'add_encrypted_key',
+                      });
+                    } catch (e) {
+                      console.warn ('GA4 tracking error:', e);
+                    }
+                  }
 
-              // Auto-submit after decryption to trigger calculation
+                  // Auto-submit after decryption to trigger calculation
+                  try {
+                    form.dispatchEvent (new Event ('submit', {bubbles: true}));
+                  } catch (e) {}
+                });
+            } catch (e) {
               try {
-                form.dispatchEvent(new Event('submit', {bubbles:true}));
-              } catch (e) {}
-            });
-          } catch (e) { try { alert('Failed to apply key'); } catch (err) {} }
-          return;
-        }
-        openDialog();
-      }, true);
+                alert ('Failed to apply key');
+              } catch (err) {}
+            }
+            return;
+          }
+          openDialog ();
+        },
+        true
+      );
 
       // Register dialog controls once
-      if (closeBtn) closeBtn.addEventListener('click', function () { closeDialog(); }, true);
-      if (dialog) dialog.addEventListener('cancel', function (ev) { ev.preventDefault(); closeDialog(); }, true);
+      if (closeBtn)
+        closeBtn.addEventListener (
+          'click',
+          function () {
+            closeDialog ();
+          },
+          true
+        );
+      if (dialog)
+        dialog.addEventListener (
+          'cancel',
+          function (ev) {
+            ev.preventDefault ();
+            closeDialog ();
+          },
+          true
+        );
       if (submitBtn && input) {
-        submitBtn.addEventListener('click', function (ev) {
-          ev.preventDefault();
-          var v = (input.value || '').trim();
-          if (!v) {
-            if (errorEl) { errorEl.style.display = 'block'; }
-            input && input.focus();
-            return;
-          }
-          // If user pasted a full query (ct/iv/salt), parse it and use stored passphrase from localStorage
-          if (/ct=/.test(v) && /iv=/.test(v) && /salt=/.test(v)) {
-            // require it to start with ct=
-            var raw = v.replace(/^[#?]/, '').trim();
-            if (raw.indexOf('ct=') !== 0) {
-              if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = 'Encrypted key must start with "ct="'; }
-              input && input.focus();
+        submitBtn.addEventListener (
+          'click',
+          function (ev) {
+            ev.preventDefault ();
+            var v = (input.value || '').trim ();
+            if (!v) {
+              if (errorEl) {
+                errorEl.style.display = 'block';
+              }
+              input && input.focus ();
               return;
             }
-            var usp = new URLSearchParams(raw.replace(/^\?/, ''));
-            var form = document.getElementById('dime-form') || document.querySelector('form.calculator--form');
-              try {
-              var pidy = form && form.getAttribute ? (form.getAttribute('data-protect-id') || 'default') : 'default';
-              var stored = null;
-              try { stored = localStorage.getItem('password_gate:' + pidy) || null; } catch (ee) { stored = null; }
-              if (!stored) {
-                if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = 'No stored passphrase found. Please unlock the content first.'; }
-                input && input.focus();
+            // If user pasted a full query (ct/iv/salt), parse it and use stored passphrase from localStorage
+            if (/ct=/.test (v) && /iv=/.test (v) && /salt=/.test (v)) {
+              // require it to start with ct=
+              var raw = v.replace (/^[#?]/, '').trim ();
+              if (raw.indexOf ('ct=') !== 0) {
+                if (errorEl) {
+                  errorEl.style.display = 'block';
+                  errorEl.textContent = 'Encrypted key must start with "ct="';
+                }
+                input && input.focus ();
                 return;
               }
-              window.formHelpers.tryDecryptSearchToForm(usp, stored, form).then(function(ok){
-                if (!ok) {
-                  try { alert('Decryption failed'); } catch(e){}
+              var usp = new URLSearchParams (raw.replace (/^\?/, ''));
+              var form =
+                document.getElementById ('dime-form') ||
+                document.querySelector ('form.calculator--form');
+              try {
+                var pidy = form && form.getAttribute
+                  ? form.getAttribute ('data-protect-id') || 'default'
+                  : 'default';
+                var stored = null;
+                try {
+                  stored =
+                    localStorage.getItem ('password_gate:' + pidy) || null;
+                } catch (ee) {
+                  stored = null;
+                }
+                if (!stored) {
+                  if (errorEl) {
+                    errorEl.style.display = 'block';
+                    errorEl.textContent =
+                      'No stored passphrase found. Please unlock the content first.';
+                  }
+                  input && input.focus ();
                   return;
                 }
+                window.formHelpers
+                  .tryDecryptSearchToForm (usp, stored, form)
+                  .then (function (ok) {
+                    if (!ok) {
+                      try {
+                        alert ('Decryption failed');
+                      } catch (e) {}
+                      return;
+                    }
 
-                // Track successful Add Key action
-                if (window.Tracking) {
-                  window.Tracking.addKeySuccess('dialog');
-                } else {
-                  // Fallback if tracking module isn't loaded
-                  try {
-                    var userName = '';
-                    try { userName = localStorage.getItem('ga4_user_name') || sessionStorage.getItem('ga4_user_name') || 'anonymous'; } catch (e) { userName = 'anonymous'; }
+                    // Track successful Add Key action
+                    if (window.Tracking) {
+                      window.Tracking.addKeySuccess ('dialog');
+                    } else {
+                      // Fallback if tracking module isn't loaded
+                      try {
+                        var userName = '';
+                        try {
+                          userName =
+                            localStorage.getItem ('ga4_user_name') ||
+                            sessionStorage.getItem ('ga4_user_name') ||
+                            'anonymous';
+                        } catch (e) {
+                          userName = 'anonymous';
+                        }
 
-                    window.dataLayer = window.dataLayer || [];
-                    window.dataLayer.push({
-                      event: 'add_key_success',
-                      user_name: userName,
-                      key_method: 'dialog',
-                      event_category: 'engagement',
-                      event_label: 'add_encrypted_key'
-                    });
-                  } catch (e) { console.warn('GA4 tracking error:', e); }
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push ({
+                          event: 'add_key_success',
+                          user_name: userName,
+                          key_method: 'dialog',
+                          event_category: 'engagement',
+                          event_label: 'add_encrypted_key',
+                        });
+                      } catch (e) {
+                        console.warn ('GA4 tracking error:', e);
+                      }
+                    }
+
+                    // Auto-submit after decryption to trigger calculation
+                    try {
+                      form.dispatchEvent (
+                        new Event ('submit', {bubbles: true})
+                      );
+                    } catch (e) {}
+                  });
+              } catch (e) {
+                if (errorEl) {
+                  errorEl.style.display = 'block';
                 }
-
-                // Auto-submit after decryption to trigger calculation
-                try { form.dispatchEvent(new Event('submit', {bubbles:true})); } catch(e) {}
-              });
-            } catch (e) {
-              if (errorEl) { errorEl.style.display = 'block'; }
+              }
+              closeDialog ();
+              return;
             }
-            closeDialog();
-            return;
-          }
-          // Anything else is invalid for Add Key (we only accept ct=... keys)
-          if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = 'Invalid key. Paste encrypted ciphertext starting with "ct=...&iv=...&salt=...".'; }
-          input && input.focus();
-        }, true);
+            // Anything else is invalid for Add Key (we only accept ct=... keys)
+            if (errorEl) {
+              errorEl.style.display = 'block';
+              errorEl.textContent =
+                'Invalid key. Paste encrypted ciphertext starting with "ct=...&iv=...&salt=...".';
+            }
+            input && input.focus ();
+          },
+          true
+        );
         // allow Enter key inside input to submit
-        input.addEventListener('keydown', function(ev){ if (ev.key === 'Enter') { ev.preventDefault(); submitBtn.click(); } }, true);
+        input.addEventListener (
+          'keydown',
+          function (ev) {
+            if (ev.key === 'Enter') {
+              ev.preventDefault ();
+              submitBtn.click ();
+            }
+          },
+          true
+        );
         // hide error when typing
-        input.addEventListener('input', function(){ if (errorEl) errorEl.style.display = 'none'; }, true);
+        input.addEventListener (
+          'input',
+          function () {
+            if (errorEl) errorEl.style.display = 'none';
+          },
+          true
+        );
       }
     } catch (e) {
-      console.error('initAddKeyButton error:', e);
+      console.error ('initAddKeyButton error:', e);
     }
   }
 
   window.formHelpers.initAddKeyButton = initAddKeyButton;
 
   // --- Notes button initializer ---
-  function initNotesButton(root) {
+  function initNotesButton (root) {
     root = root || document;
     try {
-      var buttons = Array.prototype.slice.call(root.querySelectorAll('#btn-toggle-notes, .btn--notes-toggle'));
-      buttons.forEach(function(btn){
+      var buttons = Array.prototype.slice.call (
+        root.querySelectorAll ('#btn-toggle-notes, .btn--notes-toggle')
+      );
+      buttons.forEach (function (btn) {
         if (btn.__notes_bound) return;
         btn.__notes_bound = true;
-        btn.addEventListener('click', function(e){
-          e.preventDefault();
-          e.stopPropagation();
-          // Allow explicit target via data-target-form, otherwise find the first calculator form
-          var targetFormId = btn.getAttribute && btn.getAttribute('data-target-form');
-          var form = null;
-          if (targetFormId) form = document.getElementById(targetFormId);
-          if (!form) form = document.querySelector('form.calculator--form') || document.querySelector('form');
-          if (!form) return;
-          try {
-            // openNotes will gracefully return if no dialog/template is present
-            window.formHelpers.openNotes(form);
-          } catch (err) {}
-        }, true);
+        btn.addEventListener (
+          'click',
+          function (e) {
+            e.preventDefault ();
+            e.stopPropagation ();
+            // Allow explicit target via data-target-form, otherwise find the first calculator form
+            var targetFormId =
+              btn.getAttribute && btn.getAttribute ('data-target-form');
+            var form = null;
+            if (targetFormId) form = document.getElementById (targetFormId);
+            if (!form)
+              form =
+                document.querySelector ('form.calculator--form') ||
+                document.querySelector ('form');
+            if (!form) return;
+            try {
+              // openNotes will gracefully return if no dialog/template is present
+              window.formHelpers.openNotes (form);
+            } catch (err) {}
+          },
+          true
+        );
       });
     } catch (e) {}
   }
