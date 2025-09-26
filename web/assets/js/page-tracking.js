@@ -123,8 +123,11 @@
       scrollTimeout = setTimeout(trackScrollDepth, 250);
     });
 
-    console.log('[PageTracking] Enhanced tracking initialized for page type:', getPageType());
-    console.log('[PageTracking] Now tracking: links, buttons, CTAs, navigation, forms, and scroll depth');
+    // Only log in non-production environments
+    if (window.Tracking && window.Tracking.config && window.Tracking.config.logEvents) {
+      console.log('[PageTracking] Enhanced tracking initialized for page type:', getPageType());
+      console.log('[PageTracking] Now tracking: links, buttons, CTAs, navigation, forms, and scroll depth');
+    }
   }
 
   /**

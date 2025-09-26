@@ -48,6 +48,10 @@
 {{ end }}
 
 {{/* Load tracking module for GA4 events (after privacy scripts) */}}
+{{/* Inject Hugo environment information before tracking module loads */}}
+<script>
+  window.HUGO_ENV = {{ if hugo.IsProduction }}'production'{{ else }}'development'{{ end }};
+</script>
 {{ with resources.Get "js/tracking.js" }}
   {{ $tracking := . }}
   {{ if hugo.IsProduction }}
