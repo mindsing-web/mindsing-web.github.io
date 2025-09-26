@@ -385,21 +385,25 @@
         try { sessionStorage.setItem('password_gate_user:' + self.id, nameVal.trim()); } catch (e) {}
         try { localStorage.setItem('password_gate_user:' + self.id, nameVal.trim()); } catch (e) {}
 
-        // Store user name globally for GA4 tracking across all pages
-        try { localStorage.setItem('ga4_user_name', nameVal.trim()); } catch (e) {}
-        try { sessionStorage.setItem('ga4_user_name', nameVal.trim()); } catch (e) {}
-
-        // Send to GA4/GTM dataLayer
-        try {
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({
-            event: 'password_protected_access',
-            user_name: nameVal.trim(),
-            protection_id: self.id,
-            event_category: 'engagement',
-            event_label: 'protected_content_access'
-          });
-        } catch (e) { console.warn('GA4 tracking error:', e); }
+        // Store user name globally and track password access
+        if (window.Tracking) {
+          window.Tracking.setUserName(nameVal.trim());
+          window.Tracking.passwordAccess(self.id, nameVal.trim());
+        } else {
+          // Fallback if tracking module isn't loaded
+          try { localStorage.setItem('ga4_user_name', nameVal.trim()); } catch (e) {}
+          try { sessionStorage.setItem('ga4_user_name', nameVal.trim()); } catch (e) {}
+          try {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: 'password_protected_access',
+              user_name: nameVal.trim(),
+              protection_id: self.id,
+              event_category: 'engagement',
+              event_label: 'protected_content_access'
+            });
+          } catch (e) { console.warn('GA4 tracking error:', e); }
+        }
 
         cleanup();
         self.showContent();
