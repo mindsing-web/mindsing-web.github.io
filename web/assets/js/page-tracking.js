@@ -28,7 +28,7 @@
 
       var isLink = element.tagName === 'A';
       var isButton = element.tagName === 'BUTTON' || element.getAttribute('role') === 'button';
-      
+
       if (isLink && element.href) {
         var isExternal = element.hostname !== window.location.hostname;
         var isEmail = element.href.startsWith('mailto:');
@@ -46,7 +46,7 @@
           link_classes: element.className || null
         });
       }
-      
+
       if (isButton) {
         // Track button clicks
         window.Tracking.userAction('button_click', {
@@ -101,10 +101,10 @@
     // Track scroll depth (25%, 50%, 75%, 100%)
     var scrollDepths = [25, 50, 75, 100];
     var trackedDepths = [];
-    
+
     function trackScrollDepth() {
       var scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
-      
+
       scrollDepths.forEach(function(depth) {
         if (scrollPercent >= depth && trackedDepths.indexOf(depth) === -1) {
           trackedDepths.push(depth);
@@ -132,14 +132,14 @@
    */
   function getPageType() {
     var path = window.location.pathname;
-    
+
     if (path === '/' || path === '') return 'homepage';
     if (path.includes('/about')) return 'about';
     if (path.includes('/services')) return 'services';
     if (path.includes('/booking')) return 'booking';
     if (path.includes('/privacy')) return 'privacy';
     if (path.includes('/calculator')) return 'calculator';
-    
+
     return 'other';
   }
 

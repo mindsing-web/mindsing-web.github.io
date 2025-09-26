@@ -1097,7 +1097,7 @@
       // Basic validation - should only contain base64url characters
       if (!b64url || typeof b64url !== 'string') return '';
       if (!/^[A-Za-z0-9_-]*$/.test(b64url)) return '';
-      
+
       // convert base64url to Uint8Array then decode as UTF-8
       var b64 = b64url.replace (/-/g, '+').replace (/_/g, '/');
       while (b64.length % 4)
@@ -1451,7 +1451,7 @@
       try {
         form.dispatchEvent (new Event ('change', {bubbles: true}));
       } catch (e) {}
-      
+
       // Track successful encrypted URL decryption
       try {
         if (window.Tracking && typeof window.Tracking.sendEvent === 'function') {
@@ -1465,7 +1465,7 @@
       } catch (trackingErr) {
         console.warn('Encrypted URL access tracking failed:', trackingErr);
       }
-      
+
       return true;
     } catch (e) {
       return false;
@@ -1549,7 +1549,7 @@
             // This is an encrypted payload but no key was found in fragment, skip token decoding
             return;
           }
-          
+
           // Only attempt token decoding if the search string looks like base64url
           // Base64url should only contain: A-Z, a-z, 0-9, -, _, and optional dots for signatures
           if (search && /^[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)?$/.test(search)) {
