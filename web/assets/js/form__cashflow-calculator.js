@@ -1273,6 +1273,18 @@
               try {
                 e.preventDefault();
 
+                // Track calculation event
+                try {
+                  if (window.Tracking && typeof window.Tracking.calculatorCalculate === 'function') {
+                    window.Tracking.calculatorCalculate({
+                      calculator_type: 'cashflow',
+                      calculation_method: 'form_submit'
+                    });
+                  }
+                } catch (trackingErr) {
+                  console.warn('Cashflow calculation tracking failed:', trackingErr);
+                }
+
                 // Prevent duplicate execution
                 if (form.getAttribute("data-cashflow-processing") === "true")
                   return;
@@ -1394,6 +1406,7 @@
           var calculateBtn =
             form.querySelector('button[type="submit"]') ||
             form.querySelector(".btn--calculate");
+
           if (!calculateBtn) {
             // Look for any button that might contain "Calculate" text
             var buttons = form.querySelectorAll("button");
@@ -1407,42 +1420,13 @@
               }
             }
           }
+
           if (calculateBtn) {
             calculateBtn.addEventListener(
               "click",
-              async function (e) {
+              function (e) {
                 e.preventDefault();
-
-                // Track calculate button click
-                if (window.Tracking) {
-                  window.Tracking.calculatorCalculate("cashflow");
-                } else {
-                  // Fallback if tracking module isn't loaded
-                  try {
-                    var userName = "";
-                    try {
-                      userName =
-                        localStorage.getItem("ga4_user_name") ||
-                        sessionStorage.getItem("ga4_user_name") ||
-                        "anonymous";
-                    } catch (e) {
-                      userName = "anonymous";
-                    }
-
-                    window.dataLayer = window.dataLayer || [];
-                    window.dataLayer.push({
-                      event: "calculator_calculate",
-                      calculator_type: "cashflow",
-                      user_name: userName,
-                      event_category: "engagement",
-                      event_label: "calculate_button_click",
-                    });
-                  } catch (e) {
-                    console.warn("GA4 tracking error:", e);
-                  }
-                }
-
-                // Trigger the same logic as form submit
+                // Trigger the form submit which will handle tracking
                 form.dispatchEvent(
                   new Event("submit", { bubbles: true, cancelable: true })
                 );

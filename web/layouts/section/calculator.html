@@ -52,17 +52,6 @@
           <script src="/assets/js/form__helpers.js"></script>
         {{ end }}
 
-        {{/* Load tracking module before other scripts that depend on it */}}
-        {{ with resources.Get "js/tracking.js" }}
-        {{ $t := . }}
-        {{ if hugo.IsProduction }}
-          {{ $t = $t | minify | fingerprint }}
-        {{ end }}
-          <script src="{{ $t.RelPermalink }}"></script>
-        {{ else }}
-          <script src="/assets/js/tracking.js"></script>
-        {{ end }}
-
         {{/* Calculator-specific scripts */}}
         {{ if in .File.Path "calculator" }}
             {{/* Shared collapse helper used by calculator forms */}}

@@ -46,3 +46,27 @@
   <!-- Fallback if resource isn't found -->
   <script src="/js/user-settings.js"></script>
 {{ end }}
+
+{{/* Load tracking module for GA4 events (after privacy scripts) */}}
+{{ with resources.Get "js/tracking.js" }}
+  {{ $tracking := . }}
+  {{ if hugo.IsProduction }}
+    {{ $tracking = $tracking | minify | fingerprint }}
+  {{ end }}
+  <script src="{{ $tracking.RelPermalink }}"></script>
+{{ else }}
+  <!-- Fallback if resource isn't found -->
+  <script src="/js/tracking.js"></script>
+{{ end }}
+
+{{/* Load general page tracking for non-calculator pages */}}
+{{ with resources.Get "js/page-tracking.js" }}
+  {{ $pageTracking := . }}
+  {{ if hugo.IsProduction }}
+    {{ $pageTracking = $pageTracking | minify | fingerprint }}
+  {{ end }}
+  <script src="{{ $pageTracking.RelPermalink }}"></script>
+{{ else }}
+  <!-- Fallback if resource isn't found -->
+  <script src="/js/page-tracking.js"></script>
+{{ end }}
