@@ -333,7 +333,7 @@ form_id: "cashflow-form"
   <!-- Notes dialog (shared pattern with DIME) -->
   <!-- Notes storage field (kept in-form so the shared notes dialog can read/write) -->
 
-<textarea id="expense_notes" name="expense_notes" rows="4" style="display:none;" class="input-reset ba b--black-20 pa2 w-100"></textarea>
+<textarea id="notes_cashflow" name="notes_cashflow" rows="4" style="display:none;" class="input-reset ba b--black-20 pa2 w-100"></textarea>
 
   <!-- Optional: Add key dialog (same UX as DIME) -->
   <dialog id="add-key-dialog" class="dialog mw6 center" aria-labelledby="add-key-title" aria-modal="true">
