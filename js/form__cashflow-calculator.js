@@ -1131,8 +1131,10 @@
                     var el = s.querySelector(".summary-key");
                     if (el)
                       tokenTxt = (el.textContent || el.innerText || "").trim();
-                    if (tokenTxt)
-                      lines.push("Cashflow calculation key: " + tokenTxt);
+                    if (tokenTxt) {
+                      lines.push("Cashflow calculation key:");
+                      lines.push(tokenTxt);
+                    }
 
                     // Include notes if present
                     try {
