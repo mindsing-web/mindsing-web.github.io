@@ -463,7 +463,10 @@
                     tokenTxt = (location.search || '').replace (/^\?/, '');
                   }
                 }
-                if (tokenTxt) lines.push ('Insurance target key: ' + tokenTxt);
+                if (tokenTxt) {
+                  lines.push ('Insurance target key:');
+                  lines.push (tokenTxt);
+                }
 
                 // Include notes if present
                 try {
