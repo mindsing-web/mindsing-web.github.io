@@ -172,6 +172,57 @@ git commit -m "Update site content"
 git push origin main        # Triggers GitHub Pages build
 ```
 
+## Makefile
+
+A Makefile is included at the repository root to simplify common tasks for development, building, and publishing.
+
+Usage:
+- `make serve`      — Start Hugo dev server (port 1313)
+- `make build`      — Production build (minified)
+- `make public-init` — One-time: initialize `web/public` as a git repo and push to the GitHub Pages remote
+- `make publish`    — Build then commit & push changes from `web/public` to the publishing repo
+- `make clean`      — Remove the generated `public/` directory
+
+Key variables (in the Makefile):
+- `HUGO_DIR` = `web`
+- `PUBLIC_DIR` = `web/public`
+- `PAGES_REMOTE` = `github-mindsing:mindsing-web/mindsing-web.github.io.git`
+- `HUGO_ENV` = `production`
+- `PORT` = `1313`
+
+Examples:
+
+- Start dev server:
+  ```bash
+  make serve
+  # runs: cd web && hugo server -D --port 1313
+  ```
+
+- Build production site:
+  ```bash
+  make build
+  # runs: cd web && HUGO_ENV="production" hugo --minify
+  ```
+
+- Initialize publishing repo (one-time):
+  ```bash
+  make public-init
+  ```
+
+- Publish updates:
+  ```bash
+  make publish
+  ```
+
+- Clean generated site:
+  ```bash
+  make clean
+  ```
+
+Notes:
+- The Makefile expects the SSH alias `github-mindsing` to be configured in your `~/.ssh/config` (see "SSH Configuration" above).
+- The `public-init` and `publish` targets operate on `web/public`. Review changes in `web/public` before pushing.
+
 ## Configuration Notes
 
 - **Main Repository**: `github-bdanin:bdanin/mindsing-hugo.git` - Primary development repo
