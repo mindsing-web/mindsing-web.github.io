@@ -9,4 +9,6 @@ We specialize in developing robust, scalable web solutions for **enterprise orga
 
 ## Why Choose MindSing?
 
+We deliver enterprise-grade solutions with the agility and attention to detail of a boutique development team.
+
 <!--more-->
