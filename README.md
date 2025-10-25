@@ -2,6 +2,55 @@
 
 Professional website at [www.mindsing.com](https://www.mindsing.com) - built with [Hugo](https://gohugo.io/) static site generator.
 
+## Quick Start
+
+Follow these minimal steps to get the site running locally and to build/publish changes.
+
+1) Clone and initialize the theme (one-time):
+
+```bash
+git clone github-bdanin:bdanin/mindsing-hugo.git
+cd mindsing-hugo
+git submodule update --init --recursive
+```
+
+2) Start the development server (live reload, includes drafts):
+
+```bash
+make serve
+# equivalent: cd web && hugo server -D --port 1313
+```
+
+3) Build a production (minified) site:
+
+```bash
+make build
+# equivalent: cd web && HUGO_ENV="production" hugo --minify
+```
+
+4) One-time: initialize the publishing repo in `web/public` and push the initial site to GitHub Pages:
+
+```bash
+make public-init
+# creates web/public, git init, sets remote (PAGES_REMOTE) and pushes initial commit
+```
+
+5) Publish updates (build then commit & push changed files from `web/public`):
+
+```bash
+make publish
+# builds then commits & pushes only when there are staged changes
+```
+
+6) Remove the generated site output:
+
+```bash
+make clean
+# removes web/public
+```
+
+Site will be available at `http://localhost:1313`
+
 ## Project Structure
 
 ```
@@ -62,22 +111,24 @@ Host github-mindsing
   IdentitiesOnly yes
 ```
 
-## Getting Started
 
-### 1. Clone and Setup
-```bash
-git clone github-bdanin:bdanin/mindsing-hugo.git
-cd mindsing-hugo
-git submodule update --init  # Initialize Ananke theme
-```
+## Developer notes
+More details and information for developers below.
 
-### 2. Development Server
-```bash
-cd web
-hugo server -D              # Development mode (includes drafts)
-```
+### Makefile info
 
-Site will be available at `http://localhost:1313`
+Makefile targets (quick reference)
+- help — show usage and list targets
+- check — verify Hugo is installed and print key variables
+- serve — start Hugo dev server (PORT default: 1313)
+- build — production build with HUGO_ENV="production" and --minify
+- public-init — one-time init of web/public as a git repo and push to PAGES_REMOTE
+- publish — build then commit & push changes from web/public to PAGES_REMOTE
+- clean — remove web/public
+
+Notes:
+- Key Makefile variables are defined at the top of the `Makefile`: `HUGO_DIR`, `PUBLIC_DIR`, `PAGES_REMOTE`, `HUGO_ENV`, `PORT`.
+- The publishing targets (`public-init` and `publish`) expect the SSH alias `github-mindsing` to be configured in your `~/.ssh/config` (see the SSH Configuration section below).
 
 **SCSS Processing:** Hugo automatically compiles all SCSS files using its built-in `css.Sass` pipeline. No additional build tools required.
 
@@ -190,34 +241,6 @@ Key variables (in the Makefile):
 - `HUGO_ENV` = `production`
 - `PORT` = `1313`
 
-Examples:
-
-- Start dev server:
-  ```bash
-  make serve
-  # runs: cd web && hugo server -D --port 1313
-  ```
-
-- Build production site:
-  ```bash
-  make build
-  # runs: cd web && HUGO_ENV="production" hugo --minify
-  ```
-
-- Initialize publishing repo (one-time):
-  ```bash
-  make public-init
-  ```
-
-- Publish updates:
-  ```bash
-  make publish
-  ```
-
-- Clean generated site:
-  ```bash
-  make clean
-  ```
 
 Notes:
 - The Makefile expects the SSH alias `github-mindsing` to be configured in your `~/.ssh/config` (see "SSH Configuration" above).
