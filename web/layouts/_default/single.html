@@ -5,7 +5,7 @@
 
 {{ define "main" }}
   {{ $section := .Site.GetPage "section" .Section }}
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+  <article class="flex-l flex-wrap justify-between center ph3 ph5-l">
     <header class="mt4 w-100">
       {{ if not .Params.featured_image }}
       <h2 class="f1 athelas mt3 mb1">
@@ -41,29 +41,38 @@
         <span class="f6 mv4 dib tracked"> - {{ i18n "wordCount" .WordCount }} </span>
       {{ end }}
     </header>
-    <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray pr4-l">
-      {{/* For service pages: keep first paragraph full-width, render rest in two columns */}}
-      {{ if eq .Section "services" }}
-        {{ $content := .Content }}
-        {{/* Extract the first paragraph */}}
-        {{ $firstMatch := findRE "<p[^>]*>.*?</p>" $content 1 }}
-        {{ $first := "" }}
-        {{ if gt (len $firstMatch) 0 }}
-          {{ $first = index $firstMatch 0 }}
-        {{ end }}
-        {{ $rest := replace $content $first "" 1 }}
-
-        {{/* Render first paragraph full-width */}}
-        {{ if ne $first "" }}
-          <div class="mb4">{{ $first | safeHTML }}</div>
-        {{ end }}
-
-        {{/* Render remaining content in two columns */}}
-        <div class="content-two-col">{{ $rest | safeHTML }}</div>
-
-      {{ else }}
-        {{- .Content -}}
+    {{ if eq .Section "services" }}
+      {{/* Services pages: first paragraph narrower without bg, then wider white 2-column content */}}
+      {{ $content := .Content }}
+      {{/* Extract the first paragraph */}}
+      {{ $firstMatch := findRE "<p[^>]*>.*?</p>" $content 1 }}
+      {{ $first := "" }}
+      {{ if gt (len $firstMatch) 0 }}
+        {{ $first = index $firstMatch 0 }}
       {{ end }}
+      {{ $rest := replace $content $first "" 1 }}
+
+      {{/* Render first paragraph narrower, no white bg */}}
+      {{ if ne $first "" }}
+        <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray mw8 center mb4">
+          {{ $first | safeHTML }}
+        </div>
+      {{ end }}
+
+      {{/* Render remaining content in wider white box with two columns */}}
+      <div class="w-100 bg-white pa4 pa5-l mb4 mw9 center">
+        <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img black content-two-col">
+          {{ $rest | safeHTML }}
+        </div>
+      </div>
+    {{ else }}
+      {{/* Regular pages: standard layout */}}
+      <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray pr4-l">
+        {{- .Content -}}
+      </div>
+    {{ end }}
+
+    <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray pr4-l">
       {{- partial "tags.html" . -}}
     </div>
 

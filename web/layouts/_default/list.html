@@ -1,14 +1,13 @@
 {{ define "main" }}
-  {{/* Match single page container: center + mw8 so widths align with booking/single pages */}}
-  <article class="flex-l flex-wrap justify-between center ph3 pa3 pa4-ns nested-copy-line-height nested-img {{ .Params.article_class }}">
-    <div class="nested-copy-line-height lh-copy mw8 center {{ $.Param "article_class" | default "serif" }} f4 nested-links nested-img mid-gray pr4-l">
+  <article class="nested-copy-line-height nested-img {{ .Params.article_class }}">
+    <div class="nested-copy-line-height lh-copy mw8 center {{ $.Param "article_class" | default "serif" }} f4 nested-links nested-img mid-gray">
       <section class="ph3 ph5-l pv3 pv4-l f4 tl lh-copy black">
         {{- .Content -}}
       </section>
     </div>
 
     {{/* Paginator / summaries (full-width below content on narrow screens) */}}
-    <section class="w-100 ph3 ph5-l mt4">
+    <section class="w-100 ph3 ph5-l mt4 mw9 center">
       <div class="flex-ns flex-wrap justify-start">
         {{ range .Paginator.Pages }}
           <div class="relative w-100 w-50-l pr4-l mb4 bg-white">
