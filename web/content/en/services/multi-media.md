@@ -9,6 +9,8 @@ weight: 4
 
 ## Enterprise Media Solutions
 
+Manage and deliver large volumes of digital assets with sophisticated media architecture that scales to meet enterprise demands.
+
 ### Digital Asset Management
 - Large-scale media library organization
 - Automated metadata tagging and categorization
@@ -29,6 +31,8 @@ weight: 4
 
 ## Higher Education Media Systems
 
+Academic institutions need specialized media platforms for lectures, research documentation, and digital archives that serve diverse audiences.
+
 ### Academic Video Platforms
 - Lecture capture and streaming systems
 - Student presentation and portfolio platforms
@@ -42,6 +46,8 @@ weight: 4
 - Museum and gallery systems
 
 ## Technical Implementation
+
+We leverage powerful CMS media capabilities to create custom media workflows, automated processing, and seamless integrations.
 
 ### Drupal Media Management
 - Media entity configuration and workflows

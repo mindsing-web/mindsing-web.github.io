@@ -9,6 +9,8 @@ weight: 3
 
 ## Enterprise Content Services
 
+Professional content that communicates complex technical concepts clearly and effectively to diverse audiences, from developers to end users.
+
 ### Technical Documentation
 - API documentation and developer guides
 - System administration manuals
@@ -28,6 +30,8 @@ weight: 3
 - Multi-language content management
 
 ## Content Management Integration
+
+Optimize your CMS with strategic content architecture, editorial workflows, and governance that supports organizational goals.
 
 ### Drupal Content Strategy
 - Custom content types and taxonomies
