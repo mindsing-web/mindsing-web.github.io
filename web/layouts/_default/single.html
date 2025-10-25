@@ -42,7 +42,28 @@
       {{ end }}
     </header>
     <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray pr4-l">
-      {{- .Content -}}
+      {{/* For service pages: keep first paragraph full-width, render rest in two columns */}}
+      {{ if eq .Section "services" }}
+        {{ $content := .Content }}
+        {{/* Extract the first paragraph */}}
+        {{ $firstMatch := findRE "<p[^>]*>.*?</p>" $content 1 }}
+        {{ $first := "" }}
+        {{ if gt (len $firstMatch) 0 }}
+          {{ $first = index $firstMatch 0 }}
+        {{ end }}
+        {{ $rest := replace $content $first "" 1 }}
+
+        {{/* Render first paragraph full-width */}}
+        {{ if ne $first "" }}
+          <div class="mb4">{{ $first | safeHTML }}</div>
+        {{ end }}
+
+        {{/* Render remaining content in two columns */}}
+        <div class="content-two-col">{{ $rest | safeHTML }}</div>
+
+      {{ else }}
+        {{- .Content -}}
+      {{ end }}
       {{- partial "tags.html" . -}}
     </div>
 

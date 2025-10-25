@@ -103,6 +103,68 @@ a.info:focus {
   }
 }
 
+// Two-column content layout utility
+.content-two-col {
+  @media (min-width: $tablet-breakpoint) {
+    column-count: 2;
+    column-gap: 2rem;
+  }
+
+  // Force H2 to start a new column
+  h2 {
+    break-before: column;
+    -webkit-column-break-before: column;
+    page-break-before: always;
+    break-after: avoid;
+    -webkit-column-break-after: avoid;
+    page-break-after: avoid;
+    margin-top: 0;
+  }
+
+  // H3 and below should stay with following content
+  h3, h4, h5, h6 {
+    break-after: avoid;
+    -webkit-column-break-after: avoid;
+    page-break-after: avoid;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  // Ensure lists don't break
+  ul, ol {
+    margin: 0 0 1rem 0;
+    padding-left: 1.5rem;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+
+    li {
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  // Keep paragraphs together
+  p {
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  // Keep heading + immediately following list together
+  h3 + ul,
+  h3 + ol,
+  h4 + ul,
+  h4 + ol {
+    break-before: avoid;
+    -webkit-column-break-before: avoid;
+    page-break-before: avoid;
+  }
+}
+
 // Brand color utilities
 .orange {
   color: $primary-color;
