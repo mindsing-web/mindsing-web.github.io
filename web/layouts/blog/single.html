@@ -64,16 +64,19 @@
         <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray">
           {{- .Content -}}
         </div>
-
-        {{/* Tags */}}
-        <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray mt4">
-          {{- partial "tags.html" . -}}
-        </div>
       </article>
 
       {{/* Sidebar */}}
       <aside class="w-100 w-30-l mt4 mt0-l">
         {{- partial "email-subscription-sidebar.html" . -}}
+        
+        {{/* Tags */}}
+        {{ if .Params.tags }}
+        <div class="bg-near-white pa4 br3 mb4">
+          <h3 class="f5 fw6 dark-gray mt0 mb3">Tags</h3>
+          {{- partial "tags.html" . -}}
+        </div>
+        {{ end }}
       </aside>
     </div>
   </div>
