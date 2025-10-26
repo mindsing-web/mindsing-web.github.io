@@ -1,0 +1,56 @@
+{{ define "header" }}
+   {{/* We can override any block in the baseof file be defining it in the template */}}
+  {{ partial "page-header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+  <article class="center ph3 ph5-l">
+    <header class="mt4 w-100 mw8 center">
+      {{ if not .Params.featured_image }}
+      <h1 class="f1 athelas mt3 mb1">
+        {{- .Title -}}
+      </h1>
+      {{ end }}
+      {{ with .Params.author | default .Site.Params.author }}
+      <p class="tracked">
+          By <strong>
+          {{ if reflect.IsSlice . }}
+              {{ delimit . ", " | markdownify }}
+          {{else}}
+              {{ . | markdownify }}
+          {{ end }}
+          </strong>
+      </p>
+      {{ end }}
+      {{/* Hugo uses Go's date formatting is set by example. Here are two formats */}}
+      {{ if not .Date.IsZero }}
+      <time class="f6 mv4 dib tracked" {{ printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safeHTMLAttr }}>
+        {{- .Date.Format (default "January 2, 2006" .Site.Params.date_format) -}}
+      </time>
+      {{end}}
+
+      {{/*
+          Show "reading time" and "word count" but only if one of the following are true:
+          1) A global config `params` value is set `show_reading_time = true`
+          2) A section front matter value is set `show_reading_time = true`
+          3) A page front matter value is set `show_reading_time = true`
+        */}}
+      {{ $section := .Site.GetPage "section" .Section }}
+      {{ if (or (eq (.Param "show_reading_time") true) (eq $section.Params.show_reading_time true) )}}
+        <span class="f6 mv4 dib tracked"> - {{ i18n "readingTime" .ReadingTime }} </span>
+        <span class="f6 mv4 dib tracked"> - {{ i18n "wordCount" .WordCount }} </span>
+      {{ end }}
+    </header>
+
+    {{/* Blog content with mw8 constraint */}}
+    <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray mw8 center">
+      {{- .Content -}}
+    </div>
+
+    {{/* Tags */}}
+    <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray mw8 center mt4">
+      {{- partial "tags.html" . -}}
+    </div>
+
+  </article>
+{{ end }}
