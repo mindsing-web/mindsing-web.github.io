@@ -4,6 +4,8 @@ date: 2025-8-05
 description: "Exploring the critical importance of open source in modern web development and why we champion Drupal for enterprise solutions."
 featured_image: '/images/pacific-northwest-mountains.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"
+categories: ["Technology & Innovation", "Strategy & Growth"]
+tags: ["Open Source", "Drupal", "Enterprise", "Web Development"]
 ---
 
 In the rapidly evolving landscape of web development, choosing the right foundation for your digital infrastructure is more critical than ever. At MindSing, we're passionate advocates for open source technologies—particularly Drupal—and here's why.

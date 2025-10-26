@@ -4,6 +4,8 @@ date: 2024-10-25
 description: "How to achieve perfect Core Web Vitals scores while managing Google Tag Manager bloat using Drupal's Layout Builder and Tailwind CSS."
 featured_image: '/images/ski-mountains-opt.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"
+categories: ["Performance & Optimization", "Design & Experience"]
+tags: ["Core Web Vitals", "Google Tag Manager", "Drupal", "Tailwind CSS", "SEO"]
 ---
 
 At the 2024 Pacific Northwest Drupal Summit, MindSing sponsored a session exploring the critical relationship between Core Web Vitals, Google Tag Manager, and site performance. The session, "[Speedy Delivery, Win the GTM, SERP, and CWV Game with Layout Builder and Tailwind](https://2024.pnwdrupalsummit.org/sessions/speedy-delivery-win-gtm-serp-and-cwv-game-layout-builder-and-tailwind/)," demonstrated how to maintain perfect performance scores while meeting the demands of modern marketing teams.

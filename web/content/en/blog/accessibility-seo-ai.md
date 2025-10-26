@@ -4,6 +4,8 @@ date: 2025-09-12
 description: "Why accessibility isn't just about compliance—it's the key to better SEO rankings and ensuring your content is discoverable by AI systems."
 featured_image: '/images/ski-mountains-opt.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"
+categories: ["Design & Experience", "Performance & Optimization"]
+tags: ["Accessibility", "SEO", "AI", "Content Strategy", "WCAG"]
 ---
 
 When organizations think about web accessibility, they often frame it as a compliance issue or an ethical obligation. While both are true, there's a compelling business case that's often overlooked: **accessibility is the foundation of effective SEO and the key to making your content discoverable by generative AI systems**.
