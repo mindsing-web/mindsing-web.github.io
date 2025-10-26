@@ -76,9 +76,9 @@ This playful approach to a serious technical topic helps both marketers and deve
 
 By the end of this session, attendees walked away with practical strategies to:
 
-✅ **Optimize GTM setup** for any level of complexity  
-✅ **Ensure privacy compliance** without breaking marketing capabilities  
-✅ **Improve performance** without sacrificing functionality  
+✅ **Optimize GTM setup** for any level of complexity
+✅ **Ensure privacy compliance** without breaking marketing capabilities
+✅ **Improve performance** without sacrificing functionality
 ✅ **Balance competing priorities** between legal, marketing, and technical teams
 
 ## Why This Matters for Marketers
