@@ -8,9 +8,7 @@ author: "[Brian Danin](https://www.briandanin.com)"
 
 At the 2024 Pacific Northwest Drupal Summit, MindSing sponsored a session exploring the practical integration of AI tools into modern development workflows. The session, "[Tip-Toeing into the Deep: Seek, Prompt, Repeat](https://pnwdrupalsummit.org/sessions/tiptoeing-deep-seek-prompt-repeat)," demonstrated how developers can leverage AI assistance while maintaining code quality and deepening their expertise.
 
-<div class="responsive-video">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WzG9vDnizRg?si=1FkgGTPCAQvr-I9G" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
+{{< youtube "WzG9vDnizRg" >}}
 
 ## The AI Development Revolution
 
