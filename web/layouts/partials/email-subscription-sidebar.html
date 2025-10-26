@@ -1,0 +1,14 @@
+<!-- Email Subscription Sidebar -->
+<aside class="email-subscription-sidebar bg-near-white pa4 br3 mb4">
+  <h3 class="f4 fw6 dark-gray mt0 mb3">Stay Updated</h3>
+  <p class="f6 lh-copy mid-gray mb3">Subscribe to receive the latest insights and updates.</p>
+  
+  <div id="zf_div_gnTMhpfkoaq53ZgcX4YPIkqN04T2FfPLPV5NhcXHlBA">
+  </div>
+</aside>
+
+{{/* Load Zoho subscription form script */}}
+{{ $zohoScript := resources.Get "js/zoho-subscription-form.js" }}
+{{ if $zohoScript }}
+  <script src="{{ $zohoScript.RelPermalink }}" defer></script>
+{{ end }}
