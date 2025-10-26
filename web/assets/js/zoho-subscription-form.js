@@ -1,10 +1,10 @@
 (function() {
   try{
     var f = document.createElement("iframe");
-    
+
       var ifrmSrc = 'https://forms.zohopublic.com/briandaninmind1/form/MindSingUpdatesSubscription/formperma/gnTMhpfkoaq53ZgcX4YPIkqN04T2FfPLPV5NhcXHlBA?zf_rszfm=1';
-    
-    
+
+
         try{
       if ( typeof ZFAdvLead != "undefined" && typeof zfutm_zfAdvLead != "undefined" ) {
         for( var prmIdx = 0 ; prmIdx < ZFAdvLead.utmPNameArr.length ; prmIdx ++ ) {
@@ -38,14 +38,14 @@
           }
       }
     }catch(e){}
-    
+
     f.src = ifrmSrc;
     f.style.border="none";
     f.style.height="417px";
     f.style.width="90%";
     f.style.transition="all 0.5s ease";
     f.setAttribute("aria-label", 'MindSing Updates Subscription');
-    
+
     var d = document.getElementById("zf_div_gnTMhpfkoaq53ZgcX4YPIkqN04T2FfPLPV5NhcXHlBA");
     d.appendChild(f);
     window.addEventListener('message', function (){
