@@ -110,6 +110,32 @@ a[href^="https"]:not([href*="mindsing.com"])::after {
   }
 }
 
+// Two-column grid layout - add gray well between columns
+.flex-ns.flex-wrap {
+  @media (min-width: 60em) {
+    gap: 0 2rem; // Add gap between columns for the gray well
+
+    .w-50-l {
+      width: calc(50% - 1rem);
+      padding-right: 0;
+    }
+
+    // Add gray background to the gap area
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      bottom: 0;
+      width: 2rem;
+      transform: translateX(-50%);
+      background-color: $gray-100; // light gray well
+      z-index: -1;
+    }
+  }
+}
+
 // Two-column content layout utility
 .content-two-col {
   @media (min-width: $tablet-breakpoint) {
