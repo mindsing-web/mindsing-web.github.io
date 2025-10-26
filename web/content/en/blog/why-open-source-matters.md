@@ -2,7 +2,7 @@
 title: "Why Open Source Matters for Enterprise Web Development"
 date: 2025-8-05
 description: "Exploring the critical importance of open source in modern web development and why we champion Drupal for enterprise solutions."
-featured_image: '/images/pacific-northwest-mountains.jpg'
+featured_image: '../images/pacific-northwest-mountains.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"
 categories: ["Technology & Innovation", "Strategy & Growth"]
 tags: ["Open Source", "Drupal", "Enterprise", "Web Development"]

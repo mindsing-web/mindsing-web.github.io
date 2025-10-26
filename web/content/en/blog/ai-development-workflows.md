@@ -2,7 +2,7 @@
 title: "Tip-Toeing into the Deep: AI-Powered Development Workflows"
 date: 2025-10-25
 description: "Exploring how AI tools like GitHub Copilot, ChatGPT, and Claude are transforming development workflows—without compromising code quality or developer expertise."
-featured_image: '/images/ski-mountains-opt.jpg'
+featured_image: '../images/ski-mountains-opt.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"
 categories: ["Technology & Innovation"]
 tags: ["AI", "Development Workflows", "GitHub Copilot", "ChatGPT", "Claude"]

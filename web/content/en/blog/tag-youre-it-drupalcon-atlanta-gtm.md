@@ -2,7 +2,7 @@
 title: "Tag! You're It: Mastering Digital Freeze Tag with Google Tag Manager"
 date: 2025-03-25
 description: "Learn how to balance privacy compliance and website performance using Google Tag Manager - insights from DrupalCon Atlanta 2025."
-featured_image: '/images/drupalcon-atlanta-2025.jpg'
+featured_image: '../images/drupalcon-atlanta-2025.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"
 categories: ["Performance & Optimization"]
 tags: ["Google Tag Manager", "Privacy", "Performance", "DrupalCon", "Core Web Vitals"]
