@@ -12,7 +12,7 @@
       </h1>
       {{ end }}
       {{ with .Params.author | default .Site.Params.author }}
-      <p class="tracked">
+      <p class="tracked f6">
           By <strong>
           {{ if reflect.IsSlice . }}
               {{ delimit . ", " | markdownify }}
@@ -20,14 +20,21 @@
               {{ . | markdownify }}
           {{ end }}
           </strong>
+          {{ if not $.Date.IsZero }}
+            <span class="mid-gray"> | </span>
+            <time {{ printf `datetime="%s"` ($.Date.Format "2006-01-02T15:04:05Z07:00") | safeHTMLAttr }}>
+              {{- $.Date.Format (default "January 2, 2006" $.Site.Params.date_format) -}}
+            </time>
+          {{ end }}
       </p>
       {{ end }}
-      {{/* Hugo uses Go's date formatting is set by example. Here are two formats */}}
-      {{ if not .Date.IsZero }}
-      <time class="f6 mv4 dib tracked" {{ printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safeHTMLAttr }}>
-        {{- .Date.Format (default "January 2, 2006" .Site.Params.date_format) -}}
-      </time>
-      {{end}}
+      {{ if and (not (.Params.author | default .Site.Params.author)) (not .Date.IsZero) }}
+      <p class="tracked f6">
+        <time {{ printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safeHTMLAttr }}>
+          {{- .Date.Format (default "January 2, 2006" .Site.Params.date_format) -}}
+        </time>
+      </p>
+      {{ end }}
 
       {{/*
           Show "reading time" and "word count" but only if one of the following are true:
