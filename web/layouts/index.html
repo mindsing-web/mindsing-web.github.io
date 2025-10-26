@@ -64,30 +64,24 @@
 </article>
 {{ end }}
 
-{{/* Define a section to pull recent posts from. For Hugo 0.20 this will default to the section with the most number of
-pages. */}}
-{{ $mainSections := .Site.Params.mainSections | default (slice "post") }}
-{{/* Create a variable with that section to use in multiple places. */}}
-{{ $section := where .Site.RegularPages "Section" "in" $mainSections }}
+{{/* Define sections to pull recent posts from, excluding blog */}}
+{{ $allPages := .Site.RegularPages }}
+{{/* Filter out blog section pages */}}
+{{ $section := where $allPages "Section" "!=" "blog" }}
 {{/* Check to see if the section is defined for ranging through it */}}
 {{ $section_count := len $section }}
 {{ if ge $section_count 1 }}
-{{/* Derive the section name */}}
-{{ $section_name := index (.Site.Params.mainSections) 0 }}
 
 <div class="pa3 pa4-ns center mw7 mw8-l">
-  {{/* Use $section_name to get the section title. Use "with" to only show it if it exists */}}
-  {{ with .Site.GetPage "section" $section_name }}
   <h2 class="flex-none">
-    {{ $.Param "recent_copy" | default (i18n "recentTitle" .) }}
+    {{ $.Param "recent_copy" | default "Enterprise Web Development Services" }}
   </h2>
-  {{ end }}
 
-  {{ $n_posts := $.Param "recent_posts_number" | default 3 }}
+  {{ $n_posts := $.Param "recent_posts_number" | default 4 }}
 
   <section>
-    {{/* Range through all items in the section */}}
-    {{ range $section }}
+    {{/* Range through filtered items, limiting to n_posts */}}
+    {{ range first $n_posts $section }}
     <div class="relative w-100 mb4">
       {{ partial "summary-with-image.html" . }}
     </div>
