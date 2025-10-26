@@ -75,5 +75,14 @@
 
     {{ block "footer" . }}{{ partialCached "site-footer.html" . }}{{ end }}
     {{ partial "privacy-banner.html" . }}
+
+    {{/* External links handler */}}
+    {{ with resources.Get "js/external-links.js" }}
+      {{ $externalLinksJs := . }}
+      {{ if hugo.IsProduction }}
+        {{ $externalLinksJs = $externalLinksJs | minify | fingerprint }}
+      {{ end }}
+      <script src="{{ $externalLinksJs.RelPermalink }}"></script>
+    {{ end }}
   </body>
 </html>

@@ -49,6 +49,13 @@ a.info:focus {
   cursor: pointer;
 }
 
+// External links - add arrow emoji
+a[href^="http"]:not([href*="mindsing.com"])::after,
+a[href^="https"]:not([href*="mindsing.com"])::after {
+  content: " ↗️";
+  font-size: 0.9em;
+}
+
 // Parallax section styles
 .parallax-section {
 
