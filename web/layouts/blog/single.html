@@ -12,6 +12,36 @@
       <a href="/blog" class="link dim dark-gray">Blog</a>
     </nav>
 
+    {{/* Category Sub-Navigation */}}
+    <nav class="category-nav mw9 center mt4 mb4 overflow-x-auto" aria-label="Blog Categories">
+      <ul class="list flex flex-wrap justify-center ma0 pa0">
+        <li class="ma2">
+          <a href="/blog/" class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">
+            All Posts
+          </a>
+        </li>
+        {{ $currentCategories := .Params.categories }}
+        {{ $blogPages := where .Site.RegularPages "Section" "blog" }}
+        {{ $categories := slice }}
+        {{ range $blogPages }}
+          {{ range .Params.categories }}
+            {{ $categories = $categories | append . }}
+          {{ end }}
+        {{ end }}
+        {{ $uniqueCategories := $categories | uniq | sort }}
+        {{ range $uniqueCategories }}
+          {{ $categoryName := . }}
+          {{ $categorySlug := . | urlize }}
+          {{ $isActive := in $currentCategories $categoryName }}
+          <li class="ma2">
+            <a href="/blog/category/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if $isActive }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
+              {{ $categoryName }}
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    </nav>
+
     {{/* Two-column layout: main content + sidebar */}}
     <div class="flex-l mw9 center mt4">
       {{/* Main article content */}}

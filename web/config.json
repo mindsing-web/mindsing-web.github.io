@@ -8,6 +8,10 @@
   "SectionPagesMenu": "main",
   "pagination": { "pagerSize": 5 },
   "enableRobotsTXT": true,
+  "taxonomies": {
+    "category": "categories",
+    "tag": "tags"
+  },
   "markup": {
     "goldmark": {
       "renderer": {

@@ -1,0 +1,71 @@
+{{ define "header" }}
+  {{ partial "page-header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+  <div class="center ph3 ph5-l">
+    {{/* Category Sub-Navigation */}}
+    <nav class="category-nav mw9 center mt4 mb4 overflow-x-auto" aria-label="Blog Categories">
+      <ul class="list flex flex-wrap justify-center ma0 pa0">
+        <li class="ma2">
+          <a href="/blog/" class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">
+            All Posts
+          </a>
+        </li>
+        {{ $currentTitle := .Title }}
+        {{ $blogPages := where .Site.RegularPages "Section" "blog" }}
+        {{ $categories := slice }}
+        {{ range $blogPages }}
+          {{ range .Params.categories }}
+            {{ $categories = $categories | append . }}
+          {{ end }}
+        {{ end }}
+        {{ $uniqueCategories := $categories | uniq | sort }}
+        {{ range $uniqueCategories }}
+          {{ $categoryName := . }}
+          {{ $categorySlug := . | urlize }}
+          <li class="ma2">
+            <a href="/blog/category/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if eq $categoryName $currentTitle }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
+              {{ $categoryName }}
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    </nav>
+
+    {{/* Category Title */}}
+    <div class="mw8 center mb4">
+      <h1 class="f2 f1-l athelas">{{ .Title }}</h1>
+      {{ with .Content }}
+        <div class="f4 lh-copy mid-gray">
+          {{ . }}
+        </div>
+      {{ end }}
+    </div>
+
+    {{/* Blog Posts Grid - Filter by category */}}
+    {{ $currentCategory := .Title }}
+    {{ $filteredPages := slice }}
+    {{ range where .Site.RegularPages "Section" "blog" }}
+      {{ if in .Params.categories $currentCategory }}
+        {{ $filteredPages = $filteredPages | append . }}
+      {{ end }}
+    {{ end }}
+
+    <article class="nested-copy-line-height nested-img">
+      <section class="w-100 mw9 center">
+        {{ if gt (len $filteredPages) 0 }}
+          <div class="flex-ns flex-wrap justify-start">
+            {{ range $filteredPages }}
+              <div class="relative w-100 w-50-l pr4-l mb4 bg-white">
+                {{- partial "summary.html" . -}}
+              </div>
+            {{ end }}
+          </div>
+        {{ else }}
+          <p class="f4 lh-copy mid-gray tc pa4">No posts found in this category.</p>
+        {{ end }}
+      </section>
+    </article>
+  </div>
+{{ end }}

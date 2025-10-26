@@ -1,0 +1,50 @@
+{{ define "header" }}
+  {{ partial "page-header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+  <div class="center ph3 ph5-l">
+    {{/* Category Sub-Navigation */}}
+    <nav class="category-nav mw9 center mt4 mb4 overflow-x-auto" aria-label="Blog Categories">
+      <ul class="list flex flex-wrap justify-center ma0 pa0">
+        <li class="ma2">
+          <a href="/blog/" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if eq .RelPermalink "/blog/" }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
+            All Posts
+          </a>
+        </li>
+        {{ $blogPages := where .Site.RegularPages "Section" "blog" }}
+        {{ $categories := slice }}
+        {{ range $blogPages }}
+          {{ range .Params.categories }}
+            {{ $categories = $categories | append . }}
+          {{ end }}
+        {{ end }}
+        {{ $uniqueCategories := $categories | uniq | sort }}
+        {{ range $uniqueCategories }}
+          {{ $categoryName := . }}
+          {{ $categorySlug := . | urlize }}
+          <li class="ma2">
+            <a href="/blog/category/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">
+              {{ $categoryName }}
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    </nav>
+
+    {{/* Blog Posts Grid */}}
+    <article class="nested-copy-line-height nested-img">
+      <section class="w-100 mw9 center">
+        <div class="flex-ns flex-wrap justify-start">
+          {{ range .Paginator.Pages }}
+            <div class="relative w-100 w-50-l pr4-l mb4 bg-white">
+              {{- partial "summary.html" . -}}
+            </div>
+          {{ end }}
+        </div>
+      </section>
+
+      {{- template "_internal/pagination.html" . -}}
+    </article>
+  </div>
+{{ end }}

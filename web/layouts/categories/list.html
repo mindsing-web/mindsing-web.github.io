@@ -1,0 +1,51 @@
+{{ define "header" }}
+  {{ partial "page-header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+  <div class="center ph3 ph5-l">
+    {{/* Category Sub-Navigation */}}
+    <nav class="category-nav mw9 center mt4 mb4 overflow-x-auto" aria-label="Blog Categories">
+      <ul class="list flex flex-wrap justify-center ma0 pa0">
+        <li class="ma2">
+          <a href="/blog/" class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">
+            All Posts
+          </a>
+        </li>
+        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+          {{ $categoryURL := printf "/categories/%s/" ($name | urlize) }}
+          <li class="ma2">
+            <a href="{{ $categoryURL }}" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if eq $.Title $name }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
+              {{ $name }}
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    </nav>
+
+    {{/* Category Title */}}
+    <div class="mw9 center mb4">
+      <h1 class="f2 f1-l athelas">{{ .Title }}</h1>
+      {{ with .Description }}
+        <p class="f4 lh-copy mid-gray">{{ . }}</p>
+      {{ end }}
+    </div>
+
+    {{/* Blog Posts Grid */}}
+    <article class="nested-copy-line-height nested-img">
+      <section class="w-100 mw9 center">
+        <div class="flex-ns flex-wrap justify-start">
+          {{ range .Pages }}
+            <div class="relative w-100 w-50-l pr4-l mb4 bg-white">
+              {{- partial "summary.html" . -}}
+            </div>
+          {{ end }}
+        </div>
+      </section>
+
+      {{ if gt .Paginator.TotalPages 1 }}
+        {{- template "_internal/pagination.html" . -}}
+      {{ end }}
+    </article>
+  </div>
+{{ end }}
