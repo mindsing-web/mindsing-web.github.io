@@ -36,7 +36,12 @@
     <article class="nested-copy-line-height nested-img">
       <section class="w-100 mw9 center">
         <div class="flex-ns flex-wrap justify-start">
-          {{ range .Paginator.Pages }}
+          {{ $blogPosts := where .Site.RegularPages "Section" "blog" }}
+          {{ $blogPosts = where $blogPosts "Kind" "page" }}
+          {{ $blogPosts = where $blogPosts "Type" "!=" "categories" }}
+          {{ $blogPosts = where $blogPosts "File.Dir" "not in" (slice "blog/category/") }}
+          {{ $paginator := .Paginate $blogPosts }}
+          {{ range $paginator.Pages }}
             <div class="relative w-100 w-50-l pr4-l mb4 bg-white">
               {{- partial "summary.html" . -}}
             </div>
