@@ -155,7 +155,7 @@ If you're exploring AI tools for your development workflow:
 
 ## Watch the Full Session
 
-The complete presentation from PNW Drupal Summit dives deeper into specific workflows, demonstrates real-world examples, and shares lessons learned from integrating AI tools into production development environments.
+[Watch the complete presentation](https://www.youtube.com/watch?v=WzG9vDnizRg) from PNW Drupal Summit, which dives deeper into specific workflows, demonstrates real-world examples, and shares lessons learned from integrating AI tools into production development environments.
 
 We're grateful to the Pacific Northwest Drupal community for the opportunity to share these insights, and we're excited to continue exploring how AI can enhance—not replace—the craft of development.
 
