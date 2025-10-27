@@ -12,6 +12,9 @@
     "category": "categories",
     "tag": "tags"
   },
+  "permalinks": {
+    "blog": "/blog/:slug/"
+  },
   "markup": {
     "goldmark": {
       "renderer": {
