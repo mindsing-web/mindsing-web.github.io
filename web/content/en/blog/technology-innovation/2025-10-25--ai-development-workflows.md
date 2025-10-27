@@ -3,10 +3,11 @@ title: "Tip-Toeing into the Deep: AI-Powered Development Workflows"
 date: 2025-10-25
 slug: "ai-development-workflows"
 description: "Exploring how AI tools like GitHub Copilot, ChatGPT, and Claude are transforming development workflows—without compromising code quality or developer expertise."
-featured_image: '../images/ski-mountains-opt.jpg'
+featured_image: '../images/alyeska-web.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"
 categories: ["Technology & Innovation"]
 tags: ["AI", "Development Workflows", "GitHub Copilot", "ChatGPT", "Claude"]
+promoted: true
 ---
 
 At the 2024 Pacific Northwest Drupal Summit, MindSing sponsored a session exploring the practical integration of AI tools into modern development workflows. The session, "[Tip-Toeing into the Deep: Seek, Prompt, Repeat](https://pnwdrupalsummit.org/sessions/tiptoeing-deep-seek-prompt-repeat)," demonstrated how developers can leverage AI assistance while maintaining code quality and deepening their expertise.
