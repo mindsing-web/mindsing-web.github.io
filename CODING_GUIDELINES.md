@@ -92,7 +92,7 @@
 ```scss
 .image-container {
   height: 200px;
-  
+
   img {
     object-fit: cover;
   }
