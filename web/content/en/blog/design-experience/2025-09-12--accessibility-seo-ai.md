@@ -1,6 +1,7 @@
 ---
 title: "Accessibility First: The Foundation of Modern SEO and AI-Ready Content"
 date: 2025-09-12
+slug: "accessibility-seo-ai"
 description: "Why accessibility isn't just about compliance—it's the key to better SEO rankings and ensuring your content is discoverable by AI systems."
 featured_image: '../images/ski-mountains-opt.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"

@@ -1,6 +1,7 @@
 ---
 title: "Speedy Delivery: Win the GTM, SERP, and CWV Game with Layout Builder and Tailwind"
 date: 2024-10-25
+slug: "speedy-delivery-cwv-gtm"
 description: "How to achieve perfect Core Web Vitals scores while managing Google Tag Manager bloat using Drupal's Layout Builder and Tailwind CSS."
 featured_image: '../images/alyeska-web.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"
