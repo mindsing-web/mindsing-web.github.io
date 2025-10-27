@@ -1,4 +1,4 @@
-<article class="bg-white overflow-hidden">
+<article class="bg-white overflow-hidden h-100 flex flex-column">
   {{ $featured_image := partial "func/GetFeaturedImage.html" . }}
   {{ if $featured_image }}
     <div class="w-100 mb3 overflow-hidden promoted-blog-image">
@@ -7,14 +7,19 @@
       </a>
     </div>
   {{ end }}
-  <div class="ph3 pb3">
+  <div class="ph3 pb3 flex-auto flex flex-column">
     <h3 class="f4 fw6 athelas mt0 lh-title mb2">
       <a href="{{ .RelPermalink }}" class="link orange dim">{{ .Title }}</a>
     </h3>
-    <div class="f6 lh-copy nested-copy-line-height dark-gray">
+    <div class="f6 lh-copy nested-copy-line-height dark-gray flex-auto mb3">
       {{ $content := .Content }}
       {{ $firstParagraph := index (split $content "</p>") 0 }}
       {{ $firstParagraph | safeHTML }}</p>
+    </div>
+    <div class="flex-none">
+      <a href="{{ .RelPermalink }}" class="btn btn--secondary" aria-label="Learn more about {{ .Title }}">
+        Learn More
+      </a>
     </div>
   </div>
 </article>
