@@ -10,11 +10,11 @@
       <a href="/" class="link dim dark-gray">Home</a>
       <span class="mh2">/</span>
       <a href="/blog" class="link dim dark-gray">Blog</a>
-      {{ with .Params.categories }}
-        {{ $category := index . 0 }}
-        {{ $categorySlug := $category | urlize }}
+      {{/* Get category from parent folder */}}
+      {{ $parent := .Parent }}
+      {{ if and $parent (ne $parent.RelPermalink "/blog/") }}
         <span class="mh2">/</span>
-        <a href="/blog/{{ $categorySlug }}/" class="link dim dark-gray">{{ $category }}</a>
+        <a href="{{ $parent.Permalink }}" class="link dim dark-gray">{{ $parent.Title }}</a>
       {{ end }}
     </nav>
 
@@ -26,7 +26,7 @@
             All Posts
           </a>
         </li>
-        {{ $currentCategories := .Params.categories }}
+        {{ $currentParent := .Parent }}
         {{ $blogPages := where .Site.RegularPages "Section" "blog" }}
         {{ $categories := slice }}
         {{ range $blogPages }}
@@ -38,7 +38,7 @@
         {{ range $uniqueCategories }}
           {{ $categoryName := . }}
           {{ $categorySlug := . | urlize }}
-          {{ $isActive := in $currentCategories $categoryName }}
+          {{ $isActive := and $currentParent (eq $currentParent.Title $categoryName) }}
           <li class="ma2">
             <a href="/blog/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if $isActive }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
               {{ $categoryName }}
