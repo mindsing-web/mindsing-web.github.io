@@ -18,3 +18,5 @@ $code-font: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Source 
 // Layout variables
 $tablet-breakpoint: 769px;
 $desktop-breakpoint: 1140px;
+// Tachyons large breakpoint (corresponds to -l suffix)
+$tachyons-large-breakpoint: 60em; // 960px

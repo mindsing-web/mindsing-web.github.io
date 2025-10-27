@@ -119,9 +119,27 @@ a[href^="https"]:not([href*="mindsing.com"])::after {
   }
 }
 
+// Promoted blog grid - uses CSS Grid for layout
+.promoted-blog-grid {
+  display: grid;
+  gap: 1rem;
+
+  @media (min-width: $tachyons-large-breakpoint) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+// Promoted blog title - min height for alignment
+.promoted-blog-title {
+  @media (min-width: $tachyons-large-breakpoint) {
+    min-height: 4.5rem; // Approximately 3 lines of text
+  }
+}
+
 // Two-column grid layout - add gray well between columns
 .flex-ns.flex-wrap {
-  @media (min-width: 60em) {
+  @media (min-width: $tachyons-large-breakpoint) {
     gap: 0 2rem; // Add gap between columns for the gray well
 
     .w-50-l {

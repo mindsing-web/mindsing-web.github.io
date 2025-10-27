@@ -103,10 +103,10 @@
     Featured Insights
   </h2>
 
-  <section class="flex-l flex-wrap">
+  <section class="promoted-blog-grid">
     {{/* Show up to 3 most recent promoted blog posts */}}
     {{ range first 3 $blogPosts }}
-    <div class="w-100 w-third-l ph2-l mb4 flex-l">
+    <div class="mb4">
       {{ partial "summary-promoted.html" . }}
     </div>
     {{ end }}
