@@ -88,6 +88,32 @@
     {{ end }}
   </section>
 
+
 </div>
 {{ end }}
+
+{{/* Promoted Blog Posts Section */}}
+{{ $blogPosts := where .Site.RegularPages "Section" "blog" }}
+{{ $blogPosts = where $blogPosts "Params.promoted" true }}
+{{ $promotedCount := len $blogPosts }}
+{{ if ge $promotedCount 1 }}
+
+<div class="pa3 pa4-ns center mw7 mw8-l">
+  <h2 class="flex-none mb3">
+    Featured Insights
+  </h2>
+
+  <section class="flex-l flex-wrap">
+    {{/* Show up to 3 most recent promoted blog posts */}}
+    {{ range first 3 $blogPosts }}
+    <div class="w-100 w-third-l ph2-l mb4">
+      {{ partial "summary-promoted.html" . }}
+    </div>
+    {{ end }}
+  </section>
+
+</div>
 {{ end }}
+
+{{ end }}
+
