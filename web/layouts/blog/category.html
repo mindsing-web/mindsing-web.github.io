@@ -21,23 +21,17 @@
             All Posts
           </a>
         </li>
-        {{ $currentTitle := .Title }}
-        {{ $blogPages := where .Site.RegularPages "Section" "blog" }}
-        {{ $categories := slice }}
-        {{ range $blogPages }}
-          {{ range .Params.categories }}
-            {{ $categories = $categories | append . }}
+        {{ $currentPermalink := .RelPermalink }}
+        {{/* Get categories from section pages (the _index.md files in each category folder) */}}
+        {{ range where .Site.Pages "Section" "blog" }}
+          {{ if and (eq .Kind "section") (ne .RelPermalink "/blog/") }}
+            {{ $isActive := eq $currentPermalink .RelPermalink }}
+            <li class="ma2">
+              <a href="{{ .Permalink }}" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if $isActive }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
+                {{ .Title }}
+              </a>
+            </li>
           {{ end }}
-        {{ end }}
-        {{ $uniqueCategories := $categories | uniq | sort }}
-        {{ range $uniqueCategories }}
-          {{ $categoryName := . }}
-          {{ $categorySlug := . | urlize }}
-          <li class="ma2">
-            <a href="/blog/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if eq $categoryName $currentTitle }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
-              {{ $categoryName }}
-            </a>
-          </li>
         {{ end }}
       </ul>
     </nav>
@@ -53,10 +47,10 @@
     </div>
 
     {{/* Blog Posts Grid - Filter by category */}}
-    {{ $currentCategory := .Title }}
+    {{ $currentPermalink := .RelPermalink }}
     {{ $filteredPages := slice }}
     {{ range where .Site.RegularPages "Section" "blog" }}
-      {{ if in .Params.categories $currentCategory }}
+      {{ if and .Parent (eq .Parent.RelPermalink $currentPermalink) }}
         {{ $filteredPages = $filteredPages | append . }}
       {{ end }}
     {{ end }}

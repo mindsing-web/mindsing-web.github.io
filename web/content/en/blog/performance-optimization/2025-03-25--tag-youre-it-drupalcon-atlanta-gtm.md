@@ -5,7 +5,6 @@ slug: "tag-youre-it-gtm"
 description: "Learn how to balance privacy compliance and website performance using Google Tag Manager - insights from DrupalCon Atlanta 2025."
 featured_image: '../images/drupalcon-atlanta-2025.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"
-categories: ["Performance & Optimization"]
 tags: ["Google Tag Manager", "Privacy", "Performance", "DrupalCon", "Core Web Vitals"]
 ---
 

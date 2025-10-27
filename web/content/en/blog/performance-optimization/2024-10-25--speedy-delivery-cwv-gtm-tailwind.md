@@ -5,7 +5,6 @@ slug: "speedy-delivery-cwv-gtm"
 description: "How to achieve perfect Core Web Vitals scores while managing Google Tag Manager bloat using Drupal's Layout Builder and Tailwind CSS."
 featured_image: '../images/alyeska-web.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"
-categories: ["Performance & Optimization", "Design & Experience"]
 tags: ["Core Web Vitals", "Google Tag Manager", "Drupal", "Tailwind CSS", "SEO"]
 promoted: true
 ---

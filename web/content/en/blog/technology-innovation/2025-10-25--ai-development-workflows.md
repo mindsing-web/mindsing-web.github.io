@@ -5,7 +5,6 @@ slug: "ai-development-workflows"
 description: "Exploring how AI tools like GitHub Copilot, ChatGPT, and Claude are transforming development workflows—without compromising code quality or developer expertise."
 featured_image: '../images/alyeska-web.jpg'
 author: "[Brian Danin](https://www.briandanin.com)"
-categories: ["Technology & Innovation"]
 tags: ["AI", "Development Workflows", "GitHub Copilot", "ChatGPT", "Claude"]
 promoted: true
 ---

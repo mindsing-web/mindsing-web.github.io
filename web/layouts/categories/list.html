@@ -12,13 +12,15 @@
             All Posts
           </a>
         </li>
-        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
-          {{ $categoryURL := printf "/categories/%s/" ($name | urlize) }}
-          <li class="ma2">
-            <a href="{{ $categoryURL }}" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if eq $.Title $name }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
-              {{ $name }}
-            </a>
-          </li>
+        {{/* Get categories from section pages (the _index.md files in each category folder) */}}
+        {{ range where .Site.Pages "Section" "blog" }}
+          {{ if and (eq .Kind "section") (ne .RelPermalink "/blog/") }}
+            <li class="ma2">
+              <a href="{{ .Permalink }}" class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">
+                {{ .Title }}
+              </a>
+            </li>
+          {{ end }}
         {{ end }}
       </ul>
     </nav>

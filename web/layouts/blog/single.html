@@ -27,23 +27,16 @@
           </a>
         </li>
         {{ $currentParent := .Parent }}
-        {{ $blogPages := where .Site.RegularPages "Section" "blog" }}
-        {{ $categories := slice }}
-        {{ range $blogPages }}
-          {{ range .Params.categories }}
-            {{ $categories = $categories | append . }}
+        {{/* Get categories from section pages (the _index.md files in each category folder) */}}
+        {{ range where .Site.Pages "Section" "blog" }}
+          {{ if and (eq .Kind "section") (ne .RelPermalink "/blog/") }}
+            {{ $isActive := and $currentParent (eq $currentParent.RelPermalink .RelPermalink) }}
+            <li class="ma2">
+              <a href="{{ .Permalink }}" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if $isActive }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
+                {{ .Title }}
+              </a>
+            </li>
           {{ end }}
-        {{ end }}
-        {{ $uniqueCategories := $categories | uniq | sort }}
-        {{ range $uniqueCategories }}
-          {{ $categoryName := . }}
-          {{ $categorySlug := . | urlize }}
-          {{ $isActive := and $currentParent (eq $currentParent.Title $categoryName) }}
-          <li class="ma2">
-            <a href="/blog/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if $isActive }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
-              {{ $categoryName }}
-            </a>
-          </li>
         {{ end }}
       </ul>
     </nav>
