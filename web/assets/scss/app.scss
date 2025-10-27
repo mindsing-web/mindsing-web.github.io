@@ -526,3 +526,39 @@ article a.no-underline:hover,
     }
   }
 }
+
+// Table of Contents styling
+.toc {
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.5rem;
+
+      a {
+        color: $dark-gray;
+        text-decoration: none;
+        display: block;
+        padding: 0.25rem 0;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+
+    // Nested items (H3s under H2s)
+    ul {
+      padding-left: 1rem;
+      margin-top: 0.25rem;
+
+      li {
+        margin-bottom: 0.25rem;
+        font-size: 0.9em;
+      }
+    }
+  }
+}
