@@ -8,6 +8,13 @@
     </div>
   {{ end }}
   <div class="ph3 pb3 flex-auto flex flex-column">
+    {{ with .Params.categories }}
+      {{ $category := index . 0 }}
+      {{ $categorySlug := $category | urlize }}
+      <div class="f6 db mb3 mt2">
+        <a href="/blog/category/{{ $categorySlug }}/" class="link orange dim">{{ $category }}</a>
+      </div>
+    {{ end }}
     <h3 class="f4 fw6 athelas mt0 lh-title mb2 promoted-blog-title">
       <a href="{{ .RelPermalink }}" class="link orange dim">{{ .Title }}</a>
     </h3>
