@@ -1,9 +1,9 @@
 <article class="bg-white overflow-hidden">
   {{ $featured_image := partial "func/GetFeaturedImage.html" . }}
   {{ if $featured_image }}
-    <div class="w-100 mb3">
-      <a href="{{ .RelPermalink }}" class="db no-underline">
-        <img src="{{ $featured_image }}" class="db w-100 dim" alt="image from {{ .Title }}">
+    <div class="w-100 mb3 overflow-hidden promoted-blog-image">
+      <a href="{{ .RelPermalink }}" class="db no-underline h-100">
+        <img src="{{ $featured_image }}" class="db w-100 dim h-100" alt="image from {{ .Title }}">
       </a>
     </div>
   {{ end }}

@@ -110,6 +110,15 @@ a[href^="https"]:not([href*="mindsing.com"])::after {
   }
 }
 
+// Promoted blog images - fixed height with object-fit
+.promoted-blog-image {
+  height: 200px;
+
+  img {
+    object-fit: cover;
+  }
+}
+
 // Two-column grid layout - add gray well between columns
 .flex-ns.flex-wrap {
   @media (min-width: 60em) {
