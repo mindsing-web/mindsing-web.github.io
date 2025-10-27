@@ -1,14 +1,19 @@
 <div class="relative w-100 mb4 bg-white nested-copy-line-height">
   <div class="bg-white mb3 pa4 black overflow-hidden">
     {{/* Get category from parent folder */}}
-    {{ $parent := .Parent }}
-    {{ if and $parent (ne $parent.RelPermalink "/blog/") }}
-      <span class="f6 db">
-        <a href="{{ $parent.Permalink }}" class="link orange dim">{{ $parent.Title }}</a>
+    <div class="flex items-center justify-between mb3">
+      {{ $parent := .Parent }}
+      {{ if and $parent (ne $parent.RelPermalink "/blog/") }}
+        <span class="f6">
+          <a href="{{ $parent.Permalink }}" class="link orange dim">{{ $parent.Title }}</a>
+        </span>
+      {{ else }}
+        <span class="f6">{{ humanize .Section }}</span>
+      {{ end }}
+      <span class="f6 gray">
+        {{ .Date.Format "January 2, 2006" }}
       </span>
-    {{ else }}
-      <span class="f6 db">{{ humanize .Section }}</span>
-    {{ end }}
+    </div>
     <h2 class="f3 near-black">
       <a href="{{ .RelPermalink }}" class="link black dim">
         {{ .Title }}

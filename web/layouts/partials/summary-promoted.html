@@ -11,10 +11,13 @@
     {{/* Get category from parent folder */}}
     {{ $parent := .Parent }}
     {{ if and $parent (ne $parent.RelPermalink "/blog/") }}
-      <div class="f6 db mb3 mt2">
+      <div class="f6 db mb2 mt2">
         <a href="{{ $parent.Permalink }}" class="link orange dim">{{ $parent.Title }}</a>
       </div>
     {{ end }}
+    <div class="f6 gray mb3">
+      {{ .Date.Format "January 2, 2006" }}
+    </div>
     <h3 class="f4 fw6 athelas mt0 lh-title mb2 promoted-blog-title">
       <a href="{{ .RelPermalink }}" class="link orange dim">{{ .Title }}</a>
     </h3>
