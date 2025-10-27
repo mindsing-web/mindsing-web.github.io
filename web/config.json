@@ -15,6 +15,9 @@
   "permalinks": {
     "blog": "/blog/:sections[1:]/:slug/"
   },
+  "frontmatter": {
+    "date": [":filename", ":default"]
+  },
   "markup": {
     "goldmark": {
       "renderer": {

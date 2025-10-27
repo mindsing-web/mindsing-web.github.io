@@ -1,6 +1,5 @@
 ---
 title: "Diversity Drives Innovation: Why Varied Perspectives Create Better Solutions"
-date: 2025-10-27
 slug: "diversity-drives-innovation"
 description: "Exploring how a diverse workforce leads to more innovative solutions, better problem-solving, and stronger business outcomes in technology and beyond."
 featured_image: '../images/pacific-northwest-mountains.jpg'

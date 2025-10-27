@@ -1,6 +1,5 @@
 ---
 title: "Tip-Toeing into the Deep: AI-Powered Development Workflows"
-date: 2025-10-25
 slug: "ai-development-workflows"
 description: "Exploring how AI tools like GitHub Copilot, ChatGPT, and Claude are transforming development workflows—without compromising code quality or developer expertise."
 featured_image: '../images/alyeska-web.jpg'
