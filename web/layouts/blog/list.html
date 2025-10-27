@@ -24,7 +24,7 @@
           {{ $categoryName := . }}
           {{ $categorySlug := . | urlize }}
           <li class="ma2">
-            <a href="/blog/category/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">
+            <a href="/blog/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">
               {{ $categoryName }}
             </a>
           </li>

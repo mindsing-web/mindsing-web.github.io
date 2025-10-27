@@ -12,7 +12,7 @@
       {{ $category := index . 0 }}
       {{ $categorySlug := $category | urlize }}
       <div class="f6 db mb3 mt2">
-        <a href="/blog/category/{{ $categorySlug }}/" class="link orange dim">{{ $category }}</a>
+        <a href="/blog/{{ $categorySlug }}/" class="link orange dim">{{ $category }}</a>
       </div>
     {{ end }}
     <h3 class="f4 fw6 athelas mt0 lh-title mb2 promoted-blog-title">

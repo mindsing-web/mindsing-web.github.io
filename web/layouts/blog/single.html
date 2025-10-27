@@ -10,6 +10,12 @@
       <a href="/" class="link dim dark-gray">Home</a>
       <span class="mh2">/</span>
       <a href="/blog" class="link dim dark-gray">Blog</a>
+      {{ with .Params.categories }}
+        {{ $category := index . 0 }}
+        {{ $categorySlug := $category | urlize }}
+        <span class="mh2">/</span>
+        <a href="/blog/{{ $categorySlug }}/" class="link dim dark-gray">{{ $category }}</a>
+      {{ end }}
     </nav>
 
     {{/* Category Sub-Navigation */}}
@@ -34,7 +40,7 @@
           {{ $categorySlug := . | urlize }}
           {{ $isActive := in $currentCategories $categoryName }}
           <li class="ma2">
-            <a href="/blog/category/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if $isActive }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
+            <a href="/blog/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if $isActive }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
               {{ $categoryName }}
             </a>
           </li>

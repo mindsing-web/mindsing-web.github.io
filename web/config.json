@@ -13,7 +13,7 @@
     "tag": "tags"
   },
   "permalinks": {
-    "blog": "/blog/:slug/"
+    "blog": "/blog/:sections[1:]/:slug/"
   },
   "markup": {
     "goldmark": {

@@ -1,6 +1,5 @@
 ---
 title: "Performance & Optimization"
-url: "/blog/category/performance-optimization/"
 layout: "category"
 ---
 

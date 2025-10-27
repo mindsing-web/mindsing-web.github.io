@@ -1,6 +1,5 @@
 ---
 title: "Strategy & Growth"
-url: "/blog/category/strategy-growth/"
 layout: "category"
 ---
 

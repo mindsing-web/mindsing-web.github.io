@@ -4,7 +4,7 @@
       {{ $category := index . 0 }}
       {{ $categorySlug := $category | urlize }}
       <span class="f6 db">
-        <a href="/blog/category/{{ $categorySlug }}/" class="link orange dim">{{ $category }}</a>
+        <a href="/blog/{{ $categorySlug }}/" class="link orange dim">{{ $category }}</a>
       </span>
     {{ else }}
       <span class="f6 db">{{ humanize .Section }}</span>

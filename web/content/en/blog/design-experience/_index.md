@@ -1,6 +1,5 @@
 ---
 title: "Design & Experience"
-url: "/blog/category/design-experience/"
 layout: "category"
 ---
 

@@ -4,6 +4,15 @@
 
 {{ define "main" }}
   <div class="center ph3 ph5-l">
+    {{/* Breadcrumbs */}}
+    <nav class="breadcrumbs f6 mt3 mw9 center" aria-label="Breadcrumb">
+      <a href="/" class="link dim dark-gray">Home</a>
+      <span class="mh2">/</span>
+      <a href="/blog" class="link dim dark-gray">Blog</a>
+      <span class="mh2">/</span>
+      <span class="dark-gray">{{ .Title }}</span>
+    </nav>
+
     {{/* Category Sub-Navigation */}}
     <nav class="category-nav mw9 center mt4 mb4 overflow-x-auto" aria-label="Blog Categories">
       <ul class="list flex flex-wrap justify-center ma0 pa0">
@@ -25,7 +34,7 @@
           {{ $categoryName := . }}
           {{ $categorySlug := . | urlize }}
           <li class="ma2">
-            <a href="/blog/category/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if eq $categoryName $currentTitle }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
+            <a href="/blog/{{ $categorySlug }}/" class="link dim ph3 pv2 ba b--moon-gray br2 dib {{ if eq $categoryName $currentTitle }}bg-dark-gray white{{ else }}bg-white dark-gray{{ end }}">
               {{ $categoryName }}
             </a>
           </li>

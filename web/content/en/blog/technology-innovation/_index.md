@@ -1,6 +1,5 @@
 ---
 title: "Technology & Innovation"
-url: "/blog/category/technology-innovation/"
 layout: "category"
 ---
 
