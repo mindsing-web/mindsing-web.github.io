@@ -119,3 +119,38 @@ We follow a systematic approach to API development and integration, ensuring sec
 - API monitoring and analytics setup
 - Documentation and training delivery
 - Ongoing maintenance and support planning
+
+---
+
+{{< faq >}}
+[
+  {
+    "question": "What's the difference between REST and GraphQL APIs?",
+    "answer": "**REST APIs** use predefined endpoints and return fixed data structures, making them simple and widely understood. **GraphQL** allows clients to request exactly the data they need in a single query, reducing over-fetching and under-fetching. We recommend REST for straightforward CRUD operations and GraphQL for complex data requirements with multiple relationships."
+  },
+  {
+    "question": "How long does it take to build a custom API?",
+    "answer": "A basic API typically takes **4-8 weeks** from discovery to deployment. Complex enterprise APIs with multiple integrations may require **3-6 months**. Timeline depends on the number of endpoints, integration complexity, security requirements, and testing scope."
+  },
+  {
+    "question": "Can you integrate with our existing CRM/ERP system?",
+    "answer": "Yes, we specialize in enterprise system integrations including **Salesforce, HubSpot, Microsoft Dynamics, SAP, Oracle**, and custom systems. We handle authentication (OAuth, SAML, API keys), data mapping, error handling, and ongoing synchronization."
+  },
+  {
+    "question": "How do you ensure API security?",
+    "answer": "We implement **multiple security layers**: OAuth 2.0/JWT authentication, role-based access control, rate limiting, input validation, SQL injection prevention, encrypted data transmission (TLS/SSL), and regular security audits. All APIs follow OWASP security guidelines."
+  },
+  {
+    "question": "Do you provide API documentation?",
+    "answer": "Yes, we provide **comprehensive API documentation** using tools like Swagger/OpenAPI, Postman collections, or GraphQL Playground. Documentation includes endpoint descriptions, request/response examples, authentication guides, error codes, and rate limits."
+  },
+  {
+    "question": "What's included in ongoing API maintenance?",
+    "answer": "Our maintenance packages include **security updates, performance monitoring, bug fixes, endpoint additions/modifications, version management, scaling support**, and 24/7 uptime monitoring for enterprise clients. We also provide analytics and usage reports."
+  }
+]
+{{< /faq >}}
+
+---
+
+**Ready to discuss your API project?** [Schedule a consultation](/booking/) or [email us](mailto:inquiries@mindsing.com).

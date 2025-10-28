@@ -44,3 +44,34 @@ Optimize your CMS with strategic content architecture, editorial workflows, and 
 - Editorial calendar management
 - Content approval workflows
 - Media library organization
+
+---
+
+{{< faq >}}
+[
+  {
+    "question": "Do you write content for our website or just structure it?",
+    "answer": "We primarily focus on **technical documentation, system documentation, and content architecture**—not marketing copy or blog writing. We create API docs, user guides, help systems, and technical content that supports your web platform. For marketing content, we can recommend specialized copywriters."
+  },
+  {
+    "question": "Can you help migrate content from our old CMS?",
+    "answer": "Yes, content migration is a core service. We **analyze, clean, restructure, and migrate content** while preserving SEO value through proper redirects. We also create content models, taxonomies, and workflows in your new CMS to improve organization and findability."
+  },
+  {
+    "question": "How do you handle multi-language content?",
+    "answer": "We implement **multi-language content systems** in Drupal and WordPress, including language switchers, translated URLs, and proper hreflang tags for SEO. We work with your translation teams or services to manage translated content workflows and ensure linguistic consistency."
+  },
+  {
+    "question": "What's included in content strategy services?",
+    "answer": "Content strategy includes **content audits, information architecture, content modeling, editorial workflow design, governance documentation**, and style guide creation. We help you organize, manage, and scale content across large enterprise sites."
+  },
+  {
+    "question": "Can you create API documentation?",
+    "answer": "Yes, we create **comprehensive API documentation** using Swagger/OpenAPI, interactive docs, code examples, authentication guides, and integration tutorials. We work with your development team to document endpoints, parameters, responses, and use cases clearly."
+  }
+]
+{{< /faq >}}
+
+---
+
+**Need content strategy expertise?** [Schedule a consultation](/booking/) or [email us](mailto:inquiries@mindsing.com).

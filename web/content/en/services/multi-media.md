@@ -60,3 +60,34 @@ We leverage powerful CMS media capabilities to create custom media workflows, au
 - Custom media post types and taxonomies
 - Media workflow automation
 - Multi-site media sharing
+
+---
+
+{{< faq >}}
+[
+  {
+    "question": "How do you handle large video files on enterprise websites?",
+    "answer": "We implement **CDN-based delivery systems** with adaptive bitrate streaming for optimal performance. Videos are hosted on enterprise platforms (Vimeo Business, Wistia, or custom solutions) and embedded responsively. We also handle **video optimization, compression, and multiple format generation** for broad device compatibility."
+  },
+  {
+    "question": "Can you migrate our existing media library?",
+    "answer": "Yes, we specialize in **large-scale media migrations** from legacy systems to modern platforms. We handle bulk uploads, metadata preservation, URL redirects, and organize media into logical taxonomies. We've migrated libraries with **10,000+ assets** while maintaining accessibility and search functionality."
+  },
+  {
+    "question": "Do you provide closed captioning and accessibility compliance?",
+    "answer": "Absolutely. We ensure **WCAG 2.1 AA compliance** for all media, including closed captions, transcripts, audio descriptions, and keyboard navigation. We can integrate with captioning services or implement automated caption generation with human review."
+  },
+  {
+    "question": "What video platforms do you integrate with?",
+    "answer": "We integrate with **Vimeo, Wistia, YouTube, Brightcove, Kaltura, Panopto** (for education), and custom video platforms. We also build headless video solutions that work across multiple platforms and provide unified analytics."
+  },
+  {
+    "question": "How do you optimize media for mobile devices?",
+    "answer": "We implement **responsive images** with srcset/picture elements, lazy loading, WebP format with fallbacks, and adaptive bitrate streaming for video. Media is automatically sized and compressed based on device capabilities and connection speed."
+  }
+]
+{{< /faq >}}
+
+---
+
+**Need media integration expertise?** [Schedule a consultation](/booking/) or [email us](mailto:inquiries@mindsing.com).
