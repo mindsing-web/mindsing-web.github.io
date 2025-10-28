@@ -1,0 +1,29 @@
+{{- /* Professional Service Schema for service pages */ -}}
+{{- if and .IsPage (eq .Section "services") -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": {{ .Title | jsonify }},
+  "description": {{ with .Description }}{{ . | jsonify }}{{ else }}{{ .Summary | plainify | jsonify }}{{ end }},
+  "url": "{{ .Permalink }}",
+  {{- with .Params.featured_image }}
+  "image": "{{ . | absURL }}",
+  {{- end }}
+  "provider": {
+    "@type": "Organization",
+    "name": "MindSing",
+    "url": "{{ .Site.BaseURL }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ .Site.BaseURL }}images/mindsing-logo.svg"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Global"
+  },
+  "serviceType": "Web Development"
+}
+</script>
+{{- end -}}

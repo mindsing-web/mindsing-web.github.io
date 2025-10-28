@@ -35,7 +35,8 @@
   },
   "params": {
     "site_logo": "/images/mindsing-logo.svg",
-    "custom_css": ["css/app.css"]
+    "custom_css": ["css/app.css"],
+    "description": "Specialized Drupal & WordPress development for enterprise, higher education, and global-scale web systems."
   },
   "languages": {
     "en": {

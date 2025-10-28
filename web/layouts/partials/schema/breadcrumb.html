@@ -1,0 +1,54 @@
+{{- /* Breadcrumb Schema */ -}}
+{{- if not .IsHome -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ .Site.BaseURL }}"
+    }
+    {{- $position := 2 -}}
+    {{- if eq .Section "blog" -}}
+    ,{
+      "@type": "ListItem",
+      "position": {{ $position }},
+      "name": "Blog",
+      "item": "{{ .Site.BaseURL }}blog/"
+    }
+    {{- $position = add $position 1 -}}
+      {{- with .Parent -}}
+        {{- if ne .RelPermalink "/blog/" -}}
+    ,{
+      "@type": "ListItem",
+      "position": {{ $position }},
+      "name": {{ .Title | jsonify }},
+      "item": "{{ .Permalink }}"
+    }
+        {{- $position = add $position 1 -}}
+        {{- end -}}
+      {{- end -}}
+    {{- else if .Section -}}
+    ,{
+      "@type": "ListItem",
+      "position": {{ $position }},
+      "name": {{ .Section | humanize | jsonify }},
+      "item": "{{ .Site.BaseURL }}{{ .Section }}/"
+    }
+    {{- $position = add $position 1 -}}
+    {{- end -}}
+    {{- if not (eq .Kind "section") -}}
+    ,{
+      "@type": "ListItem",
+      "position": {{ $position }},
+      "name": {{ .Title | jsonify }},
+      "item": "{{ .Permalink }}"
+    }
+    {{- end -}}
+  ]
+}
+</script>
+{{- end -}}

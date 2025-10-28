@@ -1,0 +1,22 @@
+{{- /* Organization Schema - appears on all pages to establish brand entity */ -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "MindSing",
+  "url": "{{ .Site.BaseURL }}",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "{{ .Site.BaseURL }}images/mindsing-logo.svg"
+  },
+  "description": "{{ .Site.Params.description | default "Specialized Drupal & WordPress development for enterprise, higher education, and global-scale web systems." }}",
+  "sameAs": [
+    {{- /* Add your social media profiles here */ -}}
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "inquiries@mindsing.com",
+    "contactType": "customer service"
+  }
+}
+</script>

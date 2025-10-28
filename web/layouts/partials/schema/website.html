@@ -1,0 +1,20 @@
+{{- /* WebSite Schema - only on homepage */ -}}
+{{- if .IsHome -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ .Site.Title }}",
+  "url": "{{ .Site.BaseURL }}",
+  "description": "{{ .Site.Params.description | default "Specialized Drupal & WordPress development for enterprise, higher education, and global-scale web systems." }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MindSing",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ .Site.BaseURL }}images/mindsing-logo.svg"
+    }
+  }
+}
+</script>
+{{- end -}}
