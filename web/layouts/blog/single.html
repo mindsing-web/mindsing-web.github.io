@@ -41,6 +41,9 @@
       </ul>
     </nav>
 
+    {{/* Mobile TOC - sticky dropdown */}}
+    {{- partial "table-of-contents-mobile.html" . -}}
+
     {{/* Two-column layout: main content + sidebar */}}
     <div class="flex-l mw9 center mt4">
       {{/* Main article content */}}
@@ -109,7 +112,7 @@
       </article>
 
       {{/* Sidebar */}}
-      <aside class="w-100 w-30-l mt4 mt0-l">
+      <aside class="w-100 w-30-l mt4 mt0-l dn db-l">
         {{/* Email subscription - priority placement */}}
         {{- partial "email-subscription-sidebar.html" . -}}
 

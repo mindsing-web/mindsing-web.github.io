@@ -1,0 +1,36 @@
+{{ $toc := .TableOfContents }}
+{{ if $toc }}
+{{/* Mobile sticky select TOC */}}
+<nav class="toc-mobile-sticky bg-white bb b--light-gray" aria-label="Table of Contents">
+  <div class="pa3">
+    <select id="toc-mobile-select" class="w-100" aria-label="Jump to section">
+      <option value="">📖 On This Page</option>
+      {{ $scratched := newScratch }}
+      {{ range findRE `<(h[23])[^>]*id="([^"]+)"[^>]*>(.+?)</h[23]>` .Content }}
+        {{ $heading := . }}
+        {{ $level := replaceRE `<(h[23])[^>]*id="([^"]+)"[^>]*>(.+?)</h[23]>` "$1" $heading }}
+        {{ $id := replaceRE `<(h[23])[^>]*id="([^"]+)"[^>]*>(.+?)</h[23]>` "$2" $heading }}
+        {{ $title := replaceRE `<(h[23])[^>]*id="([^"]+)"[^>]*>(.+?)</h[23]>` "$3" $heading | plainify }}
+        <option value="#{{ $id }}">{{ if eq $level "h3" }}&#160;&#160;{{ end }}{{ $title }}</option>
+      {{ end }}
+      <option value="#top">↑ Back to Top</option>
+    </select>
+  </div>
+</nav>
+
+<script>
+// Handle TOC select navigation
+document.addEventListener('DOMContentLoaded', function() {
+  const tocSelect = document.getElementById('toc-mobile-select');
+  if (tocSelect) {
+    tocSelect.addEventListener('change', function() {
+      const target = this.value;
+      if (target) {
+        window.location.hash = target;
+        this.selectedIndex = 0; // Reset to placeholder
+      }
+    });
+  }
+});
+</script>
+{{ end }}

@@ -571,3 +571,45 @@ article a.no-underline:hover,
     align-self: flex-start;
   }
 }
+
+// Mobile sticky TOC dropdown
+.toc-mobile-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  // Hide on desktop
+  @media (min-width: $tachyons-large-breakpoint) {
+    display: none !important;
+  }
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    font-size: 1.5rem;
+    padding: 0.5em 3em 0.5em 0.75em;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23333' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75em center;
+    background-size: 16px;
+    border: 1px solid #caced1;
+    border-radius: 0.25rem;
+    color: #000;
+    cursor: pointer;
+
+    &:focus {
+      outline: 2px solid $primary-color;
+      outline-offset: 2px;
+      border-color: $primary-color;
+    }
+
+    option {
+      font-size: 1.25rem;
+      padding: 0.5em;
+    }
+  }
+}
