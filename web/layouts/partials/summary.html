@@ -3,11 +3,11 @@
     {{/* Get category from parent folder */}}
     <div class="flex items-center justify-between mb3">
       {{ $parent := .Parent }}
-      {{ if and $parent (ne $parent.RelPermalink "/blog/") }}
+      {{ if and $parent (ne $parent.RelPermalink "/blog/") (ne .Section "services") }}
         <span class="f6">
           <a href="{{ $parent.Permalink }}" class="link orange dim">{{ $parent.Title }}</a>
         </span>
-      {{ else }}
+      {{ else if ne .Section "services" }}
         <span class="f6">{{ humanize .Section }}</span>
       {{ end }}
       {{ if ne .Section "services" }}

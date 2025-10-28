@@ -9,7 +9,7 @@
     {{/* Paginator / summaries (full-width below content on narrow screens) */}}
     <section class="w-100 ph3 ph5-l mt4 mw9 center">
       <div class="flex-ns flex-wrap justify-start">
-        {{ range .Paginator.Pages }}
+        {{ range where .Paginator.Pages "File.BaseFileName" "!=" "_index" }}
           <div class="relative w-100 w-50-l pr4-l mb4 bg-white">
             {{- partial "summary.html" . -}}
           </div>
