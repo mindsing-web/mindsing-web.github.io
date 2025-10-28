@@ -6,6 +6,15 @@
 {{ define "main" }}
   {{ $section := .Site.GetPage "section" .Section }}
   <article class="{{ if ne .Section "services" }}flex-l flex-wrap justify-between{{ end }} center ph3 ph5-l">
+    {{ if eq .Section "services" }}
+    <nav class="breadcrumbs f6 mt3 mw9 center" aria-label="Breadcrumb">
+      <a href="/" class="link dim dark-gray">Home</a>
+      <span class="mh2">/</span>
+      <a href="/services/" class="link dim dark-gray">Services</a>
+      <span class="mh2">/</span>
+      <span class="dark-gray">{{ .Title }}</span>
+    </nav>
+    {{ end }}
     <header class="mt4 w-100">
       {{ if not .Params.featured_image }}
       <h2 class="f1 athelas mt3 mb1">
