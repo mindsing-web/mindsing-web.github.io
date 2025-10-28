@@ -241,7 +241,7 @@ Financial ROI is only part of the equation. Risk-adjusted ROI accounts for what 
 
 **Example**: Even if Automattic (WordPress) or Acquia (Drupal) disappeared tomorrow, the platforms would continue thriving with community support.
 
-**Upgrade flexibility**: 
+**Upgrade flexibility**:
 - Community maintains older versions longer
 - Upgrade timing is your choice, not vendor mandate
 - Pathways exist even for very old versions
@@ -261,7 +261,7 @@ Beyond licensing costs, platform performance directly impacts revenue.
 - User satisfaction and engagement
 - Mobile experience and accessibility
 
-**Open source advantage**: 
+**Open source advantage**:
 - Full control over optimization strategies
 - Choose performance-optimized hosting
 - Implement caching at any layer
@@ -434,8 +434,8 @@ Total 5-Year Cost (Open Source) vs. Total 5-Year Cost (Proprietary)
 ÷ Implementation Cost Difference
 = Break-even timeline
 
-(5-Year Savings - Implementation Difference) 
-÷ Implementation Difference 
+(5-Year Savings - Implementation Difference)
+÷ Implementation Difference
 = ROI %
 ```
 
@@ -526,7 +526,7 @@ Track metrics that demonstrate ROI:
 The ROI of open source isn't just about saving money on licensing fees. It's about **strategic freedom**:
 
 **Freedom to innovate** without asking vendor permission
-**Freedom to experiment** without per-project license negotiations  
+**Freedom to experiment** without per-project license negotiations
 **Freedom to pivot** without punitive migration costs
 **Freedom to optimize** without vendor-imposed constraints
 **Freedom to invest** your budget in value creation, not rent-seeking
