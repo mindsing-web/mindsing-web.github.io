@@ -99,9 +99,6 @@ We follow a structured, agile approach that ensures quality, transparency, and s
 - Performance monitoring and optimization
 - Feature enhancements and scaling support
 
----
-
-## Frequently Asked Questions
 
 {{< faq >}}
 [
