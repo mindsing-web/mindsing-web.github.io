@@ -1,0 +1,69 @@
+{{/* Related Posts - shows 3 posts from the same category */}}
+{{ $currentPage := . }}
+{{ $parent := .Parent }}
+
+{{/* Debug: Always show section for testing */}}
+{{/* Only show if we have a parent category (not in root /blog/) */}}
+{{ if and $parent (ne $parent.RelPermalink "/blog/") }}
+  {{/* Get all pages in the same parent directory */}}
+  {{ $relatedPosts := $parent.RegularPages }}
+  {{/* Exclude current page */}}
+  {{ $relatedPosts = where $relatedPosts "Permalink" "!=" $currentPage.Permalink }}
+
+  {{/* If we have related posts, show them */}}
+  {{ if ge (len $relatedPosts) 1 }}
+    <section class="related-posts bg-near-white pv5 ph3 ph5-l mt5">
+      <div class="mw9 center">
+        <h2 class="f2 fw6 dark-gray tc mb4">More from {{ $parent.Title }}</h2>
+
+        <div class="flex flex-wrap justify-center nl3 nr3">
+          {{/* Show up to 3 related posts */}}
+          {{ range first 3 $relatedPosts }}
+            <div class="w-100 w-third-l ph3 mb4">
+              <article class="bg-white br2 shadow-4 h-100 flex flex-column">
+                <div class="pa3 flex-auto flex flex-column justify-between">
+                  <div>
+                    {{/* Date */}}
+                    <time class="f6 gray db mb2" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                      {{ .Date.Format "January 2, 2006" }}
+                    </time>
+
+                    {{/* Title */}}
+                    <h3 class="f4 fw6 lh-title mt0 mb2">
+                      <a href="{{ .RelPermalink }}" class="link dark-gray hover-orange">
+                        {{ .Title }}
+                      </a>
+                    </h3>
+
+                    {{/* Description or summary */}}
+                    <p class="f6 lh-copy mid-gray mt0 mb3">
+                      {{ with .Description }}
+                        {{ . | truncate 120 }}
+                      {{ else }}
+                        {{ .Summary | plainify | truncate 120 }}
+                      {{ end }}
+                    </p>
+                  </div>
+
+                  {{/* Read more link */}}
+                  <div>
+                    <a href="{{ .RelPermalink }}" class="f6 link orange dim fw6">
+                      Read More →
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          {{ end }}
+        </div>
+
+        {{/* View all link */}}
+        <div class="tc mt4">
+          <a href="{{ $parent.Permalink }}" class="f5 link fw6 ph3 pv2 ba br2 dib bg-white orange b--orange view-all-btn">
+            View All {{ $parent.Title }} Posts
+          </a>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+{{ end }}

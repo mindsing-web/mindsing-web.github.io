@@ -613,3 +613,48 @@ article a.no-underline:hover,
     }
   }
 }
+
+// Related Posts Section
+.related-posts {
+  article {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+    }
+  }
+
+  .related-post-image {
+    transition: opacity 0.2s ease-in-out;
+    
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  // View All button hover effect
+  .view-all-btn {
+    transition: transform 0.2s ease-in-out;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  // Ensure cards are equal height
+  .flex-auto {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Better spacing on mobile
+  @media (max-width: $tachyons-large-breakpoint) {
+    .w-third-l {
+      width: 100%;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
