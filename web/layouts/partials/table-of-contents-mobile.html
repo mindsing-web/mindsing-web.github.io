@@ -19,14 +19,23 @@
 </nav>
 
 <script>
-// Handle TOC select navigation
+// Handle TOC select navigation with smooth scrolling
 document.addEventListener('DOMContentLoaded', function() {
   const tocSelect = document.getElementById('toc-mobile-select');
   if (tocSelect) {
     tocSelect.addEventListener('change', function() {
       const target = this.value;
       if (target) {
-        window.location.hash = target;
+        const element = document.querySelector(target);
+        if (element) {
+          element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        } else {
+          // Fallback for #top or other anchors
+          window.location.hash = target;
+        }
         this.selectedIndex = 0; // Reset to placeholder
       }
     });

@@ -589,7 +589,7 @@ article a.no-underline:hover,
     -webkit-appearance: none;
     -moz-appearance: none;
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     padding: 0.5em 3em 0.5em 0.75em;
     background-color: #fff;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23333' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
@@ -611,6 +611,13 @@ article a.no-underline:hover,
       font-size: 1.25rem;
       padding: 0.5em;
     }
+  }
+}
+
+// Add scroll offset for sticky TOC on mobile
+@media (max-width: $tachyons-large-breakpoint) {
+  html {
+    scroll-padding-top: 80px; // Height of sticky TOC + padding
   }
 }
 
