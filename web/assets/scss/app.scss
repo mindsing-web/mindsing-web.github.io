@@ -618,7 +618,7 @@ article a.no-underline:hover,
 .related-posts {
   article {
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    
+
     &:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
@@ -627,7 +627,7 @@ article a.no-underline:hover,
 
   .related-post-image {
     transition: opacity 0.2s ease-in-out;
-    
+
     &:hover {
       opacity: 0.9;
     }
@@ -636,7 +636,7 @@ article a.no-underline:hover,
   // View All button hover effect
   .view-all-btn {
     transition: transform 0.2s ease-in-out;
-    
+
     &:hover {
       transform: scale(1.05);
     }
