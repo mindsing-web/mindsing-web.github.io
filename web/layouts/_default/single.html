@@ -8,9 +8,9 @@
   <article class="{{ if ne .Section "services" }}flex-l flex-wrap justify-between{{ end }} center ph3 ph5-l">
     {{ if eq .Section "services" }}
     <nav class="breadcrumbs f6 mt3 mw9 center" aria-label="Breadcrumb">
-      <a href="/" class="link dim dark-gray">Home</a>
+      <a href="/" class="link dark-gray">Home</a>
       <span class="mh2">/</span>
-      <a href="/services/" class="link dim dark-gray">Services</a>
+      <a href="/services/" class="link dark-gray">Services</a>
       <span class="mh2">/</span>
       <span class="dark-gray">{{ .Title }}</span>
     </nav>
@@ -63,7 +63,7 @@
 
       {{/* Render first paragraph narrower, no white bg */}}
       {{ if ne $first "" }}
-        <div class="w-100 nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray mw8 center mb4">
+        <div class="w-100 nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-img mid-gray mw8 center mb4">
           {{ $first | safeHTML }}
         </div>
       {{ end }}
