@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Strategy &amp; Growth on MindSing</title>
+    <link>//localhost:1313/categories/strategy--growth/</link>
+    <description>Recent content in Strategy &amp; Growth on MindSing</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 05 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/categories/strategy--growth/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why Open Source Matters for Enterprise Web Development</title>
+      <link>//localhost:1313/blog/technology-innovation/why-open-source-matters-for-enterprise-web-development/</link>
+      <pubDate>Tue, 05 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/blog/technology-innovation/why-open-source-matters-for-enterprise-web-development/</guid>
+      <description>&lt;p&gt;In the rapidly evolving landscape of web development, choosing the right foundation for your digital infrastructure is more critical than ever. At MindSing, we&amp;rsquo;re passionate advocates for open source technologies—particularly Drupal—and here&amp;rsquo;s why.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-power-of-open-source&#34;&gt;The Power of Open Source&lt;/h2&gt;&#xA;&lt;p&gt;Open source software represents more than just freely available code. It embodies a collaborative philosophy that drives innovation, ensures transparency, and provides long-term sustainability for your digital investments.&lt;/p&gt;&#xA;&lt;h3 id=&#34;transparency-and-security&#34;&gt;Transparency and Security&lt;/h3&gt;&#xA;&lt;p&gt;When you build on open source platforms, you&amp;rsquo;re not locked into a proprietary black box. Every line of code is inspectable, auditable, and verifiable. This transparency is crucial for enterprise organizations and higher education institutions that must maintain strict security and compliance standards.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

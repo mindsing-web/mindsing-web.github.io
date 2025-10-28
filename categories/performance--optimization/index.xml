@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Performance &amp; Optimization on MindSing</title>
+    <link>//localhost:1313/categories/performance--optimization/</link>
+    <description>Recent content in Performance &amp; Optimization on MindSing</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 12 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/categories/performance--optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Accessibility First: The Foundation of Modern SEO and AI-Ready Content</title>
+      <link>//localhost:1313/blog/design-experience/accessibility-first-the-foundation-of-modern-seo-and-ai-ready-content/</link>
+      <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/blog/design-experience/accessibility-first-the-foundation-of-modern-seo-and-ai-ready-content/</guid>
+      <description>&lt;p&gt;When organizations think about web accessibility, they often frame it as a compliance issue or an ethical obligation. While both are true, there&amp;rsquo;s a compelling business case that&amp;rsquo;s often overlooked: &lt;strong&gt;accessibility is the foundation of effective SEO and the key to making your content discoverable by generative AI systems&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-convergence-of-accessibility-seo-and-ai&#34;&gt;The Convergence of Accessibility, SEO, and AI&lt;/h2&gt;&#xA;&lt;p&gt;Search engines and AI systems don&amp;rsquo;t browse websites the way humans do. They can&amp;rsquo;t see your beautiful design, watch your videos without captions, or interpret images without alt text. They rely on the same structured, semantic markup that makes websites accessible to people using assistive technologies.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Tag! You&#39;re It: Mastering Digital Freeze Tag with Google Tag Manager</title>
+      <link>//localhost:1313/blog/performance-optimization/tag-youre-it-mastering-digital-freeze-tag-with-google-tag-manager/</link>
+      <pubDate>Tue, 25 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/blog/performance-optimization/tag-youre-it-mastering-digital-freeze-tag-with-google-tag-manager/</guid>
+      <description>&lt;p&gt;At DrupalCon Atlanta 2025, I had the privilege of presenting &amp;ldquo;&lt;a href=&#34;https://events.drupal.org/atlanta2025/session/tag-youre-it-digital-freeze-tag-gtm&#34;&gt;Tag! You&amp;rsquo;re It. Digital &amp;lsquo;freeze&amp;rsquo; tag with GTM&lt;/a&gt;&amp;rdquo; - a session exploring how to master Google Tag Manager while balancing the competing demands of privacy compliance and website performance.&lt;/p&gt;&#xA;&lt;div class=&#34;video&#34;&gt;&#xA;  &lt;div class=&#34;video__wrapper video--youtube&#34;&gt;&#xA;    &lt;iframe &#xA;      src=&#34;https://www.youtube.com/embed/vIZqr1EMsyY&#34; &#xA;      title=&#34;YouTube video player&#34; &#xA;      frameborder=&#34;0&#34; &#xA;      allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; &#xA;      referrerpolicy=&#34;strict-origin-when-cross-origin&#34; &#xA;      allowfullscreen&gt;&#xA;    &lt;/iframe&gt;&#xA;  &lt;/div&gt;&#xA;&lt;/div&gt;&#xA;&#xA;&lt;h2 id=&#34;the-modern-tag-management-challenge&#34;&gt;The Modern Tag Management Challenge&lt;/h2&gt;&#xA;&lt;p&gt;For marketers and developers alike, Google Tag Manager (GTM) has become an indispensable tool. It simplifies the deployment and management of various tags across your website - analytics tags, marketing pixels, tracking scripts, and more - all without requiring coding skills for each change.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Speedy Delivery: Win the GTM, SERP, and CWV Game with Layout Builder and Tailwind</title>
+      <link>//localhost:1313/blog/performance-optimization/speedy-delivery-win-the-gtm-serp-and-cwv-game-with-layout-builder-and-tailwind/</link>
+      <pubDate>Fri, 25 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/blog/performance-optimization/speedy-delivery-win-the-gtm-serp-and-cwv-game-with-layout-builder-and-tailwind/</guid>
+      <description>&lt;p&gt;At the 2024 Pacific Northwest Drupal Summit, MindSing sponsored a session exploring the critical relationship between Core Web Vitals, Google Tag Manager, and site performance. The session, &amp;ldquo;&lt;a href=&#34;https://2024.pnwdrupalsummit.org/sessions/speedy-delivery-win-gtm-serp-and-cwv-game-layout-builder-and-tailwind/&#34;&gt;Speedy Delivery, Win the GTM, SERP, and CWV Game with Layout Builder and Tailwind&lt;/a&gt;,&amp;rdquo; demonstrated how to maintain perfect performance scores while meeting the demands of modern marketing teams.&lt;/p&gt;&#xA;&lt;div class=&#34;video&#34;&gt;&#xA;  &lt;div class=&#34;video__wrapper video--youtube&#34;&gt;&#xA;    &lt;iframe &#xA;      src=&#34;https://www.youtube.com/embed/5ynK750ue0U&#34; &#xA;      title=&#34;YouTube video player&#34; &#xA;      frameborder=&#34;0&#34; &#xA;      allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; &#xA;      referrerpolicy=&#34;strict-origin-when-cross-origin&#34; &#xA;      allowfullscreen&gt;&#xA;    &lt;/iframe&gt;&#xA;  &lt;/div&gt;&#xA;&lt;/div&gt;&#xA;&#xA;&lt;h2 id=&#34;the-performance-paradox&#34;&gt;The Performance Paradox&lt;/h2&gt;&#xA;&lt;p&gt;You&amp;rsquo;ve optimized your Drupal site. Your code is clean, your images are compressed, your CSS is minimal. You run a Lighthouse audit and&amp;hellip; 85. Not bad, but not the perfect 100 you were aiming for. What&amp;rsquo;s holding you back? Often, it&amp;rsquo;s not your code—it&amp;rsquo;s Google Tag Manager.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Enterprise Web Systems that Scale on MindSing</title><link>/</link><description>Recent content in Enterprise Web Systems that Scale on MindSing</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 22 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>API Development &amp; Integrations</title><link>/services/api-development/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/api-development/</guid><description>&lt;p&gt;&lt;strong&gt;Modern enterprise web systems require seamless integration&lt;/strong&gt; with existing business systems, third-party services, and custom applications. We specialize in &lt;strong&gt;custom API development&lt;/strong&gt; and &lt;strong&gt;enterprise system integrations&lt;/strong&gt; that connect your web platform with the broader technology ecosystem.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Enterprise Web Systems that Scale on MindSing</title><link>/</link><description>Recent content in Enterprise Web Systems that Scale on MindSing</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 27 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>API Development &amp; Integrations</title><link>/services/api-development/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/services/api-development/</guid><description>&lt;p&gt;&lt;strong&gt;Modern enterprise web systems require seamless integration&lt;/strong&gt; with existing business systems, third-party services, and custom applications. We specialize in &lt;strong&gt;custom API development&lt;/strong&gt; and &lt;strong&gt;enterprise system integrations&lt;/strong&gt; that connect your web platform with the broader technology ecosystem.&lt;/p&gt;
 &lt;h2 id="custom-api-development"&gt;Custom API Development&lt;/h2&gt;
 &lt;p&gt;We design and build scalable, secure APIs that serve as the backbone of modern enterprise applications, enabling seamless data flow and system integration.&lt;/p&gt;
 &lt;h3 id="restful-api-design"&gt;RESTful API Design&lt;/h3&gt;
@@ -93,7 +93,53 @@
 &lt;li&gt;Performance optimization for high-traffic sites&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="higher-education-media-systems"&gt;Higher Education Media Systems&lt;/h2&gt;
-&lt;p&gt;Academic institutions need specialized media platforms for lectures, research documentation, and digital archives that serve diverse audiences.&lt;/p&gt;</description></item><item><title>Privacy Policy</title><link>/privacy-policy/</link><pubDate>Sat, 22 Mar 2025 00:00:00 +0000</pubDate><guid>/privacy-policy/</guid><description>&lt;p&gt;&lt;em&gt;Last updated: March 22, 2025&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Academic institutions need specialized media platforms for lectures, research documentation, and digital archives that serve diverse audiences.&lt;/p&gt;</description></item><item><title>Diversity Drives Innovation: Why Varied Perspectives Create Better Solutions</title><link>/blog/strategy-growth/diversity-drives-innovation/</link><pubDate>Mon, 27 Oct 2025 00:00:00 +0000</pubDate><guid>/blog/strategy-growth/diversity-drives-innovation/</guid><description>&lt;p&gt;In the rapidly evolving world of technology and web development, innovation isn&amp;rsquo;t just about having the latest tools or the fastest servers—it&amp;rsquo;s about &lt;strong&gt;how we think, collaborate, and solve problems&lt;/strong&gt;. At MindSing, we&amp;rsquo;ve seen firsthand that the most innovative solutions emerge when diverse perspectives converge around a shared challenge.&lt;/p&gt;
+&lt;h2 id="the-innovation-imperative"&gt;The Innovation Imperative&lt;/h2&gt;
+&lt;p&gt;Innovation in our industry requires more than technical expertise. It demands:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Fresh perspectives&lt;/strong&gt; on old problems&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Creative approaches&lt;/strong&gt; to new challenges&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Empathy&lt;/strong&gt; for diverse user needs&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Critical questioning&lt;/strong&gt; of assumptions&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bold experimentation&lt;/strong&gt; with unconventional solutions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;None of these happen in a vacuum—or in a homogeneous environment.&lt;/p&gt;</description></item><item><title>Tip-Toeing into the Deep: AI-Powered Development Workflows</title><link>/blog/technology-innovation/ai-development-workflows/</link><pubDate>Sat, 25 Oct 2025 00:00:00 +0000</pubDate><guid>/blog/technology-innovation/ai-development-workflows/</guid><description>&lt;p&gt;At the 2024 Pacific Northwest Drupal Summit, MindSing sponsored a session exploring the practical integration of AI tools into modern development workflows. The session, &amp;ldquo;&lt;a href="https://pnwdrupalsummit.org/sessions/tiptoeing-deep-seek-prompt-repeat"&gt;Tip-Toeing into the Deep: Seek, Prompt, Repeat&lt;/a&gt;,&amp;rdquo; demonstrated how developers can leverage AI assistance while maintaining code quality and deepening their expertise.&lt;/p&gt;
+&lt;div class="video"&gt;
+ &lt;div class="video__wrapper video--youtube"&gt;
+ &lt;iframe 
+ src="https://www.youtube.com/embed/WzG9vDnizRg" 
+ title="YouTube video player" 
+ frameborder="0" 
+ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+ referrerpolicy="strict-origin-when-cross-origin" 
+ allowfullscreen&gt;
+ &lt;/iframe&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="the-ai-development-revolution"&gt;The AI Development Revolution&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;re in the midst of a fundamental shift in how developers work. Tools like GitHub Copilot, ChatGPT, Claude, and specialized coding assistants are no longer experimental novelties—they&amp;rsquo;re becoming integral parts of professional development workflows.&lt;/p&gt;</description></item><item><title>Accessibility First: The Foundation of Modern SEO and AI-Ready Content</title><link>/blog/design-experience/accessibility-seo-ai/</link><pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate><guid>/blog/design-experience/accessibility-seo-ai/</guid><description>&lt;p&gt;When organizations think about web accessibility, they often frame it as a compliance issue or an ethical obligation. While both are true, there&amp;rsquo;s a compelling business case that&amp;rsquo;s often overlooked: &lt;strong&gt;accessibility is the foundation of effective SEO and the key to making your content discoverable by generative AI systems&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2 id="the-convergence-of-accessibility-seo-and-ai"&gt;The Convergence of Accessibility, SEO, and AI&lt;/h2&gt;
+&lt;p&gt;Search engines and AI systems don&amp;rsquo;t browse websites the way humans do. They can&amp;rsquo;t see your beautiful design, watch your videos without captions, or interpret images without alt text. They rely on the same structured, semantic markup that makes websites accessible to people using assistive technologies.&lt;/p&gt;</description></item><item><title>Why Open Source Matters for Enterprise Web Development</title><link>/blog/technology-innovation/why-open-source-matters/</link><pubDate>Tue, 05 Aug 2025 00:00:00 +0000</pubDate><guid>/blog/technology-innovation/why-open-source-matters/</guid><description>&lt;p&gt;In the rapidly evolving landscape of web development, choosing the right foundation for your digital infrastructure is more critical than ever. At MindSing, we&amp;rsquo;re passionate advocates for open source technologies—particularly Drupal—and here&amp;rsquo;s why.&lt;/p&gt;
+&lt;h2 id="the-power-of-open-source"&gt;The Power of Open Source&lt;/h2&gt;
+&lt;p&gt;Open source software represents more than just freely available code. It embodies a collaborative philosophy that drives innovation, ensures transparency, and provides long-term sustainability for your digital investments.&lt;/p&gt;
+&lt;h3 id="transparency-and-security"&gt;Transparency and Security&lt;/h3&gt;
+&lt;p&gt;When you build on open source platforms, you&amp;rsquo;re not locked into a proprietary black box. Every line of code is inspectable, auditable, and verifiable. This transparency is crucial for enterprise organizations and higher education institutions that must maintain strict security and compliance standards.&lt;/p&gt;</description></item><item><title>Tag! You're It: Mastering Digital Freeze Tag with Google Tag Manager</title><link>/blog/performance-optimization/tag-youre-it-gtm/</link><pubDate>Tue, 25 Mar 2025 00:00:00 +0000</pubDate><guid>/blog/performance-optimization/tag-youre-it-gtm/</guid><description>&lt;p&gt;At DrupalCon Atlanta 2025, I had the privilege of presenting &amp;ldquo;&lt;a href="https://events.drupal.org/atlanta2025/session/tag-youre-it-digital-freeze-tag-gtm"&gt;Tag! You&amp;rsquo;re It. Digital &amp;lsquo;freeze&amp;rsquo; tag with GTM&lt;/a&gt;&amp;rdquo; - a session exploring how to master Google Tag Manager while balancing the competing demands of privacy compliance and website performance.&lt;/p&gt;
+&lt;div class="video"&gt;
+ &lt;div class="video__wrapper video--youtube"&gt;
+ &lt;iframe 
+ src="https://www.youtube.com/embed/vIZqr1EMsyY" 
+ title="YouTube video player" 
+ frameborder="0" 
+ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+ referrerpolicy="strict-origin-when-cross-origin" 
+ allowfullscreen&gt;
+ &lt;/iframe&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="the-modern-tag-management-challenge"&gt;The Modern Tag Management Challenge&lt;/h2&gt;
+&lt;p&gt;For marketers and developers alike, Google Tag Manager (GTM) has become an indispensable tool. It simplifies the deployment and management of various tags across your website - analytics tags, marketing pixels, tracking scripts, and more - all without requiring coding skills for each change.&lt;/p&gt;</description></item><item><title>Privacy Policy</title><link>/privacy-policy/</link><pubDate>Sat, 22 Mar 2025 00:00:00 +0000</pubDate><guid>/privacy-policy/</guid><description>&lt;p&gt;&lt;em&gt;Last updated: March 22, 2025&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Welcome to MindSing. We respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website.&lt;/p&gt;
 &lt;h2 id="information-we-collect"&gt;Information We Collect&lt;/h2&gt;
@@ -110,7 +156,25 @@
 &lt;li&gt;&lt;strong&gt;IP address&lt;/strong&gt;: Used to approximate your location and for security purposes.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="how-we-store-your-data"&gt;How We Store Your Data&lt;/h2&gt;
-&lt;p&gt;We use Zoho CRM to store and manage data collected through our website. Your personal information is processed and stored according to Zoho&amp;rsquo;s security and data protection policies. For more information about Zoho&amp;rsquo;s data practices, please visit &lt;a href="https://www.zoho.com/privacy.html"&gt;Zoho&amp;rsquo;s privacy policy&lt;/a&gt;.&lt;/p&gt;</description></item><item><title/><link>/calculator/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/calculator/readme/</guid><description>&lt;h1 id="calculator-url-token-behavior"&gt;Calculator: URL Token Behavior&lt;/h1&gt;
+&lt;p&gt;We use Zoho CRM to store and manage data collected through our website. Your personal information is processed and stored according to Zoho&amp;rsquo;s security and data protection policies. For more information about Zoho&amp;rsquo;s data practices, please visit &lt;a href="https://www.zoho.com/privacy.html"&gt;Zoho&amp;rsquo;s privacy policy&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>From Brochure Site to Lead Engine: Turning Your CMS into a Conversion Platform</title><link>/blog/strategy-growth/brochure-site-to-lead-engine/</link><pubDate>Sun, 16 Feb 2025 00:00:00 +0000</pubDate><guid>/blog/strategy-growth/brochure-site-to-lead-engine/</guid><description>&lt;p&gt;Your website looks great. It tells your story, showcases your work, and presents your services beautifully. There&amp;rsquo;s just one problem: &lt;strong&gt;it&amp;rsquo;s not generating leads at the rate your business needs to grow&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Many businesses treat their website as a digital brochure—a place to park information that might be helpful if someone already knows about you. But in reality, your website should be your hardest-working salesperson: qualifying leads 24/7, nurturing prospects automatically, and feeding your sales team a steady stream of qualified opportunities.&lt;/p&gt;</description></item><item><title>When to Rebuild vs. Redesign: How to Plan a Smart Digital Upgrade</title><link>/blog/strategy-growth/rebuild-vs-redesign-digital-upgrade/</link><pubDate>Fri, 27 Dec 2024 00:00:00 +0000</pubDate><guid>/blog/strategy-growth/rebuild-vs-redesign-digital-upgrade/</guid><description>&lt;p&gt;When your business is growing and your website is struggling to keep up, you face a critical decision: &lt;strong&gt;redesign&lt;/strong&gt; what you have or &lt;strong&gt;rebuild&lt;/strong&gt; from the ground up? This choice can mean the difference between a smart investment that accelerates growth and an expensive mistake that holds you back.&lt;/p&gt;
+&lt;p&gt;For growth-stage businesses, this decision becomes even more crucial. You need a platform that can scale with your ambitions, support evolving marketing strategies, and integrate with your expanding tech stack—all without draining resources or disrupting operations.&lt;/p&gt;</description></item><item><title>Speedy Delivery: Win the GTM, SERP, and CWV Game with Layout Builder and Tailwind</title><link>/blog/performance-optimization/speedy-delivery-cwv-gtm/</link><pubDate>Fri, 25 Oct 2024 00:00:00 +0000</pubDate><guid>/blog/performance-optimization/speedy-delivery-cwv-gtm/</guid><description>&lt;p&gt;At the 2024 Pacific Northwest Drupal Summit, MindSing sponsored a session exploring the critical relationship between Core Web Vitals, Google Tag Manager, and site performance. The session, &amp;ldquo;&lt;a href="https://2024.pnwdrupalsummit.org/sessions/speedy-delivery-win-gtm-serp-and-cwv-game-layout-builder-and-tailwind/"&gt;Speedy Delivery, Win the GTM, SERP, and CWV Game with Layout Builder and Tailwind&lt;/a&gt;,&amp;rdquo; demonstrated how to maintain perfect performance scores while meeting the demands of modern marketing teams.&lt;/p&gt;
+&lt;div class="video"&gt;
+ &lt;div class="video__wrapper video--youtube"&gt;
+ &lt;iframe 
+ src="https://www.youtube.com/embed/5ynK750ue0U" 
+ title="YouTube video player" 
+ frameborder="0" 
+ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+ referrerpolicy="strict-origin-when-cross-origin" 
+ allowfullscreen&gt;
+ &lt;/iframe&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id="the-performance-paradox"&gt;The Performance Paradox&lt;/h2&gt;
+&lt;p&gt;You&amp;rsquo;ve optimized your Drupal site. Your code is clean, your images are compressed, your CSS is minimal. You run a Lighthouse audit and&amp;hellip; 85. Not bad, but not the perfect 100 you were aiming for. What&amp;rsquo;s holding you back? Often, it&amp;rsquo;s not your code—it&amp;rsquo;s Google Tag Manager.&lt;/p&gt;</description></item><item><title>The ROI of Open Source: Why Drupal &amp; WordPress Still Beat Proprietary CMS</title><link>/blog/strategy-growth/roi-open-source-cms/</link><pubDate>Wed, 05 Jun 2024 00:00:00 +0000</pubDate><guid>/blog/strategy-growth/roi-open-source-cms/</guid><description>&lt;p&gt;When evaluating a content management system, the initial license fee is just the beginning of the story. The real question decision-makers should ask isn&amp;rsquo;t &amp;ldquo;What does it cost to buy?&amp;rdquo; but rather &lt;strong&gt;&amp;ldquo;What will it cost us to own, operate, and scale this platform over five years?&amp;rdquo;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The answer might surprise you. Despite aggressive marketing from proprietary vendors positioning themselves as &amp;ldquo;enterprise-ready&amp;rdquo; or &amp;ldquo;all-in-one solutions,&amp;rdquo; the total cost of ownership (TCO) and long-term return on investment (ROI) consistently favor open source platforms—particularly Drupal and WordPress.&lt;/p&gt;</description></item><item><title/><link>/calculator/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/calculator/readme/</guid><description>&lt;h1 id="calculator-url-token-behavior"&gt;Calculator: URL Token Behavior&lt;/h1&gt;
 &lt;p&gt;This README explains how the calculator serializes form values into an opaque token placed in the browser URL so results can be saved and later decoded to repopulate the form.&lt;/p&gt;
 &lt;p&gt;Where implemented:&lt;/p&gt;
 &lt;ul&gt;

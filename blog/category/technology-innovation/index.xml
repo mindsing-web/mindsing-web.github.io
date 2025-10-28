@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Technology &amp; Innovation on MindSing</title>
+    <link>//localhost:1313/blog/category/technology-innovation/</link>
+    <description>Recent content in Technology &amp; Innovation on MindSing</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 25 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/blog/category/technology-innovation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tip-Toeing into the Deep: AI-Powered Development Workflows</title>
+      <link>//localhost:1313/blog/technology-innovation/tip-toeing-into-the-deep-ai-powered-development-workflows/</link>
+      <pubDate>Sat, 25 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/blog/technology-innovation/tip-toeing-into-the-deep-ai-powered-development-workflows/</guid>
+      <description>&lt;p&gt;At the 2024 Pacific Northwest Drupal Summit, MindSing sponsored a session exploring the practical integration of AI tools into modern development workflows. The session, &amp;ldquo;&lt;a href=&#34;https://pnwdrupalsummit.org/sessions/tiptoeing-deep-seek-prompt-repeat&#34;&gt;Tip-Toeing into the Deep: Seek, Prompt, Repeat&lt;/a&gt;,&amp;rdquo; demonstrated how developers can leverage AI assistance while maintaining code quality and deepening their expertise.&lt;/p&gt;&#xA;&lt;div class=&#34;video&#34;&gt;&#xA;  &lt;div class=&#34;video__wrapper video--youtube&#34;&gt;&#xA;    &lt;iframe &#xA;      src=&#34;https://www.youtube.com/embed/WzG9vDnizRg&#34; &#xA;      title=&#34;YouTube video player&#34; &#xA;      frameborder=&#34;0&#34; &#xA;      allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; &#xA;      referrerpolicy=&#34;strict-origin-when-cross-origin&#34; &#xA;      allowfullscreen&gt;&#xA;    &lt;/iframe&gt;&#xA;  &lt;/div&gt;&#xA;&lt;/div&gt;&#xA;&#xA;&lt;h2 id=&#34;the-ai-development-revolution&#34;&gt;The AI Development Revolution&lt;/h2&gt;&#xA;&lt;p&gt;We&amp;rsquo;re in the midst of a fundamental shift in how developers work. Tools like GitHub Copilot, ChatGPT, Claude, and specialized coding assistants are no longer experimental novelties—they&amp;rsquo;re becoming integral parts of professional development workflows.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Why Open Source Matters for Enterprise Web Development</title>
+      <link>//localhost:1313/blog/technology-innovation/why-open-source-matters-for-enterprise-web-development/</link>
+      <pubDate>Tue, 05 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/blog/technology-innovation/why-open-source-matters-for-enterprise-web-development/</guid>
+      <description>&lt;p&gt;In the rapidly evolving landscape of web development, choosing the right foundation for your digital infrastructure is more critical than ever. At MindSing, we&amp;rsquo;re passionate advocates for open source technologies—particularly Drupal—and here&amp;rsquo;s why.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-power-of-open-source&#34;&gt;The Power of Open Source&lt;/h2&gt;&#xA;&lt;p&gt;Open source software represents more than just freely available code. It embodies a collaborative philosophy that drives innovation, ensures transparency, and provides long-term sustainability for your digital investments.&lt;/p&gt;&#xA;&lt;h3 id=&#34;transparency-and-security&#34;&gt;Transparency and Security&lt;/h3&gt;&#xA;&lt;p&gt;When you build on open source platforms, you&amp;rsquo;re not locked into a proprietary black box. Every line of code is inspectable, auditable, and verifiable. This transparency is crucial for enterprise organizations and higher education institutions that must maintain strict security and compliance standards.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
