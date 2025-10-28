@@ -10,9 +10,11 @@
       {{ else }}
         <span class="f6">{{ humanize .Section }}</span>
       {{ end }}
-      <span class="f6 gray">
-        {{ .Date.Format "January 2, 2006" }}
-      </span>
+      {{ if ne .Section "services" }}
+        <span class="f6 gray">
+          {{ .Date.Format "January 2, 2006" }}
+        </span>
+      {{ end }}
     </div>
     <h2 class="f3 near-black">
       <a href="{{ .RelPermalink }}" class="link black dim">
