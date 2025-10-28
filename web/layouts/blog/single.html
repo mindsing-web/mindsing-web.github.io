@@ -93,22 +93,30 @@
         <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray">
           {{- .Content -}}
         </div>
-      </article>
 
-      {{/* Sidebar */}}
-      <aside class="w-100 w-30-l mt4 mt0-l">
-        {{/* Table of Contents */}}
-        {{- partial "table-of-contents.html" . -}}
-
-        {{- partial "email-subscription-sidebar.html" . -}}
-
-        {{/* Tags */}}
+        {{/* Tags below content */}}
         {{ if .Params.tags }}
-        <div class="bg-near-white pa4 br3 mb4">
+        <div class="mt4 pt4 bt b--light-gray">
           <h3 class="f5 fw6 dark-gray mt0 mb3">Tags</h3>
           {{- partial "tags.html" . -}}
         </div>
         {{ end }}
+
+        {{/* Back to top link */}}
+        <div class="mt4 tc">
+          <a href="#top" class="f6 link orange dim">↑ Back to Top</a>
+        </div>
+      </article>
+
+      {{/* Sidebar */}}
+      <aside class="w-100 w-30-l mt4 mt0-l">
+        {{/* Email subscription - priority placement */}}
+        {{- partial "email-subscription-sidebar.html" . -}}
+
+        {{/* Table of Contents - sticky */}}
+        <div class="sticky-sidebar">
+          {{- partial "table-of-contents.html" . -}}
+        </div>
       </aside>
     </div>
   </div>

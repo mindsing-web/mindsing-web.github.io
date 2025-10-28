@@ -48,6 +48,7 @@
       {{ partial "gtm-body.html" (dict "context" . "environment" "development") }}
     {{ end }}
 
+    <div id="top"></div>
     {{ block "header" . }}{{ partial "site-header.html" .}}{{ end }}
     <main class="pb3" role="main">
       {{ block "main" . }}{{ end }}

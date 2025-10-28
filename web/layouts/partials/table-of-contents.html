@@ -1,9 +1,12 @@
 {{ $toc := .TableOfContents }}
 {{ if $toc }}
-<nav class="bg-near-white pa4 br3 mb4 sticky top-1" aria-label="Table of Contents">
-  <h3 class="f5 fw6 dark-gray mt0 mb3">On This Page</h3>
+<nav class="toc-container pa4 br3 mb4" aria-label="Table of Contents">
+  <h3 class="f4 fw6 dark-gray mt0 mb3">On This Page</h3>
   <div class="toc f6 lh-copy">
     {{ $toc }}
+  </div>
+  <div class="mt3 pt3 bt b--light-gray">
+    <a href="#top" class="f6 link orange dim">↑ Back to Top</a>
   </div>
 </nav>
 {{ end }}

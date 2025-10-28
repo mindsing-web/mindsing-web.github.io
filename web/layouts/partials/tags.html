@@ -1,7 +1,7 @@
-<ul class="pa0">
+<ul class="pa0 list ma0">
   {{ range .Params.tags }}
-   <li class="list">
-     <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="link f5 grow no-underline br2 ba ph3 pv2 mb2 dib black sans-serif">
+   <li class="dib mr2 mb2">
+     <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">
        {{- . -}}
      </a>
    </li>

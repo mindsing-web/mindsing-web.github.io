@@ -562,3 +562,12 @@ article a.no-underline:hover,
     }
   }
 }
+
+// Sticky sidebar for desktop
+.sticky-sidebar {
+  @media (min-width: $tachyons-large-breakpoint) {
+    position: sticky;
+    top: 1rem;
+    align-self: flex-start;
+  }
+}
