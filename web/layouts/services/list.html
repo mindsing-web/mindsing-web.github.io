@@ -86,7 +86,7 @@
         const answer = this.nextElementSibling;
         const icon = this.querySelector('.faq-icon');
         const isExpanded = this.getAttribute('aria-expanded') === 'true';
-        
+
         this.setAttribute('aria-expanded', !isExpanded);
         answer.classList.toggle('dn');
         icon.textContent = isExpanded ? '+' : '−';
@@ -100,11 +100,11 @@
         const container = document.getElementById(targetId);
         const allExpanded = Array.from(container.querySelectorAll('.faq-question'))
           .every(btn => btn.getAttribute('aria-expanded') === 'true');
-        
+
         container.querySelectorAll('.faq-question').forEach(btn => {
           const answer = btn.nextElementSibling;
           const icon = btn.querySelector('.faq-icon');
-          
+
           btn.setAttribute('aria-expanded', !allExpanded);
           if (allExpanded) {
             answer.classList.add('dn');
@@ -114,7 +114,7 @@
             icon.textContent = '−';
           }
         });
-        
+
         this.textContent = allExpanded ? 'Expand All' : 'Collapse All';
       });
     });

@@ -5,7 +5,7 @@
 
 {{ define "main" }}
   {{ $section := .Site.GetPage "section" .Section }}
-  <article class="{{ if ne .Section "services" }}flex-l flex-wrap justify-between{{ end }} center ph3 ph5-l mw8">
+  <article class="{{ if ne .Section "services" }}flex-l flex-wrap justify-between{{ end }} center ph3 ph5-l {{ if ne .Section "services" }}mw8{{ end }}">
     {{ if eq .Section "services" }}
     <nav class="breadcrumbs f6 mt3 mw9 center" aria-label="Breadcrumb">
       <a href="/" class="link dark-gray">Home</a>
