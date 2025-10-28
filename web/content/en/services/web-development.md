@@ -98,3 +98,44 @@ We follow a structured, agile approach that ensures quality, transparency, and s
 - Regular updates and security patches
 - Performance monitoring and optimization
 - Feature enhancements and scaling support
+
+---
+
+## Frequently Asked Questions
+
+{{< faq >}}
+[
+  {
+    "question": "How much does an enterprise Drupal project typically cost?",
+    "answer": "Enterprise Drupal projects typically range from **$50,000 to $250,000+** depending on complexity, features, multi-site requirements, and third-party integrations. We provide detailed scoping and transparent pricing after an initial discovery session. [Schedule a consultation](/booking/) to discuss your specific needs."
+  },
+  {
+    "question": "What is the typical timeline for a university website redesign?",
+    "answer": "Most higher education website projects take **4-6 months** from kickoff to launch, including discovery, design, development, and comprehensive testing phases. Complex multi-site implementations or systems with extensive integrations may require 8-12 months. We work in agile sprints with regular milestone deliveries."
+  },
+  {
+    "question": "Can you migrate our existing Drupal 7 site to Drupal 10 or 11?",
+    "answer": "Absolutely. We have successfully migrated dozens of Drupal 7 sites to current versions. Our process handles content migration, custom module updates or replacement, theme modernization, and comprehensive testing—ensuring zero data loss while modernizing your entire system."
+  },
+  {
+    "question": "Do you provide ongoing support after launch?",
+    "answer": "Yes. We offer **comprehensive support packages** including security updates, performance monitoring, feature enhancements, and 24/7 emergency support for enterprise clients. Most clients maintain monthly retainer relationships with us for ongoing development and optimization."
+  },
+  {
+    "question": "Why should we choose MindSing over a larger agency?",
+    "answer": "We combine **enterprise-grade expertise with boutique attention to detail**. Your project gets senior developer attention from day one—never handed off to junior team members. Our experience with Fortune 500 companies and major universities means we understand complex organizational requirements, but you get direct access to the people building your system."
+  },
+  {
+    "question": "Can you work with our existing internal development team?",
+    "answer": "Yes, we frequently collaborate with internal teams, providing specialized expertise, code reviews, architecture guidance, or handling high-complexity components while your team manages other aspects. We are flexible team players who enhance your existing capabilities."
+  },
+  {
+    "question": "Do you handle complex system integrations (CRM, SSO, ERP)?",
+    "answer": "Yes, system integration is one of our core strengths. We have extensive experience integrating web systems with Salesforce, HubSpot, SAML/OAuth authentication, LDAP, Active Directory, SAP, Oracle, payment processors, and custom enterprise APIs. We make your web system work seamlessly with your existing technology ecosystem."
+  }
+]
+{{< /faq >}}
+
+---
+
+**Ready to discuss your project?** [Schedule a consultation](/booking/) or [email us](mailto:inquiries@mindsing.com) to start a conversation.

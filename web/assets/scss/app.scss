@@ -665,3 +665,137 @@ article a.no-underline:hover,
     }
   }
 }
+
+/* ============================================
+   FAQ Component Styles
+   ============================================ */
+
+.faq-section-wrapper {
+  margin-top: 3rem;
+}
+
+.faq-toggle-all {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    border-color: $gray-400;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transform: scale(1.08);
+  }
+
+  &:active {
+    box-shadow: none;
+    transform: scale(1.04);
+  }
+}
+
+.faq-list {
+  background: white;
+  border: 1px solid $border-color;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.faq-item {
+  transition: background-color 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: $gray-50;
+  }
+}
+
+.faq-question {
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: $gray-100;
+  }
+
+  &:focus {
+    outline: 2px solid $primary-color;
+    outline-offset: -2px;
+  }
+
+  &[aria-expanded="true"] {
+    background-color: $gray-50;
+
+    .faq-icon {
+      color: $primary-color;
+    }
+  }
+
+  span:first-child {
+    line-height: 1.4;
+  }
+}
+
+.faq-icon {
+  font-size: 1.5rem;
+  font-weight: 300;
+  transition: color 0.2s ease;
+  line-height: 1;
+  width: 1.5rem;
+  text-align: center;
+}
+
+.faq-answer {
+  transition: max-height 0.3s ease;
+
+  a {
+    color: $primary-color;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease;
+
+    &:hover,
+    &:focus {
+      color: darken($primary-color, 10%);
+      border-bottom-color: $primary-color;
+    }
+  }
+
+  ul, ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+  }
+
+  li {
+    margin-bottom: 0.25rem;
+  }
+
+  strong {
+    color: $muted-dark;
+    font-weight: 600;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: $tachyons-medium-breakpoint) {
+  .faq-section-wrapper {
+    .faq-toggle-all {
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+    }
+  }
+
+  .faq-question {
+    span:first-child {
+      font-size: 1rem;
+    }
+  }
+
+  .faq-answer {
+    font-size: 0.9375rem;
+  }
+}
+

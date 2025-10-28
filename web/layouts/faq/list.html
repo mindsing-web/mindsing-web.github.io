@@ -1,0 +1,20 @@
+{{ define "header" }}
+  {{ partial "page-header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+  <div class="center ph3 ph5-l">
+    <article class="mw8 center mt4 pb5">
+      <header class="mb5">
+        <h1 class="f1 f-headline-l lh-title dark-gray mb3">{{ .Title }}</h1>
+        {{ with .Description }}
+          <p class="f4 lh-copy mid-gray mb4">{{ . }}</p>
+        {{ end }}
+      </header>
+
+      <div class="nested-copy-line-height lh-copy f5 nested-links mid-gray">
+        {{ .Content }}
+      </div>
+    </article>
+  </div>
+{{ end }}

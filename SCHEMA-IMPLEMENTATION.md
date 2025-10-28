@@ -69,11 +69,11 @@ If omitted, defaults to "MindSing"
 
 ### What This Enables
 
-✅ **Organization Knowledge Panel** - Your brand info in Google search  
-✅ **Article Rich Cards** - Enhanced blog post listings with images  
-✅ **Breadcrumb Navigation** - Visual navigation path in search results  
-✅ **Service Visibility** - Better ranking for service-related queries  
-✅ **Brand Entity Recognition** - Google connects all your content to MindSing  
+✅ **Organization Knowledge Panel** - Your brand info in Google search
+✅ **Article Rich Cards** - Enhanced blog post listings with images
+✅ **Breadcrumb Navigation** - Visual navigation path in search results
+✅ **Service Visibility** - Better ranking for service-related queries
+✅ **Brand Entity Recognition** - Google connects all your content to MindSing
 
 ## Next Steps (Optional)
 

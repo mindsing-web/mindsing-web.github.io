@@ -10,7 +10,10 @@ $muted-color: #4b5563; // gray-600
 $muted-dark: #374151; // gray-700
 // Additional grays
 $gray-500: #6b7280;
+$gray-400: #9ca3af;
+$gray-200: #e5e7eb;
 $gray-100: #f3f4f6; // light gray background
+$gray-50: #f9fafb;
 $dark-gray: #333; // dark gray for text
 $border-color: #e5e7eb;
 // Code font stack
@@ -19,5 +22,6 @@ $code-font: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Source 
 // Layout variables
 $tablet-breakpoint: 769px;
 $desktop-breakpoint: 1140px;
-// Tachyons large breakpoint (corresponds to -l suffix)
+// Tachyons breakpoints (corresponds to -m and -l suffixes)
+$tachyons-medium-breakpoint: 30em; // 480px
 $tachyons-large-breakpoint: 60em; // 960px

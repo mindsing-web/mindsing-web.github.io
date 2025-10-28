@@ -1,0 +1,95 @@
+{{- /* Collapsible FAQ Shortcode with Schema.org markup */ -}}
+{{- $items := .Inner | transform.Unmarshal -}}
+{{- $id := printf "faq-%d" now.Unix -}}
+
+</div></article></div>
+<section class="faq-section-wrapper pv5 ph3">
+  <div class="mw8 center">
+    <div class="flex justify-between items-center mb4">
+      <h2 class="f2 fw6 dark-gray ma0">Frequently Asked Questions</h2>
+      <button class="faq-toggle-all bn bg-white dark-gray ba b--moon-gray ph3 pv2 br2 pointer f6 fw6" data-target="{{ $id }}">
+        Expand All
+      </button>
+    </div>
+
+    <div class="faq-list" id="{{ $id }}">
+      {{- range $index, $item := $items -}}
+      <div class="faq-item bb b--moon-gray">
+        <button class="faq-question w-100 tl pa3 bn bg-transparent pointer flex justify-between items-center" aria-expanded="false">
+          <span class="f4 fw6 dark-gray pr3">{{ $item.question }}</span>
+          <span class="faq-icon flex-shrink-0 f3 dark-gray">+</span>
+        </button>
+        <div class="faq-answer dn ph3 pb3">
+          <div class="f5 lh-copy mid-gray nested-links pt2">
+            {{ $item.answer | markdownify }}
+          </div>
+        </div>
+      </div>
+      {{- end -}}
+    </div>
+  </div>
+</section>
+<div class="flex-l mt2 mw-100 center"><article class="center cf pv2 ph2 ph4-ns flex-auto mw8"><div class="nested-copy-line-height lh-copy f4 nested-links nested-img mid-gray">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{- range $index, $item := $items -}}
+    {{- if $index }},{{ end }}
+    {
+      "@type": "Question",
+      "name": {{ $item.question | jsonify }},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": {{ $item.answer | plainify | jsonify }}
+      }
+    }
+    {{- end -}}
+  ]
+}
+</script>
+
+<script>
+(function() {
+  // Toggle individual FAQ items
+  document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', function() {
+      const answer = this.nextElementSibling;
+      const icon = this.querySelector('.faq-icon');
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+      this.setAttribute('aria-expanded', !isExpanded);
+      answer.classList.toggle('dn');
+      icon.textContent = isExpanded ? '+' : '−';
+    });
+  });
+
+  // Toggle all FAQs
+  document.querySelectorAll('.faq-toggle-all').forEach(button => {
+    button.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-target');
+      const container = document.getElementById(targetId);
+      const allExpanded = Array.from(container.querySelectorAll('.faq-question'))
+        .every(btn => btn.getAttribute('aria-expanded') === 'true');
+
+      container.querySelectorAll('.faq-question').forEach(btn => {
+        const answer = btn.nextElementSibling;
+        const icon = btn.querySelector('.faq-icon');
+
+        btn.setAttribute('aria-expanded', !allExpanded);
+        if (allExpanded) {
+          answer.classList.add('dn');
+          icon.textContent = '+';
+        } else {
+          answer.classList.remove('dn');
+          icon.textContent = '−';
+        }
+      });
+
+      this.textContent = allExpanded ? 'Expand All' : 'Collapse All';
+    });
+  });
+})();
+</script>
