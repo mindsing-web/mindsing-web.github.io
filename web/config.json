@@ -6,7 +6,7 @@
   "contentDir": "content",
   "DefaultContentLanguage": "en",
   "SectionPagesMenu": "main",
-  "pagination": { "pagerSize": 5 },
+  "pagination": { "pagerSize": 6 },
   "enableRobotsTXT": true,
   "taxonomies": {
     "category": "categories",
