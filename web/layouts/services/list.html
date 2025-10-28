@@ -21,6 +21,8 @@
   </article>
 
   {{/* FAQ Section for Services Overview */}}
+  {{ $faqData := site.Data.services_faq }}
+  {{ if $faqData }}
   <section class="faq-section-wrapper pv5 ph3">
     <div class="mw8 center">
       <div class="flex justify-between items-center mb4">
@@ -36,166 +38,45 @@
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
+          {{- range $index, $faq := $faqData.faqs -}}
+          {{- if $index }},{{ end }}
           {
             "@type": "Question",
-            "name": "What types of projects do you take on?",
+            "name": {{ $faq.question | jsonify }},
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "We focus on enterprise-scale web development projects including complex Drupal/WordPress sites, custom API development, university websites, multi-site systems, and enterprise integrations. We typically work with organizations requiring advanced technical expertise and scalable solutions."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is your pricing structure?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Projects typically range from $25,000 to $250,000+ depending on scope and complexity. We offer transparent, fixed-bid pricing for defined projects and monthly retainers for ongoing development and support."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How do you work with our internal team?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "We're highly collaborative and can work alongside your internal developers, take full project ownership, or provide specialized expertise for complex components. We use standard development tools (Git, project management platforms) and provide regular updates throughout the project."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Do you provide ongoing support after launch?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. We offer comprehensive support packages including security updates, performance monitoring, feature development, and technical support. Most clients maintain long-term relationships with us for ongoing optimization and enhancement."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What platforms and technologies do you specialize in?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Our core expertise includes Drupal 8/9/10/11+, WordPress, custom PHP/Node.js development, React/Vue.js, RESTful/GraphQL APIs, and enterprise integrations (Salesforce, authentication systems, CRMs). We work with modern, proven technologies that ensure long-term maintainability."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can you help with accessibility and compliance requirements?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Absolutely. We ensure WCAG 2.1 AA compliance and can support higher education institutions with specific requirements (FERPA), healthcare organizations (HIPAA considerations), and international compliance (GDPR). Accessibility is built into our development process from the start."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What makes you different from other development agencies?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "We combine enterprise-grade technical expertise with boutique attention to detail. Your project gets senior developer attention from day one—not handed off to junior teams. We specialize in complex requirements that many agencies avoid, and maintain long-term client relationships built on trust and technical excellence."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How do we get started?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Schedule a 30-minute consultation to discuss your project. We'll review your requirements, provide initial technical recommendations, and outline next steps. There's no sales pitch—just expert guidance to help you make informed decisions about your project."
+              "text": {{ $faq.answer | plainify | jsonify }}
             }
           }
+          {{- end -}}
         ]
       }
       </script>
 
       <div class="faq-list" id="services-faq">
-        <div class="faq-item bb b--moon-gray">
+        {{ range $index, $faq := $faqData.faqs }}
+        <div class="faq-item{{ if ne (add $index 1) (len $faqData.faqs) }} bb b--moon-gray{{ end }}">
           <button class="faq-question w-100 tl pa3 bn bg-transparent pointer flex justify-between items-center" aria-expanded="false">
-            <span class="f4 fw6 dark-gray pr3">What types of projects do you take on?</span>
+            <span class="f4 fw6 dark-gray pr3">{{ $faq.question }}</span>
             <span class="faq-icon flex-shrink-0 f3 dark-gray">+</span>
           </button>
           <div class="faq-answer dn ph3 pb3">
             <div class="f5 lh-copy mid-gray nested-links pt2">
-              <p>We focus on <strong>enterprise-scale web development</strong> projects including complex Drupal/WordPress sites, custom API development, university websites, multi-site systems, and enterprise integrations. We typically work with organizations requiring advanced technical expertise and scalable solutions.</p>
+              {{ $faq.answer | markdownify }}
             </div>
           </div>
         </div>
-        <div class="faq-item bb b--moon-gray">
-          <button class="faq-question w-100 tl pa3 bn bg-transparent pointer flex justify-between items-center" aria-expanded="false">
-            <span class="f4 fw6 dark-gray pr3">What is your pricing structure?</span>
-            <span class="faq-icon flex-shrink-0 f3 dark-gray">+</span>
-          </button>
-          <div class="faq-answer dn ph3 pb3">
-            <div class="f5 lh-copy mid-gray nested-links pt2">
-              <p>Projects typically range from <strong>$25,000 to $250,000+</strong> depending on scope and complexity. We offer transparent, fixed-bid pricing for defined projects and monthly retainers for ongoing development and support. <a href="/booking/">Schedule a consultation</a> to discuss your specific needs and get a detailed estimate.</p>
-            </div>
-          </div>
-        </div>
-        <div class="faq-item bb b--moon-gray">
-          <button class="faq-question w-100 tl pa3 bn bg-transparent pointer flex justify-between items-center" aria-expanded="false">
-            <span class="f4 fw6 dark-gray pr3">How do you work with our internal team?</span>
-            <span class="faq-icon flex-shrink-0 f3 dark-gray">+</span>
-          </button>
-          <div class="faq-answer dn ph3 pb3">
-            <div class="f5 lh-copy mid-gray nested-links pt2">
-              <p>We're <strong>highly collaborative</strong> and can work alongside your internal developers, take full project ownership, or provide specialized expertise for complex components. We use standard development tools (Git, project management platforms) and provide regular updates throughout the project.</p>
-            </div>
-          </div>
-        </div>
-        <div class="faq-item bb b--moon-gray">
-          <button class="faq-question w-100 tl pa3 bn bg-transparent pointer flex justify-between items-center" aria-expanded="false">
-            <span class="f4 fw6 dark-gray pr3">Do you provide ongoing support after launch?</span>
-            <span class="faq-icon flex-shrink-0 f3 dark-gray">+</span>
-          </button>
-          <div class="faq-answer dn ph3 pb3">
-            <div class="f5 lh-copy mid-gray nested-links pt2">
-              <p>Yes. We offer <strong>comprehensive support packages</strong> including security updates, performance monitoring, feature development, and technical support. Most clients maintain long-term relationships with us for ongoing optimization and enhancement.</p>
-            </div>
-          </div>
-        </div>
-        <div class="faq-item bb b--moon-gray">
-          <button class="faq-question w-100 tl pa3 bn bg-transparent pointer flex justify-between items-center" aria-expanded="false">
-            <span class="f4 fw6 dark-gray pr3">What platforms and technologies do you specialize in?</span>
-            <span class="faq-icon flex-shrink-0 f3 dark-gray">+</span>
-          </button>
-          <div class="faq-answer dn ph3 pb3">
-            <div class="f5 lh-copy mid-gray nested-links pt2">
-              <p>Our core expertise includes <strong>Drupal 8/9/10/11+, WordPress, custom PHP/Node.js development, React/Vue.js, RESTful/GraphQL APIs</strong>, and enterprise integrations (Salesforce, authentication systems, CRMs). We work with modern, proven technologies that ensure long-term maintainability.</p>
-            </div>
-          </div>
-        </div>
-        <div class="faq-item bb b--moon-gray">
-          <button class="faq-question w-100 tl pa3 bn bg-transparent pointer flex justify-between items-center" aria-expanded="false">
-            <span class="f4 fw6 dark-gray pr3">Can you help with accessibility and compliance requirements?</span>
-            <span class="faq-icon flex-shrink-0 f3 dark-gray">+</span>
-          </button>
-          <div class="faq-answer dn ph3 pb3">
-            <div class="f5 lh-copy mid-gray nested-links pt2">
-              <p>Absolutely. We ensure <strong>WCAG 2.1 AA compliance</strong> and can support higher education institutions with specific requirements (FERPA), healthcare organizations (HIPAA considerations), and international compliance (GDPR). Accessibility is built into our development process from the start.</p>
-            </div>
-          </div>
-        </div>
-        <div class="faq-item bb b--moon-gray">
-          <button class="faq-question w-100 tl pa3 bn bg-transparent pointer flex justify-between items-center" aria-expanded="false">
-            <span class="f4 fw6 dark-gray pr3">What makes you different from other development agencies?</span>
-            <span class="faq-icon flex-shrink-0 f3 dark-gray">+</span>
-          </button>
-          <div class="faq-answer dn ph3 pb3">
-            <div class="f5 lh-copy mid-gray nested-links pt2">
-              <p>We combine <strong>enterprise-grade technical expertise with boutique attention to detail</strong>. Your project gets senior developer attention from day one—not handed off to junior teams. We specialize in complex requirements that many agencies avoid, and maintain long-term client relationships built on trust and technical excellence.</p>
-            </div>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question w-100 tl pa3 bn bg-transparent pointer flex justify-between items-center" aria-expanded="false">
-            <span class="f4 fw6 dark-gray pr3">How do we get started?</span>
-            <span class="faq-icon flex-shrink-0 f3 dark-gray">+</span>
-          </button>
-          <div class="faq-answer dn ph3 pb3">
-            <div class="f5 lh-copy mid-gray nested-links pt2">
-              <p><strong><a href="/booking/">Schedule a 30-minute consultation</a></strong> to discuss your project. We'll review your requirements, provide initial technical recommendations, and outline next steps. There's no sales pitch—just expert guidance to help you make informed decisions about your project.</p>
-            </div>
-          </div>
-        </div>
+        {{ end }}
       </div>
     </div>
   </section>
+  {{ else }}
+  <section class="pv5 ph3">
+    <div class="mw8 center">
+      <p class="red">FAQ data not found. Debugging: {{ printf "%#v" site.Data }}</p>
+    </div>
+  </section>
+  {{ end }}
 
   <script>
   (function() {

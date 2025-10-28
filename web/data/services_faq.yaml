@@ -1,0 +1,24 @@
+faqs:
+  - question: "What types of projects do you take on?"
+    answer: "We focus on **enterprise-scale web development** projects including complex Drupal/WordPress sites, custom API development, university websites, multi-site systems, and enterprise integrations. We typically work with organizations requiring advanced technical expertise and scalable solutions."
+  
+  - question: "What is your pricing structure?"
+    answer: "Projects typically range from **$25,000 to $250,000+** depending on scope and complexity. We offer transparent, fixed-bid pricing for defined projects and monthly retainers for ongoing development and support. [Schedule a consultation](/booking/) to discuss your specific needs and get a detailed estimate."
+  
+  - question: "How do you work with our internal team?"
+    answer: "We're **highly collaborative** and can work alongside your internal developers, take full project ownership, or provide specialized expertise for complex components. We use standard development tools (Git, project management platforms) and provide regular updates throughout the project."
+  
+  - question: "Do you provide ongoing support after launch?"
+    answer: "Yes. We offer **comprehensive support packages** including security updates, performance monitoring, feature development, and technical support. Most clients maintain long-term relationships with us for ongoing optimization and enhancement."
+  
+  - question: "What platforms and technologies do you specialize in?"
+    answer: "Our core expertise includes **Drupal 8/9/10/11+, WordPress, custom PHP/Node.js development, React/Vue.js, RESTful/GraphQL APIs**, and enterprise integrations (Salesforce, authentication systems, CRMs). We work with modern, proven technologies that ensure long-term maintainability."
+  
+  - question: "Can you help with accessibility and compliance requirements?"
+    answer: "Absolutely. We ensure **WCAG 2.1 AA compliance** and can support higher education institutions with specific requirements (FERPA), healthcare organizations (HIPAA considerations), and international compliance (GDPR). Accessibility is built into our development process from the start."
+  
+  - question: "What makes you different from other development agencies?"
+    answer: "We combine **enterprise-grade technical expertise with boutique attention to detail**. Your project gets senior developer attention from day one—not handed off to junior teams. We specialize in complex requirements that many agencies avoid, and maintain long-term client relationships built on trust and technical excellence."
+  
+  - question: "How do we get started?"
+    answer: "**[Schedule a 30-minute consultation](/booking/)** to discuss your project. We'll review your requirements, provide initial technical recommendations, and outline next steps. There's no sales pitch—just expert guidance to help you make informed decisions about your project."
