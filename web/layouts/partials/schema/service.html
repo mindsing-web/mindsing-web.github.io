@@ -10,20 +10,11 @@
   {{- with .Params.featured_image }}
   "image": "{{ . | absURL }}",
   {{- end }}
-  "provider": {
-    "@type": "Organization",
-    "name": "MindSing",
-    "url": "{{ .Site.BaseURL }}",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "{{ .Site.BaseURL }}images/mindsing-logo.svg"
-    }
-  },
+  "priceRange": "$$$$",
   "areaServed": {
     "@type": "Place",
     "name": "Global"
-  },
-  "serviceType": "Web Development"
+  }
 }
 </script>
 {{- end -}}
