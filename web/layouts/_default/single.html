@@ -70,7 +70,7 @@
 
       {{/* Render remaining content in wider white box with two columns */}}
       <div class="w-100 bg-white pa4 pa5-l mb4 mw9 center">
-        <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img black content-two-col">
+        <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-img black content-two-col">
           {{ $rest | safeHTML }}
         </div>
       </div>

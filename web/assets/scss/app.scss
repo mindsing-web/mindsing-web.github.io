@@ -756,6 +756,7 @@ article a.no-underline:hover,
     &:focus {
       color: darken($primary-color, 10%);
       border-bottom-color: $primary-color;
+      text-decoration: none !important;
     }
   }
 
