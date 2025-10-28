@@ -1,5 +1,6 @@
 ---
 title: "Enterprise Web Development Services"
+linkTitle: "Services"
 description: "Specialized development services for enterprise organizations, higher education, and global-scale web systems."
 featured_image: '../images/leavenworth-mindsing.jpg'
 ---
