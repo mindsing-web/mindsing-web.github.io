@@ -1,5 +1,6 @@
 ---
 title: "Schedule an Appointment"
+linkTitle: "Connect"
 description: "Schedule a meeting with us using our online calendar."
 type: "page"
 menu:

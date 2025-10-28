@@ -1,5 +1,6 @@
 ---
 title: "About MindSing"
+linkTitle: "About"
 description: "Enterprise web development expertise for organizations that demand scale, security, and performance."
 featured_image: "../images/colombia-hill.jpg"
 article_class: "article-left-align"
