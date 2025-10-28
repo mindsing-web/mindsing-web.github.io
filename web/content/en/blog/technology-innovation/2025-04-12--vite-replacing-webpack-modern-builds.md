@@ -222,7 +222,7 @@ import Button from './components/Button.tsx'  // Required in Vite
 module.exports = function(fileInfo, api) {
   const j = api.jscodeshift;
   const root = j(fileInfo.source);
-  
+
   root.find(j.ImportDeclaration)
     .forEach(path => {
       const source = path.node.source.value;
@@ -230,7 +230,7 @@ module.exports = function(fileInfo, api) {
         // Logic to add appropriate extension
       }
     });
-  
+
   return root.toSource();
 };
 ```
@@ -325,15 +325,15 @@ Our GitHub Actions workflow saw dramatic improvements:
 - name: Install dependencies
   run: npm ci
   # ~2 minutes
-  
+
 - name: Build
   run: npm run build
   # ~4 minutes
-  
+
 - name: Test
   run: npm test
   # ~3 minutes
-  
+
 # Total: ~9 minutes
 ```
 
@@ -342,15 +342,15 @@ Our GitHub Actions workflow saw dramatic improvements:
 - name: Install dependencies
   run: npm ci
   # ~2 minutes (same)
-  
+
 - name: Build
   run: npm run build
   # ~1 minute (4x faster!)
-  
+
 - name: Test
   run: npm test
   # ~1.5 minutes (2x faster with Vitest)
-  
+
 # Total: ~4.5 minutes (50% reduction)
 ```
 
@@ -367,7 +367,7 @@ We also added caching for even better performance:
   with:
     path: ~/.npm
     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-    
+
 - name: Cache Vite build
   uses: actions/cache@v3
   with:
@@ -383,7 +383,7 @@ The speed improvements are obvious, but the developer experience gains are equal
 
 ### Instant Feedback Loop
 
-**Before**: 
+**Before**:
 1. Make a change
 2. Wait 3-5 seconds
 3. Check browser
@@ -427,7 +427,7 @@ Module not found: Error: Can't resolve './styles' in '/src/components'
 
 **Vite**:
 ```
-Failed to resolve import "./styles" from "src/components/Button.tsx". 
+Failed to resolve import "./styles" from "src/components/Button.tsx".
 Did you mean "./styles.module.scss"?
 ```
 (Actually suggests the fix)
@@ -610,7 +610,7 @@ After 6 months with Vite across our projects, the benefits are quantifiable:
 
 ### Technical Metrics
 - **Build times**: 70-85% faster
-- **HMR speed**: 90-95% faster  
+- **HMR speed**: 90-95% faster
 - **Bundle sizes**: 10-15% smaller (better tree-shaking)
 - **Lighthouse scores**: +5-10 points (faster load times)
 
