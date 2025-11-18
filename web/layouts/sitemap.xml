@@ -4,7 +4,7 @@
   {{- /* Include site home first (if not hidden) */ -}}
   {{- if not (.Site.Home.Params.hideFromSitemap) }}
   <url>
-    <loc>{{ .Site.Home.RelPermalink }}</loc>
+    <loc>{{ .Site.Home.Permalink }}</loc>
     {{ with .Site.Home.Lastmod }}<lastmod>{{ .Format "2006-01-02T15:04:05Z07:00" }}</lastmod>{{ end }}
   </url>
   {{- end }}
@@ -18,7 +18,7 @@
 
   {{- range $filtered -}}
     <url>
-      <loc>{{ .RelPermalink }}</loc>
+      <loc>{{ .Permalink }}</loc>
       {{ with .Lastmod }}<lastmod>{{ .Format "2006-01-02T15:04:05Z07:00" }}</lastmod>{{ end }}
     </url>
   {{- end -}}
