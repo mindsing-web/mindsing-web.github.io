@@ -37,7 +37,7 @@ build:
 	@echo "Building site (production)..."
 	@cd $(HUGO_DIR) && HUGO_ENV="$(HUGO_ENV)" $(HUGO) --minify
 
-# One-time: initialize public/ as a repo and push to remote (no --force)
+# One-time: initialize public/ as a repo and push to remote (with force if needed)
 public-init: build
 	@echo "Initializing $(PUBLIC_DIR) and pushing to $(PAGES_REMOTE)"
 	@test -d $(PUBLIC_DIR) || (echo "Build failed: $(PUBLIC_DIR) not found" && false)
@@ -49,7 +49,7 @@ public-init: build
 		echo "public/ already a git repo"; \
 	fi
 	@cd $(PUBLIC_DIR) && git add . && git commit -m "Initial publish" || echo "Nothing to commit"
-	@cd $(PUBLIC_DIR) && git push origin main || echo "Push failed (check remote and credentials)"
+	@cd $(PUBLIC_DIR) && git push --force origin main || echo "Push failed (check remote and credentials)"
 
 # Publish: build then commit/push changed files (no force)
 publish: build
@@ -60,6 +60,7 @@ publish: build
 		echo "No changes to publish"; \
 	else \
 		git commit -m "Update site" || echo "Commit failed"; \
+		git pull --rebase origin main; \
 		git push origin main; \
 	fi
 
