@@ -31,7 +31,7 @@ check:
 
 serve:
 	@echo "Starting Hugo dev server on port $(PORT)..."
-	@cd $(HUGO_DIR) && $(HUGO) server -D --port $(PORT)
+	@cd $(HUGO_DIR) && $(HUGO) server -D --port $(PORT) --tlsAuto
 
 build:
 	@echo "Building site (production)..."
