@@ -59,7 +59,7 @@ publish: build
 	@cd $(PUBLIC_DIR) && if git diff --staged --quiet; then \
 		echo "No changes to publish"; \
 	else \
-		git commit -m "Update site" || echo "Commit failed"; \
+		git commit -m "Publish: $$(cd ../.. && git log -1 --pretty=%s)" || echo "Commit failed"; \
 		git pull --rebase origin main; \
 		git push origin main; \
 	fi
