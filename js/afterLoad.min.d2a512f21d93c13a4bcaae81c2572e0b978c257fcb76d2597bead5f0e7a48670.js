@@ -1,0 +1,1 @@
+(function(){try{const e=2500;window.dataLayer=window.dataLayer||[],window.setTimeout(function(){window.dataLayer.push({event:"afterLoad"}),document.dispatchEvent(new CustomEvent("afterPageLoad"))},e)}catch(e){console.error("Error in page events script:",e)}})()

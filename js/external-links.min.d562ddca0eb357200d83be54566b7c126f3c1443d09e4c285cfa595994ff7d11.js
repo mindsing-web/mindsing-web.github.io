@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){const e=document.querySelectorAll('a[href^="http"]');e.forEach(e=>{const t=e.getAttribute("href");!t.includes("mindsing.com")&&!t.includes(window.location.hostname)&&(e.setAttribute("target","_blank"),e.setAttribute("rel","noopener noreferrer"))})})
