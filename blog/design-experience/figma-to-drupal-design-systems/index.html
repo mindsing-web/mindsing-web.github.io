@@ -1,0 +1,586 @@
+<!doctype html><html lang=en><head><script>(function(e,t,n,s,o){e[s]=e[s]||[],e[s].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var a=t.getElementsByTagName(n)[0],i=t.createElement(n),r=s!="dataLayer"?"&l="+s:"";i.async=!0,i.src="https://www.googletagmanager.com/gtm.js?id="+o+r+"&gtm_auth=mRHZuF06IswzXy0_qX2HkQ&gtm_preview=env-1&gtm_cookies_win=x",a.parentNode.insertBefore(i,a)})(window,document,"script","dataLayer","GTM-KPDPWFQ4")</script><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>From Figma to Drupal: Building Design Systems that Scale | MindSing</title><meta name=viewport content="width=device-width,minimum-scale=1"><meta name=description content="A practical guide to creating and implementing design systems that bridge the gap between Figma designs and Drupal CMS—maintaining consistency from design to production."><link rel=canonical href=https://www.mindsing.com/blog/design-experience/figma-to-drupal-design-systems/><meta name=generator content="Hugo 0.150.0"><meta name=ROBOTS content="INDEX, FOLLOW"><link rel=stylesheet href=/ananke/css/main.min.00057f81b51bfe4689577775ee4e168b2e81858db7beff0f5a55402ed4c4c366.css><link rel=stylesheet href=/css/app.css><meta property="og:url" content="https://www.mindsing.com/blog/design-experience/figma-to-drupal-design-systems/"><meta property="og:site_name" content="MindSing"><meta property="og:title" content="From Figma to Drupal: Building Design Systems that Scale"><meta property="og:description" content="A practical guide to creating and implementing design systems that bridge the gap between Figma designs and Drupal CMS—maintaining consistency from design to production."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="blog"><meta property="article:published_time" content="2025-10-05T00:00:00+00:00"><meta property="article:modified_time" content="2025-10-05T00:00:00+00:00"><meta property="article:tag" content="Design Systems"><meta property="article:tag" content="Figma"><meta property="article:tag" content="Drupal"><meta property="article:tag" content="Component Architecture"><meta property="article:tag" content="UI Development"><meta property="article:tag" content="Design Tokens"><meta name=twitter:card content="summary"><meta name=twitter:title content="From Figma to Drupal: Building Design Systems that Scale"><meta name=twitter:description content="A practical guide to creating and implementing design systems that bridge the gap between Figma designs and Drupal CMS—maintaining consistency from design to production."><script type=application/ld+json>{"@context":"https://schema.org","@type":"Organization","name":"MindSing","url":"https:\/\/www.mindsing.com\/","logo":{"@type":"ImageObject","url":"https:\/\/www.mindsing.com\/images/mindsing-logo.svg"},"description":"Specialized Drupal \u0026 WordPress development for enterprise, higher education, and global-scale web systems.","sameAs":[],"contactPoint":{"@type":"ContactPoint","email":"inquiries@mindsing.com","contactType":"customer service"}}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https:\/\/www.mindsing.com\/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https:\/\/www.mindsing.com\/blog/"},{"@type":"ListItem","position":3,"name":"\"Design \\u0026 Experience\"","item":"https:\/\/www.mindsing.com\/blog\/design-experience\/"},{"@type":"ListItem","position":4,"name":"\"From Figma to Drupal: Building Design Systems that Scale\"","item":"https:\/\/www.mindsing.com\/blog\/design-experience\/figma-to-drupal-design-systems\/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"\"From Figma to Drupal: Building Design Systems that Scale\"","description":"\"A practical guide to creating and implementing design systems that bridge the gap between Figma designs and Drupal CMS—maintaining consistency from design to production.\"","url":"https:\/\/www.mindsing.com\/blog\/design-experience\/figma-to-drupal-design-systems\/","datePublished":"2025-10-05T00:00:00Z","dateModified":"2025-10-05T00:00:00Z","image":{"@type":"ImageObject","url":"https:\/\/www.mindsing.com\/images\/pacific-northwest-mountains.jpg"},"author":{"@type":"Person","name":"\"[Brian Danin](https://www.briandanin.com)\""},"publisher":{"@type":"Organization","name":"MindSing","url":"https:\/\/www.mindsing.com\/","logo":{"@type":"ImageObject","url":"https:\/\/www.mindsing.com\/images/mindsing-logo.svg"}},"keywords":"[\"Design Systems\",\"Figma\",\"Drupal\",\"Component Architecture\",\"UI Development\",\"Design Tokens\",\"Twig\"]","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/www.mindsing.com\/blog\/design-experience\/figma-to-drupal-design-systems\/"},"articleSection":"\"Design \\u0026 Experience\""}</script></head><body class="ma0 avenir bg-near-white production"><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KPDPWFQ4%26gtm_auth%3dmRHZuF06IswzXy0_qX2HkQ%26gtm_preview%3denv-1%26gtm_cookies_win%3dx" height=0 width=0 style=display:none;visibility:hidden></iframe></noscript><div id=top></div><header class="cover bg-top" style=background-image:url(https://www.mindsing.com/images/pacific-northwest-mountains.jpg)><div class="pb3-m pb4-l bg-black-60"><nav class="pv3 ph3 ph4-ns site-navigation" role=navigation><div class="flex justify-between items-center center" style=max-width:1440px><a href=/ class="f3 fw2 hover-white no-underline white-90 dib"><img src=/images/mindsing-logo.svg class="w100 mw5-ns site-logo" alt=MindSing>
+</a><button class="hamburger-button dn-l bg-transparent white-90 bn pa2 pointer" aria-label="Toggle menu" aria-expanded=false><div class=hamburger-icon><span class=hamburger-line></span>
+<span class=hamburger-line></span>
+<span class=hamburger-line></span></div></button><div class="navigation-main flex-l items-center dn db-l" id=main-nav><ul class="pl0 mr3 flex-l list"><li class="f5 f4-ns fw4 dib-l db pr3-l pv2"><a class="hover-white no-underline white-90 db" href=/booking/ title="Connect page">Connect</a></li><li class="f5 f4-ns fw4 dib-l db pr3-l pv2"><a class="hover-white no-underline white-90 db" href=/about/ title="About page">About</a></li><li class="f5 f4-ns fw4 dib-l db pr3-l pv2"><a class="hover-white no-underline white-90 db" href=/blog/ title="Blog page">Blog</a></li><li class="f5 f4-ns fw4 dib-l db pr3-l pv2"><a class="hover-white no-underline white-90 db" href=/services/ title="Services page">Services</a></li></ul></div></div></nav><script src=/js/hamburger-menu.min.e47f1f4c8d04eeecb3e7d44d3097ed007ab5bcabd118411e8fc7ad6b92808426.js></script><div class="tc-l pv4 ph3 ph4-ns"><h1 class="f2 f1-l fw4 white-90 mb0 lh-title">From Figma to Drupal: Building Design Systems that Scale</h1><h2 class="fw4 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">A practical guide to creating and implementing design systems that bridge the gap between Figma designs and Drupal CMS—maintaining consistency from design to production.</h2></div></div></header><main class=pb3 role=main><div class="center ph3 ph5-l"><nav class="breadcrumbs f6 mt3 mw9 center" aria-label=Breadcrumb><a href=/ class="link dim dark-gray">Home</a>
+<span class=mh2>/</span>
+<a href=/blog class="link dim dark-gray">Blog</a>
+<span class=mh2>/</span>
+<a href=/blog/design-experience/ class="link dim dark-gray">Design & Experience</a></nav><nav class="category-nav mw9 center mt4 mb4 overflow-x-auto" aria-label="Blog Categories"><ul class="list flex flex-wrap justify-center ma0 pa0"><li class=ma2><a href=/blog/ class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">All Posts</a></li><li class=ma2><a href=/blog/technology-innovation/ class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">Technology & Innovation</a></li><li class=ma2><a href=/blog/strategy-growth/ class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">Strategy & Growth</a></li><li class=ma2><a href=/blog/design-experience/ class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-dark-gray white">Design & Experience</a></li><li class=ma2><a href=/blog/performance-optimization/ class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">Performance & Optimization</a></li></ul></nav><nav class="toc-mobile-sticky bg-white bb b--light-gray" aria-label="Table of Contents"><div class=pa3><select id=toc-mobile-select class=w-100 aria-label="Jump to section"><option value>📖 On This Page</option><option value=#what-a-design-system-actually-is>What a Design System Actually Is</option><option value=#the-token-foundation>The Token Foundation</option><option value=#what-are-design-tokens>&#160;&#160;What Are Design Tokens?</option><option value=#token-categories>&#160;&#160;Token Categories</option><option value=#implementing-tokens-in-figma>&#160;&#160;Implementing Tokens in Figma</option><option value=#building-components-in-figma>Building Components in Figma</option><option value=#component-architecture>&#160;&#160;Component Architecture</option><option value=#figma-component-best-practices>&#160;&#160;Figma Component Best Practices</option><option value=#translating-design-to-drupal>Translating Design to Drupal</option><option value=#drupal-component-architecture>&#160;&#160;Drupal Component Architecture</option><option value=#converting-tokens-to-drupalscss>&#160;&#160;Converting Tokens to Drupal/SCSS</option><option value=#building-twig-components>&#160;&#160;Building Twig Components</option><option value=#card-component-more-complex-example>&#160;&#160;Card Component (More Complex Example)</option><option value=#keeping-figma-and-drupal-in-sync>Keeping Figma and Drupal in Sync</option><option value=#workflow-for-updates>&#160;&#160;Workflow for Updates</option><option value=#automation-opportunities>&#160;&#160;Automation Opportunities</option><option value=#documentation-and-governance>Documentation and Governance</option><option value=#living-style-guide>&#160;&#160;Living Style Guide</option><option value=#governance-model>&#160;&#160;Governance Model</option><option value=#contribution-process>&#160;&#160;Contribution Process</option><option value=#real-world-implementation-tips>Real-World Implementation Tips</option><option value=#start-small-scale-gradually>&#160;&#160;Start Small, Scale Gradually</option><option value=#common-pitfalls-to-avoid>&#160;&#160;Common Pitfalls to Avoid</option><option value=#success-metrics>&#160;&#160;Success Metrics</option><option value=#tools-and-resources>Tools and Resources</option><option value=#the-bottom-line>The Bottom Line</option><option value=#top>↑ Back to Top</option></select></div></nav><script>document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("toc-mobile-select");e&&e.addEventListener("change",function(){const e=this.value;if(e){const t=document.querySelector(e);t?t.scrollIntoView({behavior:"smooth",block:"start"}):window.location.hash=e,this.selectedIndex=0}})})</script><div class="flex-l mw9 center mt4"><article class="w-100 w-70-l pr4-l"><header class=w-100><p class="tracked f6">By <strong><a href=https://www.briandanin.com>Brian Danin</a>
+</strong><span class=mid-gray>| </span><time datetime=2025-10-05T00:00:00Z>October 5, 2025</time></p></header><div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray"><p>The handoff between design and development is where beautiful visions go to die. Designers create pixel-perfect interfaces in Figma. Developers build functional components in Drupal. And somewhere in between, consistency evaporates like morning dew.</p><p><strong>The problem isn&rsquo;t lack of talent—it&rsquo;s lack of system.</strong></p><p>A design system is the bridge between Figma and your CMS, ensuring that what designers envision is what developers build, and what gets deployed stays consistent as your site grows. But most organizations approach design systems backwards: they try to document what exists rather than establishing a shared language from the start.</p><p>Here&rsquo;s how to build a design system that actually scales—from Figma artboards to Drupal production.</p><h2 id=what-a-design-system-actually-is>What a Design System Actually Is</h2><p><strong>A design system is not:</strong></p><ul><li>❌ A style guide (though it includes one)</li><li>❌ A component library (though it contains one)</li><li>❌ Brand guidelines (though it incorporates them)</li><li>❌ A Figma file (though it lives there too)</li></ul><p><strong>A design system is:</strong>
+✅ <strong>A shared language</strong> between design and development<br>✅ <strong>A set of reusable components</strong> with consistent behavior<br>✅ <strong>Design tokens</strong> that define visual properties programmatically<br>✅ <strong>Documentation</strong> that explains when and how to use each piece<br>✅ <strong>Governance</strong> that ensures consistency over time</p><p><strong>Most importantly:</strong> A design system is a <strong>single source of truth</strong> that exists in both design tools and production code, kept in sync through deliberate process.</p><h2 id=the-token-foundation>The Token Foundation</h2><p>Design tokens are the atomic units of your design system—the named values that define visual properties across your entire system.</p><h3 id=what-are-design-tokens>What Are Design Tokens?</h3><p>Instead of hardcoding values everywhere:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span><span style=color:#75715e>/* ❌ Bad: Magic numbers everywhere */</span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>button</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>background</span>: <span style=color:#ae81ff>#0066CC</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>font-weight</span>: <span style=color:#ae81ff>600</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>card</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>background</span>: <span style=color:#ae81ff>#0066CC</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Use named tokens that represent decisions:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span><span style=color:#75715e>/* ✅ Good: Semantic tokens */</span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>button</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>padding</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>spacing<span style=color:#f92672>-</span>md) <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>spacing<span style=color:#f92672>-</span>lg);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span><span style=color:#66d9ef>color</span><span style=color:#f92672>-</span>primary);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>border-radius</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>radius<span style=color:#f92672>-</span>sm);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>font-size</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>font<span style=color:#f92672>-</span>size<span style=color:#f92672>-</span>base);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>font-weight</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>font<span style=color:#f92672>-</span><span style=color:#66d9ef>weight</span><span style=color:#f92672>-</span>semibold);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>card</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>padding</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>spacing<span style=color:#f92672>-</span>lg);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span><span style=color:#66d9ef>color</span><span style=color:#f92672>-</span>primary);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>border-radius</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>radius<span style=color:#f92672>-</span>md);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=token-categories>Token Categories</h3><p><strong>Color Tokens:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;color&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;brand&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;primary&#34;</span>: <span style=color:#e6db74>&#34;#0066CC&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;secondary&#34;</span>: <span style=color:#e6db74>&#34;#2D7738&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;accent&#34;</span>: <span style=color:#e6db74>&#34;#F59E0B&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;neutral&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;900&#34;</span>: <span style=color:#e6db74>&#34;#1F2937&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;700&#34;</span>: <span style=color:#e6db74>&#34;#374151&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;500&#34;</span>: <span style=color:#e6db74>&#34;#6B7280&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;300&#34;</span>: <span style=color:#e6db74>&#34;#D1D5DB&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;100&#34;</span>: <span style=color:#e6db74>&#34;#F3F4F6&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;semantic&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;success&#34;</span>: <span style=color:#e6db74>&#34;#2D7738&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;warning&#34;</span>: <span style=color:#e6db74>&#34;#F59E0B&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;error&#34;</span>: <span style=color:#e6db74>&#34;#DC2626&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;info&#34;</span>: <span style=color:#e6db74>&#34;#0066CC&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Spacing Tokens:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;spacing&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;xs&#34;</span>: <span style=color:#e6db74>&#34;4px&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;sm&#34;</span>: <span style=color:#e6db74>&#34;8px&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;md&#34;</span>: <span style=color:#e6db74>&#34;12px&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;lg&#34;</span>: <span style=color:#e6db74>&#34;24px&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;xl&#34;</span>: <span style=color:#e6db74>&#34;32px&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;2xl&#34;</span>: <span style=color:#e6db74>&#34;48px&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;3xl&#34;</span>: <span style=color:#e6db74>&#34;64px&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Typography Tokens:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;typography&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;font-family&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;sans&#34;</span>: <span style=color:#e6db74>&#34;Inter, -apple-system, sans-serif&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;serif&#34;</span>: <span style=color:#e6db74>&#34;Georgia, serif&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;mono&#34;</span>: <span style=color:#e6db74>&#34;Consolas, monospace&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;font-size&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;xs&#34;</span>: <span style=color:#e6db74>&#34;12px&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;sm&#34;</span>: <span style=color:#e6db74>&#34;14px&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;base&#34;</span>: <span style=color:#e6db74>&#34;16px&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;lg&#34;</span>: <span style=color:#e6db74>&#34;18px&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;xl&#34;</span>: <span style=color:#e6db74>&#34;20px&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;2xl&#34;</span>: <span style=color:#e6db74>&#34;24px&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;3xl&#34;</span>: <span style=color:#e6db74>&#34;30px&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;4xl&#34;</span>: <span style=color:#e6db74>&#34;36px&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;font-weight&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;normal&#34;</span>: <span style=color:#e6db74>&#34;400&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;medium&#34;</span>: <span style=color:#e6db74>&#34;500&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;semibold&#34;</span>: <span style=color:#e6db74>&#34;600&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;bold&#34;</span>: <span style=color:#e6db74>&#34;700&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;line-height&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;tight&#34;</span>: <span style=color:#e6db74>&#34;1.25&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;base&#34;</span>: <span style=color:#e6db74>&#34;1.5&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;relaxed&#34;</span>: <span style=color:#e6db74>&#34;1.75&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Border Radius Tokens:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;radius&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;none&#34;</span>: <span style=color:#e6db74>&#34;0&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;sm&#34;</span>: <span style=color:#e6db74>&#34;4px&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;md&#34;</span>: <span style=color:#e6db74>&#34;8px&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;lg&#34;</span>: <span style=color:#e6db74>&#34;12px&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;full&#34;</span>: <span style=color:#e6db74>&#34;9999px&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Shadow Tokens:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;shadow&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;sm&#34;</span>: <span style=color:#e6db74>&#34;0 1px 2px rgba(0, 0, 0, 0.05)&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;md&#34;</span>: <span style=color:#e6db74>&#34;0 4px 6px rgba(0, 0, 0, 0.1)&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;lg&#34;</span>: <span style=color:#e6db74>&#34;0 10px 15px rgba(0, 0, 0, 0.1)&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;xl&#34;</span>: <span style=color:#e6db74>&#34;0 20px 25px rgba(0, 0, 0, 0.15)&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=implementing-tokens-in-figma>Implementing Tokens in Figma</h3><p><strong>1. Create Figma Variables (Figma&rsquo;s native token system):</strong></p><p>In Figma, create variable collections:</p><ul><li><strong>Colors</strong> → Map to color tokens</li><li><strong>Spacing</strong> → Use for consistent padding/margins</li><li><strong>Typography</strong> → Font sizes, weights, line heights</li><li><strong>Border Radius</strong> → Consistent corner rounding</li></ul><p><strong>2. Use Figma Styles for Typography and Colors:</strong></p><p>Create text styles that reference your tokens:</p><ul><li><code>Heading/H1</code> → font: sans, size: 4xl, weight: bold, line-height: tight</li><li><code>Heading/H2</code> → font: sans, size: 3xl, weight: bold, line-height: tight</li><li><code>Body/Large</code> → font: sans, size: lg, weight: normal, line-height: relaxed</li><li><code>Body/Base</code> → font: sans, size: base, weight: normal, line-height: base</li></ul><p><strong>3. Export Tokens Programmatically:</strong></p><p>Use plugins like <strong>Figma Tokens</strong> or <strong>Design Tokens</strong> to export your Figma variables as JSON:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Install Figma Tokens plugin</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Configure token sets</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Export to tokens.json</span>
+</span></span></code></pre></div><p>Output:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;global&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;color&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;primary&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;#0066CC&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;color&#34;</span>
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;spacing&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;md&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;12px&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;spacing&#34;</span>
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=building-components-in-figma>Building Components in Figma</h2><h3 id=component-architecture>Component Architecture</h3><p>Structure your Figma components to match your planned Drupal component architecture:</p><p><strong>Atomic Design Hierarchy:</strong></p><p><strong>Atoms</strong> (smallest units):</p><ul><li>Buttons</li><li>Input fields</li><li>Labels</li><li>Icons</li><li>Badges</li></ul><p><strong>Molecules</strong> (simple combinations):</p><ul><li>Form fields (label + input + error message)</li><li>Search box (input + button)</li><li>Card header (title + badge)</li></ul><p><strong>Organisms</strong> (complex combinations):</p><ul><li>Navigation bar</li><li>Hero section</li><li>Card (header + body + footer)</li><li>Form (multiple fields + submit button)</li></ul><p><strong>Templates</strong> (page layouts):</p><ul><li>Article page</li><li>Landing page</li><li>List page</li><li>Dashboard</li></ul><h3 id=figma-component-best-practices>Figma Component Best Practices</h3><p><strong>1. Use Component Properties (Variants + Props):</strong></p><pre tabindex=0><code>Button (Component Set)
+├─ Variant: Primary
+│  ├─ State: Default
+│  ├─ State: Hover
+│  ├─ State: Disabled
+│  └─ Size: Small, Medium, Large
+├─ Variant: Secondary
+│  ├─ State: Default
+│  ├─ State: Hover
+│  └─ ...
+└─ Variant: Ghost
+   └─ ...
+</code></pre><p><strong>2. Use Auto Layout:</strong></p><p>Configure auto layout properties that match your CSS:</p><ul><li><strong>Padding:</strong> Use spacing tokens (xs, sm, md, lg)</li><li><strong>Gap:</strong> Space between items</li><li><strong>Flex direction:</strong> Row or column</li><li><strong>Alignment:</strong> Flex start, center, end</li></ul><p><strong>3. Name Components to Match Code:</strong></p><pre tabindex=0><code>// Figma component name
+Button/Primary/Medium/Default
+
+// Becomes Drupal component
+components/button/button--primary.html.twig
+</code></pre><p><strong>4. Create Component Documentation in Figma:</strong></p><p>Use Figma&rsquo;s description field to document:</p><ul><li><strong>When to use:</strong> &ldquo;Use primary buttons for main actions&rdquo;</li><li><strong>Accessibility:</strong> &ldquo;Must have accessible label&rdquo;</li><li><strong>States:</strong> &ldquo;Supports default, hover, focus, disabled&rdquo;</li><li><strong>Props:</strong> &ldquo;Required: text. Optional: icon, size&rdquo;</li></ul><h2 id=translating-design-to-drupal>Translating Design to Drupal</h2><h3 id=drupal-component-architecture>Drupal Component Architecture</h3><p>Drupal&rsquo;s component structure maps well to design systems:</p><p><strong>Directory Structure:</strong></p><pre tabindex=0><code>web/themes/custom/yourtheme/
+├── components/
+│   ├── atoms/
+│   │   ├── button/
+│   │   │   ├── button.twig
+│   │   │   ├── button.scss
+│   │   │   └── button.yml (component metadata)
+│   │   ├── input/
+│   │   └── icon/
+│   ├── molecules/
+│   │   ├── card/
+│   │   ├── form-field/
+│   │   └── search-box/
+│   ├── organisms/
+│   │   ├── header/
+│   │   ├── footer/
+│   │   └── hero/
+│   └── templates/
+│       ├── page/
+│       └── node/
+├── assets/
+│   ├── tokens/
+│   │   └── tokens.json (exported from Figma)
+│   ├── scss/
+│   │   ├── _tokens.scss (generated from tokens.json)
+│   │   └── _variables.scss
+│   └── js/
+└── patterns/
+    └── pattern-lab/ (optional: living style guide)
+</code></pre><h3 id=converting-tokens-to-drupalscss>Converting Tokens to Drupal/SCSS</h3><p><strong>1. Transform JSON tokens to SCSS variables:</strong></p><p>Use a build tool like <strong>Style Dictionary</strong> or <strong>Theo</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// build-tokens.js
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>StyleDictionary</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;style-dictionary&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>sd</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>StyleDictionary</span>.<span style=color:#a6e22e>extend</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>source</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;assets/tokens/**/*.json&#39;</span>],
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>platforms</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>scss</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>transformGroup</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;scss&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>buildPath</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;assets/scss/&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>files</span><span style=color:#f92672>:</span> [{
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>destination</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;_tokens.scss&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>format</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;scss/variables&#39;</span>
+</span></span><span style=display:flex><span>      }]
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>css</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>transformGroup</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;css&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>buildPath</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;assets/css/&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>files</span><span style=color:#f92672>:</span> [{
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>destination</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;tokens.css&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>format</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;css/variables&#39;</span>
+</span></span><span style=display:flex><span>      }]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>sd</span>.<span style=color:#a6e22e>buildAllPlatforms</span>();
+</span></span></code></pre></div><p><strong>Input (tokens.json):</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;color&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;primary&#34;</span>: { <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;#0066CC&#34;</span> }
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;spacing&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;md&#34;</span>: { <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;12px&#34;</span> }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Output (_tokens.scss):</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-scss data-lang=scss><span style=display:flex><span>$color-primary<span style=color:#f92672>:</span> <span style=color:#ae81ff>#0066CC</span>;
+</span></span><span style=display:flex><span>$spacing-md<span style=color:#f92672>:</span> <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>:root</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>--color-primary</span><span style=color:#f92672>:</span> <span style=color:#e6db74>#{</span>$color-primary<span style=color:#e6db74>}</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>--spacing-md</span><span style=color:#f92672>:</span> <span style=color:#e6db74>#{</span>$spacing-md<span style=color:#e6db74>}</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>2. Use tokens in component styles:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-scss data-lang=scss><span style=display:flex><span><span style=color:#75715e>// components/atoms/button/button.scss
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>@import</span> <span style=color:#e6db74>&#39;../../../assets/scss/tokens&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>.button</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>padding</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>spacing-md) <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>spacing-lg);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>background</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>primary);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> solid <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>primary);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>border-radius</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>radius-sm);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>font-family</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>font-family-sans);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>font-size</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>font-size-base);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>font-weight</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>font-weight-semibold);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color</span><span style=color:#f92672>:</span> white;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>transition</span><span style=color:#f92672>:</span> all <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.2</span><span style=color:#66d9ef>s</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>&amp;</span><span style=color:#a6e22e>:hover</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>background</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>primary-dark);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>border-color</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>primary-dark);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>&amp;</span><span style=color:#f92672>--</span><span style=color:#f92672>secondary</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>background</span><span style=color:#f92672>:</span> transparent;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>color</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>primary);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>&amp;</span><span style=color:#a6e22e>:hover</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>background</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>primary-light);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>&amp;</span><span style=color:#f92672>--</span><span style=color:#f92672>large</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>padding</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>spacing-lg) <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>spacing-xl);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>font-size</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>font-size-lg);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=building-twig-components>Building Twig Components</h3><p><strong>Button Component Example:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-twig data-lang=twig><span style=display:flex><span><span style=color:#75715e>{# components/atoms/button/button.twig #}</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>{%</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>set</span> classes <span style=color:#f92672>=</span> <span style=color:#f92672>[</span>
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;button&#39;</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>    variant <span style=color:#f92672>?</span> <span style=color:#e6db74>&#39;button--&#39;</span> <span style=color:#f92672>~</span> variant<span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>    size <span style=color:#f92672>?</span> <span style=color:#e6db74>&#39;button--&#39;</span> <span style=color:#f92672>~</span> size<span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>    disabled <span style=color:#f92672>?</span> <span style=color:#e6db74>&#39;button--disabled&#39;</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;button 
+</span></span><span style=display:flex><span>  class=&#34;<span style=color:#75715e>{{</span> classes<span style=color:#f92672>|</span><span style=color:#a6e22e>join</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#39; &#39;</span><span style=color:#f92672>)|</span><span style=color:#a6e22e>trim</span> <span style=color:#75715e>}}</span>&#34;
+</span></span><span style=display:flex><span>  type=&#34;<span style=color:#75715e>{{</span> type<span style=color:#f92672>|</span><span style=color:#a6e22e>default</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#39;button&#39;</span><span style=color:#f92672>)</span> <span style=color:#75715e>}}</span>&#34;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>{{</span> disabled <span style=color:#f92672>?</span> <span style=color:#e6db74>&#39;disabled&#39;</span> <span style=color:#75715e>}}</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>{{</span> attributes <span style=color:#75715e>}}</span>
+</span></span><span style=display:flex><span>&gt;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>{%</span> <span style=color:#66d9ef>if</span> icon <span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>{%</span> <span style=color:#66d9ef>include</span> <span style=color:#e6db74>&#39;@atoms/icon/icon.twig&#39;</span> with <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>      name<span style=color:#f92672>:</span> icon<span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>      size<span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;sm&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>}</span> <span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>{%</span> <span style=color:#66d9ef>endif</span> <span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>{{</span> text <span style=color:#75715e>}}</span>
+</span></span><span style=display:flex><span>&lt;/button&gt;
+</span></span></code></pre></div><p><strong>Component Metadata (button.yml):</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>&#39;$schema&#39;</span>: <span style=color:#e6db74>&#39;https://git.drupalcode.org/project/sdc/-/raw/1.x/src/metadata.schema.json&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>name</span>: <span style=color:#ae81ff>Button</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>description</span>: <span style=color:#e6db74>&#39;Reusable button component with variants&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>props</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: <span style=color:#ae81ff>object</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>properties</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>text</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>type</span>: <span style=color:#ae81ff>string</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>title</span>: <span style=color:#ae81ff>Button Text</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>description</span>: <span style=color:#ae81ff>The text displayed in the button</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>required</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>variant</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>type</span>: <span style=color:#ae81ff>string</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>title</span>: <span style=color:#ae81ff>Variant</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>description</span>: <span style=color:#ae81ff>Visual style of the button</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>enum</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>primary</span>
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>secondary</span>
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>ghost</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>default</span>: <span style=color:#ae81ff>primary</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>size</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>type</span>: <span style=color:#ae81ff>string</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>title</span>: <span style=color:#ae81ff>Size</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>enum</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>small</span>
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>medium</span>
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>large</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>default</span>: <span style=color:#ae81ff>medium</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>icon</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>type</span>: <span style=color:#ae81ff>string</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>title</span>: <span style=color:#ae81ff>Icon</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>description</span>: <span style=color:#ae81ff>Optional icon name</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>disabled</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>type</span>: <span style=color:#ae81ff>boolean</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>title</span>: <span style=color:#ae81ff>Disabled</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>default</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>type</span>: <span style=color:#ae81ff>string</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>title</span>: <span style=color:#ae81ff>Button Type</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>enum</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>button</span>
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>submit</span>
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>reset</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>default</span>: <span style=color:#ae81ff>button</span>
+</span></span></code></pre></div><p><strong>Using the Component:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-twig data-lang=twig><span style=display:flex><span><span style=color:#75715e>{# In a template or another component #}</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>{%</span> <span style=color:#66d9ef>include</span> <span style=color:#e6db74>&#39;@atoms/button/button.twig&#39;</span> with <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>  text<span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Get Started&#39;</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>  variant<span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;primary&#39;</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>  size<span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;large&#39;</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>  icon<span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;arrow-right&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span> <span style=color:#75715e>%}</span>
+</span></span></code></pre></div><h3 id=card-component-more-complex-example>Card Component (More Complex Example)</h3><p><strong>Figma Structure:</strong></p><pre tabindex=0><code>Card (Component Set)
+├─ Header
+│  ├─ Title (text)
+│  └─ Badge (optional)
+├─ Body
+│  └─ Content (slot)
+└─ Footer
+   └─ Actions (slot)
+</code></pre><p><strong>Drupal Implementation:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-twig data-lang=twig><span style=display:flex><span><span style=color:#75715e>{# components/molecules/card/card.twig #}</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>{%</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>set</span> classes <span style=color:#f92672>=</span> <span style=color:#f92672>[</span>
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;card&#39;</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>    variant <span style=color:#f92672>?</span> <span style=color:#e6db74>&#39;card--&#39;</span> <span style=color:#f92672>~</span> variant<span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;article class=&#34;<span style=color:#75715e>{{</span> classes<span style=color:#f92672>|</span><span style=color:#a6e22e>join</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#39; &#39;</span><span style=color:#f92672>)|</span><span style=color:#a6e22e>trim</span> <span style=color:#75715e>}}</span>&#34; <span style=color:#75715e>{{</span> attributes <span style=color:#75715e>}}</span>&gt;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>{%</span> <span style=color:#66d9ef>if</span> header <span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>    &lt;header class=&#34;card__header&#34;&gt;
+</span></span><span style=display:flex><span>      &lt;h3 class=&#34;card__title&#34;&gt;<span style=color:#75715e>{{</span> header.title <span style=color:#75715e>}}</span>&lt;/h3&gt;
+</span></span><span style=display:flex><span>      <span style=color:#75715e>{%</span> <span style=color:#66d9ef>if</span> header.badge <span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>{%</span> <span style=color:#66d9ef>include</span> <span style=color:#e6db74>&#39;@atoms/badge/badge.twig&#39;</span> with header.badge <span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e>{%</span> <span style=color:#66d9ef>endif</span> <span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>    &lt;/header&gt;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>{%</span> <span style=color:#66d9ef>endif</span> <span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  &lt;div class=&#34;card__body&#34;&gt;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>{{</span> body <span style=color:#75715e>}}</span>
+</span></span><span style=display:flex><span>  &lt;/div&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>{%</span> <span style=color:#66d9ef>if</span> footer <span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>    &lt;footer class=&#34;card__footer&#34;&gt;
+</span></span><span style=display:flex><span>      <span style=color:#75715e>{{</span> footer <span style=color:#75715e>}}</span>
+</span></span><span style=display:flex><span>    &lt;/footer&gt;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>{%</span> <span style=color:#66d9ef>endif</span> <span style=color:#75715e>%}</span>
+</span></span><span style=display:flex><span>&lt;/article&gt;
+</span></span></code></pre></div><p><strong>Card SCSS:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-scss data-lang=scss><span style=display:flex><span><span style=color:#75715e>// components/molecules/card/card.scss
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>@import</span> <span style=color:#e6db74>&#39;../../../assets/scss/tokens&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>.card</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>background</span><span style=color:#f92672>:</span> white;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> solid <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>neutral-300);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>border-radius</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>radius-md);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>overflow</span><span style=color:#f92672>:</span> hidden;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>box-shadow</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>shadow-sm);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>transition</span><span style=color:#f92672>:</span> box-shadow <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.2</span><span style=color:#66d9ef>s</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>&amp;</span><span style=color:#a6e22e>:hover</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>box-shadow</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>shadow-md);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>&amp;</span><span style=color:#f92672>__header</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>padding</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>spacing-lg);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>border-bottom</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> solid <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>neutral-200);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> flex;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>justify-content</span><span style=color:#f92672>:</span> space-between;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>align-items</span><span style=color:#f92672>:</span> center;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>&amp;</span><span style=color:#f92672>__title</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>margin</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>font-size</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>font-size-xl);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>font-weight</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>font-weight-semibold);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>color</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>neutral-900);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>&amp;</span><span style=color:#f92672>__body</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>padding</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>spacing-lg);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>color</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>neutral-700);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>line-height</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>line<span style=color:#f92672>-</span>height-relaxed);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>&amp;</span><span style=color:#f92672>__footer</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>padding</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>spacing-md) <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>spacing-lg);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>background</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>neutral-100);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>border-top</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> solid <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>neutral-200);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>&amp;</span><span style=color:#f92672>--</span><span style=color:#f92672>featured</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> solid <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>color<span style=color:#f92672>-</span>primary);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>box-shadow</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>shadow-lg);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Usage:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-twig data-lang=twig><span style=display:flex><span><span style=color:#75715e>{%</span> <span style=color:#66d9ef>include</span> <span style=color:#e6db74>&#39;@molecules/card/card.twig&#39;</span> with <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>  variant<span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;featured&#39;</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>  header<span style=color:#f92672>:</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    title<span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Featured Article&#39;</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>    badge<span style=color:#f92672>:</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>      text<span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;New&#39;</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>      variant<span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;success&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>},</span>
+</span></span><span style=display:flex><span>  body<span style=color:#f92672>:</span> content<span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>  footer<span style=color:#f92672>:</span> include<span style=color:#f92672>(</span><span style=color:#e6db74>&#39;@atoms/button/button.twig&#39;</span><span style=color:#f92672>,</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    text<span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Read More&#39;</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>    variant<span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;secondary&#39;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>})</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span> <span style=color:#75715e>%}</span>
+</span></span></code></pre></div><h2 id=keeping-figma-and-drupal-in-sync>Keeping Figma and Drupal in Sync</h2><p>The biggest challenge with design systems: <strong>maintaining consistency over time</strong>.</p><h3 id=workflow-for-updates>Workflow for Updates</h3><p><strong>1. Design Changes Start in Figma:</strong></p><ul><li>Update design tokens in Figma variables</li><li>Update component designs</li><li>Document changes in component descriptions</li></ul><p><strong>2. Export Tokens:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Export tokens from Figma using plugin</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Place in assets/tokens/tokens.json</span>
+</span></span></code></pre></div><p><strong>3. Generate Code:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Run token build script</span>
+</span></span><span style=display:flex><span>npm run build-tokens
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Output: Updated _tokens.scss with new values</span>
+</span></span></code></pre></div><p><strong>4. Update Components:</strong></p><ul><li>Review component styles for token usage</li><li>Update any hardcoded values to use tokens</li><li>Test components in Storybook or Pattern Lab</li></ul><p><strong>5. Document Changes:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span><span style=color:#75715e>## Changelog
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#75715e>### 2025-10-27
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>-</span> Updated primary color from #0055B8 to #0066CC
+</span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Added new spacing token: 3xl (64px)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Button component: Added &#39;large&#39; size variant
+</span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Card component: Updated shadow from md to lg on hover
+</span></span></code></pre></div><h3 id=automation-opportunities>Automation Opportunities</h3><p><strong>GitHub Actions Workflow:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># .github/workflows/design-tokens.yml</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>name</span>: <span style=color:#ae81ff>Update Design Tokens</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>on</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>push</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#39;assets/tokens/**&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>jobs</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>build-tokens</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>runs-on</span>: <span style=color:#ae81ff>ubuntu-latest</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>steps</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/checkout@v3</span>
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Setup Node</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/setup-node@v3</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>with</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>node-version</span>: <span style=color:#e6db74>&#39;18&#39;</span>
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Install dependencies</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: <span style=color:#ae81ff>npm install</span>
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Build tokens</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: <span style=color:#ae81ff>npm run build-tokens</span>
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Commit generated files</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          git config --local user.email &#34;action@github.com&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          git config --local user.name &#34;GitHub Action&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          git add assets/scss/_tokens.scss
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          git commit -m &#34;chore: Update generated token files&#34; || echo &#34;No changes&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          git push</span>
+</span></span></code></pre></div><p><strong>Figma API Integration (Advanced):</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// sync-figma-tokens.js
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>Figma</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;figma-api&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>fs</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;fs&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>api</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Figma</span>.<span style=color:#a6e22e>Api</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>personalAccessToken</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>process</span>.<span style=color:#a6e22e>env</span>.<span style=color:#a6e22e>FIGMA_TOKEN</span>
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>syncTokens</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Fetch Figma file
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>file</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>api</span>.<span style=color:#a6e22e>getFile</span>(<span style=color:#a6e22e>process</span>.<span style=color:#a6e22e>env</span>.<span style=color:#a6e22e>FIGMA_FILE_ID</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Extract variables/styles
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>tokens</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>extractTokensFromFile</span>(<span style=color:#a6e22e>file</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Write to tokens.json
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>fs</span>.<span style=color:#a6e22e>writeFileSync</span>(
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;assets/tokens/tokens.json&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>(<span style=color:#a6e22e>tokens</span>, <span style=color:#66d9ef>null</span>, <span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span>  );
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Tokens synced from Figma&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>syncTokens</span>();
+</span></span></code></pre></div><h2 id=documentation-and-governance>Documentation and Governance</h2><h3 id=living-style-guide>Living Style Guide</h3><p>Use <strong>Storybook</strong> or <strong>Pattern Lab</strong> to create a living documentation site:</p><p><strong>Storybook Example:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// components/atoms/button/button.stories.js
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>button</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;./button.twig&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#39;./button.scss&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>default</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>title</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Atoms/Button&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>argTypes</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>variant</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>control</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;select&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>options</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;primary&#39;</span>, <span style=color:#e6db74>&#39;secondary&#39;</span>, <span style=color:#e6db74>&#39;ghost&#39;</span>]
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>size</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>control</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;select&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>options</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;small&#39;</span>, <span style=color:#e6db74>&#39;medium&#39;</span>, <span style=color:#e6db74>&#39;large&#39;</span>]
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>disabled</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>control</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;boolean&#39;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>Template</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>args</span>) =&gt; <span style=color:#a6e22e>button</span>(<span style=color:#a6e22e>args</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>Primary</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>Template</span>.<span style=color:#a6e22e>bind</span>({});
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Primary</span>.<span style=color:#a6e22e>args</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Primary Button&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>variant</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;primary&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>size</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;medium&#39;</span>
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>Secondary</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>Template</span>.<span style=color:#a6e22e>bind</span>({});
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Secondary</span>.<span style=color:#a6e22e>args</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Secondary Button&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>variant</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;secondary&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>size</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;medium&#39;</span>
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>Large</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>Template</span>.<span style=color:#a6e22e>bind</span>({});
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Large</span>.<span style=color:#a6e22e>args</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Large Button&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>variant</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;primary&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>size</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;large&#39;</span>
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>WithIcon</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>Template</span>.<span style=color:#a6e22e>bind</span>({});
+</span></span><span style=display:flex><span><span style=color:#a6e22e>WithIcon</span>.<span style=color:#a6e22e>args</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Button with Icon&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>variant</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;primary&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>icon</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;arrow-right&#39;</span>
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p><strong>Run Storybook:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>npm run storybook
+</span></span><span style=display:flex><span><span style=color:#75715e># Opens http://localhost:6006 with component playground</span>
+</span></span></code></pre></div><h3 id=governance-model>Governance Model</h3><p><strong>Who owns what:</strong></p><p><strong>Design Team:</strong></p><ul><li>Owns Figma source of truth</li><li>Proposes new components and patterns</li><li>Documents design decisions</li><li>Approves visual changes</li></ul><p><strong>Development Team:</strong></p><ul><li>Owns Drupal implementation</li><li>Ensures technical feasibility</li><li>Maintains component code quality</li><li>Approves technical changes</li></ul><p><strong>Product/Content Team:</strong></p><ul><li>Validates component usefulness</li><li>Provides real-world usage feedback</li><li>Requests new patterns based on needs</li></ul><p><strong>Design System Core Team (Cross-functional):</strong></p><ul><li>Reviews all proposed changes</li><li>Maintains documentation</li><li>Ensures consistency</li><li>Manages releases</li></ul><h3 id=contribution-process>Contribution Process</h3><p><strong>1. Propose New Component:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span><span style=color:#75715e>## Component Proposal: Alert Banner
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#75715e>### Use Case
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>Display important messages to users (errors, warnings, success, info)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>### Variants Needed
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>-</span> Error (red)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Warning (amber)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Success (green)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Info (blue)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>### Props
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>-</span> message (string, required)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> variant (enum, required)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> dismissible (boolean, optional)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> icon (string, optional)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>### Design
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>[Link to Figma prototype]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>### Questions for Review
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>-</span> Should this be dismissible by default?
+</span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Do we need an &#34;action&#34; prop for CTA buttons?
+</span></span></code></pre></div><p><strong>2. Design Review:</strong></p><ul><li>Design team creates Figma component</li><li>Reviews with stakeholders</li><li>Approves for development</li></ul><p><strong>3. Development:</strong></p><ul><li>Dev creates Drupal component</li><li>Matches Figma specifications</li><li>Writes Storybook documentation</li><li>Creates unit tests</li></ul><p><strong>4. Review & Merge:</strong></p><ul><li>Design team verifies visual match</li><li>Code review by senior dev</li><li>Merge to design system</li><li>Update changelog</li></ul><h2 id=real-world-implementation-tips>Real-World Implementation Tips</h2><h3 id=start-small-scale-gradually>Start Small, Scale Gradually</h3><p><strong>Phase 1: Foundation (Month 1)</strong></p><ul><li>Establish design tokens</li><li>Create 3-5 atoms (button, input, heading, paragraph, link)</li><li>Set up build process</li><li>Document workflow</li></ul><p><strong>Phase 2: Core Components (Months 2-3)</strong></p><ul><li>Build essential molecules (form field, card, navigation item)</li><li>Create 2-3 organisms (header, footer, hero)</li><li>Establish pattern library</li><li>Train team on usage</li></ul><p><strong>Phase 3: Expansion (Months 4-6)</strong></p><ul><li>Add domain-specific components</li><li>Refine based on real usage</li><li>Optimize workflow</li><li>Improve documentation</li></ul><h3 id=common-pitfalls-to-avoid>Common Pitfalls to Avoid</h3><p>❌ <strong>Trying to document everything upfront</strong></p><ul><li>Start with what you need, expand as you grow</li></ul><p>❌ <strong>Making components too generic</strong></p><ul><li>&ldquo;One-size-fits-all&rdquo; becomes &ldquo;fits-nothing-well&rdquo;</li></ul><p>❌ <strong>Making components too specific</strong></p><ul><li>Too many variants = maintenance nightmare</li></ul><p>❌ <strong>Not involving developers early</strong></p><ul><li>Beautiful designs that are impossible to build</li></ul><p>❌ <strong>No clear governance</strong></p><ul><li>Everyone adding components = chaos</li></ul><p>❌ <strong>Treating it as one-time project</strong></p><ul><li>Design systems are living, evolving systems</li></ul><h3 id=success-metrics>Success Metrics</h3><p><strong>Efficiency Metrics:</strong></p><ul><li>Time to build new page (should decrease)</li><li>Component reuse rate (should increase)</li><li>Design-to-dev handoff time (should decrease)</li></ul><p><strong>Quality Metrics:</strong></p><ul><li>Visual consistency across site (audit periodically)</li><li>Accessibility compliance rate</li><li>Performance scores (smaller CSS, less duplication)</li></ul><p><strong>Adoption Metrics:</strong></p><ul><li>% of pages using design system components</li><li>% of new features built with system</li><li>Team satisfaction scores</li></ul><h2 id=tools-and-resources>Tools and Resources</h2><p><strong>Design Tools:</strong></p><ul><li><strong>Figma</strong> - Design and prototyping</li><li><strong>Figma Tokens</strong> - Plugin for token management</li><li><strong>Design Tokens</strong> - Alternative token plugin</li></ul><p><strong>Build Tools:</strong></p><ul><li><strong>Style Dictionary</strong> - Transform tokens to multiple formats</li><li><strong>Theo</strong> - Salesforce&rsquo;s token tool</li><li><strong>Token Transformer</strong> - Figma Tokens → Style Dictionary</li></ul><p><strong>Component Development:</strong></p><ul><li><strong>Storybook</strong> - Component playground and documentation</li><li><strong>Pattern Lab</strong> - Alternative to Storybook</li><li><strong>Drupal SDC</strong> - Single Directory Components module</li></ul><p><strong>Version Control:</strong></p><ul><li><strong>Abstract</strong> - Version control for Figma (if needed)</li><li><strong>Git</strong> - Version control for code</li><li><strong>GitHub/GitLab</strong> - Repository hosting</li></ul><p><strong>Documentation:</strong></p><ul><li><strong>Storybook Docs</strong> - Auto-generated documentation</li><li><strong>Zeroheight</strong> - Design system documentation platform</li><li><strong>Notion/Confluence</strong> - General documentation</li></ul><h2 id=the-bottom-line>The Bottom Line</h2><p>A design system isn&rsquo;t about restricting creativity—it&rsquo;s about <strong>creating a shared language</strong> that makes teams faster and products better.</p><p><strong>With a well-implemented design system:</strong></p><ul><li>✅ Designers spend time solving problems, not reinventing buttons</li><li>✅ Developers build faster with reusable components</li><li>✅ Products stay visually consistent as they scale</li><li>✅ New team members onboard quicker</li><li>✅ Accessibility and performance improve across the board</li></ul><p><strong>The key is the bridge:</strong> Figma and Drupal must speak the same language through design tokens, shared naming conventions, and documented patterns.</p><p><strong>Start with tokens.</strong> Build atoms. Compose molecules. Document as you go. Govern with intention.</p><p>Your design system will never be &ldquo;done&rdquo;—but that&rsquo;s the point. It should evolve as your product and team evolve, always staying slightly ahead of your current needs.</p><p>Ready to build a design system that bridges Figma and Drupal? <a href=/booking/>Let&rsquo;s map out your component architecture</a> and create a system that scales with your ambitions.</p><p><strong>Great design systems don&rsquo;t constrain—they liberate teams to move faster with confidence.</strong></p></div><div class="mt4 pt4 bt b--light-gray"><h3 class="f5 fw6 dark-gray mt0 mb3">Tags</h3><ul class="pa0 list ma0"><li class="dib mr2 mb2"><a href=/tags/design-systems class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Design Systems</a></li><li class="dib mr2 mb2"><a href=/tags/figma class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Figma</a></li><li class="dib mr2 mb2"><a href=/tags/drupal class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Drupal</a></li><li class="dib mr2 mb2"><a href=/tags/component-architecture class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Component Architecture</a></li><li class="dib mr2 mb2"><a href=/tags/ui-development class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">UI Development</a></li><li class="dib mr2 mb2"><a href=/tags/design-tokens class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Design Tokens</a></li><li class="dib mr2 mb2"><a href=/tags/twig class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Twig</a></li></ul></div><div class="mt4 tc"><a href=#top class="f6 link orange dim">↑ Back to Top</a></div></article><aside class="w-100 w-30-l mt4 mt0-l dn db-l"><aside class="email-subscription-sidebar bg-near-white pa4 br3 mb4"><h3 class="f4 fw6 dark-gray mt0 mb3">Stay Updated</h3><p class="f6 lh-copy mid-gray mb3">Subscribe to receive the latest insights and updates.</p><div id=zf_div_gnTMhpfkoaq53ZgcX4YPIkqN04T2FfPLPV5NhcXHlBA></div></aside><script src=/js/zoho-subscription-form.js defer></script><div class=sticky-sidebar><nav class="toc-container bg-white pa4 br3 mb4" aria-label="Table of Contents"><h3 class="f4 fw6 dark-gray mt0 mb3">On This Page</h3><div class="toc f6 lh-copy"><nav id=TableOfContents><ul><li><a href=#what-a-design-system-actually-is>What a Design System Actually Is</a></li><li><a href=#the-token-foundation>The Token Foundation</a><ul><li><a href=#what-are-design-tokens>What Are Design Tokens?</a></li><li><a href=#token-categories>Token Categories</a></li><li><a href=#implementing-tokens-in-figma>Implementing Tokens in Figma</a></li></ul></li><li><a href=#building-components-in-figma>Building Components in Figma</a><ul><li><a href=#component-architecture>Component Architecture</a></li><li><a href=#figma-component-best-practices>Figma Component Best Practices</a></li></ul></li><li><a href=#translating-design-to-drupal>Translating Design to Drupal</a><ul><li><a href=#drupal-component-architecture>Drupal Component Architecture</a></li><li><a href=#converting-tokens-to-drupalscss>Converting Tokens to Drupal/SCSS</a></li><li><a href=#building-twig-components>Building Twig Components</a></li><li><a href=#card-component-more-complex-example>Card Component (More Complex Example)</a></li></ul></li><li><a href=#keeping-figma-and-drupal-in-sync>Keeping Figma and Drupal in Sync</a><ul><li><a href=#workflow-for-updates>Workflow for Updates</a></li><li><a href=#automation-opportunities>Automation Opportunities</a></li></ul></li><li><a href=#documentation-and-governance>Documentation and Governance</a><ul><li><a href=#living-style-guide>Living Style Guide</a></li><li><a href=#governance-model>Governance Model</a></li><li><a href=#contribution-process>Contribution Process</a></li></ul></li><li><a href=#real-world-implementation-tips>Real-World Implementation Tips</a><ul><li><a href=#start-small-scale-gradually>Start Small, Scale Gradually</a></li><li><a href=#common-pitfalls-to-avoid>Common Pitfalls to Avoid</a></li><li><a href=#success-metrics>Success Metrics</a></li></ul></li><li><a href=#tools-and-resources>Tools and Resources</a></li><li><a href=#the-bottom-line>The Bottom Line</a></li></ul></nav></div><div class="mt3 pt3 bt b--light-gray"><a href=#top class="f6 link orange dim">↑ Back to Top</a></div></nav></div></aside></div><section class="related-posts bg-near-white pv5 ph3 ph5-l mt5"><div class="mw9 center"><h2 class="f2 fw6 dark-gray tc mb4">More from Design & Experience</h2><div class="flex flex-wrap justify-center nl3 nr3"><div class="w-100 w-third-l ph3 mb4"><article class="bg-white br2 shadow-4 h-100 flex flex-column"><div class="pa3 flex-auto flex flex-column justify-between"><div><time class="f6 gray db mb2" datetime=2025-09-12T00:00:00Z>September 12, 2025</time><h3 class="f4 fw6 lh-title mt0 mb2"><a href=/blog/design-experience/accessibility-seo-ai/ class="link dark-gray hover-orange">Accessibility First: The Foundation of Modern SEO and AI-Ready Content</a></h3><p class="f6 lh-copy mid-gray mt0 mb3">Why accessibility isn't just about compliance—it's the key to better SEO rankings and ensuring your content is …</p></div><div><a href=/blog/design-experience/accessibility-seo-ai/ class="f6 link orange dim fw6">Read More →</a></div></div></article></div><div class="w-100 w-third-l ph3 mb4"><article class="bg-white br2 shadow-4 h-100 flex flex-column"><div class="pa3 flex-auto flex flex-column justify-between"><div><time class="f6 gray db mb2" datetime=2025-08-21T00:00:00Z>August 21, 2025</time><h3 class="f4 fw6 lh-title mt0 mb2"><a href=/blog/design-experience/designing-trust-finance-insurance/ class="link dark-gray hover-orange">Designing Trust: How UI Impacts Conversion in Finance & Insurance Websites</a></h3><p class="f6 lh-copy mid-gray mt0 mb3">How user interface design builds credibility and drives conversions in high-stakes industries like finance and …</p></div><div><a href=/blog/design-experience/designing-trust-finance-insurance/ class="f6 link orange dim fw6">Read More →</a></div></div></article></div></div><div class="tc mt4"><a href=https://www.mindsing.com/blog/design-experience/ class="f5 link fw6 ph3 pv2 ba br2 dib bg-white orange b--orange view-all-btn">View All Design & Experience Posts</a></div></div></section></div></main><section class="bg-near-white pa4 pa5-ns tc"><div class="center mw8"><h2 class="f2 fw6 mb3">Ready to Scale Your Web Presence?</h2><p class="f4 lh-copy mb4">Contact us to discuss your enterprise web development needs:</p><p class="f4 fw6 mb4"><strong>Email:</strong>
+<a href=mailto:inquiries@mindsing.com class="link orange dim">inquiries@mindsing.com</a></p><div class="flex flex-column flex-row-ns justify-center items-center"><a href=/booking/ class="btn btn--primary mr3-ns mb3 mb0-ns">Schedule a Consultation
+</a><a href=/services/ class="btn btn--secondary">View Our Services</a></div></div></section><footer class="bg-black bottom-0 w-100 pa3" role=contentinfo><div class="flex justify-between"><a class="f4 fw4 hover-white no-underline white-70 dib-ns pv2 ph3" href=/>&copy; MindSing 2025</a><div class="flex items-center"><a href=/services/ class="f6 fw4 hover-white no-underline white-70 dib ml3 ph2">Services</a>
+<a href=/blog/ class="f6 fw4 hover-white no-underline white-70 dib ml3 ph2">Blog</a>
+<a href=/about/ class="f6 fw4 hover-white no-underline white-70 dib ml3 ph2">About</a>
+<a href=/privacy-policy/ class="f6 fw4 hover-white no-underline white-70 dib ml3 ph2">Privacy Policy</a></div></div></footer><div id=privacy-banner class="fixed bottom-0 left-0 w-100 pa3 bg-black-80 white z-999" style=display:none><div class="center mw8 flex flex-wrap items-center justify-between"><div class="w-100 w-two-thirds-ns pr3-ns"><p class=ma0>This website uses cookies to ensure you get the best experience.
+<a href=/privacy-policy/ class="link white underline">Learn more</a> about our privacy practices.</p></div><div class="w-100 w-third-ns mt2 mt0-ns tr-ns"><a id=reject-privacy class="link white underline mr3 pointer">Reject All
+</a><button id=accept-privacy class="ba b--white-40 bg-transparent white pv2 ph3 pointer hover-bg-white-20 br2">
+Accept
+</button>
+<button id=acknowledge-privacy class="ba b--white-40 bg-transparent white pv2 ph3 pointer hover-bg-white-20 br2">
+Acknowledge</button></div></div></div><script src=/js/afterLoad.min.d2a512f21d93c13a4bcaae81c2572e0b978c257fcb76d2597bead5f0e7a48670.js></script><script src=/js/user-settings.min.8c8f41500156d194b2e3123fb2140c3a53482ef70ed8ceb28603b54ab7c48ae1.js></script><script>window.HUGO_ENV="production"</script><script src=/js/tracking.min.df3895874346df2f0e3b377e659337f2fc76a749e282721ccce1f73a3bc7a142.js></script><script src=/js/page-tracking.min.3e9797018b5923e30b32a2b5eb2990f2a60776cf2ea587fe734e027e87bf1b2c.js></script><script src=/js/external-links.min.d562ddca0eb357200d83be54566b7c126f3c1443d09e4c285cfa595994ff7d11.js></script></body></html>
