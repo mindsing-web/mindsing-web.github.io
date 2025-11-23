@@ -33,33 +33,20 @@
     
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
     
-    
-    
-
-    
-    
-    <title>MindSing</title>
+    <title>Calculator URL Token Behavior Documentation | MindSing</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-
-    
-    
-    
+    <meta name="description" content="Documentation explaining how the calculator serializes form values into URL tokens for saving and repopulating results across sessions.">
+    <link rel="canonical" href="https://localhost:1313/calculator/readme/">
     
     
       
     
-    <meta name="description" content="&lt;h1 id=&#34;calculator-url-token-behavior&#34;&gt;Calculator: URL Token Behavior&lt;/h1&gt;
-&lt;p&gt;This README explains how the calculator serializes form values into an opaque t...">
+    <meta property="og:image" content="https://localhost:1313/images/share-image-facebook-MindSing.png">
     <meta name="generator" content="Hugo 0.150.0">
-
-    <link rel="canonical" href="https://localhost:1313/calculator/readme/" />
-
     
     
-    
-      <meta name="robots" content="noindex, nofollow">
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
     
 
     
@@ -81,21 +68,15 @@
 
     <meta property="og:url" content="https://localhost:1313/calculator/readme/">
   <meta property="og:site_name" content="MindSing">
-  <meta property="og:title" content="MindSing">
-  <meta property="og:description" content="Calculator: URL Token Behavior This README explains how the calculator serializes form values into an opaque token placed in the browser URL so results can be saved and later decoded to repopulate the form.
-Where implemented:
-Helpers are in web/assets/js/form__helpers.js. The DIME calculator uses these helpers in web/assets/js/form__dime-calculator.js. What it does:
-When the calculator Calculate button is clicked the DIME calculator now creates an opaque token: a base64url-encoded JSON blob containing the serialized form values. The token is written to the query string as ?{token} (for example ?eyJhb...) using history.replaceState() so the page does not reload. The token is reversible — it can be decoded back into the original form values. Programmatic usage:">
+  <meta property="og:title" content="Calculator URL Token Behavior Documentation">
+  <meta property="og:description" content="Documentation explaining how the calculator serializes form values into URL tokens for saving and repopulating results across sessions.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="calculator">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="MindSing">
-  <meta name="twitter:description" content="Calculator: URL Token Behavior This README explains how the calculator serializes form values into an opaque token placed in the browser URL so results can be saved and later decoded to repopulate the form.
-Where implemented:
-Helpers are in web/assets/js/form__helpers.js. The DIME calculator uses these helpers in web/assets/js/form__dime-calculator.js. What it does:
-When the calculator Calculate button is clicked the DIME calculator now creates an opaque token: a base64url-encoded JSON blob containing the serialized form values. The token is written to the query string as ?{token} (for example ?eyJhb...) using history.replaceState() so the page does not reload. The token is reversible — it can be decoded back into the original form values. Programmatic usage:">
+  <meta name="twitter:title" content="Calculator URL Token Behavior Documentation">
+  <meta name="twitter:description" content="Documentation explaining how the calculator serializes form values into URL tokens for saving and repopulating results across sessions.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -133,7 +114,7 @@ When the calculator Calculate button is clicked the DIME calculator now creates 
     },{
       "@type": "ListItem",
       "position":  3 ,
-      "name": "\"\"",
+      "name": "\"Calculator URL Token Behavior Documentation\"",
       "item": "https:\/\/localhost:1313\/calculator\/readme\/"
     }]
 }
@@ -166,7 +147,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="flex justify-between items-center center" style="max-width: 1440px;">
     <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
       
-        <img src="/images/mindsing-logo.svg" class="w100 mw5-ns site-logo" alt="MindSing" />
+        <img src="/images/mindsing-logo.svg" class="w100 mw5-ns site-logo" alt="MindSing" width="217" height="100" fetchpriority="high" />
       
     </a>
 
@@ -261,7 +242,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <header class="mt4 w-100">
       
-      <h2 class="f1 athelas mt3 mb1"></h2>
+      <h1 class="f1 athelas mt3 mb1">Calculator URL Token Behavior Documentation</h1>
       
       
       
