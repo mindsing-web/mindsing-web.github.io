@@ -43,6 +43,8 @@
     f.style.border="none";
     f.style.height="417px";
     f.style.width="90%";
+    f.style.margin="0 auto";
+    f.style.display="block";
     f.style.transition="all 0.5s ease";
     f.setAttribute("aria-label", 'MindSing Updates Subscription');
 
