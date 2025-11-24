@@ -1,0 +1,956 @@
+<!doctype html><html lang=en><head><script>(function(e,t,n,s,o){e[s]=e[s]||[],e[s].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var a=t.getElementsByTagName(n)[0],i=t.createElement(n),r=s!="dataLayer"?"&l="+s:"";i.async=!0,i.src="https://www.googletagmanager.com/gtm.js?id="+o+r+"&gtm_auth=mRHZuF06IswzXy0_qX2HkQ&gtm_preview=env-1&gtm_cookies_win=x",a.parentNode.insertBefore(i,a)})(window,document,"script","dataLayer","GTM-KPDPWFQ4")</script><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>Native Drupal A/B Testing with Figma, Make, and MCP | MindSing</title><meta name=viewport content="width=device-width,minimum-scale=1"><meta name=description content="Build native A/B testing in Drupal using Figma for variants, Make for automation, MCP for intelligence, and localStorage for privacy-first analytics."><link rel=canonical href=https://www.mindsing.com/blog/technology-innovation/figma-make-mcp-drupal-ab-testing/><meta property="og:image" content="https://www.mindsing.com/images/suncadia-cascades-2025.jpg"><link rel=preload as=image href=https://www.mindsing.com/images/suncadia-cascades-2025.jpg fetchpriority=high><meta name=generator content="Hugo 0.150.0"><meta name=ROBOTS content="INDEX, FOLLOW"><link rel=stylesheet href=/ananke/css/main.min.00057f81b51bfe4689577775ee4e168b2e81858db7beff0f5a55402ed4c4c366.css><link rel=stylesheet href=/css/app.css><meta property="og:url" content="https://www.mindsing.com/blog/technology-innovation/figma-make-mcp-drupal-ab-testing/"><meta property="og:site_name" content="MindSing"><meta property="og:title" content="Native Drupal A/B Testing with Figma, Make, and MCP"><meta property="og:description" content="Build native A/B testing in Drupal using Figma for variants, Make for automation, MCP for intelligence, and localStorage for privacy-first analytics."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="blog"><meta property="article:published_time" content="2025-11-23T00:00:00+00:00"><meta property="article:modified_time" content="2025-11-23T00:00:00+00:00"><meta property="article:tag" content="A/B Testing"><meta property="article:tag" content="Figma"><meta property="article:tag" content="Make"><meta property="article:tag" content="MCP"><meta property="article:tag" content="Model Context Protocol"><meta property="article:tag" content="Drupal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Native Drupal A/B Testing with Figma, Make, and MCP"><meta name=twitter:description content="Build native A/B testing in Drupal using Figma for variants, Make for automation, MCP for intelligence, and localStorage for privacy-first analytics."><script type=application/ld+json>{"@context":"https://schema.org","@type":"Organization","name":"MindSing","url":"https:\/\/www.mindsing.com\/","logo":{"@type":"ImageObject","url":"https:\/\/www.mindsing.com\/images/mindsing-logo.svg"},"description":"Specialized Drupal \u0026 WordPress development for enterprise, higher education, and global-scale web systems.","sameAs":[],"contactPoint":{"@type":"ContactPoint","email":"inquiries@mindsing.com","contactType":"customer service"}}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https:\/\/www.mindsing.com\/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https:\/\/www.mindsing.com\/blog/"},{"@type":"ListItem","position":3,"name":"\"Technology \\u0026 Innovation\"","item":"https:\/\/www.mindsing.com\/blog\/technology-innovation\/"},{"@type":"ListItem","position":4,"name":"\"Native Drupal A/B Testing with Figma, Make, and MCP\"","item":"https:\/\/www.mindsing.com\/blog\/technology-innovation\/figma-make-mcp-drupal-ab-testing\/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"\"Native Drupal A/B Testing with Figma, Make, and MCP\"","description":"\"Build native A/B testing in Drupal using Figma for variants, Make for automation, MCP for intelligence, and localStorage for privacy-first analytics.\"","url":"https:\/\/www.mindsing.com\/blog\/technology-innovation\/figma-make-mcp-drupal-ab-testing\/","datePublished":"2025-11-23T00:00:00Z","dateModified":"2025-11-23T00:00:00Z","image":{"@type":"ImageObject","url":"https:\/\/www.mindsing.com\/images\/suncadia-cascades-2025.jpg"},"author":{"@type":"Person","name":"\"[Brian Danin](https://www.briandanin.com)\""},"publisher":{"@type":"Organization","name":"MindSing","url":"https:\/\/www.mindsing.com\/","logo":{"@type":"ImageObject","url":"https:\/\/www.mindsing.com\/images/mindsing-logo.svg"}},"keywords":"[\"A/B Testing\",\"Figma\",\"Make\",\"MCP\",\"Model Context Protocol\",\"Drupal\",\"Automation\",\"Design Systems\",\"Experimentation\"]","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/www.mindsing.com\/blog\/technology-innovation\/figma-make-mcp-drupal-ab-testing\/"},"articleSection":"\"Technology \\u0026 Innovation\""}</script></head><body class="ma0 avenir bg-near-white production"><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KPDPWFQ4%26gtm_auth%3dmRHZuF06IswzXy0_qX2HkQ%26gtm_preview%3denv-1%26gtm_cookies_win%3dx" height=0 width=0 style=display:none;visibility:hidden></iframe></noscript><div id=top></div><header class="cover bg-top" style=background-image:url(https://www.mindsing.com/images/suncadia-cascades-2025.jpg)><div class="pb3-m pb4-l bg-black-60"><nav class="pv3 ph3 ph4-ns site-navigation" role=navigation><div class="flex justify-between items-center center" style=max-width:1440px><a href=/ class="f3 fw2 hover-white no-underline white-90 dib"><img src=/images/mindsing-logo.svg class="w100 mw5-ns site-logo" alt=MindSing width=217 height=100 fetchpriority=high>
+</a><button class="hamburger-button dn-l bg-transparent white-90 bn pa2 pointer" aria-label="Toggle menu" aria-expanded=false><div class=hamburger-icon><span class=hamburger-line></span>
+<span class=hamburger-line></span>
+<span class=hamburger-line></span></div></button><div class="navigation-main flex-l items-center dn db-l" id=main-nav><ul class="pl0 mr3 flex-l list"><li class="f5 f4-ns fw4 dib-l db pr3-l pv2"><a class="hover-white no-underline white-90 db" href=/booking/ title="Connect page">Connect</a></li><li class="f5 f4-ns fw4 dib-l db pr3-l pv2"><a class="hover-white no-underline white-90 db" href=/about/ title="About page">About</a></li><li class="f5 f4-ns fw4 dib-l db pr3-l pv2"><a class="hover-white no-underline white-90 db" href=/blog/ title="Blog page">Blog</a></li><li class="f5 f4-ns fw4 dib-l db pr3-l pv2"><a class="hover-white no-underline white-90 db" href=/services/ title="Services page">Services</a></li></ul></div></div></nav><script src=/js/hamburger-menu.min.e47f1f4c8d04eeecb3e7d44d3097ed007ab5bcabd118411e8fc7ad6b92808426.js></script><div class="tc-l pv4 ph3 ph4-ns"><h1 class="f2 f1-l fw4 white-90 mb0 lh-title">Native Drupal A/B Testing with Figma, Make, and MCP</h1><h2 class="fw4 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">Build native A/B testing in Drupal using Figma for variants, Make for automation, MCP for intelligence, and localStorage for privacy-first analytics.</h2></div></div></header><main class=pb3 role=main><div class="center ph3 ph5-l"><nav class="breadcrumbs f6 mt3 mw9 center" aria-label=Breadcrumb><a href=/ class="link dim dark-gray">Home</a>
+<span class=mh2>/</span>
+<a href=/blog class="link dim dark-gray">Blog</a>
+<span class=mh2>/</span>
+<a href=/blog/technology-innovation/ class="link dim dark-gray">Technology & Innovation</a></nav><nav class="category-nav mw9 center mt4 mb4 overflow-x-auto" aria-label="Blog Categories"><ul class="list flex flex-wrap justify-center ma0 pa0"><li class=ma2><a href=/blog/ class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">All Posts</a></li><li class=ma2><a href=/blog/technology-innovation/ class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-dark-gray white">Technology & Innovation</a></li><li class=ma2><a href=/blog/strategy-growth/ class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">Digital Strategy and Business Growth Solutions</a></li><li class=ma2><a href=/blog/design-experience/ class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">Design and User Experience Excellence</a></li><li class=ma2><a href=/blog/performance-optimization/ class="link dim ph3 pv2 ba b--moon-gray br2 dib bg-white dark-gray">Performance & Optimization</a></li></ul></nav><nav class="toc-mobile-sticky bg-white bb b--light-gray" aria-label="Table of Contents"><div class=pa3><select id=toc-mobile-select class=w-100 aria-label="Jump to section"><option value>📖 On This Page</option><option value=#the-traditional-ab-testing-problem>The Traditional A/B Testing Problem</option><option value=#third-party-platforms-optimizely-vwo-etc>&#160;&#160;Third-Party Platforms (Optimizely, VWO, etc.)</option><option value=#custom-development>&#160;&#160;Custom Development</option><option value=#javascript-heavy-solutions>&#160;&#160;JavaScript-Heavy Solutions</option><option value=#the-architecture-figma--make--mcp--drupal--localstorage-analytics>The Architecture: Figma + Make + MCP + Drupal + localStorage Analytics</option><option value=#1-figma-design-variant-source-of-truth>&#160;&#160;1. Figma: Design Variant Source of Truth</option><option value=#2-make-formerly-integromat-automation-bridge>&#160;&#160;2. Make (formerly Integromat): Automation Bridge</option><option value=#3-mcp-intelligent-context-layer>&#160;&#160;3. MCP: Intelligent Context Layer</option><option value=#4-drupal-native-variant-management>&#160;&#160;4. Drupal: Native Variant Management</option><option value=#5-localstorage-privacy-focused-first-party-analytics>&#160;&#160;5. localStorage: Privacy-Focused First-Party Analytics</option><option value=#building-the-system-step-by-step>Building the System: Step by Step</option><option value=#part-1-structuring-variants-in-figma>&#160;&#160;Part 1: Structuring Variants in Figma</option><option value=#part-2-automating-variant-export-with-make>&#160;&#160;Part 2: Automating Variant Export with Make</option><option value=#part-3-drupal-ab-test-entity-structure>&#160;&#160;Part 3: Drupal A/B Test Entity Structure</option><option value=#part-4-make--drupal-integration>&#160;&#160;Part 4: Make → Drupal Integration</option><option value=#part-5-server-side-variant-selection>&#160;&#160;Part 5: Server-Side Variant Selection</option><option value=#part-6-integrating-mcp-for-intelligent-management>&#160;&#160;Part 6: Integrating MCP for Intelligent Management</option><option value=#part-7-first-party-analytics-with-localstorage>&#160;&#160;Part 7: First-Party Analytics with localStorage</option><option value=#real-world-benefits>Real-World Benefits</option><option value=#for-designers>&#160;&#160;For Designers</option><option value=#for-developers>&#160;&#160;For Developers</option><option value=#for-marketers>&#160;&#160;For Marketers</option><option value=#for-organizations>&#160;&#160;For Organizations</option><option value=#getting-started>Getting Started</option><option value=#phase-1-foundation-week-1-2>&#160;&#160;Phase 1: Foundation (Week 1-2)</option><option value=#phase-2-figma-integration-week-3-4>&#160;&#160;Phase 2: Figma Integration (Week 3-4)</option><option value=#phase-3-mcp-intelligence-week-5-6>&#160;&#160;Phase 3: MCP Intelligence (Week 5-6)</option><option value=#phase-4-first-party-analytics-week-7-8>&#160;&#160;Phase 4: First-Party Analytics (Week 7-8)</option><option value=#phase-5-advanced-features-ongoing>&#160;&#160;Phase 5: Advanced Features (Ongoing)</option><option value=#lessons-from-implementation>Lessons from Implementation</option><option value=#1-systems-beat-tools>&#160;&#160;1. Systems Beat Tools</option><option value=#2-automation-enables-experimentation>&#160;&#160;2. Automation Enables Experimentation</option><option value=#3-context-is-king>&#160;&#160;3. Context is King</option><option value=#4-native-integration-wins>&#160;&#160;4. Native Integration Wins</option><option value=#5-privacy-first-is-performance-first>&#160;&#160;5. Privacy-First is Performance-First</option><option value=#beyond-ab-testing-the-bigger-picture>Beyond A/B Testing: The Bigger Picture</option><option value=#the-future-ai-designed-variants>The Future: AI-Designed Variants</option><option value=#conclusion>Conclusion</option><option value=#top>↑ Back to Top</option></select></div></nav><script>document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("toc-mobile-select");e&&e.addEventListener("change",function(){const e=this.value;if(e){const t=document.querySelector(e);t?t.scrollIntoView({behavior:"smooth",block:"start"}):window.location.hash=e,this.selectedIndex=0}})})</script><div class="flex-l mw9 center mt4"><article class="w-100 w-70-l pr4-l"><header class=w-100><p class="tracked f6">By <strong><a href=https://www.briandanin.com>Brian Danin</a>
+</strong><span class=mid-gray>| </span><time datetime=2025-11-23T00:00:00Z>November 23, 2025</time></p></header><div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray"><p>A/B testing traditionally requires expensive third-party platforms, complex JavaScript integrations, or extensive custom development. But what if you could build a native, context-aware A/B testing system directly in Drupal—one that leverages your existing design system, automates variant creation, and uses AI to intelligently manage experiments?</p><p>By combining <a href=/blog/design-experience/figma-to-drupal-design-systems/>Figma&rsquo;s design variants</a>, Make&rsquo;s automation capabilities, and <a href=/blog/technology-innovation/model-context-protocol-drupal/>Model Context Protocol (MCP)</a> for intelligent orchestration, we can create a powerful A/B testing workflow that feels native to Drupal while remaining accessible to designers and marketers.</p><div style="min-height:100vh;background:linear-gradient(to bottom right,#f8fafc,#f1f5f9);padding:2rem"><div style="max-width:72rem;margin:0 auto"><div style=text-align:center;margin-bottom:3rem><h2 style=margin-bottom:1rem;font-size:2rem;font-weight:700>Figma Make → Drupal A/B Testing Architecture</h2><p style=color:#475569>Integration flow with MCP and first-party analytics</p></div><div style=display:flex;flex-direction:column;gap:2rem><div style=display:flex;align-items:stretch;justify-content:center;gap:1.5rem;flex-wrap:wrap><div style="padding:1.5rem;background-color:#fff;border-radius:.5rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,5%);transition:box-shadow .3s;width:16rem;border:1px solid #e2e8f0;position:relative"><div style="position:absolute;top:-.75rem;left:50%;transform:translateX(-50%);background-color:#9333ea;color:#fff;width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.875rem;box-shadow:0 2px 8px rgba(147,51,234,.3)">1</div><div style=display:flex;flex-direction:column;align-items:center;gap:1rem><div style=width:4rem;height:4rem;background-color:#f3e8ff;border-radius:.75rem;display:flex;align-items:center;justify-content:center;margin-top:.5rem><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 00-1.66.0L2.6 6.08a1 1 0 000 1.83l8.58 3.91a2 2 0 001.66.0l8.58-3.9a1 1 0 000-1.83z"/><path d="m22 17.65-9.17 4.16a2 2 0 01-1.66.0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 01-1.66.0L2 12.65"/></svg></div><div style=text-align:center><h3 style=margin-bottom:.5rem>Figma Make</h3><p style=font-size:.875rem;color:#475569>Design & build UI components</p></div><div style="width:100%;padding-top:1rem;border-top:1px solid #e2e8f0"><ul style=font-size:.75rem;color:#475569;list-style:none;padding:0;margin:0><li style=margin-bottom:.25rem>• React components</li><li style=margin-bottom:.25rem>• Tailwind styling</li><li>• Export variations</li></ul></div></div></div><div style="padding:1.5rem;background-color:#fff;border-radius:.5rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,5%);transition:box-shadow .3s;width:16rem;border:1px solid #e2e8f0;position:relative"><div style="position:absolute;top:-.75rem;left:50%;transform:translateX(-50%);background-color:#2563eb;color:#fff;width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.875rem;box-shadow:0 2px 8px rgba(37,99,235,.3)">2</div><div style=display:flex;flex-direction:column;align-items:center;gap:1rem><div style=width:4rem;height:4rem;background-color:#dbeafe;border-radius:.75rem;display:flex;align-items:center;justify-content:center;margin-top:.5rem><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 01-.78-1.63l9.9-10.2a.5.5.0 01.86.46l-1.92 6.02A1 1 0 0013 10h7a1 1 0 01.78 1.63l-9.9 10.2a.5.5.0 01-.86-.46l1.92-6.02A1 1 0 0011 14z"/></svg></div><div style=text-align:center><h3 style=margin-bottom:.5rem>MCP</h3><p style=font-size:.875rem;color:#475569>Model Context Protocol</p></div><div style="width:100%;padding-top:1rem;border-top:1px solid #e2e8f0"><ul style=font-size:.75rem;color:#475569;list-style:none;padding:0;margin:0><li style=margin-bottom:.25rem>• API integration</li><li style=margin-bottom:.25rem>• Data transformation</li><li>• Content mapping</li></ul></div></div></div><div style="padding:1.5rem;background-color:#fff;border-radius:.5rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,5%);transition:box-shadow .3s;width:16rem;border:1px solid #e2e8f0;position:relative"><div style="position:absolute;top:-.75rem;left:50%;transform:translateX(-50%);background-color:#059669;color:#fff;width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.875rem;box-shadow:0 2px 8px rgba(5,150,105,.3)">3</div><div style=display:flex;flex-direction:column;align-items:center;gap:1rem><div style=width:4rem;height:4rem;background-color:#d1fae5;border-radius:.75rem;display:flex;align-items:center;justify-content:center;margin-top:.5rem><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5V2"/><path d="M8.5 2h7"/><path d="M14.5 16h-5"/></svg></div><div style=text-align:center><h3 style=margin-bottom:.5rem>Drupal</h3><p style=font-size:.875rem;color:#475569>Native A/B Testing</p></div><div style="width:100%;padding-top:1rem;border-top:1px solid #e2e8f0"><ul style=font-size:.75rem;color:#475569;list-style:none;padding:0;margin:0><li style=margin-bottom:.25rem>• Variant management</li><li style=margin-bottom:.25rem>• User segmentation</li><li>• Test orchestration</li></ul></div></div></div></div><div style=position:relative><div style="position:absolute;left:0;right:0;top:50%;height:2px;background:linear-gradient( to right,transparent,#cbd5e1,transparent )"></div><div style=position:relative;display:flex;justify-content:center><div style="background-color:#f1f5f9;padding:.5rem 1rem;border-radius:9999px"><span style=font-size:.875rem;color:#475569>Analytics Layer</span></div></div></div><div style="padding:2rem;background:linear-gradient(to bottom right,#fff7ed,#fef3c7);border-radius:.5rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,5%);border:2px solid #fed7aa"><div style=display:flex;align-items:flex-start;gap:1.5rem;flex-wrap:wrap><div style=width:4rem;height:4rem;background-color:#fed7aa;border-radius:.75rem;display:flex;align-items:center;justify-content:center><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 002 2h16"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><div style=flex:1;min-width:300px><h3 style=margin-bottom:.75rem>First-Party Analytics (localStorage)</h3><p style=font-size:.875rem;color:#334155;margin-bottom:1rem>Client-side tracking without third-party cookies, ensuring privacy
+compliance and fast performance.</p><div style=display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem><div style=background-color:rgba(255,255,255,.7);padding:1rem;border-radius:.5rem><div style=font-size:.75rem;color:#ea580c;margin-bottom:.25rem>Event Tracking</div><ul style=font-size:.75rem;color:#475569;list-style:none;padding:0;margin:0><li style=margin-bottom:.25rem>• Page views</li><li style=margin-bottom:.25rem>• Click events</li><li>• Conversions</li></ul></div><div style=background-color:rgba(255,255,255,.7);padding:1rem;border-radius:.5rem><div style=font-size:.75rem;color:#ea580c;margin-bottom:.25rem>Variant Data</div><ul style=font-size:.75rem;color:#475569;list-style:none;padding:0;margin:0><li style=margin-bottom:.25rem>• Active variant ID</li><li style=margin-bottom:.25rem>• Exposure time</li><li>• User cohort</li></ul></div><div style=background-color:rgba(255,255,255,.7);padding:1rem;border-radius:.5rem><div style=font-size:.75rem;color:#ea580c;margin-bottom:.25rem>Performance</div><ul style=font-size:.75rem;color:#475569;list-style:none;padding:0;margin:0><li style=margin-bottom:.25rem>• Load times</li><li style=margin-bottom:.25rem>• Interaction metrics</li><li>• Session duration</li></ul></div></div></div></div></div><div style=display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem><div style="padding:1.5rem;background-color:#fff;border-radius:.5rem;box-shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,6%);border:1px solid #e2e8f0"><div style=display:flex;align-items:flex-start;gap:1rem><div style=width:2.5rem;height:2.5rem;background-color:#e0e7ff;border-radius:.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg></div><div><h3 style=margin-bottom:.5rem>Data Flow</h3><ol style=font-size:.875rem;color:#475569;padding-left:1.25rem;margin:0><li style=margin-bottom:.5rem>Components exported from Figma Make</li><li style=margin-bottom:.5rem>MCP transforms to Drupal content types</li><li style=margin-bottom:.5rem>Drupal serves variant based on test rules</li><li style=margin-bottom:.5rem>User interactions logged to localStorage</li><li>Analytics synced back to Drupal</li></ol></div></div></div><div style="padding:1.5rem;background-color:#fff;border-radius:.5rem;box-shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,6%);border:1px solid #e2e8f0"><div style=display:flex;align-items:flex-start;gap:1rem><div style=width:2.5rem;height:2.5rem;background-color:#fce7f3;border-radius:.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5V2"/><path d="M8.5 2h7"/><path d="M14.5 16h-5"/></svg></div><div><h3 style=margin-bottom:.5rem>A/B Test Workflow</h3><ol style=font-size:.875rem;color:#475569;padding-left:1.25rem;margin:0><li style=margin-bottom:.5rem>Create variants in Figma Make</li><li style=margin-bottom:.5rem>Push through MCP to Drupal</li><li style=margin-bottom:.5rem>Configure test parameters in Drupal</li><li style=margin-bottom:.5rem>Serve variants to user segments</li><li style=margin-bottom:.5rem>Track results in localStorage</li><li>Analyze and optimize</li></ol></div></div></div></div></div></div></div><h2 id=the-traditional-ab-testing-problem>The Traditional A/B Testing Problem</h2><p>Most A/B testing solutions have significant drawbacks:</p><h3 id=third-party-platforms-optimizely-vwo-etc>Third-Party Platforms (Optimizely, VWO, etc.)</h3><ul><li><strong>High cost</strong>: Enterprise pricing for features you may not need</li><li><strong>Performance impact</strong>: Additional JavaScript that slows page loads</li><li><strong>Limited control</strong>: Dependent on external systems and their uptime</li><li><strong>Data silos</strong>: Test results and analytics exist outside your CMS</li><li><strong>Privacy concerns</strong>: Sending user data to third parties</li></ul><h3 id=custom-development>Custom Development</h3><ul><li><strong>High effort</strong>: Building variant systems, traffic splitting, and analytics from scratch</li><li><strong>Maintenance burden</strong>: Keeping custom code updated with Drupal core</li><li><strong>Designer disconnect</strong>: Designers can&rsquo;t easily create and deploy variants</li><li><strong>Slow iteration</strong>: Each variant requires developer intervention</li></ul><h3 id=javascript-heavy-solutions>JavaScript-Heavy Solutions</h3><ul><li><strong>SEO challenges</strong>: Search engines may not see variants consistently</li><li><strong>Flash of content</strong>: Users see original before variant loads</li><li><strong>Accessibility issues</strong>: Client-side manipulation can break screen readers</li><li><strong>Fragile</strong>: Breaks when DOM structure changes</li></ul><p><strong>What we need is a system that:</strong></p><ul><li>Lives natively in Drupal for full control and performance</li><li>Integrates with existing design systems for consistency</li><li>Allows designers to create variants without developer bottlenecks</li><li>Uses intelligent context to determine which variants to show</li><li>Captures analytics without relying on third-party platforms</li><li><strong>Respects user privacy with first-party data collection</strong></li></ul><h2 id=the-architecture-figma--make--mcp--drupal--localstorage-analytics>The Architecture: Figma + Make + MCP + Drupal + localStorage Analytics</h2><p>Our approach combines four powerful tools into a cohesive workflow:</p><h3 id=1-figma-design-variant-source-of-truth>1. <strong>Figma</strong>: Design Variant Source of Truth</h3><p>Figma already supports component variants for design systems. By extending this pattern, designers can:</p><ul><li>Create A/B test variants as Figma component variations</li><li>Annotate variants with test metadata (target audience, hypothesis, metrics)</li><li>Export variant specifications through Figma&rsquo;s API</li><li>Maintain design consistency across all test variants</li></ul><h3 id=2-make-formerly-integromat-automation-bridge>2. <strong>Make</strong> (formerly Integromat): Automation Bridge</h3><p>Make connects Figma to Drupal, automating the variant creation process:</p><ul><li>Watches Figma files for new A/B test variants</li><li>Extracts variant specifications and assets</li><li>Creates corresponding Drupal entities (nodes, blocks, paragraphs)</li><li>Triggers builds/deployments when variants are ready</li><li>Sends notifications to relevant teams</li></ul><h3 id=3-mcp-intelligent-context-layer>3. <strong>MCP</strong>: Intelligent Context Layer</h3><p><a href=/blog/technology-innovation/model-context-protocol-drupal/>Model Context Protocol</a> provides the intelligence layer:</p><ul><li>Understands user context (behavior, preferences, segments)</li><li>Selects appropriate variant based on test rules and context</li><li>Analyzes test performance and suggests optimizations</li><li>Provides natural language queries for test results</li><li>Helps identify which audiences benefit most from which variants</li></ul><h3 id=4-drupal-native-variant-management>4. <strong>Drupal</strong>: Native Variant Management</h3><p>Drupal handles the actual variant storage and delivery:</p><ul><li>Stores variant content as standard entities</li><li>Manages test metadata (dates, traffic allocation, success metrics)</li><li>Delivers variants server-side (no JavaScript flash)</li><li>Tracks impressions and conversions natively</li><li>Provides editorial interface for test management</li></ul><h3 id=5-localstorage-privacy-focused-first-party-analytics>5. <strong>localStorage</strong>: Privacy-Focused First-Party Analytics</h3><p>Instead of relying on third-party analytics that compromise privacy and performance, we use browser localStorage for first-party data collection:</p><ul><li><strong>No cookies required</strong>: GDPR/CCPA friendly without consent banners for analytics</li><li><strong>Lightning fast</strong>: No external script loading or network requests</li><li><strong>Complete data ownership</strong>: All analytics data stays within your control</li><li><strong>Privacy by default</strong>: Data never leaves the user&rsquo;s browser until explicitly synced</li><li><strong>Offline capable</strong>: Track interactions even without network connectivity</li><li><strong>No ad blockers</strong>: First-party scripts aren&rsquo;t blocked like Google Analytics</li></ul><p>This approach aligns with the modern web&rsquo;s privacy-first direction while providing the metrics needed for effective A/B testing.</p><h2 id=building-the-system-step-by-step>Building the System: Step by Step</h2><h3 id=part-1-structuring-variants-in-figma>Part 1: Structuring Variants in Figma</h3><p>Start by establishing a variant annotation system in your Figma design files.</p><p><strong>1. Create a dedicated A/B Testing frame in your Figma file:</strong></p><pre tabindex=0><code>📁 Design System
+  ├─ 🎨 Components
+  ├─ 🧪 A/B Tests
+  │   ├─ Homepage Hero Test #1
+  │   │   ├─ Variant A (Control)
+  │   │   └─ Variant B (Treatment)
+  │   └─ CTA Button Color Test
+  │       ├─ Variant A (Blue)
+  │       └─ Variant B (Green)
+</code></pre><p><strong>2. Add test metadata as Figma descriptions:</strong></p><p>For each test, include structured metadata in the frame description:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>test_id</span>: <span style=color:#ae81ff>homepage_hero_v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>hypothesis</span>: <span style=color:#e6db74>&#34;Emphasizing trust signals will increase form completions&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>target_metric</span>: <span style=color:#ae81ff>form_submission_rate</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>traffic_split</span>: <span style=color:#ae81ff>50</span><span style=color:#ae81ff>/50</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>start_date</span>: <span style=color:#e6db74>2025-12-01</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>end_date</span>: <span style=color:#e6db74>2025-12-31</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>target_audience</span>: <span style=color:#ae81ff>new_visitors</span>
+</span></span></code></pre></div><p><strong>3. Use Figma&rsquo;s variant properties to define differences:</strong></p><p>Each variant should be a proper Figma component variant with properties that describe the changes:</p><pre tabindex=0><code>Component: Hero / CTA
+Properties:
+  - emphasis: trust_signals | social_proof
+  - cta_text: &#34;Get Started&#34; | &#34;Start Free Trial&#34;
+  - image: testimonial | product_shot
+</code></pre><h3 id=part-2-automating-variant-export-with-make>Part 2: Automating Variant Export with Make</h3><p>Create a Make scenario that monitors your Figma file and extracts variant data.</p><p><strong>Make Scenario Flow:</strong></p><pre tabindex=0><code>1. [Trigger] Figma Webhook → File Updated
+   ↓
+2. [Figma API] Get File Components
+   ↓
+3. [Filter] Find frames with &#34;test_id&#34; in description
+   ↓
+4. [Iterator] For each A/B test found
+   ↓
+5. [Parser] Extract variant metadata (YAML)
+   ↓
+6. [Figma API] Export variant images as PNG/SVG
+   ↓
+7. [Router] Create variants in Drupal
+   ↓
+8. [Drupal API] Create/update test entities
+   ↓
+9. [Notification] Notify team via Slack/Email
+</code></pre><p><strong>Example Make Module: Extract Figma Variants</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// Make JavaScript module
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Parses Figma frame descriptions for A/B test metadata
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>frame</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>input</span>.<span style=color:#a6e22e>frame</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>description</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>frame</span>.<span style=color:#a6e22e>description</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Extract YAML frontmatter from description
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>yamlMatch</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>description</span>.<span style=color:#a6e22e>match</span>(<span style=color:#e6db74>/```yaml\n([\s\S]*?)\n```/</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>yamlMatch</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> { <span style=color:#a6e22e>hasTest</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>false</span> };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>yaml</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;js-yaml&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>metadata</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>yaml</span>.<span style=color:#a6e22e>load</span>(<span style=color:#a6e22e>yamlMatch</span>[<span style=color:#ae81ff>1</span>]);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Get variants from frame children
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>variants</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>frame</span>.<span style=color:#a6e22e>children</span>
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>filter</span>(<span style=color:#a6e22e>child</span> =&gt; <span style=color:#a6e22e>child</span>.<span style=color:#a6e22e>name</span>.<span style=color:#a6e22e>startsWith</span>(<span style=color:#e6db74>&#39;Variant&#39;</span>))
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>variant</span> =&gt; ({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>variant</span>.<span style=color:#a6e22e>id</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>variant</span>.<span style=color:#a6e22e>name</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>variant</span>.<span style=color:#a6e22e>name</span>.<span style=color:#a6e22e>includes</span>(<span style=color:#e6db74>&#39;Control&#39;</span>) <span style=color:#f92672>?</span> <span style=color:#e6db74>&#39;control&#39;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;treatment&#39;</span>
+</span></span><span style=display:flex><span>  }));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>hasTest</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>testId</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>metadata</span>.<span style=color:#a6e22e>test_id</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>hypothesis</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>metadata</span>.<span style=color:#a6e22e>hypothesis</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>targetMetric</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>metadata</span>.<span style=color:#a6e22e>target_metric</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>trafficSplit</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>metadata</span>.<span style=color:#a6e22e>traffic_split</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>startDate</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>metadata</span>.<span style=color:#a6e22e>start_date</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>endDate</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>metadata</span>.<span style=color:#a6e22e>end_date</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>targetAudience</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>metadata</span>.<span style=color:#a6e22e>target_audience</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>variants</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>variants</span>
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=part-3-drupal-ab-test-entity-structure>Part 3: Drupal A/B Test Entity Structure</h3><p>Create custom Drupal entities to store A/B tests and track results.</p><p><strong>Install required modules:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>composer require drupal/eck
+</span></span><span style=display:flex><span>composer require drupal/views
+</span></span><span style=display:flex><span>composer require drupal/paragraphs
+</span></span><span style=display:flex><span>drush en eck views paragraphs -y
+</span></span></code></pre></div><p><strong>Create a custom &ldquo;AB Test&rdquo; entity bundle via ECK:</strong></p><p>Entity configuration (<code>ab_test</code> entity type):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># config/sync/eck.eck_entity_type.ab_test.yml</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>uuid</span>: <span style=color:#ae81ff>...</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>langcode</span>: <span style=color:#ae81ff>en</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>status</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>dependencies</span>: {}
+</span></span><span style=display:flex><span><span style=color:#f92672>id</span>: <span style=color:#ae81ff>ab_test</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>label</span>: <span style=color:#e6db74>&#39;A/B Test&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>created</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>changed</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>uid</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>title</span>: <span style=color:#66d9ef>true</span>
+</span></span></code></pre></div><p><strong>Define fields for the AB Test entity:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#75715e>// web/modules/custom/mindsing_ab_test/mindsing_ab_test.install
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>mindsing_ab_test_install</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Create fields for AB Test entity
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  $fields <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;field_test_id&#39;</span> <span style=color:#f92672>=&gt;</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;type&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;string&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;label&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Test ID&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;required&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>TRUE</span>,
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;field_hypothesis&#39;</span> <span style=color:#f92672>=&gt;</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;type&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;text_long&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;label&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Hypothesis&#39;</span>,
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;field_target_metric&#39;</span> <span style=color:#f92672>=&gt;</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;type&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;string&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;label&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Target Metric&#39;</span>,
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;field_traffic_split&#39;</span> <span style=color:#f92672>=&gt;</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;type&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;string&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;label&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Traffic Split&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;default_value&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;50/50&#39;</span>,
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;field_start_date&#39;</span> <span style=color:#f92672>=&gt;</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;type&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;datetime&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;label&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Start Date&#39;</span>,
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;field_end_date&#39;</span> <span style=color:#f92672>=&gt;</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;type&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;datetime&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;label&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;End Date&#39;</span>,
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;field_target_audience&#39;</span> <span style=color:#f92672>=&gt;</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;type&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;string&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;label&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Target Audience&#39;</span>,
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;field_status&#39;</span> <span style=color:#f92672>=&gt;</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;type&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;list_string&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;label&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Test Status&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;allowed_values&#39;</span> <span style=color:#f92672>=&gt;</span> [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;draft&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Draft&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;active&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Active&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;paused&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Paused&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;completed&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Completed&#39;</span>,
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;field_variants&#39;</span> <span style=color:#f92672>=&gt;</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;type&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;entity_reference_revisions&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;label&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Variants&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;target_type&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;paragraph&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;target_bundles&#39;</span> <span style=color:#f92672>=&gt;</span> [<span style=color:#e6db74>&#39;ab_test_variant&#39;</span>],
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;cardinality&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>  ];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Create field storage and instances
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>foreach</span> ($fields <span style=color:#66d9ef>as</span> $field_name <span style=color:#f92672>=&gt;</span> $config) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>_create_field_storage</span>($field_name, <span style=color:#e6db74>&#39;ab_test&#39;</span>, $config);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Create a Variant paragraph type:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#75715e>// Paragraph type: ab_test_variant
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Fields:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// - field_variant_name: String (Control, Treatment A, Treatment B, etc.)
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// - field_variant_type: List (control, treatment)
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// - field_variant_content: Entity Reference (node, block, paragraph)
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// - field_variant_weight: Integer (for traffic allocation)
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// - field_figma_component_id: String (reference back to Figma)
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// - field_impressions: Integer (counter)
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// - field_conversions: Integer (counter)
+</span></span></span></code></pre></div><h3 id=part-4-make--drupal-integration>Part 4: Make → Drupal Integration</h3><p>Configure Make to create/update Drupal entities via REST API.</p><p><strong>Drupal REST API setup:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Enable necessary modules</span>
+</span></span><span style=display:flex><span>drush en rest restui serialization hal basic_auth -y
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Create API user with appropriate permissions</span>
+</span></span><span style=display:flex><span>drush user:create ab_test_api --password<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;SECURE_PASSWORD&#34;</span>
+</span></span><span style=display:flex><span>drush user:role:add <span style=color:#e6db74>&#34;ab_test_manager&#34;</span> ab_test_api
+</span></span></code></pre></div><p><strong>Make HTTP Module configuration:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;https://yoursite.com/entity/ab_test?_format=hal_json&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;method&#34;</span>: <span style=color:#e6db74>&#34;POST&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;headers&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;Content-Type&#34;</span>: <span style=color:#e6db74>&#34;application/hal+json&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;Authorization&#34;</span>: <span style=color:#e6db74>&#34;Basic {{base64(username:password)}}&#34;</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;body&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;_links&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;href&#34;</span>: <span style=color:#e6db74>&#34;https://yoursite.com/rest/type/ab_test/ab_test&#34;</span>
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;title&#34;</span>: [{<span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;{{testMetadata.title}}&#34;</span>}],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;field_test_id&#34;</span>: [{<span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;{{testMetadata.test_id}}&#34;</span>}],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;field_hypothesis&#34;</span>: [{<span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;{{testMetadata.hypothesis}}&#34;</span>}],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;field_target_metric&#34;</span>: [{<span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;{{testMetadata.target_metric}}&#34;</span>}],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;field_status&#34;</span>: [{<span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;draft&#34;</span>}],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;field_variants&#34;</span>: <span style=color:#e6db74>&#34;{{variants}}&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=part-5-server-side-variant-selection>Part 5: Server-Side Variant Selection</h3><p>Implement intelligent variant selection using Drupal middleware and session management.</p><p><strong>Create a variant selection service:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// web/modules/custom/mindsing_ab_test/src/VariantSelector.php
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>namespace</span> <span style=color:#a6e22e>Drupal\mindsing_ab_test</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>use</span> <span style=color:#a6e22e>Drupal\Core\Session\SessionManagerInterface</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>use</span> <span style=color:#a6e22e>Symfony\Component\HttpFoundation\RequestStack</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>VariantSelector</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>protected</span> $sessionManager;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>protected</span> $requestStack;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>__construct</span>(<span style=color:#a6e22e>SessionManagerInterface</span> $session_manager, <span style=color:#a6e22e>RequestStack</span> $request_stack) {
+</span></span><span style=display:flex><span>    $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>sessionManager</span> <span style=color:#f92672>=</span> $session_manager;
+</span></span><span style=display:flex><span>    $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>requestStack</span> <span style=color:#f92672>=</span> $request_stack;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   * Select variant for a given test and user.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>selectVariant</span>($test_entity) {
+</span></span><span style=display:flex><span>    $request <span style=color:#f92672>=</span> $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>requestStack</span><span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getCurrentRequest</span>();
+</span></span><span style=display:flex><span>    $session <span style=color:#f92672>=</span> $request<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getSession</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Check if user already has assigned variant
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $test_id <span style=color:#f92672>=</span> $test_entity<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;field_test_id&#39;</span>)<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>value</span>;
+</span></span><span style=display:flex><span>    $session_key <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;ab_test.</span><span style=color:#e6db74>{</span>$test_id<span style=color:#e6db74>}</span><span style=color:#e6db74>.variant&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> ($session<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>has</span>($session_key)) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> $session<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>($session_key);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Get user context for intelligent selection
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $user_context <span style=color:#f92672>=</span> $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getUserContext</span>($request);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Check if user matches target audience
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $target_audience <span style=color:#f92672>=</span> $test_entity<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;field_target_audience&#39;</span>)<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>value</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>$this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>matchesAudience</span>($user_context, $target_audience)) {
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// User not in test audience, show control
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#66d9ef>return</span> $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getControlVariant</span>($test_entity);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Select variant based on traffic split
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $variants <span style=color:#f92672>=</span> $test_entity<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;field_variants&#39;</span>)<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>referencedEntities</span>();
+</span></span><span style=display:flex><span>    $selected <span style=color:#f92672>=</span> $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>weightedRandom</span>($variants);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Store in session for consistency
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $session<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>set</span>($session_key, $selected<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>id</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Track impression
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>trackImpression</span>($selected);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> $selected;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   * Get user context for targeting.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getUserContext</span>($request) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;is_new_visitor&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#f92672>!</span>$request<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>cookies</span><span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>has</span>(<span style=color:#e6db74>&#39;returning_visitor&#39;</span>),
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;referrer&#39;</span> <span style=color:#f92672>=&gt;</span> $request<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>headers</span><span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;referer&#39;</span>),
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;user_agent&#39;</span> <span style=color:#f92672>=&gt;</span> $request<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>headers</span><span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;user-agent&#39;</span>),
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;ip&#39;</span> <span style=color:#f92672>=&gt;</span> $request<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getClientIp</span>(),
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// Add more context as needed
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    ];
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   * Check if user matches target audience criteria.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>matchesAudience</span>($context, $audience_criteria) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>switch</span> ($audience_criteria) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>case</span> <span style=color:#e6db74>&#39;new_visitors&#39;</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> $context[<span style=color:#e6db74>&#39;is_new_visitor&#39;</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>case</span> <span style=color:#e6db74>&#39;returning_visitors&#39;</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#f92672>!</span>$context[<span style=color:#e6db74>&#39;is_new_visitor&#39;</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>case</span> <span style=color:#e6db74>&#39;all&#39;</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>default</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>TRUE</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   * Weighted random selection based on traffic split.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>weightedRandom</span>($variants) {
+</span></span><span style=display:flex><span>    $total_weight <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    $weights <span style=color:#f92672>=</span> [];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>foreach</span> ($variants <span style=color:#66d9ef>as</span> $variant) {
+</span></span><span style=display:flex><span>      $weight <span style=color:#f92672>=</span> $variant<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;field_variant_weight&#39;</span>)<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>value</span> <span style=color:#f92672>??</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>      $weights[] <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#39;variant&#39;</span> <span style=color:#f92672>=&gt;</span> $variant, <span style=color:#e6db74>&#39;weight&#39;</span> <span style=color:#f92672>=&gt;</span> $weight];
+</span></span><span style=display:flex><span>      $total_weight <span style=color:#f92672>+=</span> $weight;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    $random <span style=color:#f92672>=</span> <span style=color:#a6e22e>mt_rand</span>(<span style=color:#ae81ff>1</span>, $total_weight);
+</span></span><span style=display:flex><span>    $current_weight <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>foreach</span> ($weights <span style=color:#66d9ef>as</span> $item) {
+</span></span><span style=display:flex><span>      $current_weight <span style=color:#f92672>+=</span> $item[<span style=color:#e6db74>&#39;weight&#39;</span>];
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span> ($random <span style=color:#f92672>&lt;=</span> $current_weight) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> $item[<span style=color:#e6db74>&#39;variant&#39;</span>];
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> $variants[<span style=color:#ae81ff>0</span>];
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   * Track impression for analytics.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>trackImpression</span>($variant) {
+</span></span><span style=display:flex><span>    $current <span style=color:#f92672>=</span> (<span style=color:#a6e22e>int</span>) $variant<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;field_impressions&#39;</span>)<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>value</span>;
+</span></span><span style=display:flex><span>    $variant<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>set</span>(<span style=color:#e6db74>&#39;field_impressions&#39;</span>, $current <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    $variant<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>save</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Create a Twig function to render variants:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// web/modules/custom/mindsing_ab_test/src/TwigExtension/ABTestExtension.php
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>namespace</span> <span style=color:#a6e22e>Drupal\mindsing_ab_test\TwigExtension</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>use</span> <span style=color:#a6e22e>Twig\Extension\AbstractExtension</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>use</span> <span style=color:#a6e22e>Twig\TwigFunction</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ABTestExtension</span> <span style=color:#66d9ef>extends</span> <span style=color:#a6e22e>AbstractExtension</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>protected</span> $variantSelector;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>__construct</span>($variant_selector) {
+</span></span><span style=display:flex><span>    $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>variantSelector</span> <span style=color:#f92672>=</span> $variant_selector;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getFunctions</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> [
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>TwigFunction</span>(<span style=color:#e6db74>&#39;ab_test&#39;</span>, [$this, <span style=color:#e6db74>&#39;renderABTest&#39;</span>], [<span style=color:#e6db74>&#39;is_safe&#39;</span> <span style=color:#f92672>=&gt;</span> [<span style=color:#e6db74>&#39;html&#39;</span>]]),
+</span></span><span style=display:flex><span>    ];
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>renderABTest</span>($test_id) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Load test entity by test_id
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $query <span style=color:#f92672>=</span> <span style=color:#a6e22e>\Drupal</span><span style=color:#f92672>::</span><span style=color:#a6e22e>entityQuery</span>(<span style=color:#e6db74>&#39;ab_test&#39;</span>)
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>condition</span>(<span style=color:#e6db74>&#39;field_test_id&#39;</span>, $test_id)
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>condition</span>(<span style=color:#e6db74>&#39;field_status&#39;</span>, <span style=color:#e6db74>&#39;active&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    $ids <span style=color:#f92672>=</span> $query<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>execute</span>();
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>empty</span>($ids)) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;&#39;</span>; <span style=color:#75715e>// No active test
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    $test <span style=color:#f92672>=</span> <span style=color:#a6e22e>\Drupal</span><span style=color:#f92672>::</span><span style=color:#a6e22e>entityTypeManager</span>()
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getStorage</span>(<span style=color:#e6db74>&#39;ab_test&#39;</span>)
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>load</span>(<span style=color:#a6e22e>reset</span>($ids));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Select variant for current user
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $variant <span style=color:#f92672>=</span> $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>variantSelector</span><span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>selectVariant</span>($test);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Render variant content
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $content_reference <span style=color:#f92672>=</span> $variant<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;field_variant_content&#39;</span>)<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>entity</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> ($content_reference) {
+</span></span><span style=display:flex><span>      $view_builder <span style=color:#f92672>=</span> <span style=color:#a6e22e>\Drupal</span><span style=color:#f92672>::</span><span style=color:#a6e22e>entityTypeManager</span>()
+</span></span><span style=display:flex><span>        <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getViewBuilder</span>($content_reference<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getEntityTypeId</span>());
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> $view_builder<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>view</span>($content_reference);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;&#39;</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Use in Twig templates:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-twig data-lang=twig><span style=display:flex><span><span style=color:#75715e>{# web/themes/custom/mindsing/templates/page--front.html.twig #}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;div class=&#34;hero-section&#34;&gt;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>{# Render A/B test variant if active, otherwise show default #}</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>{{</span> ab_test<span style=color:#f92672>(</span><span style=color:#e6db74>&#39;homepage_hero_v1&#39;</span><span style=color:#f92672>)</span> <span style=color:#75715e>}}</span>
+</span></span><span style=display:flex><span>&lt;/div&gt;
+</span></span></code></pre></div><h3 id=part-6-integrating-mcp-for-intelligent-management>Part 6: Integrating MCP for Intelligent Management</h3><p><a href=/blog/technology-innovation/model-context-protocol-drupal/>Model Context Protocol</a> can enhance your A/B testing system with intelligent analysis and recommendations.</p><p><strong>Use cases for MCP in A/B testing:</strong></p><ol><li><p><strong>Natural Language Test Queries</strong></p><ul><li>&ldquo;Which homepage variant performed better last month?&rdquo;</li><li>&ldquo;Show me all active tests targeting mobile users&rdquo;</li><li>&ldquo;What&rsquo;s the conversion rate difference for the CTA test?&rdquo;</li></ul></li><li><p><strong>Automated Insights</strong></p><ul><li>MCP analyzes test results and identifies statistical significance</li><li>Suggests when to end tests (winner declared or inconclusive)</li><li>Recommends next tests based on patterns</li></ul></li><li><p><strong>Context-Aware Variant Selection</strong></p><ul><li>Beyond simple rules, MCP can consider complex user context</li><li>Learn from past behavior to predict best variant for each user</li><li>Adapt traffic allocation based on real-time performance</li></ul></li><li><p><strong>Test Planning Assistance</strong></p><ul><li>&ldquo;What should we test next based on current conversion funnels?&rdquo;</li><li>&ldquo;Suggest variant ideas for improving mobile signup rate&rdquo;</li><li>Generate hypothesis templates from industry best practices</li></ul></li></ol><p><strong>Example MCP Server for A/B Testing:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// mcp-server/ab-test-server.js
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// MCP server that exposes A/B test context to AI assistants
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Server</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;@modelcontextprotocol/sdk/server/index.js&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>StdioServerTransport</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;@modelcontextprotocol/sdk/server/stdio.js&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>server</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Server</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;drupal-ab-test&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>version</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;1.0.0&#39;</span>,
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Expose active tests as MCP resources
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>server</span>.<span style=color:#a6e22e>setRequestHandler</span>(<span style=color:#e6db74>&#39;resources/list&#39;</span>, <span style=color:#66d9ef>async</span> () =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>tests</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetchActiveTests</span>(); <span style=color:#75715e>// Fetch from Drupal API
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>resources</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>tests</span>.<span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>test</span> =&gt; ({
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>uri</span><span style=color:#f92672>:</span> <span style=color:#e6db74>`ab-test://</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>test</span>.<span style=color:#a6e22e>test_id</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>test</span>.<span style=color:#a6e22e>title</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>mimeType</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;application/json&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>description</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>test</span>.<span style=color:#a6e22e>hypothesis</span>,
+</span></span><span style=display:flex><span>    })),
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Provide test data when requested
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>server</span>.<span style=color:#a6e22e>setRequestHandler</span>(<span style=color:#e6db74>&#39;resources/read&#39;</span>, <span style=color:#66d9ef>async</span> (<span style=color:#a6e22e>request</span>) =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>testId</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>request</span>.<span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>uri</span>.<span style=color:#a6e22e>replace</span>(<span style=color:#e6db74>&#39;ab-test://&#39;</span>, <span style=color:#e6db74>&#39;&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>testData</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetchTestDetails</span>(<span style=color:#a6e22e>testId</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>contents</span><span style=color:#f92672>:</span> [{
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>uri</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>request</span>.<span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>uri</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>mimeType</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;application/json&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>(<span style=color:#a6e22e>testData</span>, <span style=color:#66d9ef>null</span>, <span style=color:#ae81ff>2</span>),
+</span></span><span style=display:flex><span>    }],
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Expose analytics tools
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>server</span>.<span style=color:#a6e22e>setRequestHandler</span>(<span style=color:#e6db74>&#39;tools/list&#39;</span>, <span style=color:#66d9ef>async</span> () =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>tools</span><span style=color:#f92672>:</span> [
+</span></span><span style=display:flex><span>      {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;analyze_test_results&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>description</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Analyze A/B test performance and determine statistical significance&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>inputSchema</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;object&#39;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>properties</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>test_id</span><span style=color:#f92672>:</span> { <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;string&#39;</span>, <span style=color:#a6e22e>description</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Test ID to analyze&#39;</span> },
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>required</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;test_id&#39;</span>],
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;suggest_next_test&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>description</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Suggest next A/B test based on current performance and goals&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>inputSchema</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;object&#39;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>properties</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>goal</span><span style=color:#f92672>:</span> { <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;string&#39;</span>, <span style=color:#a6e22e>description</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Business goal to optimize for&#39;</span> },
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Implement tool handlers
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>server</span>.<span style=color:#a6e22e>setRequestHandler</span>(<span style=color:#e6db74>&#39;tools/call&#39;</span>, <span style=color:#66d9ef>async</span> (<span style=color:#a6e22e>request</span>) =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>request</span>.<span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>name</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#39;analyze_test_results&#39;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>testId</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>request</span>.<span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>arguments</span>.<span style=color:#a6e22e>test_id</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>analysis</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>analyzeTestStatistics</span>(<span style=color:#a6e22e>testId</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>content</span><span style=color:#f92672>:</span> [{
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;text&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>(<span style=color:#a6e22e>analysis</span>, <span style=color:#66d9ef>null</span>, <span style=color:#ae81ff>2</span>),
+</span></span><span style=display:flex><span>      }],
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>request</span>.<span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>name</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#39;suggest_next_test&#39;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>goal</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>request</span>.<span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>arguments</span>.<span style=color:#a6e22e>goal</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>suggestion</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>generateTestSuggestion</span>(<span style=color:#a6e22e>goal</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>content</span><span style=color:#f92672>:</span> [{
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;text&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>suggestion</span>,
+</span></span><span style=display:flex><span>      }],
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Statistical analysis helper
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>analyzeTestStatistics</span>(<span style=color:#a6e22e>testId</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>test</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetchTestDetails</span>(<span style=color:#a6e22e>testId</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>variants</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>test</span>.<span style=color:#a6e22e>variants</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Calculate conversion rates
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>results</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>variants</span>.<span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>v</span> =&gt; ({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>v</span>.<span style=color:#a6e22e>name</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>impressions</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>v</span>.<span style=color:#a6e22e>impressions</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>conversions</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>v</span>.<span style=color:#a6e22e>conversions</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>conversion_rate</span><span style=color:#f92672>:</span> (<span style=color:#a6e22e>v</span>.<span style=color:#a6e22e>conversions</span> <span style=color:#f92672>/</span> <span style=color:#a6e22e>v</span>.<span style=color:#a6e22e>impressions</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>100</span>).<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;%&#39;</span>,
+</span></span><span style=display:flex><span>  }));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Simple statistical significance (chi-square test)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>isSignificant</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>calculateSignificance</span>(<span style=color:#a6e22e>variants</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>winner</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>isSignificant</span> <span style=color:#f92672>?</span> <span style=color:#a6e22e>determineWinner</span>(<span style=color:#a6e22e>variants</span>) <span style=color:#f92672>:</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>test_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>testId</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>duration_days</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>calculateDuration</span>(<span style=color:#a6e22e>test</span>.<span style=color:#a6e22e>start_date</span>),
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>results</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>results</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>is_significant</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>isSignificant</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>winner</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>winner</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>recommendation</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>generateRecommendation</span>(<span style=color:#a6e22e>test</span>, <span style=color:#a6e22e>isSignificant</span>, <span style=color:#a6e22e>winner</span>),
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>transport</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>StdioServerTransport</span>();
+</span></span><span style=display:flex><span><span style=color:#66d9ef>await</span> <span style=color:#a6e22e>server</span>.<span style=color:#a6e22e>connect</span>(<span style=color:#a6e22e>transport</span>);
+</span></span></code></pre></div><p><strong>Using MCP in your workflow:</strong></p><p>With an MCP server running, you can ask AI assistants (like Claude) questions about your A/B tests in natural language:</p><pre tabindex=0><code>You: &#34;Analyze the homepage hero test and tell me if we have a winner&#34;
+
+Claude (via MCP): *accesses ab-test://homepage_hero_v1*
+
+&#34;Based on 14 days of data:
+- Control: 2,450 impressions, 245 conversions (10.0%)
+- Treatment: 2,380 impressions, 309 conversions (13.0%)
+
+The treatment variant shows a 30% relative improvement in conversion rate
+(10.0% → 13.0%). With a chi-square test, this difference is statistically
+significant (p &lt; 0.05).
+
+Recommendation: Deploy the treatment variant as the new default. The
+emphasis on trust signals is performing significantly better.&#34;
+</code></pre><h3 id=part-7-first-party-analytics-with-localstorage>Part 7: First-Party Analytics with localStorage</h3><p>A critical advantage of this native approach is implementing privacy-focused analytics using browser localStorage instead of third-party tracking services.</p><p><strong>Why localStorage for A/B Test Analytics?</strong></p><p>Traditional analytics solutions (Google Analytics, Mixpanel, etc.) have significant downsides:</p><ul><li>Require user consent (GDPR/CCPA compliance overhead)</li><li>Blocked by ad blockers and privacy tools</li><li>Send data to third parties (privacy concerns)</li><li>Add page load overhead (external scripts)</li><li>Subject to attribution loss (Safari ITP, etc.)</li></ul><p><strong>localStorage offers a better path:</strong></p><ul><li>No external requests (instant, no latency)</li><li>Works offline (Progressive Web App friendly)</li><li>Complete data ownership (sync to Drupal on your terms)</li><li>No consent required for first-party functional storage</li><li>Immune to ad blockers (first-party code)</li><li>Supports rich, structured data</li></ul><p><strong>Implementing the localStorage Analytics Layer:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// web/themes/custom/mindsing/js/ab-test-analytics.js
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// First-party A/B test analytics using localStorage
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ABTestAnalytics</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>constructor</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>storageKey</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;mindsing_ab_tests&#39;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>syncEndpoint</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;/api/ab-test/analytics&#39;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>syncInterval</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>60000</span>; <span style=color:#75715e>// Sync every 60 seconds
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>init</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>init</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Initialize storage structure if it doesn&#39;t exist
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>localStorage</span>.<span style=color:#a6e22e>getItem</span>(<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>storageKey</span>)) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>resetStorage</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Set up periodic sync to Drupal
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>setInterval</span>(() =&gt; <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>syncToDrupal</span>(), <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>syncInterval</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Sync before page unload
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    window.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;beforeunload&#39;</span>, () =&gt; <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>syncToDrupal</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Track page visibility changes (tab switching)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    document.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;visibilitychange&#39;</span>, () =&gt; {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span> (document.<span style=color:#a6e22e>visibilityState</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#39;hidden&#39;</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>syncToDrupal</span>();
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Reset localStorage structure
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>resetStorage</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>structure</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>tests</span><span style=color:#f92672>:</span> {},
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>session</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>generateSessionId</span>(),
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>start</span><span style=color:#f92672>:</span> Date.<span style=color:#a6e22e>now</span>(),
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>events</span><span style=color:#f92672>:</span> [],
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>synced_at</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>null</span>,
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>localStorage</span>.<span style=color:#a6e22e>setItem</span>(<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>storageKey</span>, <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>(<span style=color:#a6e22e>structure</span>));
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Track when user is exposed to a variant
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>trackVariantExposure</span>(<span style=color:#a6e22e>testId</span>, <span style=color:#a6e22e>variantId</span>, <span style=color:#a6e22e>variantName</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>getData</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Initialize test if first exposure
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>tests</span>[<span style=color:#a6e22e>testId</span>]) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>tests</span>[<span style=color:#a6e22e>testId</span>] <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>variant_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>variantId</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>variant_name</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>variantName</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>exposed_at</span><span style=color:#f92672>:</span> Date.<span style=color:#a6e22e>now</span>(),
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>interactions</span><span style=color:#f92672>:</span> [],
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>conversions</span><span style=color:#f92672>:</span> [],
+</span></span><span style=display:flex><span>      };
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>saveData</span>(<span style=color:#a6e22e>data</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Log exposure event
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>trackEvent</span>(<span style=color:#e6db74>&#39;variant_exposure&#39;</span>, {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>test_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>testId</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>variant_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>variantId</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>variant_name</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>variantName</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Track user interaction with variant content
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>trackInteraction</span>(<span style=color:#a6e22e>testId</span>, <span style=color:#a6e22e>interactionType</span>, <span style=color:#a6e22e>metadata</span> <span style=color:#f92672>=</span> {}) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>getData</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>tests</span>[<span style=color:#a6e22e>testId</span>]) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>warn</span>(<span style=color:#e6db74>`Test </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>testId</span><span style=color:#e6db74>}</span><span style=color:#e6db74> not found in analytics storage`</span>);
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>tests</span>[<span style=color:#a6e22e>testId</span>].<span style=color:#a6e22e>interactions</span>.<span style=color:#a6e22e>push</span>({
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>interactionType</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>metadata</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>metadata</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>timestamp</span><span style=color:#f92672>:</span> Date.<span style=color:#a6e22e>now</span>(),
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>saveData</span>(<span style=color:#a6e22e>data</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Log interaction event
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>trackEvent</span>(<span style=color:#e6db74>&#39;interaction&#39;</span>, {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>test_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>testId</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>interaction_type</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>interactionType</span>,
+</span></span><span style=display:flex><span>      ...<span style=color:#a6e22e>metadata</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Track conversion event
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>trackConversion</span>(<span style=color:#a6e22e>testId</span>, <span style=color:#a6e22e>conversionGoal</span>, <span style=color:#a6e22e>value</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>getData</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>tests</span>[<span style=color:#a6e22e>testId</span>]) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>warn</span>(<span style=color:#e6db74>`Test </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>testId</span><span style=color:#e6db74>}</span><span style=color:#e6db74> not found in analytics storage`</span>);
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>tests</span>[<span style=color:#a6e22e>testId</span>].<span style=color:#a6e22e>conversions</span>.<span style=color:#a6e22e>push</span>({
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>goal</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>conversionGoal</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>value</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>timestamp</span><span style=color:#f92672>:</span> Date.<span style=color:#a6e22e>now</span>(),
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>saveData</span>(<span style=color:#a6e22e>data</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Log conversion event
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>trackEvent</span>(<span style=color:#e6db74>&#39;conversion&#39;</span>, {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>test_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>testId</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>goal</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>conversionGoal</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>value</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Immediate sync on conversion (important data)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>syncToDrupal</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Track generic event
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>trackEvent</span>(<span style=color:#a6e22e>eventType</span>, <span style=color:#a6e22e>eventData</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>getData</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>events</span>.<span style=color:#a6e22e>push</span>({
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>eventType</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>eventData</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>timestamp</span><span style=color:#f92672>:</span> Date.<span style=color:#a6e22e>now</span>(),
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>url</span><span style=color:#f92672>:</span> window.<span style=color:#a6e22e>location</span>.<span style=color:#a6e22e>href</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>referrer</span><span style=color:#f92672>:</span> document.<span style=color:#a6e22e>referrer</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Keep only last 100 events to prevent storage bloat
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>events</span>.<span style=color:#a6e22e>length</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>100</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>events</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>events</span>.<span style=color:#a6e22e>slice</span>(<span style=color:#f92672>-</span><span style=color:#ae81ff>100</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>saveData</span>(<span style=color:#a6e22e>data</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Sync analytics data to Drupal backend
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>async</span> <span style=color:#a6e22e>syncToDrupal</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>getData</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Only sync if we have unsaved data
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>events</span>.<span style=color:#a6e22e>length</span> <span style=color:#f92672>===</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>synced_at</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>response</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetch</span>(<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>syncEndpoint</span>, {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>method</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;POST&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>headers</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>&#39;Content-Type&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;application/json&#39;</span>,
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>body</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>({
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>session</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>session</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>tests</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>tests</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>events</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>events</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>user_agent</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>navigator</span>.<span style=color:#a6e22e>userAgent</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>screen_resolution</span><span style=color:#f92672>:</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span>window.<span style=color:#a6e22e>screen</span>.<span style=color:#a6e22e>width</span><span style=color:#e6db74>}</span><span style=color:#e6db74>x</span><span style=color:#e6db74>${</span>window.<span style=color:#a6e22e>screen</span>.<span style=color:#a6e22e>height</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>viewport</span><span style=color:#f92672>:</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span>window.<span style=color:#a6e22e>innerWidth</span><span style=color:#e6db74>}</span><span style=color:#e6db74>x</span><span style=color:#e6db74>${</span>window.<span style=color:#a6e22e>innerHeight</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>,
+</span></span><span style=display:flex><span>        }),
+</span></span><span style=display:flex><span>      });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>ok</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Clear events after successful sync
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>events</span> <span style=color:#f92672>=</span> [];
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>synced_at</span> <span style=color:#f92672>=</span> Date.<span style=color:#a6e22e>now</span>();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>saveData</span>(<span style=color:#a6e22e>data</span>);
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (<span style=color:#a6e22e>error</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#39;Failed to sync analytics:&#39;</span>, <span style=color:#a6e22e>error</span>);
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// Keep data in localStorage for retry
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Get data from localStorage
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>getData</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>stored</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>localStorage</span>.<span style=color:#a6e22e>getItem</span>(<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>storageKey</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>stored</span> <span style=color:#f92672>?</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>parse</span>(<span style=color:#a6e22e>stored</span>) <span style=color:#f92672>:</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>resetStorage</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Save data to localStorage
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>saveData</span>(<span style=color:#a6e22e>data</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>localStorage</span>.<span style=color:#a6e22e>setItem</span>(<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>storageKey</span>, <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>(<span style=color:#a6e22e>data</span>));
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Generate unique session ID
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>generateSessionId</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span>Date.<span style=color:#a6e22e>now</span>()<span style=color:#e6db74>}</span><span style=color:#e6db74>-</span><span style=color:#e6db74>${</span>Math.<span style=color:#a6e22e>random</span>().<span style=color:#a6e22e>toString</span>(<span style=color:#ae81ff>36</span>).<span style=color:#a6e22e>substr</span>(<span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>9</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Get current variant for a test
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>getCurrentVariant</span>(<span style=color:#a6e22e>testId</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>getData</span>();
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>tests</span>[<span style=color:#a6e22e>testId</span>] <span style=color:#f92672>||</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Get all test data
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>getAllTests</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>getData</span>().<span style=color:#a6e22e>tests</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   * Clear all analytics data (for testing/debugging)
+</span></span></span><span style=display:flex><span><span style=color:#75715e>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearAll</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>resetStorage</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Initialize analytics
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>window.<span style=color:#a6e22e>abTestAnalytics</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>ABTestAnalytics</span>();
+</span></span></code></pre></div><p><strong>Usage in templates:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!-- Inject variant data into page --&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Track variant exposure when page loads
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  document.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#39;DOMContentLoaded&#39;</span>, <span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    window.<span style=color:#a6e22e>abTestAnalytics</span>.<span style=color:#a6e22e>trackVariantExposure</span>(
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;homepage_hero_v1&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;{{ variant_id }}&#39;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;{{ variant_name }}&#39;</span>
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!-- Track interactions with variant elements --&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;hero-cta&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>button</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>onclick</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;window.abTestAnalytics.trackInteraction(&#39;homepage_hero_v1&#39;, &#39;cta_click&#39;, {
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      button_text: this.textContent
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    })&#34;</span>
+</span></span><span style=display:flex><span>  &gt;
+</span></span><span style=display:flex><span>    Get Started
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>button</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!-- Track conversions on form submission --&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>form</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;signup-form&#34;</span> <span style=color:#a6e22e>onsubmit</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;handleFormSubmit(event)&#34;</span>&gt;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- form fields --&gt;</span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>form</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>handleFormSubmit</span>(<span style=color:#a6e22e>event</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>preventDefault</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Track conversion
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  window.<span style=color:#a6e22e>abTestAnalytics</span>.<span style=color:#a6e22e>trackConversion</span>(
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;homepage_hero_v1&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;signup_form_submission&#39;</span>
+</span></span><span style=display:flex><span>  );
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Submit form
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>target</span>.<span style=color:#a6e22e>submit</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span></code></pre></div><p><strong>Drupal Endpoint to Receive Analytics:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// web/modules/custom/mindsing_ab_test/src/Controller/AnalyticsController.php
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>namespace</span> <span style=color:#a6e22e>Drupal\mindsing_ab_test\Controller</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>use</span> <span style=color:#a6e22e>Drupal\Core\Controller\ControllerBase</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>use</span> <span style=color:#a6e22e>Symfony\Component\HttpFoundation\Request</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>use</span> <span style=color:#a6e22e>Symfony\Component\HttpFoundation\JsonResponse</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AnalyticsController</span> <span style=color:#66d9ef>extends</span> <span style=color:#a6e22e>ControllerBase</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   * Receive and process analytics data from localStorage.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>receiveAnalytics</span>(<span style=color:#a6e22e>Request</span> $request) {
+</span></span><span style=display:flex><span>    $data <span style=color:#f92672>=</span> <span style=color:#a6e22e>json_decode</span>($request<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getContent</span>(), <span style=color:#66d9ef>TRUE</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>$data) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>JsonResponse</span>([<span style=color:#e6db74>&#39;error&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Invalid data&#39;</span>], <span style=color:#ae81ff>400</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Process each test&#39;s analytics
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>foreach</span> ($data[<span style=color:#e6db74>&#39;tests&#39;</span>] <span style=color:#66d9ef>as</span> $test_id <span style=color:#f92672>=&gt;</span> $test_data) {
+</span></span><span style=display:flex><span>      $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>processTestAnalytics</span>($test_id, $test_data, $data[<span style=color:#e6db74>&#39;session&#39;</span>]);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Log events for deeper analysis
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>foreach</span> ($data[<span style=color:#e6db74>&#39;events&#39;</span>] <span style=color:#66d9ef>as</span> $event) {
+</span></span><span style=display:flex><span>      $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>logEvent</span>($event, $data[<span style=color:#e6db74>&#39;session&#39;</span>]);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>JsonResponse</span>([<span style=color:#e6db74>&#39;status&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;success&#39;</span>]);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   * Process analytics for a specific test.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>processTestAnalytics</span>($test_id, $test_data, $session_data) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Load test entity
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $query <span style=color:#f92672>=</span> <span style=color:#a6e22e>\Drupal</span><span style=color:#f92672>::</span><span style=color:#a6e22e>entityQuery</span>(<span style=color:#e6db74>&#39;ab_test&#39;</span>)
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>condition</span>(<span style=color:#e6db74>&#39;field_test_id&#39;</span>, $test_id);
+</span></span><span style=display:flex><span>    $ids <span style=color:#f92672>=</span> $query<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>execute</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>empty</span>($ids)) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    $test <span style=color:#f92672>=</span> <span style=color:#a6e22e>\Drupal</span><span style=color:#f92672>::</span><span style=color:#a6e22e>entityTypeManager</span>()
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getStorage</span>(<span style=color:#e6db74>&#39;ab_test&#39;</span>)
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>load</span>(<span style=color:#a6e22e>reset</span>($ids));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Find the variant
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $variants <span style=color:#f92672>=</span> $test<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;field_variants&#39;</span>)<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>referencedEntities</span>();
+</span></span><span style=display:flex><span>    $variant <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>foreach</span> ($variants <span style=color:#66d9ef>as</span> $v) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span> ($v<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>id</span>() <span style=color:#f92672>==</span> $test_data[<span style=color:#e6db74>&#39;variant_id&#39;</span>]) {
+</span></span><span style=display:flex><span>        $variant <span style=color:#f92672>=</span> $v;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>$variant) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Update variant analytics
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $current_impressions <span style=color:#f92672>=</span> (<span style=color:#a6e22e>int</span>) $variant<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;field_impressions&#39;</span>)<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>value</span>;
+</span></span><span style=display:flex><span>    $current_conversions <span style=color:#f92672>=</span> (<span style=color:#a6e22e>int</span>) $variant<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;field_conversions&#39;</span>)<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>value</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Increment based on received data
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $new_conversions <span style=color:#f92672>=</span> <span style=color:#a6e22e>count</span>($test_data[<span style=color:#e6db74>&#39;conversions&#39;</span>]);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    $variant<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>set</span>(<span style=color:#e6db74>&#39;field_impressions&#39;</span>, $current_impressions <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    $variant<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>set</span>(<span style=color:#e6db74>&#39;field_conversions&#39;</span>, $current_conversions <span style=color:#f92672>+</span> $new_conversions);
+</span></span><span style=display:flex><span>    $variant<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>save</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Store detailed interaction data
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>foreach</span> ($test_data[<span style=color:#e6db74>&#39;interactions&#39;</span>] <span style=color:#66d9ef>as</span> $interaction) {
+</span></span><span style=display:flex><span>      $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>logInteraction</span>($test_id, $test_data[<span style=color:#e6db74>&#39;variant_id&#39;</span>], $interaction);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Store conversion details
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>foreach</span> ($test_data[<span style=color:#e6db74>&#39;conversions&#39;</span>] <span style=color:#66d9ef>as</span> $conversion) {
+</span></span><span style=display:flex><span>      $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>logConversion</span>($test_id, $test_data[<span style=color:#e6db74>&#39;variant_id&#39;</span>], $conversion);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   * Log interaction to database for detailed analysis.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>logInteraction</span>($test_id, $variant_id, $interaction) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>\Drupal</span><span style=color:#f92672>::</span><span style=color:#a6e22e>database</span>()<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>insert</span>(<span style=color:#e6db74>&#39;ab_test_interactions&#39;</span>)
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>fields</span>([
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;test_id&#39;</span> <span style=color:#f92672>=&gt;</span> $test_id,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;variant_id&#39;</span> <span style=color:#f92672>=&gt;</span> $variant_id,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;interaction_type&#39;</span> <span style=color:#f92672>=&gt;</span> $interaction[<span style=color:#e6db74>&#39;type&#39;</span>],
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;metadata&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>json_encode</span>($interaction[<span style=color:#e6db74>&#39;metadata&#39;</span>]),
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;timestamp&#39;</span> <span style=color:#f92672>=&gt;</span> $interaction[<span style=color:#e6db74>&#39;timestamp&#39;</span>],
+</span></span><span style=display:flex><span>      ])
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>execute</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   * Log conversion to database.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>logConversion</span>($test_id, $variant_id, $conversion) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>\Drupal</span><span style=color:#f92672>::</span><span style=color:#a6e22e>database</span>()<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>insert</span>(<span style=color:#e6db74>&#39;ab_test_conversions&#39;</span>)
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>fields</span>([
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;test_id&#39;</span> <span style=color:#f92672>=&gt;</span> $test_id,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;variant_id&#39;</span> <span style=color:#f92672>=&gt;</span> $variant_id,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;goal&#39;</span> <span style=color:#f92672>=&gt;</span> $conversion[<span style=color:#e6db74>&#39;goal&#39;</span>],
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;value&#39;</span> <span style=color:#f92672>=&gt;</span> $conversion[<span style=color:#e6db74>&#39;value&#39;</span>],
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;timestamp&#39;</span> <span style=color:#f92672>=&gt;</span> $conversion[<span style=color:#e6db74>&#39;timestamp&#39;</span>],
+</span></span><span style=display:flex><span>      ])
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>execute</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   * Log generic event.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>   */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>logEvent</span>($event, $session_data) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>\Drupal</span><span style=color:#f92672>::</span><span style=color:#a6e22e>database</span>()<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>insert</span>(<span style=color:#e6db74>&#39;ab_test_events&#39;</span>)
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>fields</span>([
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;session_id&#39;</span> <span style=color:#f92672>=&gt;</span> $session_data[<span style=color:#e6db74>&#39;id&#39;</span>],
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;event_type&#39;</span> <span style=color:#f92672>=&gt;</span> $event[<span style=color:#e6db74>&#39;type&#39;</span>],
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;event_data&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>json_encode</span>($event[<span style=color:#e6db74>&#39;data&#39;</span>]),
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;url&#39;</span> <span style=color:#f92672>=&gt;</span> $event[<span style=color:#e6db74>&#39;url&#39;</span>],
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;referrer&#39;</span> <span style=color:#f92672>=&gt;</span> $event[<span style=color:#e6db74>&#39;referrer&#39;</span>],
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;timestamp&#39;</span> <span style=color:#f92672>=&gt;</span> $event[<span style=color:#e6db74>&#39;timestamp&#39;</span>],
+</span></span><span style=display:flex><span>      ])
+</span></span><span style=display:flex><span>      <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>execute</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>Key Benefits of localStorage Analytics:</strong></p><ol><li><p><strong>Privacy-First Design</strong></p><ul><li>Data stays in user&rsquo;s browser until explicitly synced</li><li>No third-party cookies or trackers</li><li>Easy GDPR/CCPA compliance (functional storage, not tracking)</li><li>Users maintain control over their data</li></ul></li><li><p><strong>Performance Advantages</strong></p><ul><li>Zero network latency for tracking calls</li><li>Works offline (PWA support)</li><li>No external script blocking page load</li><li>Minimal JavaScript overhead</li></ul></li><li><p><strong>Rich Data Collection</strong></p><ul><li>Store complex, structured data</li><li>Track user journey across sessions</li><li>Maintain context without server round-trips</li><li>Unlimited custom dimensions</li></ul></li><li><p><strong>Reliability</strong></p><ul><li>Not blocked by ad blockers or privacy tools</li><li>No cross-domain issues</li><li>Survives page reloads</li><li>Resilient to network failures (queued sync)</li></ul></li><li><p><strong>Complete Ownership</strong></p><ul><li>All data in your Drupal database</li><li>No vendor lock-in</li><li>Custom analytics queries</li><li>Integration with existing reporting</li></ul></li></ol><p><strong>Handling Storage Limitations:</strong></p><p>localStorage has a 5-10MB limit per domain. Manage this by:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// Automatically archive old data to server
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>pruneOldData</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>getData</span>();
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>oneWeekAgo</span> <span style=color:#f92672>=</span> Date.<span style=color:#a6e22e>now</span>() <span style=color:#f92672>-</span> (<span style=color:#ae81ff>7</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>24</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>60</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>60</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1000</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// Archive tests older than one week
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  Object.<span style=color:#a6e22e>keys</span>(<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>tests</span>).<span style=color:#a6e22e>forEach</span>(<span style=color:#a6e22e>testId</span> =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>test</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>tests</span>[<span style=color:#a6e22e>testId</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>test</span>.<span style=color:#a6e22e>exposed_at</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>oneWeekAgo</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// Ensure it&#39;s synced
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>syncToDrupal</span>();
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// Remove from local storage
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#66d9ef>delete</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>tests</span>[<span style=color:#a6e22e>testId</span>];
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>saveData</span>(<span style=color:#a6e22e>data</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=real-world-benefits>Real-World Benefits</h2><p>This integrated approach delivers substantial advantages:</p><h3 id=for-designers>For Designers</h3><ul><li><strong>Design variants in familiar tool</strong> (Figma) without learning Drupal</li><li><strong>Immediate feedback</strong> when variants are deployed</li><li><strong>Maintain design system consistency</strong> across all test variants</li><li><strong>Visual test planning</strong> with annotations and metadata</li></ul><h3 id=for-developers>For Developers</h3><ul><li><strong>No third-party JavaScript</strong> to integrate or maintain</li><li><strong>Native Drupal entities</strong> that work with existing workflows</li><li><strong>Server-side rendering</strong> for better performance and SEO</li><li><strong>Standard APIs</strong> for extending and customizing</li></ul><h3 id=for-marketers>For Marketers</h3><ul><li><strong>Faster iteration</strong> from idea to live test</li><li><strong>Natural language queries</strong> via MCP to analyze results</li><li><strong>No external platform costs</strong> or vendor lock-in</li><li><strong>Complete data ownership</strong> within your Drupal site</li><li><strong>Privacy-compliant analytics</strong> without consent overhead</li></ul><h3 id=for-organizations>For Organizations</h3><ul><li><strong>Democratized experimentation</strong> across design, development, and marketing</li><li><strong>Reduced tool sprawl</strong> by leveraging existing platforms</li><li><strong><a href=/blog/technology-innovation/ai-development-workflows/>Improved development workflows</a></strong> through automation</li><li><strong>Context-aware testing</strong> that adapts to user behavior</li><li><strong>First-party data strategy</strong> aligned with privacy regulations</li><li><strong>No ad blocker interference</strong> with analytics tracking</li><li><strong>Complete audit trail</strong> of all test data in your database</li></ul><h2 id=getting-started>Getting Started</h2><p>Implementing this system doesn&rsquo;t require doing everything at once. Here&rsquo;s a pragmatic rollout approach:</p><h3 id=phase-1-foundation-week-1-2>Phase 1: Foundation (Week 1-2)</h3><ol><li>Set up AB Test entity structure in Drupal</li><li>Create manual variant entry workflow (no automation yet)</li><li>Implement basic variant selection service</li><li>Test with one simple A/B test (e.g., CTA button text)</li></ol><h3 id=phase-2-figma-integration-week-3-4>Phase 2: Figma Integration (Week 3-4)</h3><ol><li>Establish Figma variant annotation conventions</li><li>Set up Make account and basic Figma → Drupal scenario</li><li>Test automated variant creation from Figma</li><li>Document workflow for designers</li></ol><h3 id=phase-3-mcp-intelligence-week-5-6>Phase 3: MCP Intelligence (Week 5-6)</h3><ol><li>Build basic MCP server exposing test data</li><li>Implement analysis tools for statistical significance</li><li>Connect to Claude or other MCP-compatible AI assistant</li><li>Train team on natural language test queries</li></ol><h3 id=phase-4-first-party-analytics-week-7-8>Phase 4: First-Party Analytics (Week 7-8)</h3><ol><li>Implement localStorage analytics JavaScript module</li><li>Create Drupal endpoint to receive analytics data</li><li>Set up database tables for interaction/conversion logging</li><li>Build analytics dashboard in Drupal admin</li><li>Test data flow from browser to database</li></ol><h3 id=phase-5-advanced-features-ongoing>Phase 5: Advanced Features (Ongoing)</h3><ul><li>Multi-variate testing (testing multiple elements simultaneously)</li><li>Personalization based on user segments</li><li>Automated variant optimization using ML</li><li>Real-time analytics dashboards</li><li>Cohort analysis and segmentation</li></ul><h2 id=lessons-from-implementation>Lessons from Implementation</h2><p>Building this system reveals important insights about modern development workflows:</p><h3 id=1-systems-beat-tools>1. <strong>Systems Beat Tools</strong></h3><p>Individual tools (Figma, Make, MCP, Drupal) are powerful, but their value multiplies when connected into a coherent system. The whole becomes greater than the sum of parts.</p><h3 id=2-automation-enables-experimentation>2. <strong>Automation Enables Experimentation</strong></h3><p>When creating test variants requires developer time, you test less frequently. Automation removes friction and encourages a culture of experimentation.</p><h3 id=3-context-is-king>3. <strong>Context is King</strong></h3><p>Generic A/B testing treats all users the same. By leveraging MCP&rsquo;s context awareness, you can deliver more relevant experiences to each user segment.</p><h3 id=4-native-integration-wins>4. <strong>Native Integration Wins</strong></h3><p>Third-party platforms seem easier initially but create long-term dependency, cost, and integration complexity. Native Drupal solutions offer more control and flexibility.</p><h3 id=5-privacy-first-is-performance-first>5. <strong>Privacy-First is Performance-First</strong></h3><p>Using localStorage for analytics isn&rsquo;t just better for privacy—it&rsquo;s faster, more reliable, and gives you complete control over your data. First-party strategies align business interests with user interests.</p><h2 id=beyond-ab-testing-the-bigger-picture>Beyond A/B Testing: The Bigger Picture</h2><p>This Figma + Make + MCP + Drupal architecture extends beyond A/B testing:</p><ul><li><strong>Personalization</strong>: Show different content variants based on user context</li><li><strong>Seasonal campaigns</strong>: Automate deployment of time-based content variations</li><li><strong>Multivariate testing</strong>: Test combinations of elements simultaneously</li><li><strong>Progressive rollouts</strong>: Gradually increase traffic to new designs</li><li><strong>Localization</strong>: Manage design variants for different regions/languages</li></ul><p>The pattern of <strong>design in Figma → automate with Make → intelligently orchestrate with MCP → deliver natively in Drupal</strong> creates a powerful foundation for modern digital experiences.</p><h2 id=the-future-ai-designed-variants>The Future: AI-Designed Variants</h2><p>As AI capabilities advance, we can imagine even more sophisticated workflows:</p><ul><li><strong>AI-generated variant suggestions</strong>: MCP analyzes user behavior and suggests design variants likely to improve conversion</li><li><strong>Automated design adaptation</strong>: AI modifies Figma components based on test results</li><li><strong>Predictive analytics</strong>: MCP predicts which variant will perform best for each user before showing it</li><li><strong>Continuous optimization</strong>: System automatically creates, tests, and deploys improvements</li></ul><p><a href=/blog/technology-innovation/model-context-protocol-drupal/>Model Context Protocol</a> positions us for this future by creating the context layer AI needs to make intelligent decisions about user experience.</p><h2 id=conclusion>Conclusion</h2><p>Native Drupal A/B testing powered by Figma, Make, MCP, and localStorage analytics represents a new paradigm: <strong>intelligent, automated, context-aware, privacy-respecting experimentation</strong> without vendor lock-in or performance compromises.</p><p>By connecting your <a href=/blog/design-experience/figma-to-drupal-design-systems/>design system</a> (Figma) to your automation platform (Make) to your intelligence layer (MCP) to your CMS (Drupal) and implementing first-party analytics (localStorage), you create a system that:</p><ul><li><strong>Empowers designers</strong> to create and deploy variants independently</li><li><strong>Reduces developer burden</strong> through automation</li><li><strong>Provides intelligent insights</strong> via natural language queries</li><li><strong>Delivers better performance</strong> than JavaScript-heavy third-party solutions</li><li><strong>Maintains complete data ownership</strong> within your Drupal ecosystem</li><li><strong>Respects user privacy</strong> with first-party, consent-free analytics</li><li><strong>Survives ad blockers</strong> and browser privacy protections</li><li><strong>Works offline</strong> for Progressive Web App experiences</li></ul><p>The future of A/B testing isn&rsquo;t about external platforms—it&rsquo;s about building intelligent, context-aware, privacy-first systems that integrate seamlessly with your existing workflows. Figma + Make + MCP + Drupal + localStorage shows us how.</p><hr><p><em>Ready to implement intelligent A/B testing in your Drupal site? <a href=https://www.mindsing.com/booking>Contact us</a> to discuss building custom experimentation workflows tailored to your organization&rsquo;s needs.</em></p></div><div class="mt4 pt4 bt b--light-gray"><h3 class="f5 fw6 dark-gray mt0 mb3">Tags</h3><ul class="pa0 list ma0"><li class="dib mr2 mb2"><a href=/tags/a/b-testing class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">A/B Testing</a></li><li class="dib mr2 mb2"><a href=/tags/figma class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Figma</a></li><li class="dib mr2 mb2"><a href=/tags/make class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Make</a></li><li class="dib mr2 mb2"><a href=/tags/mcp class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">MCP</a></li><li class="dib mr2 mb2"><a href=/tags/model-context-protocol class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Model Context Protocol</a></li><li class="dib mr2 mb2"><a href=/tags/drupal class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Drupal</a></li><li class="dib mr2 mb2"><a href=/tags/automation class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Automation</a></li><li class="dib mr2 mb2"><a href=/tags/design-systems class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Design Systems</a></li><li class="dib mr2 mb2"><a href=/tags/experimentation class="link f6 grow no-underline br2 ba ph3 pv2 dib black sans-serif">Experimentation</a></li></ul></div><div class="mt4 tc"><a href=#top class="f6 link orange dim">↑ Back to Top</a></div></article><aside class="w-100 w-30-l mt4 mt0-l dn db-l"><aside class="email-subscription-sidebar w-100 bg-white pv4 br3 mb4"><div class=ph4><h3 class="f4 fw6 dark-gray mt0 mb3">Stay Updated</h3><p class="f6 lh-copy mid-gray mb3">Subscribe to receive the latest insights and updates.</p></div><div id=zf_div_gnTMhpfkoaq53ZgcX4YPIkqN04T2FfPLPV5NhcXHlBA></div></aside><script src=/js/zoho-subscription-form.js defer></script><div class=sticky-sidebar><nav class="toc-container bg-white pa4 br3 mb4" aria-label="Table of Contents"><h3 class="f4 fw6 dark-gray mt0 mb3">On This Page</h3><div class="toc f6 lh-copy"><nav id=TableOfContents><ul><li><a href=#the-traditional-ab-testing-problem>The Traditional A/B Testing Problem</a><ul><li><a href=#third-party-platforms-optimizely-vwo-etc>Third-Party Platforms (Optimizely, VWO, etc.)</a></li><li><a href=#custom-development>Custom Development</a></li><li><a href=#javascript-heavy-solutions>JavaScript-Heavy Solutions</a></li></ul></li><li><a href=#the-architecture-figma--make--mcp--drupal--localstorage-analytics>The Architecture: Figma + Make + MCP + Drupal + localStorage Analytics</a><ul><li><a href=#1-figma-design-variant-source-of-truth>1. <strong>Figma</strong>: Design Variant Source of Truth</a></li><li><a href=#2-make-formerly-integromat-automation-bridge>2. <strong>Make</strong> (formerly Integromat): Automation Bridge</a></li><li><a href=#3-mcp-intelligent-context-layer>3. <strong>MCP</strong>: Intelligent Context Layer</a></li><li><a href=#4-drupal-native-variant-management>4. <strong>Drupal</strong>: Native Variant Management</a></li><li><a href=#5-localstorage-privacy-focused-first-party-analytics>5. <strong>localStorage</strong>: Privacy-Focused First-Party Analytics</a></li></ul></li><li><a href=#building-the-system-step-by-step>Building the System: Step by Step</a><ul><li><a href=#part-1-structuring-variants-in-figma>Part 1: Structuring Variants in Figma</a></li><li><a href=#part-2-automating-variant-export-with-make>Part 2: Automating Variant Export with Make</a></li><li><a href=#part-3-drupal-ab-test-entity-structure>Part 3: Drupal A/B Test Entity Structure</a></li><li><a href=#part-4-make--drupal-integration>Part 4: Make → Drupal Integration</a></li><li><a href=#part-5-server-side-variant-selection>Part 5: Server-Side Variant Selection</a></li><li><a href=#part-6-integrating-mcp-for-intelligent-management>Part 6: Integrating MCP for Intelligent Management</a></li><li><a href=#part-7-first-party-analytics-with-localstorage>Part 7: First-Party Analytics with localStorage</a></li></ul></li><li><a href=#real-world-benefits>Real-World Benefits</a><ul><li><a href=#for-designers>For Designers</a></li><li><a href=#for-developers>For Developers</a></li><li><a href=#for-marketers>For Marketers</a></li><li><a href=#for-organizations>For Organizations</a></li></ul></li><li><a href=#getting-started>Getting Started</a><ul><li><a href=#phase-1-foundation-week-1-2>Phase 1: Foundation (Week 1-2)</a></li><li><a href=#phase-2-figma-integration-week-3-4>Phase 2: Figma Integration (Week 3-4)</a></li><li><a href=#phase-3-mcp-intelligence-week-5-6>Phase 3: MCP Intelligence (Week 5-6)</a></li><li><a href=#phase-4-first-party-analytics-week-7-8>Phase 4: First-Party Analytics (Week 7-8)</a></li><li><a href=#phase-5-advanced-features-ongoing>Phase 5: Advanced Features (Ongoing)</a></li></ul></li><li><a href=#lessons-from-implementation>Lessons from Implementation</a><ul><li><a href=#1-systems-beat-tools>1. <strong>Systems Beat Tools</strong></a></li><li><a href=#2-automation-enables-experimentation>2. <strong>Automation Enables Experimentation</strong></a></li><li><a href=#3-context-is-king>3. <strong>Context is King</strong></a></li><li><a href=#4-native-integration-wins>4. <strong>Native Integration Wins</strong></a></li><li><a href=#5-privacy-first-is-performance-first>5. <strong>Privacy-First is Performance-First</strong></a></li></ul></li><li><a href=#beyond-ab-testing-the-bigger-picture>Beyond A/B Testing: The Bigger Picture</a></li><li><a href=#the-future-ai-designed-variants>The Future: AI-Designed Variants</a></li><li><a href=#conclusion>Conclusion</a></li></ul></nav></div><style>.toc a:hover{text-decoration:none!important;color:#000!important}.toc-toggle{margin-left:20px;text-decoration:none!important}</style><div class="mt3 pt3 bt b--light-gray"><a href=#top class="f6 link orange dim">↑ Back to Top</a></div></nav><script>document.addEventListener("DOMContentLoaded",function(){const e=document.querySelector(".toc");if(e){const t=e.querySelectorAll("li");t.forEach(e=>{const n=e.querySelector("a"),t=e.querySelector("ul");if(n&&t){const e=document.createElement("span");e.className="toc-toggle",e.innerHTML="▶",e.style.cssText="cursor: pointer; font-size: 0.8em; color: #666;",n.appendChild(e),t.style.display="none",e.addEventListener("click",function(n){n.preventDefault(),t.style.display==="none"?(t.style.display="block",e.innerHTML="▼"):(t.style.display="none",e.innerHTML="▶")})}})}})</script></div></aside></div><section class="related-posts bg-near-white pv5 ph3 ph5-l mt5"><div class="mw9 center"><h2 class="f2 fw6 dark-gray tc mb4">More from Technology & Innovation</h2><div class="flex flex-wrap justify-center nl3 nr3"><div class="w-100 w-third-l ph3 mb4"><article class="bg-white br2 shadow-4 h-100 flex flex-column"><div class="pa3 flex-auto flex flex-column justify-between"><div><time class="f6 gray db mb2" datetime=2025-11-16T00:00:00Z>November 16, 2025</time><h3 class="f4 fw6 lh-title mt0 mb2"><a href=/blog/technology-innovation/model-context-protocol-drupal/ class="link dark-gray hover-orange">Model Context Protocol for Drupal</a></h3><p class="f6 lh-copy mid-gray mt0 mb3">Introduction to Model Context Protocol (MCP) and how it transforms AI interactions with complex systems like Drupal by …</p></div><div><a href=/blog/technology-innovation/model-context-protocol-drupal/ class="f6 link orange dim fw6">Read More →</a></div></div></article></div><div class="w-100 w-third-l ph3 mb4"><article class="bg-white br2 shadow-4 h-100 flex flex-column"><div class="pa3 flex-auto flex flex-column justify-between"><div><time class="f6 gray db mb2" datetime=2025-10-25T00:00:00Z>October 25, 2025</time><h3 class="f4 fw6 lh-title mt0 mb2"><a href=/blog/technology-innovation/ai-development-workflows/ class="link dark-gray hover-orange">Tip-Toeing into the Deep: AI-Powered Development Workflows</a></h3><p class="f6 lh-copy mid-gray mt0 mb3">Exploring how AI tools like GitHub Copilot, ChatGPT, and Claude are transforming development workflows—without …</p></div><div><a href=/blog/technology-innovation/ai-development-workflows/ class="f6 link orange dim fw6">Read More →</a></div></div></article></div><div class="w-100 w-third-l ph3 mb4"><article class="bg-white br2 shadow-4 h-100 flex flex-column"><div class="pa3 flex-auto flex flex-column justify-between"><div><time class="f6 gray db mb2" datetime=2025-08-05T00:00:00Z>August 5, 2025</time><h3 class="f4 fw6 lh-title mt0 mb2"><a href=/blog/technology-innovation/why-open-source-matters/ class="link dark-gray hover-orange">Why Open Source Matters for Enterprise Web Development</a></h3><p class="f6 lh-copy mid-gray mt0 mb3">Exploring the critical importance of open source in modern web development and why we champion Drupal for enterprise …</p></div><div><a href=/blog/technology-innovation/why-open-source-matters/ class="f6 link orange dim fw6">Read More →</a></div></div></article></div></div><div class="tc mt4"><a href=https://www.mindsing.com/blog/technology-innovation/ class="f5 link fw6 ph3 pv2 ba br2 dib bg-white orange b--orange view-all-btn">View All Technology & Innovation Posts</a></div></div></section></div></main><section class="bg-near-white pa4 pa5-ns tc"><div class="center mw8"><h2 class="f2 fw6 mb3">Ready to Scale Your Web Presence?</h2><p class="f4 lh-copy mb4">Contact us to discuss your enterprise web development needs:</p><p class="f4 fw6 mb4"><strong>Email:</strong>
+<a href=mailto:inquiries@mindsing.com class="link orange dim">inquiries@mindsing.com</a></p><div class="flex flex-column flex-row-ns justify-center items-center"><a href=/booking/ class="btn btn--primary mr3-ns mb3 mb0-ns">Schedule a Consultation
+</a><a href=/services/ class="btn btn--secondary">View Our Services</a></div></div></section><footer class="bg-black bottom-0 w-100 pa3" role=contentinfo><div class="flex justify-between"><a class="f4 fw4 hover-white no-underline white-70 dib-ns pv2 ph3" href=/>&copy; MindSing 2025</a><div class="flex items-center"><a href=/services/ class="f6 fw4 hover-white no-underline white-70 dib ml3 ph2">Services</a>
+<a href=/blog/ class="f6 fw4 hover-white no-underline white-70 dib ml3 ph2">Blog</a>
+<a href=/about/ class="f6 fw4 hover-white no-underline white-70 dib ml3 ph2">About</a>
+<a href=/privacy-policy/ class="f6 fw4 hover-white no-underline white-70 dib ml3 ph2">Privacy Policy</a></div></div></footer><div id=privacy-banner class="fixed bottom-0 left-0 w-100 pa3 bg-black-80 white z-999" style=display:none><div class="center mw8 flex flex-wrap items-center justify-between"><div class="w-100 w-two-thirds-ns pr3-ns"><p class=ma0>This website uses cookies to ensure you get the best experience.
+<a href=/privacy-policy/ class="link white underline">Learn more</a> about our privacy practices.</p></div><div class="w-100 w-third-ns mt2 mt0-ns tr-ns"><a id=reject-privacy class="link white underline mr3 pointer">Reject All
+</a><button id=accept-privacy class="ba b--white-40 bg-transparent white pv2 ph3 pointer hover-bg-white-20 br2">
+Accept
+</button>
+<button id=acknowledge-privacy class="ba b--white-40 bg-transparent white pv2 ph3 pointer hover-bg-white-20 br2">
+Acknowledge</button></div></div></div><script src=/js/afterLoad.min.d2a512f21d93c13a4bcaae81c2572e0b978c257fcb76d2597bead5f0e7a48670.js></script><script src=/js/user-settings.min.8c8f41500156d194b2e3123fb2140c3a53482ef70ed8ceb28603b54ab7c48ae1.js></script><script>window.HUGO_ENV="production"</script><script src=/js/tracking.min.df3895874346df2f0e3b377e659337f2fc76a749e282721ccce1f73a3bc7a142.js></script><script src=/js/page-tracking.min.3e9797018b5923e30b32a2b5eb2990f2a60776cf2ea587fe734e027e87bf1b2c.js></script><script src=/js/external-links.min.d562ddca0eb357200d83be54566b7c126f3c1443d09e4c285cfa595994ff7d11.js></script></body></html>
