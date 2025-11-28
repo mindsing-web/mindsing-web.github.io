@@ -1,6 +1,6 @@
 /**
  * GA4/GTM Tracking Module - COMPLIANCE-SAFE MODE
- * 
+ *
  * PRIVACY & COMPLIANCE FEATURES FOR CALCULATORS:
  * - Calculator events: No user identification (no user_name, developer_name, session_id)
  * - Calculator events: Only sends event name + calculator_type
@@ -8,7 +8,7 @@
  * - Safe mode for private browsing and unknown referrers
  * - Analytics disabled by default (owner-mode only)
  * - Global kill switch available
- * 
+ *
  * NON-CALCULATOR PAGE TRACKING:
  * - Standard page interactions (links, scrolling, buttons) are tracked
  * - Still blocks PII and numeric data to prevent accidental data leakage
@@ -98,24 +98,24 @@
   // ========================================================================
   function containsPII(value) {
     if (value === null || value === undefined) return false;
-    
+
     var str = String(value);
-    
+
     // Reject strings > 20 characters (could be names, emails, etc.)
     if (str.length > 20) return true;
-    
+
     // Reject anything with spaces (could be full names)
     if (str.indexOf(' ') !== -1) return true;
-    
+
     // Reject numeric values (form inputs, financial data)
     if (!isNaN(parseFloat(str)) && isFinite(str)) return true;
-    
+
     // Reject name-like patterns (capitalized words)
     if (/^[A-Z][a-z]+$/.test(str)) return true;
-    
+
     // Reject email patterns
     if (str.indexOf('@') !== -1) return true;
-    
+
     return false;
   }
 
@@ -124,18 +124,18 @@
   // ========================================================================
   function sanitizePayload(eventData) {
     var safe = {};
-    
+
     // For calculator events: ONLY allow event and calculator_type
     if (eventData.event === 'calculator_calculate') {
       safe.event = eventData.event;
-      
+
       if (eventData.calculator_type) {
         // Validate calculator_type is a safe enum value
         if (eventData.calculator_type === 'dime' || eventData.calculator_type === 'cashflow') {
           safe.calculator_type = eventData.calculator_type;
         }
       }
-      
+
       // Scan for any PII or numeric data in calculator events
       for (var key in eventData) {
         if (containsPII(eventData[key])) {
@@ -143,17 +143,17 @@
           return null; // Abort entire event if PII detected
         }
       }
-      
+
       return safe;
     }
-    
+
     // For non-calculator events: Allow standard tracking fields but block PII
     safe.event = eventData.event;
-    
+
     // Allowed fields for general page tracking
     var allowedFields = [
       'action',
-      'link_type', 
+      'link_type',
       'link_url',
       'page_section',
       'button_type',
@@ -173,7 +173,7 @@
       'event_category',
       'event_label'
     ];
-    
+
     for (var i = 0; i < allowedFields.length; i++) {
       var field = allowedFields[i];
       if (eventData[field] !== undefined && eventData[field] !== null) {
@@ -185,7 +185,7 @@
         safe[field] = eventData[field];
       }
     }
-    
+
     return safe;
   }
 
@@ -214,7 +214,7 @@
     try {
       // Sanitize payload - remove ALL identifiers and dangerous data
       var safePayload = sanitizePayload(eventData);
-      
+
       if (!safePayload) {
         console.warn('[Tracking] Event aborted: Payload failed safety checks');
         return;
@@ -230,7 +230,7 @@
       // Send only the minimal, safe payload
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push(safePayload);
-      
+
       console.log('[Tracking] Event sent (compliance-safe):', safePayload);
 
     } catch (e) {
@@ -376,8 +376,8 @@
       complianceSafeMode: isComplianceSafeMode(),
       ownerMode: isOwnerMode(),
       globalKillSwitch: window.DISABLE_ANALYTICS === true || window.CALCULATOR_DISABLE_ANALYTICS === true,
-      trackingEnabled: isOwnerMode() && !isComplianceSafeMode() && 
-                       window.DISABLE_ANALYTICS !== true && 
+      trackingEnabled: isOwnerMode() && !isComplianceSafeMode() &&
+                       window.DISABLE_ANALYTICS !== true &&
                        window.CALCULATOR_DISABLE_ANALYTICS !== true,
       dataLayerLength: window.dataLayer ? window.dataLayer.length : 0
     };
@@ -410,7 +410,7 @@
   // Initialize
   console.log('[Tracking] Compliance-safe module initialized');
   console.log('[Tracking] Status:', window.Tracking.getStatus());
-  
+
   if (!isOwnerMode()) {
     console.log('[Tracking] Analytics DISABLED (not in owner mode)');
     console.log('[Tracking] To enable: window.Tracking.enableOwnerMode()');
