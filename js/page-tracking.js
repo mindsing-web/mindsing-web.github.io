@@ -1,6 +1,9 @@
 /**
  * General Page Tracking
  * Basic page view and interaction tracking for non-calculator pages
+ *
+ * NOTE: Calculator tracking is handled separately in tracking.js with strict compliance rules.
+ * This module tracks general page interactions (links, scrolling, etc.) without sensitive data.
  */
 
 (function() {
@@ -14,11 +17,10 @@
       return;
     }
 
-    // Track page view
+    // Track page view (no PII - just page type and path)
     window.Tracking.contentView('page', getPageType(), {
       page_title: document.title,
-      page_path: window.location.pathname,
-      page_url: window.location.href
+      page_path: window.location.pathname
     });
 
     // Track all link and button clicks
@@ -33,17 +35,13 @@
         var isExternal = element.hostname !== window.location.hostname;
         var isEmail = element.href.startsWith('mailto:');
         var isTel = element.href.startsWith('tel:');
-        var isInternal = !isExternal && !isEmail && !isTel;
 
-        // Track all link types
+        // Track link clicks
         var linkType = isEmail ? 'email' : isTel ? 'phone' : isExternal ? 'external' : 'internal';
         window.Tracking.userAction('link_click', {
           link_type: linkType,
           link_url: element.href,
-          link_text: element.textContent.trim(),
-          page_section: getPageSection(element),
-          link_id: element.id || null,
-          link_classes: element.className || null
+          page_section: getPageSection(element)
         });
       }
 
@@ -51,11 +49,7 @@
         // Track button clicks
         window.Tracking.userAction('button_click', {
           button_type: element.type || 'button',
-          button_text: element.textContent.trim(),
-          page_section: getPageSection(element),
-          button_id: element.id || null,
-          button_classes: element.className || null,
-          form_id: element.form ? element.form.id : null
+          page_section: getPageSection(element)
         });
       }
     });
@@ -65,9 +59,7 @@
       var form = e.target;
       if (form.tagName === 'FORM' && !form.classList.contains('calculator--form')) {
         window.Tracking.formInteraction('contact', 'submit', {
-          form_id: form.id || 'unknown',
-          form_action: form.action || 'unknown',
-          form_method: form.method || 'get'
+          form_id: form.id || 'unknown'
         });
       }
     });
@@ -77,7 +69,6 @@
       var navElement = e.target.closest('nav a, .menu a, .navigation a');
       if (navElement) {
         window.Tracking.userAction('navigation_click', {
-          nav_text: navElement.textContent.trim(),
           nav_url: navElement.href,
           nav_section: getPageSection(navElement)
         });
@@ -89,8 +80,6 @@
       var cta = e.target.closest('.btn, .cta, [class*="call-to-action"], [class*="btn-"]');
       if (cta) {
         window.Tracking.userAction('cta_click', {
-          cta_text: cta.textContent.trim(),
-          cta_type: cta.className,
           cta_url: cta.href || null,
           page_section: getPageSection(cta),
           is_primary: cta.classList.contains('btn--primary') || cta.classList.contains('primary')
@@ -123,11 +112,7 @@
       scrollTimeout = setTimeout(trackScrollDepth, 250);
     });
 
-    // Only log in non-production environments
-    if (window.Tracking && window.Tracking.config && window.Tracking.config.logEvents) {
-      console.log('[PageTracking] Enhanced tracking initialized for page type:', getPageType());
-      console.log('[PageTracking] Now tracking: links, buttons, CTAs, navigation, forms, and scroll depth');
-    }
+    console.log('[PageTracking] Initialized for page type:', getPageType());
   }
 
   /**

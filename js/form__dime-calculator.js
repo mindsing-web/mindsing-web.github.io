@@ -910,30 +910,6 @@
             // Track calculate button click
             if (window.Tracking) {
               window.Tracking.calculatorCalculate ('dime');
-            } else {
-              // Fallback if tracking module isn't loaded
-              try {
-                var userName = '';
-                try {
-                  userName =
-                    localStorage.getItem ('ga4_user_name') ||
-                    sessionStorage.getItem ('ga4_user_name') ||
-                    'anonymous';
-                } catch (e) {
-                  userName = 'anonymous';
-                }
-
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push ({
-                  event: 'calculator_calculate',
-                  calculator_type: 'dime',
-                  user_name: userName,
-                  event_category: 'engagement',
-                  event_label: 'calculate_button_click',
-                });
-              } catch (e) {
-                console.warn ('GA4 tracking error:', e);
-              }
             }
 
             var salt = form.getAttribute ('data-token-salt') || null;

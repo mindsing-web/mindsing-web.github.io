@@ -1278,10 +1278,7 @@
                 // Track calculation event
                 try {
                   if (window.Tracking && typeof window.Tracking.calculatorCalculate === 'function') {
-                    window.Tracking.calculatorCalculate({
-                      calculator_type: 'cashflow',
-                      calculation_method: 'form_submit'
-                    });
+                    window.Tracking.calculatorCalculate('cashflow');
                   }
                 } catch (trackingErr) {
                   console.warn('Cashflow calculation tracking failed:', trackingErr);

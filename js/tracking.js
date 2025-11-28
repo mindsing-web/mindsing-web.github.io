@@ -1,9 +1,17 @@
 /**
- * GA4/GTM Tracking Module
- * Centralized tracking functions for all user interactions
- *
- * This module provides a clean interface for tracking user events
- * while maintaining user context across the application.
+ * GA4/GTM Tracking Module - COMPLIANCE-SAFE MODE
+ * 
+ * PRIVACY & COMPLIANCE FEATURES FOR CALCULATORS:
+ * - Calculator events: No user identification (no user_name, developer_name, session_id)
+ * - Calculator events: Only sends event name + calculator_type
+ * - Blocks all numeric values and form inputs from calculator events
+ * - Safe mode for private browsing and unknown referrers
+ * - Analytics disabled by default (owner-mode only)
+ * - Global kill switch available
+ * 
+ * NON-CALCULATOR PAGE TRACKING:
+ * - Standard page interactions (links, scrolling, buttons) are tracked
+ * - Still blocks PII and numeric data to prevent accidental data leakage
  */
 
 (function () {
@@ -11,163 +19,262 @@
 
   // Prevent double initialization
   if (window.Tracking && window.Tracking._initialized) {
-    // Only log in development
-    if (window.HUGO_ENV === 'development') {
-      console.log('[Tracking] Already initialized, skipping duplicate load');
-    }
+    return;
+  }
+
+  // ========================================================================
+  // GLOBAL KILL SWITCH - Set to true to disable ALL tracking immediately
+  // ========================================================================
+  if (window.DISABLE_ANALYTICS === true || window.CALCULATOR_DISABLE_ANALYTICS === true) {
+    window.Tracking = {
+      _initialized: true,
+      _disabled: true,
+      calculatorCalculate: function() {},
+      passwordAccess: function() {},
+      addKeySuccess: function() {},
+      formInteraction: function() {},
+      contentView: function() {},
+      userAction: function() {},
+      getStatus: function() { return { disabled: true, reason: 'Global kill switch active' }; }
+    };
+    console.log('[Tracking] DISABLED via global kill switch');
     return;
   }
 
   // Initialize tracking namespace
   window.Tracking = window.Tracking || {};
-
-  // Initialize dataLayer immediately to avoid timing issues
   window.dataLayer = window.dataLayer || [];
 
-  // Add debug flag that can be set in console: window.Tracking.debug = true
-  window.Tracking.debug = false;
-
-  // Environment detection and configuration
-  window.Tracking.config = {
-    // Use Hugo-injected environment if available, otherwise auto-detect
-    environment: window.HUGO_ENV || (function() {
-      var hostname = window.location.hostname;
-      if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('.local') || hostname.includes(':')) {
-        return 'development';
-      } else if (hostname.includes('staging') || hostname.includes('test') || hostname.includes('dev.')) {
-        return 'staging';
-      } else {
-        return 'production';
+  // ========================================================================
+  // COMPLIANCE-SAFE MODE DETECTION
+  // ========================================================================
+  function isComplianceSafeMode() {
+    // URL parameter: ?safe=true
+    try {
+      var urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('safe') === 'true') {
+        return true;
       }
-    })(),
+    } catch (e) {}
 
-    // Control tracking behavior by environment
-    sendToGA4: true, // Set to false to completely disable GA4 in local
-    logEvents: (window.HUGO_ENV === 'development'), // Only log in development when built by Hugo
-
-    // Custom dimensions for environment separation
-    environmentDimension: 'environment', // GA4 custom dimension name
-
-    // User identification
-    developerName: localStorage.getItem('developer_name') || 'unknown_dev'
-  };
-
-  /**
-   * Log debug information if debug mode is enabled
-   * @param {string} message - Debug message
-   * @param {Object} data - Optional data to log
-   */
-  function debugLog(message, data) {
-    if (window.Tracking.debug || window.Tracking.config.logEvents) {
-      console.log('[Tracking]', message, data || '');
-    }
-  }
-
-  /**
-   * Get the current user name from storage
-   * @returns {string} User name or 'anonymous'
-   */
-  function getCurrentUser () {
+    // Private/incognito mode detection
     try {
-      var userName = localStorage.getItem ('ga4_user_name') ||
-                    sessionStorage.getItem ('ga4_user_name') ||
-                    'anonymous';
-      debugLog('getCurrentUser:', userName);
-      return userName;
-    } catch (e) {
-      debugLog('getCurrentUser error:', e);
-      return 'anonymous';
-    }
-  }
-
-  /**
-   * Send event to GA4/GTM dataLayer with error handling
-   * @param {Object} eventData - Event data object
-   */
-  function sendEvent (eventData) {
-    try {
-      // Ensure dataLayer exists
-      window.dataLayer = window.dataLayer || [];
-
-      // Add environment and developer information to all events
-      eventData.environment = window.Tracking.config.environment;
-      eventData.timestamp = new Date().toISOString();
-
-      // Add developer name in non-production environments
-      if (window.Tracking.config.environment !== 'production') {
-        eventData.developer_name = window.Tracking.config.developerName;
-        eventData.session_id = sessionStorage.getItem('dev_session_id') || 'dev_session_' + Date.now();
-        // Store session ID for this development session
-        if (!sessionStorage.getItem('dev_session_id')) {
-          sessionStorage.setItem('dev_session_id', eventData.session_id);
+      if (navigator.storage && navigator.storage.estimate) {
+        // Most browsers restrict storage in private mode
+        if (!window.localStorage || !window.sessionStorage) {
+          return true;
         }
       }
-
-      // Always log events for debugging (can be filtered in GA4)
-      debugLog('Event prepared:', eventData);
-
-      // Send to GA4 based on configuration
-      if (window.Tracking.config.sendToGA4) {
-        window.dataLayer.push(eventData);
-        debugLog('Event sent to GA4. dataLayer length:', window.dataLayer.length);
-      } else {
-        debugLog('GA4 sending disabled - event logged only:', eventData);
-      }
-
     } catch (e) {
-      console.warn ('GA4 tracking error:', e);
-      debugLog('sendEvent error:', e);
+      return true; // If we can't access storage, assume private mode
+    }
+
+    // Unknown referrer (direct navigation or external)
+    try {
+      var referrer = document.referrer || '';
+      var hostname = window.location.hostname;
+      if (referrer && !referrer.includes(hostname)) {
+        // External referrer - enable safe mode
+        return true;
+      }
+    } catch (e) {}
+
+    return false;
+  }
+
+  // ========================================================================
+  // OWNER MODE CHECK - Analytics only enabled for owner
+  // ========================================================================
+  function isOwnerMode() {
+    try {
+      return localStorage.getItem('OWNER_MODE') === 'true';
+    } catch (e) {
+      return false;
     }
   }
 
-  /**
-   * Track password-protected content access
-   * @param {string} protectionId - Content protection ID
-   * @param {string} userName - User's name
-   */
-  window.Tracking.passwordAccess = function (protectionId, userName) {
-    sendEvent ({
-      event: 'password_protected_access',
-      user_name: userName,
-      protection_id: protectionId,
-      event_category: 'engagement',
-      event_label: 'protected_content_access',
-    });
-  };
+  // ========================================================================
+  // PII PROTECTION - Reject dangerous data patterns
+  // ========================================================================
+  function containsPII(value) {
+    if (value === null || value === undefined) return false;
+    
+    var str = String(value);
+    
+    // Reject strings > 20 characters (could be names, emails, etc.)
+    if (str.length > 20) return true;
+    
+    // Reject anything with spaces (could be full names)
+    if (str.indexOf(' ') !== -1) return true;
+    
+    // Reject numeric values (form inputs, financial data)
+    if (!isNaN(parseFloat(str)) && isFinite(str)) return true;
+    
+    // Reject name-like patterns (capitalized words)
+    if (/^[A-Z][a-z]+$/.test(str)) return true;
+    
+    // Reject email patterns
+    if (str.indexOf('@') !== -1) return true;
+    
+    return false;
+  }
+
+  // ========================================================================
+  // PAYLOAD SANITIZER - Block all dangerous data
+  // ========================================================================
+  function sanitizePayload(eventData) {
+    var safe = {};
+    
+    // For calculator events: ONLY allow event and calculator_type
+    if (eventData.event === 'calculator_calculate') {
+      safe.event = eventData.event;
+      
+      if (eventData.calculator_type) {
+        // Validate calculator_type is a safe enum value
+        if (eventData.calculator_type === 'dime' || eventData.calculator_type === 'cashflow') {
+          safe.calculator_type = eventData.calculator_type;
+        }
+      }
+      
+      // Scan for any PII or numeric data in calculator events
+      for (var key in eventData) {
+        if (containsPII(eventData[key])) {
+          console.warn('[Tracking] BLOCKED: PII detected in calculator event field "' + key + '"');
+          return null; // Abort entire event if PII detected
+        }
+      }
+      
+      return safe;
+    }
+    
+    // For non-calculator events: Allow standard tracking fields but block PII
+    safe.event = eventData.event;
+    
+    // Allowed fields for general page tracking
+    var allowedFields = [
+      'action',
+      'link_type', 
+      'link_url',
+      'page_section',
+      'button_type',
+      'form_type',
+      'form_action',
+      'form_id',
+      'nav_url',
+      'nav_section',
+      'cta_url',
+      'is_primary',
+      'scroll_depth',
+      'page_type',
+      'content_type',
+      'content_id',
+      'page_title',
+      'page_path',
+      'event_category',
+      'event_label'
+    ];
+    
+    for (var i = 0; i < allowedFields.length; i++) {
+      var field = allowedFields[i];
+      if (eventData[field] !== undefined && eventData[field] !== null) {
+        // Still check for PII in these fields
+        if (containsPII(eventData[field])) {
+          console.warn('[Tracking] BLOCKED: PII detected in field "' + field + '"');
+          continue; // Skip this field but don't abort entire event
+        }
+        safe[field] = eventData[field];
+      }
+    }
+    
+    return safe;
+  }
+
+  // ========================================================================
+  // CORE TRACKING FUNCTION - Minimal, safe, compliant
+  // ========================================================================
+  function sendEvent(eventData) {
+    // Check global kill switch
+    if (window.DISABLE_ANALYTICS === true || window.CALCULATOR_DISABLE_ANALYTICS === true) {
+      console.log('[Tracking] Event blocked: Global kill switch active');
+      return;
+    }
+
+    // Check safe mode
+    if (isComplianceSafeMode()) {
+      console.log('[Tracking] Event blocked: Compliance-safe mode active');
+      return;
+    }
+
+    // Check owner mode
+    if (!isOwnerMode()) {
+      console.log('[Tracking] Event blocked: Not in owner mode');
+      return;
+    }
+
+    try {
+      // Sanitize payload - remove ALL identifiers and dangerous data
+      var safePayload = sanitizePayload(eventData);
+      
+      if (!safePayload) {
+        console.warn('[Tracking] Event aborted: Payload failed safety checks');
+        return;
+      }
+
+      // Final validation: ensure no user identifiers leaked through
+      if (safePayload.user_name || safePayload.developer_name || safePayload.session_id ||
+          safePayload.user_id || safePayload.client_id || safePayload.userName) {
+        console.error('[Tracking] CRITICAL: User identifier detected, aborting event');
+        return;
+      }
+
+      // Send only the minimal, safe payload
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(safePayload);
+      
+      console.log('[Tracking] Event sent (compliance-safe):', safePayload);
+
+    } catch (e) {
+      console.warn('[Tracking] Error:', e);
+    }
+  }
+
+  // ========================================================================
+  // PUBLIC API - Compliance-safe tracking functions
+  // ========================================================================
 
   /**
    * Track calculator Calculate button clicks
    * @param {string} calculatorType - 'cashflow' or 'dime'
    */
   window.Tracking.calculatorCalculate = function (calculatorType) {
-    sendEvent ({
+    // Validate calculator type to prevent injection
+    if (calculatorType !== 'dime' && calculatorType !== 'cashflow') {
+      console.warn('[Tracking] Invalid calculator type:', calculatorType);
+      return;
+    }
+
+    sendEvent({
       event: 'calculator_calculate',
-      calculator_type: calculatorType,
-      user_name: getCurrentUser (),
-      event_category: 'engagement',
-      event_label: 'calculate_button_click',
+      calculator_type: calculatorType
     });
   };
 
   /**
-   * Track successful Add Key actions
-   * @param {string} method - 'prompt' or 'dialog'
+   * Legacy function - now no-op for compliance
    */
-  window.Tracking.addKeySuccess = function (method) {
-    sendEvent ({
-      event: 'add_key_success',
-      user_name: getCurrentUser (),
-      key_method: method,
-      event_category: 'engagement',
-      event_label: 'add_encrypted_key',
-    });
+  window.Tracking.passwordAccess = function () {
+    // Disabled for compliance - no user tracking
   };
 
   /**
-   * Track form interactions
-   * @param {string} formType - Type of form
-   * @param {string} action - Action performed
-   * @param {Object} additionalData - Additional event data
+   * Legacy function - now no-op for compliance
+   */
+  window.Tracking.addKeySuccess = function () {
+    // Disabled for compliance - no user tracking
+  };
+
+  /**
+   * Legacy function - now active for page tracking
    */
   window.Tracking.formInteraction = function (
     formType,
@@ -178,26 +285,24 @@
       event: 'form_interaction',
       form_type: formType,
       form_action: action,
-      user_name: getCurrentUser (),
       event_category: 'engagement',
-      event_label: formType + '_' + action,
+      event_label: formType + '_' + action
     };
 
     // Merge additional data
     if (additionalData && typeof additionalData === 'object') {
-      Object.keys (additionalData).forEach (function (key) {
-        eventData[key] = additionalData[key];
-      });
+      for (var key in additionalData) {
+        if (additionalData.hasOwnProperty(key)) {
+          eventData[key] = additionalData[key];
+        }
+      }
     }
 
-    sendEvent (eventData);
+    sendEvent(eventData);
   };
 
   /**
-   * Track page/content views with user context
-   * @param {string} contentType - Type of content viewed
-   * @param {string} contentId - Content identifier
-   * @param {Object} additionalData - Additional event data
+   * Legacy function - now active for page tracking
    */
   window.Tracking.contentView = function (
     contentType,
@@ -208,167 +313,113 @@
       event: 'content_view',
       content_type: contentType,
       content_id: contentId,
-      user_name: getCurrentUser (),
       event_category: 'engagement',
-      event_label: contentType + '_view',
+      event_label: contentType + '_view'
     };
 
     // Merge additional data
     if (additionalData && typeof additionalData === 'object') {
-      Object.keys (additionalData).forEach (function (key) {
-        eventData[key] = additionalData[key];
-      });
+      for (var key in additionalData) {
+        if (additionalData.hasOwnProperty(key)) {
+          eventData[key] = additionalData[key];
+        }
+      }
     }
 
-    sendEvent (eventData);
+    sendEvent(eventData);
   };
 
   /**
-   * Track user actions with context
-   * @param {string} action - Action name
-   * @param {Object} eventData - Custom event data
+   * Legacy function - now active for page tracking
    */
   window.Tracking.userAction = function (action, eventData) {
     var defaultData = {
       event: 'user_action',
       action: action,
-      user_name: getCurrentUser (),
       event_category: 'engagement',
-      event_label: action,
+      event_label: action
     };
 
     // Merge custom event data
     if (eventData && typeof eventData === 'object') {
-      Object.keys (eventData).forEach (function (key) {
-        defaultData[key] = eventData[key];
-      });
+      for (var key in eventData) {
+        if (eventData.hasOwnProperty(key)) {
+          defaultData[key] = eventData[key];
+        }
+      }
     }
 
-    sendEvent (defaultData);
+    sendEvent(defaultData);
   };
 
   /**
-   * Store user name globally for tracking
-   * @param {string} userName - User's name
+   * Legacy function - now no-op for compliance
    */
-  window.Tracking.setUserName = function (userName) {
-    if (!userName || typeof userName !== 'string') return;
-
-    var cleanName = userName.trim ();
-    if (!cleanName) return;
-
-    try {
-      localStorage.setItem ('ga4_user_name', cleanName);
-      sessionStorage.setItem ('ga4_user_name', cleanName);
-    } catch (e) {
-      console.warn ('Failed to store user name for tracking:', e);
-    }
+  window.Tracking.setUserName = function () {
+    // Disabled for compliance - no user identification
   };
 
   /**
-   * Get current user name
-   * @returns {string} Current user name or 'anonymous'
+   * Legacy function - now no-op for compliance
    */
-  window.Tracking.getUserName = getCurrentUser;
+  window.Tracking.getUserName = function () {
+    // Disabled for compliance - no user identification
+    return null;
+  };
 
   /**
    * Get tracking module status and diagnostics
-   * @returns {Object} Status information
    */
   window.Tracking.getStatus = function() {
-    var status = {
-      trackingModuleLoaded: typeof window.Tracking !== 'undefined',
-      dataLayerExists: typeof window.dataLayer !== 'undefined',
-      dataLayerLength: window.dataLayer ? window.dataLayer.length : 0,
-      currentUser: getCurrentUser(),
-      debugMode: window.Tracking.debug,
-      gtmLoaded: typeof window.google_tag_manager !== 'undefined',
-      environment: window.Tracking.config.environment,
-      sendToGA4: window.Tracking.config.sendToGA4,
-      developerName: window.Tracking.config.developerName
+    return {
+      trackingModuleLoaded: true,
+      complianceSafeMode: isComplianceSafeMode(),
+      ownerMode: isOwnerMode(),
+      globalKillSwitch: window.DISABLE_ANALYTICS === true || window.CALCULATOR_DISABLE_ANALYTICS === true,
+      trackingEnabled: isOwnerMode() && !isComplianceSafeMode() && 
+                       window.DISABLE_ANALYTICS !== true && 
+                       window.CALCULATOR_DISABLE_ANALYTICS !== true,
+      dataLayerLength: window.dataLayer ? window.dataLayer.length : 0
     };
-
-    if (window.Tracking.config.logEvents) {
-      console.log('Tracking Status:', status);
-    }
-    return status;
   };
 
   /**
-   * Disable GA4 tracking (events will still be logged to console)
+   * Enable owner mode (analytics enabled)
    */
-  window.Tracking.disableGA4 = function() {
-    window.Tracking.config.sendToGA4 = false;
-    debugLog('GA4 tracking disabled - events will be logged only');
-  };
-
-  /**
-   * Enable GA4 tracking
-   */
-  window.Tracking.enableGA4 = function() {
-    window.Tracking.config.sendToGA4 = true;
-    debugLog('GA4 tracking enabled');
-  };
-
-  /**
-   * Set developer name for local development tracking
-   * @param {string} name - Developer name
-   */
-  window.Tracking.setDeveloperName = function(name) {
-    if (name && typeof name === 'string') {
-      window.Tracking.config.developerName = name.trim();
-      localStorage.setItem('developer_name', name.trim());
-      debugLog('Developer name set to:', name.trim());
+  window.Tracking.enableOwnerMode = function() {
+    try {
+      localStorage.setItem('OWNER_MODE', 'true');
+      console.log('[Tracking] Owner mode ENABLED - Analytics active');
+    } catch (e) {
+      console.warn('[Tracking] Could not enable owner mode:', e);
     }
   };
 
   /**
-   * Configure tracking for local development
-   * @param {Object} options - Configuration options
+   * Disable owner mode (analytics disabled)
    */
-  window.Tracking.configureLocal = function(options) {
-    options = options || {};
-
-    // Set developer name if provided
-    if (options.developerName) {
-      window.Tracking.setDeveloperName(options.developerName);
+  window.Tracking.disableOwnerMode = function() {
+    try {
+      localStorage.removeItem('OWNER_MODE');
+      console.log('[Tracking] Owner mode DISABLED - Analytics inactive');
+    } catch (e) {
+      console.warn('[Tracking] Could not disable owner mode:', e);
     }
-
-    // Configure GA4 sending
-    if (typeof options.sendToGA4 === 'boolean') {
-      window.Tracking.config.sendToGA4 = options.sendToGA4;
-    }
-
-    // Configure debug logging
-    if (typeof options.debug === 'boolean') {
-      window.Tracking.debug = options.debug;
-    }
-
-    debugLog('Local configuration updated:', window.Tracking.config);
   };
 
-  // Initialize and log status
-  debugLog('Tracking module initialized');
-
-  // Auto-configure for local development
-  if (window.Tracking.config.environment === 'development') {
-    // In local development, enable debug logging by default
-    window.Tracking.debug = true;
-    window.Tracking.config.logEvents = true;
-
-    // Optionally disable GA4 sending in local (uncomment to disable)
-    // window.Tracking.config.sendToGA4 = false;
-
-    debugLog('Local development detected - debug mode enabled');
-    debugLog('To disable GA4 in local, run: window.Tracking.disableGA4()');
-    debugLog('To set your developer name, run: window.Tracking.setDeveloperName("YourName")');
+  // Initialize
+  console.log('[Tracking] Compliance-safe module initialized');
+  console.log('[Tracking] Status:', window.Tracking.getStatus());
+  
+  if (!isOwnerMode()) {
+    console.log('[Tracking] Analytics DISABLED (not in owner mode)');
+    console.log('[Tracking] To enable: window.Tracking.enableOwnerMode()');
   }
 
-  if (window.Tracking.debug) {
-    window.Tracking.getStatus();
+  if (isComplianceSafeMode()) {
+    console.log('[Tracking] Safe mode ACTIVE - Analytics disabled');
   }
 
-  // Mark as initialized
   window.Tracking._initialized = true;
 
-}) ();
+})();
