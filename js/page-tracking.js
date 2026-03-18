@@ -124,7 +124,7 @@
     if (path === '/' || path === '') return 'homepage';
     if (path.includes('/about')) return 'about';
     if (path.includes('/services')) return 'services';
-    if (path.includes('/booking')) return 'booking';
+    if (path.includes('/connect')) return 'connect';
     if (path.includes('/privacy')) return 'privacy';
     if (path.includes('/calculator')) return 'calculator';
 
