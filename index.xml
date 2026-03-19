@@ -206,7 +206,7 @@
 &lt;style&gt;
  .form-container {
  position: relative;
- min-height: 800px;
+ min-height: 960px;
  height: 0;
  overflow: hidden;
  width: 100%;
@@ -214,5 +214,5 @@
  }
 &lt;/style&gt;
 &lt;div class="form-container"&gt;
- &lt;iframe aria-label='DrupalCon 2026' frameborder="0" style="height:800px;width:99%;border:none;" src='https://forms.zohopublic.com/briandaninmind1/form/DrupalCon2026/formperma/_j0jj3edT1__Xgfi00ypgLV_NjEkeRVcKqsNd5Sjtmw'&gt;&lt;/iframe&gt;
+ &lt;iframe aria-label='DrupalCon 2026' frameborder="0" style="height:960px;width:99%;border:none;" src='https://forms.zohopublic.com/briandaninmind1/form/DrupalCon2026/formperma/_j0jj3edT1__Xgfi00ypgLV_NjEkeRVcKqsNd5Sjtmw'&gt;&lt;/iframe&gt;
 &lt;/div&gt;</description></item></channel></rss>
